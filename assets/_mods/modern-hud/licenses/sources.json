@@ -1,0 +1,16 @@
+[
+  {
+    "file": "fantasy.ttf",
+    "family": "Cinzel",
+    "upstream": "https://raw.githubusercontent.com/google/fonts/main/ofl/cinzel/Cinzel[wght].ttf",
+    "license": "SIL Open Font License 1.1",
+    "license_url": "https://raw.githubusercontent.com/google/fonts/main/ofl/cinzel/OFL.txt"
+  },
+  {
+    "file": "ui.ttf",
+    "family": "Atkinson Hyperlegible",
+    "upstream": "https://raw.githubusercontent.com/google/fonts/main/ofl/atkinsonhyperlegible/AtkinsonHyperlegible-Regular.ttf",
+    "license": "SIL Open Font License 1.1",
+    "license_url": "https://raw.githubusercontent.com/google/fonts/main/ofl/atkinsonhyperlegible/OFL.txt"
+  }
+]

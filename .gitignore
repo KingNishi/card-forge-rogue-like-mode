@@ -1,0 +1,10 @@
+*.log
+*.class
+*.jar
+*.zip
+.env
+.env.*
+.claude/
+.codex/
+__pycache__/
+build/

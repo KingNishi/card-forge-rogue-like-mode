@@ -1,0 +1,614 @@
+[
+ {
+  "n": "Mana Crypt",
+  "c": "",
+  "s": 95,
+  "cat": "Artifacts",
+  "price": 20
+ },
+ {
+  "n": "Chrome Mox",
+  "c": "",
+  "s": 95,
+  "cat": "Artifacts",
+  "price": 20
+ },
+ {
+  "n": "Mox Diamond",
+  "c": "",
+  "s": 95,
+  "cat": "Artifacts",
+  "price": 20
+ },
+ {
+  "n": "Mox Opal",
+  "c": "",
+  "s": 95,
+  "cat": "Artifacts",
+  "price": 14
+ },
+ {
+  "n": "Mana Vault",
+  "c": "",
+  "s": 95,
+  "cat": "Artifacts",
+  "price": 14
+ },
+ {
+  "n": "Grim Monolith",
+  "c": "",
+  "s": 95,
+  "cat": "Artifacts",
+  "price": 14
+ },
+ {
+  "n": "The One Ring",
+  "c": "",
+  "s": 95,
+  "cat": "Artifacts",
+  "price": 20
+ },
+ {
+  "n": "Sensei's Divining Top",
+  "c": "",
+  "s": 95,
+  "cat": "Artifacts",
+  "price": 14
+ },
+ {
+  "n": "Scroll Rack",
+  "c": "",
+  "s": 95,
+  "cat": "Artifacts",
+  "price": 14
+ },
+ {
+  "n": "Skullclamp",
+  "c": "",
+  "s": 95,
+  "cat": "Artifacts",
+  "price": 14
+ },
+ {
+  "n": "Crucible of Worlds",
+  "c": "",
+  "s": 95,
+  "cat": "Artifacts",
+  "price": 14
+ },
+ {
+  "n": "The Great Henge",
+  "c": "G",
+  "s": 95,
+  "cat": "Artifacts",
+  "price": 14
+ },
+ {
+  "n": "Bolas's Citadel",
+  "c": "B",
+  "s": 95,
+  "cat": "Artifacts",
+  "price": 14
+ },
+ {
+  "n": "Jeweled Lotus",
+  "c": "",
+  "s": 95,
+  "cat": "Artifacts",
+  "price": 14
+ },
+ {
+  "n": "Lotus Petal",
+  "c": "",
+  "s": 95,
+  "cat": "Artifacts",
+  "price": 14
+ },
+ {
+  "n": "Tundra",
+  "c": "WU",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Underground Sea",
+  "c": "UB",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Badlands",
+  "c": "BR",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Taiga",
+  "c": "RG",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Savannah",
+  "c": "WG",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Scrubland",
+  "c": "WB",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Volcanic Island",
+  "c": "UR",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Bayou",
+  "c": "BG",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Plateau",
+  "c": "WR",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Tropical Island",
+  "c": "UG",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Command Tower",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "City of Brass",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Mana Confluence",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Ancient Tomb",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Cavern of Souls",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Boseiju, Who Endures",
+  "c": "G",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Otawara, Soaring City",
+  "c": "U",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Gaea's Cradle",
+  "c": "G",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Urborg, Tomb of Yawgmoth",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Yavimaya, Cradle of Growth",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Strip Mine",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Wasteland",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Prismatic Vista",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6
+ },
+ {
+  "n": "Polluted Delta",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6,
+  "needLandColors": "UB"
+ },
+ {
+  "n": "Flooded Strand",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6,
+  "needLandColors": "WU"
+ },
+ {
+  "n": "Bloodstained Mire",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6,
+  "needLandColors": "BR"
+ },
+ {
+  "n": "Wooded Foothills",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6,
+  "needLandColors": "RG"
+ },
+ {
+  "n": "Windswept Heath",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6,
+  "needLandColors": "WG"
+ },
+ {
+  "n": "Marsh Flats",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6,
+  "needLandColors": "WB"
+ },
+ {
+  "n": "Scalding Tarn",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6,
+  "needLandColors": "UR"
+ },
+ {
+  "n": "Verdant Catacombs",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6,
+  "needLandColors": "BG"
+ },
+ {
+  "n": "Arid Mesa",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6,
+  "needLandColors": "WR"
+ },
+ {
+  "n": "Misty Rainforest",
+  "c": "",
+  "s": 95,
+  "cat": "Lands",
+  "price": 6,
+  "needLandColors": "UG"
+ },
+ {
+  "n": "Fierce Guardianship",
+  "c": "U",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Force of Will",
+  "c": "U",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 20
+ },
+ {
+  "n": "Force of Negation",
+  "c": "U",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Mana Drain",
+  "c": "U",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 20
+ },
+ {
+  "n": "Swan Song",
+  "c": "U",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Pact of Negation",
+  "c": "U",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Flusterstorm",
+  "c": "U",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Cyclonic Rift",
+  "c": "U",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Mindbreak Trap",
+  "c": "U",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Mental Misstep",
+  "c": "U",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Swords to Plowshares",
+  "c": "W",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Path to Exile",
+  "c": "W",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "March of Otherworldly Light",
+  "c": "W",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Silence",
+  "c": "W",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Orim's Chant",
+  "c": "W",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Teferi's Protection",
+  "c": "W",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Deadly Rollick",
+  "c": "B",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Snuff Out",
+  "c": "B",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Dismember",
+  "c": "B",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Toxic Deluge",
+  "c": "B",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Damnation",
+  "c": "B",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Deflecting Swat",
+  "c": "R",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Vandalblast",
+  "c": "R",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Pyroblast",
+  "c": "R",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Red Elemental Blast",
+  "c": "R",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Force of Vigor",
+  "c": "G",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Veil of Summer",
+  "c": "G",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Nature's Claim",
+  "c": "G",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Endurance",
+  "c": "G",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Collector Ouphe",
+  "c": "G",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Pick Your Poison",
+  "c": "G",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Allosaurus Shepherd",
+  "c": "G",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Heroic Intervention",
+  "c": "G",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Assassin's Trophy",
+  "c": "BG",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Abrupt Decay",
+  "c": "BG",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Dovin's Veto",
+  "c": "WU",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Supreme Verdict",
+  "c": "WU",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ },
+ {
+  "n": "Fire Covenant",
+  "c": "BR",
+  "s": 95,
+  "cat": "Removal / Control",
+  "price": 12
+ }
+]

@@ -1,0 +1,461 @@
+{
+  "_info": "Original English voice lines for Rogue Commanders (written for this mod, not quotes), rendered offline with Piper using public-domain/CC0/CC-BY voices (see VOICES.md). Events: select, run_start, battle, boss, commander, victory, defeat, package, record. Own clips can be added to _mods/rogue-commanders/voices/<slug>/<event>_*.wav|ogg|mp3",
+  "yshtola-nights-blessed": {
+    "voice": {
+      "model": "en_US-libritts_r-medium",
+      "pitch": 1.0,
+      "length": 1.0,
+      "echo": 0,
+      "speaker": 467
+    },
+    "select": [
+      "You chose well. Do try to keep up.",
+      "Very well. I shall lend you my aether. For now."
+    ],
+    "run_start": [
+      "Patience and precision. Let us begin.",
+      "The aether stirs. Our path lies ahead."
+    ],
+    "battle": [
+      "Your aether betrays your every intention.",
+      "One spell is enough, if it is the right one.",
+      "Spare me the theatrics and draw."
+    ],
+    "boss": [
+      "Such a heavy presence. How very tiresome.",
+      "I have faced gods before. You are hardly a concern."
+    ],
+    "commander": [
+      "Night's blessing upon me.",
+      "Stand back. This will sting."
+    ],
+    "victory": [
+      "As I expected. Shall we move on?",
+      "Hardly worth the aether spent.",
+      "Next time, think before you act."
+    ],
+    "defeat": [
+      "Hmph. A lesson, then. I shall not forget it.",
+      "I misread the currents. It will not happen twice."
+    ],
+    "package": [
+      "Useful. I approve.",
+      "Ah. Now this has potential."
+    ],
+    "record": [
+      "A new record. I would expect nothing less of us."
+    ]
+  },
+  "teval-the-balanced-scale": {
+    "voice": {
+      "model": "en_US-libritts_r-medium",
+      "pitch": 0.92,
+      "length": 1.05,
+      "echo": 0,
+      "speaker": 31
+    },
+    "select": [
+      "Everything that falls returns. Choose me, and see.",
+      "The scale tips toward you. For now."
+    ],
+    "run_start": [
+      "Balance demands a price. Let it be paid in full.",
+      "Life feeds death, and death feeds me. Begin."
+    ],
+    "battle": [
+      "Your end will nourish my beginning.",
+      "The graveyard is merely another treasury.",
+      "Everything you discard, I shall keep."
+    ],
+    "boss": [
+      "A great shadow. It too will become dust.",
+      "Weigh yourself against me. You will be found wanting."
+    ],
+    "commander": [
+      "I rise from what was lost.",
+      "The scale is set. Behold its keeper."
+    ],
+    "victory": [
+      "Balance is restored.",
+      "Rest now. Your bones will serve me well.",
+      "All things end. Yours came early."
+    ],
+    "defeat": [
+      "Even the scale must sometimes tip. I will return.",
+      "Death is only a pause. Remember that."
+    ],
+    "package": [
+      "More to give. More to take.",
+      "A worthy offering."
+    ],
+    "record": [
+      "A new record. The scale remembers everything."
+    ]
+  },
+  "fire-lord-azula": {
+    "voice": {
+      "model": "en_US-amy-medium",
+      "pitch": 1.0,
+      "length": 1.0,
+      "echo": 0,
+      "reference": "refs-custom/fire-lord-azula-amy-angry.wav"
+    },
+    "select": [
+      "Of course you chose me. Anything else would have been a mistake.",
+      "Good. Now try not to disappoint me."
+    ],
+    "run_start": [
+      "I don't lose. Let's remind everyone why.",
+      "Bow, or burn. Those are the only choices they get."
+    ],
+    "battle": [
+      "This won't take long.",
+      "Look at you. Trembling already.",
+      "Kneel, and maybe I'll make it quick."
+    ],
+    "boss": [
+      "So you think you're a threat? How adorable.",
+      "Finally. Someone worth burning."
+    ],
+    "commander": [
+      "Behold. Blue fire.",
+      "Watch closely. This is what perfection looks like."
+    ],
+    "victory": [
+      "As expected. Flawless.",
+      "Pathetic. Next.",
+      "Did you really think you stood a chance?"
+    ],
+    "defeat": [
+      "This was not part of the plan!",
+      "No. I do not lose. Again!"
+    ],
+    "package": [
+      "Acceptable.",
+      "Yes. This will do nicely."
+    ],
+    "record": [
+      "A new record. Naturally. I was always the best."
+    ]
+  },
+  "cloud-ex-soldier": {
+    "voice": {
+      "model": "en_US-joe-medium",
+      "pitch": 0.97,
+      "length": 1.02,
+      "echo": 0
+    },
+    "select": [
+      "Fine. I'll take the job. Just don't expect speeches.",
+      "You wanted a mercenary. You've got one."
+    ],
+    "run_start": [
+      "Let's get this over with.",
+      "Fifteen fights. I've had worse contracts."
+    ],
+    "battle": [
+      "Nothing personal.",
+      "Let's see what you've got.",
+      "Stay out of my way."
+    ],
+    "boss": [
+      "Big one. Doesn't matter.",
+      "I've cut down bigger than you."
+    ],
+    "commander": [
+      "Time for the sword.",
+      "Stay behind me."
+    ],
+    "victory": [
+      "Job's done.",
+      "That all you had?",
+      "Next."
+    ],
+    "defeat": [
+      "Tch. Guess I wasn't ready.",
+      "I'll get it right next time."
+    ],
+    "package": [
+      "That'll work.",
+      "Good gear. I'll take it."
+    ],
+    "record": [
+      "New record. Guess I'm still the best around."
+    ]
+  },
+  "ureni-of-the-unwritten": {
+    "voice": {
+      "model": "en_US-john-medium",
+      "pitch": 0.82,
+      "length": 1.0,
+      "echo": 0,
+      "speaker": null,
+      "reference": "samples/ureni-dragon-v2/_work/C_colossus_rant.wav",
+      "creature_profile": "colossus_v2"
+    },
+    "select": [
+      "I slept through ages. Do not wake me for nothing.",
+      "My story is still unwritten. Let us write it."
+    ],
+    "run_start": [
+      "The dragonstorms are calling. We answer.",
+      "Spread your wings. The hunt begins."
+    ],
+    "battle": [
+      "Do you hear the roar beyond the horizon?",
+      "My brood is hungry.",
+      "The sky belongs to dragons."
+    ],
+    "boss": [
+      "A rival in the sky. Only one of us will fly.",
+      "Ancient as you are, I am older."
+    ],
+    "commander": [
+      "Behold the unwritten flight!",
+      "From the storm, I descend!"
+    ],
+    "victory": [
+      "The skies are ours.",
+      "Another tale my brood will tell.",
+      "Burnt, broken, forgotten."
+    ],
+    "defeat": [
+      "Even dragons fall. Not forever.",
+      "The storm will rise again."
+    ],
+    "package": [
+      "More dragons for the storm.",
+      "Fierce. I like it."
+    ],
+    "record": [
+      "A new record. Write it in fire across the sky."
+    ]
+  },
+  "karolina-dean-runaway": {
+    "voice": {
+      "model": "en_US-kristin-medium",
+      "pitch": 1.03,
+      "length": 1.0,
+      "echo": 0
+    },
+    "select": [
+      "Let's light this up.",
+      "No more hiding. Let's go."
+    ],
+    "run_start": [
+      "Okay, Runaways. Time to fight back.",
+      "Stay behind me. I've got this."
+    ],
+    "battle": [
+      "Time to shine.",
+      "You picked the wrong girl to fight.",
+      "Let's see how you handle the light."
+    ],
+    "boss": [
+      "Big, scary, and about to get blinded.",
+      "Everyone, cover your eyes!"
+    ],
+    "commander": [
+      "Karolina, lighting it up!",
+      "Watch the sky!"
+    ],
+    "victory": [
+      "That's how we do it.",
+      "Bright side wins again.",
+      "Nobody runs from us anymore."
+    ],
+    "defeat": [
+      "Okay... that one hurt.",
+      "We regroup. We always regroup."
+    ],
+    "package": [
+      "Ooh, I like these.",
+      "More power for the team."
+    ],
+    "record": [
+      "We did it! The Runaways are legends now!"
+    ]
+  },
+  "pantlaza-sun-favored": {
+    "voice": {
+      "model": "en_US-bryce-medium",
+      "pitch": 0.9,
+      "length": 0.95,
+      "echo": 0,
+      "nonverbal": true,
+      "source": "CC0 creature sounds; see sources.json"
+    },
+    "select": [
+      "[dinosaur roar]",
+      "[dinosaur roar]"
+    ],
+    "run_start": [
+      "[dinosaur roar]",
+      "[dinosaur roar]"
+    ],
+    "battle": [
+      "[dinosaur roar]",
+      "[dinosaur roar]",
+      "[dinosaur roar]"
+    ],
+    "boss": [
+      "[dinosaur roar]",
+      "[dinosaur roar]"
+    ],
+    "commander": [
+      "[dinosaur roar]",
+      "[dinosaur roar]"
+    ],
+    "victory": [
+      "[dinosaur roar]",
+      "[dinosaur roar]",
+      "[dinosaur roar]"
+    ],
+    "defeat": [
+      "[pained dinosaur growl]",
+      "[pained dinosaur growl]"
+    ],
+    "package": [
+      "[low dinosaur rumble]",
+      "[low dinosaur rumble]"
+    ],
+    "record": [
+      "[dinosaur roar]"
+    ]
+  },
+  "jace-multiverse-architect": {
+    "voice": {
+      "model": "en_US-john-medium",
+      "pitch": 1.0,
+      "length": 0.98,
+      "echo": 0
+    },
+    "select": [
+      "I already knew you'd pick me.",
+      "Good choice. I'd have made the same one. I did, actually."
+    ],
+    "run_start": [
+      "Every match is a puzzle. Let's solve it.",
+      "I've mapped all fifteen fights. Fourteen go perfectly."
+    ],
+    "battle": [
+      "I know your cards before you draw them.",
+      "Think before you act. I already have.",
+      "Your plan is cute. Mine is better."
+    ],
+    "boss": [
+      "Interesting. A mind I haven't mapped yet.",
+      "Big, loud and predictable. My favourite kind."
+    ],
+    "commander": [
+      "Let me rearrange the multiverse a little.",
+      "Everything is going according to plan."
+    ],
+    "victory": [
+      "Exactly as calculated.",
+      "Checkmate. Next puzzle.",
+      "Was there ever any doubt?"
+    ],
+    "defeat": [
+      "That was not in any of my projections.",
+      "A variable I missed. It won't happen again."
+    ],
+    "package": [
+      "Excellent. More options.",
+      "I can work with this."
+    ],
+    "record": [
+      "A new record. Statistically inevitable."
+    ]
+  },
+  "the-wise-mothman": {
+    "voice": {
+      "model": "en_US-ljspeech-high",
+      "pitch": 0.9,
+      "length": 1.12,
+      "echo": 0
+    },
+    "select": [
+      "I have seen what is to come.",
+      "The light chose you. Follow it."
+    ],
+    "run_start": [
+      "The radiation whispers. Follow it.",
+      "The path glows ahead. Walk it with me."
+    ],
+    "battle": [
+      "Your mind will melt.",
+      "I saw your downfall. Yesterday.",
+      "Look into the light."
+    ],
+    "boss": [
+      "A great darkness. How wonderful.",
+      "Even giants are moths before the flame."
+    ],
+    "commander": [
+      "The light draws me in.",
+      "Mutation is enlightenment."
+    ],
+    "victory": [
+      "As was foretold.",
+      "Another mind opens.",
+      "The light accepts your offering."
+    ],
+    "defeat": [
+      "This, too, I foresaw.",
+      "The light flickers. It never dies."
+    ],
+    "package": [
+      "Strange gifts from the wasteland.",
+      "Yes. The radiation approves."
+    ],
+    "record": [
+      "A new record. The prophecy grows brighter."
+    ]
+  },
+  "shang-chi-master-of-kung-fu": {
+    "voice": {
+      "model": "en_US-norman-medium",
+      "pitch": 1.0,
+      "length": 1.0,
+      "echo": 0
+    },
+    "select": [
+      "Discipline over pride. Let's begin.",
+      "You chose a student of the open hand. Good."
+    ],
+    "run_start": [
+      "Breathe. Focus. Then strike.",
+      "Fifteen rounds. One step at a time."
+    ],
+    "battle": [
+      "Show me your stance.",
+      "Calm mind, fast hands.",
+      "I won't strike first. But I will strike last."
+    ],
+    "boss": [
+      "Strength like yours needs balance. Let me teach you.",
+      "The bigger they are, the harder they fall."
+    ],
+    "commander": [
+      "Master of the open hand.",
+      "Watch the flow. Then it's over."
+    ],
+    "victory": [
+      "Well fought. But not enough.",
+      "The fight is over. Rest.",
+      "Bow, and walk away."
+    ],
+    "defeat": [
+      "A master is a student who never stops learning.",
+      "I'll train harder. Next time."
+    ],
+    "package": [
+      "New techniques. Good.",
+      "This will sharpen my form."
+    ],
+    "record": [
+      "A new record. My teachers would be proud."
+    ]
+  }
+}

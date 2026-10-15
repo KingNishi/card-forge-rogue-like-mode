@@ -1,0 +1,1400 @@
+{
+ "version": 1,
+ "commanders": [
+  {
+   "name": "Akiri, Line-Slinger",
+   "theme": "Voltron",
+   "colors": "RW",
+   "blurb": "Rüste einen Helden mit Waffen und Auren aus und schlag mit einem einzigen Monster alles kurz und klein.",
+   "lands": [
+    "Command Tower",
+    "Boros Guildgate",
+    "Wind-Scarred Crag",
+    "Battlefield Forge",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains"
+   ],
+   "starter": [
+    "Thraben Inspector",
+    "Kor Outfitter",
+    "Kor Duelist",
+    "Squadron Hawk",
+    "Glory Seeker",
+    "Bladetusk Boar",
+    "Goblin Gaveleer",
+    "Akroan Skyguard",
+    "Ardent Recruit",
+    "Leonin Skyhunter",
+    "Kor Skyfisher",
+    "Ironclad Slayer",
+    "Auriok Sunchaser",
+    "Bonesplitter",
+    "Vulshok Morningstar",
+    "Short Sword",
+    "Leonin Scimitar",
+    "Trusty Machete",
+    "Bone Saw",
+    "Accorder's Shield",
+    "Strider Harness",
+    "Bladed Pinions",
+    "Explorer's Scope",
+    "Kitesail",
+    "Ethereal Armor",
+    "Spirit Mantle",
+    "Hyena Umbra",
+    "Shiv's Embrace",
+    "Gryff's Boon",
+    "Shock",
+    "Journey to Nowhere",
+    "Pacifism",
+    "Gods Willing",
+    "Brute Force",
+    "Valorous Stance"
+   ],
+   "packages": [
+    {
+     "name": "Arsenal der Legenden",
+     "theme": "equipment",
+     "cards": [
+      "Sword of Fire and Ice",
+      "Sword of Body and Mind",
+      "Batterskull",
+      "Loxodon Warhammer",
+      "Grafted Wargear",
+      "Embercleave",
+      "Colossus Hammer",
+      "Shadowspear"
+     ]
+    },
+    {
+     "name": "Auren des Ruhms",
+     "theme": "auras",
+     "cards": [
+      "All That Glitters",
+      "Daybreak Coronet",
+      "Angelic Destiny",
+      "Battle Mastery",
+      "Unquestioned Authority",
+      "Eldrazi Conscription",
+      "Sigarda's Aid",
+      "Sage's Reverie"
+     ]
+    },
+    {
+     "name": "Schutzschild",
+     "theme": "protection",
+     "cards": [
+      "Mother of Runes",
+      "Giver of Runes",
+      "Swiftfoot Boots",
+      "Lightning Greaves",
+      "Teferi's Protection",
+      "Flawless Maneuver",
+      "Boros Charm",
+      "Benevolent Bodyguard"
+     ]
+    },
+    {
+     "name": "Schmiede-Meister",
+     "theme": "equipment",
+     "cards": [
+      "Puresteel Paladin",
+      "Sram, Senior Edificer",
+      "Stoneforge Mystic",
+      "Steelshaper's Gift",
+      "Open the Armory",
+      "Armory Automaton",
+      "Danitha Capashen, Paragon",
+      "Balan, Wandering Knight"
+     ]
+    },
+    {
+     "name": "Doppelschlag",
+     "theme": "double strike",
+     "cards": [
+      "Fireshrieker",
+      "Silverblade Paladin",
+      "Boros Swiftblade",
+      "Temur Battle Rage",
+      "Assault Strobe",
+      "Duelist's Heritage",
+      "Odric, Lunarch Marshal",
+      "Fervent Champion"
+     ]
+    },
+    {
+     "name": "Boros-Entfernung",
+     "theme": "removal",
+     "cards": [
+      "Swords to Plowshares",
+      "Path to Exile",
+      "Lightning Helix",
+      "Chaos Warp",
+      "Fateful Absence",
+      "Generous Gift",
+      "Wear // Tear",
+      "Abrade"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Baral, Chief of Compliance",
+   "theme": "Counterspell-Kontrolle",
+   "colors": "U",
+   "blurb": "Sag zu allem Nein: Konter jeden Zauber, zieh Karten und gewinn spät mit einem großen Finisher.",
+   "lands": [
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Mystic Sanctuary",
+    "Desert of the Mindful"
+   ],
+   "starter": [
+    "Cancel",
+    "Essence Scatter",
+    "Negate",
+    "Mana Leak",
+    "Remove Soul",
+    "Syncopate",
+    "Quench",
+    "Lose Focus",
+    "Annul",
+    "Spell Pierce",
+    "Opt",
+    "Brainstorm",
+    "Divination",
+    "Think Twice",
+    "Preordain",
+    "Ponder",
+    "Impulse",
+    "Thirst for Knowledge",
+    "Accumulated Knowledge",
+    "Unsummon",
+    "Into the Roil",
+    "Repulse",
+    "Vapor Snag",
+    "Boomerang",
+    "Merfolk Looter",
+    "Augur of Bolas",
+    "Sea Gate Oracle",
+    "Man-o'-War",
+    "Mulldrifter",
+    "Pestermite",
+    "Brineborn Cutthroat",
+    "Wall of Frost",
+    "Phantom Monster",
+    "Air Elemental",
+    "Cloudkin Seer"
+   ],
+   "packages": [
+    {
+     "name": "Harte Konter",
+     "theme": "counters",
+     "cards": [
+      "Counterspell",
+      "Mana Drain",
+      "Arcane Denial",
+      "Swan Song",
+      "Force of Will",
+      "Fierce Guardianship",
+      "Delay",
+      "Disallow"
+     ]
+    },
+    {
+     "name": "Bibliothek",
+     "theme": "draw",
+     "cards": [
+      "Rhystic Study",
+      "Mystic Remora",
+      "Fact or Fiction",
+      "Dig Through Time",
+      "Treasure Cruise",
+      "Jace, the Mind Sculptor",
+      "Chart a Course",
+      "Gitaxian Probe"
+     ]
+    },
+    {
+     "name": "Blitz-Bedrohungen",
+     "theme": "flash",
+     "cards": [
+      "Snapcaster Mage",
+      "Spellstutter Sprite",
+      "Vendilion Clique",
+      "Brazen Borrower",
+      "Hullbreaker Horror",
+      "Spectral Sailor",
+      "Faerie Mastermind",
+      "Nimble Obstructionist"
+     ]
+    },
+    {
+     "name": "Diebstahl & Kopie",
+     "theme": "steal",
+     "cards": [
+      "Control Magic",
+      "Treachery",
+      "Mind Control",
+      "Clone",
+      "Phantasmal Image",
+      "Spark Double",
+      "Sower of Temptation",
+      "Agent of Treachery"
+     ]
+    },
+    {
+     "name": "Große Finisher",
+     "theme": "finishers",
+     "cards": [
+      "Consecrated Sphinx",
+      "Torrential Gearhulk",
+      "Shark Typhoon",
+      "Tempest Djinn",
+      "Thing in the Ice",
+      "Inkwell Leviathan",
+      "Frost Titan",
+      "Sphinx of Uthuun"
+     ]
+    },
+    {
+     "name": "Rückflut",
+     "theme": "bounce",
+     "cards": [
+      "Cyclonic Rift",
+      "Aetherize",
+      "Evacuation",
+      "Cryptic Command",
+      "Repeal",
+      "Echoing Truth",
+      "Riftwing Cloudskate",
+      "Snap"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Lathril, Blade of the Elves",
+   "theme": "Elfen",
+   "colors": "BG",
+   "blurb": "Ein Elfenvolk, das sich gegenseitig stärkt: viel Mana, viele Körper und am Ende ein tödlicher Sturm.",
+   "lands": [
+    "Command Tower",
+    "Golgari Guildgate",
+    "Jungle Hollow",
+    "Llanowar Wastes",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp"
+   ],
+   "starter": [
+    "Llanowar Elves",
+    "Elvish Mystic",
+    "Fyndhorn Elves",
+    "Elvish Visionary",
+    "Elvish Warrior",
+    "Wellwisher",
+    "Elvish Harbinger",
+    "Elvish Skysweeper",
+    "Elvish Eulogist",
+    "Elves of Deep Shadow",
+    "Leaf Gilder",
+    "Tajuru Pathwarden",
+    "Elvish Handservant",
+    "Jagged-Scar Archers",
+    "Eyeblight Assassin",
+    "Elvish Ranger",
+    "Llanowar Visionary",
+    "Elvish Pioneer",
+    "Elvish Vanguard",
+    "Sylvan Ranger",
+    "Rampant Growth",
+    "Cultivate",
+    "Doom Blade",
+    "Murder",
+    "Cast Down",
+    "Eyeblight's Ending",
+    "Harmonize",
+    "Pulse of Murasa",
+    "Night's Whisper",
+    "Sign in Blood",
+    "Giant Growth",
+    "Ranger's Guile",
+    "Golgari Signet",
+    "Commander's Sphere",
+    "Grisly Salvage"
+   ],
+   "packages": [
+    {
+     "name": "Elfenfürsten",
+     "theme": "lords",
+     "cards": [
+      "Elvish Archdruid",
+      "Elvish Clancaller",
+      "Imperious Perfect",
+      "Elvish Champion",
+      "Joraga Warcaller",
+      "Dwynen, Gilt-Leaf Daen",
+      "Lys Alana Huntmaster",
+      "Marwyn, the Nurturer"
+     ]
+    },
+    {
+     "name": "Mana-Hain",
+     "theme": "ramp",
+     "cards": [
+      "Priest of Titania",
+      "Heritage Druid",
+      "Circle of Dreams Druid",
+      "Wirewood Channeler",
+      "Llanowar Tribe",
+      "Allosaurus Shepherd",
+      "Elvish Piper",
+      "Craterhoof Behemoth"
+     ]
+    },
+    {
+     "name": "Weisheit des Waldes",
+     "theme": "draw",
+     "cards": [
+      "Beast Whisperer",
+      "Guardian Project",
+      "Shamanic Revelation",
+      "Return of the Wildspeaker",
+      "Rishkar's Expertise",
+      "Elvish Rejuvenator",
+      "Sylvan Library",
+      "Chord of Calling"
+     ]
+    },
+    {
+     "name": "Opfergaben",
+     "theme": "sacrifice",
+     "cards": [
+      "Poison-Tip Archer",
+      "Zulaport Cutthroat",
+      "Blood Artist",
+      "Skullclamp",
+      "Viscera Seer",
+      "Liliana, Death's Majesty",
+      "Eyeblight Cullers",
+      "Plaguecrafter"
+     ]
+    },
+    {
+     "name": "Golgari-Entfernung",
+     "theme": "removal",
+     "cards": [
+      "Assassin's Trophy",
+      "Putrefy",
+      "Beast Within",
+      "Toxic Deluge",
+      "Infernal Grasp",
+      "Golgari Charm",
+      "Abrupt Decay",
+      "Pernicious Deed"
+     ]
+    },
+    {
+     "name": "Sturm der Massen",
+     "theme": "finishers",
+     "cards": [
+      "Overrun",
+      "Triumph of the Hordes",
+      "Ezuri, Renegade Leader",
+      "Coat of Arms",
+      "Elvish Promenade",
+      "Pathbreaker Ibex",
+      "Hornet Queen",
+      "End-Raze Forerunners"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Wilhelt, the Rotcleaver",
+   "theme": "Zombies",
+   "colors": "UB",
+   "blurb": "Eine nie endende Horde Untoter: Zombies sterben, kommen zurück und überrennen den Gegner.",
+   "lands": [
+    "Command Tower",
+    "Dimir Guildgate",
+    "Dismal Backwater",
+    "Underground River",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp"
+   ],
+   "starter": [
+    "Diregraf Ghoul",
+    "Gravecrawler",
+    "Fleshbag Marauder",
+    "Gurmag Angler",
+    "Cryptbreaker",
+    "Dregscape Zombie",
+    "Walking Corpse",
+    "Ghoulcaller's Accomplice",
+    "Stitched Drake",
+    "Undead Augur",
+    "Scrapskin Drake",
+    "Ghoulraiser",
+    "Rotting Rats",
+    "Corpse Hauler",
+    "Vengeful Pharaoh",
+    "Liliana's Devotee",
+    "Moan of the Unhallowed",
+    "Gisa's Bidding",
+    "Ponder",
+    "Opt",
+    "Doom Blade",
+    "Murder",
+    "Dissolve",
+    "Tragic Slip",
+    "Disfigure",
+    "Dimir Signet",
+    "Arcane Signet",
+    "Night's Whisper",
+    "Read the Bones",
+    "Village Rites",
+    "Forbidden Alchemy",
+    "Thought Scour",
+    "Cast Down",
+    "Grim Captain's Call",
+    "Supernatural Stamina"
+   ],
+   "packages": [
+    {
+     "name": "Zombie-Fürsten",
+     "theme": "lords",
+     "cards": [
+      "Death Baron",
+      "Lord of the Undead",
+      "Diregraf Captain",
+      "Cemetery Reaper",
+      "Undead Warchief",
+      "Lich Lord of Unx",
+      "Zombie Master",
+      "Grimgrin, Corpse-Born"
+     ]
+    },
+    {
+     "name": "Die Horde",
+     "theme": "tokens",
+     "cards": [
+      "Army of the Damned",
+      "Endless Ranks of the Dead",
+      "Rooftop Storm",
+      "Dreadhorde Invasion",
+      "Gravespawn Sovereign",
+      "Tombstone Stairwell",
+      "Grave Titan",
+      "Noxious Ghoul"
+     ]
+    },
+    {
+     "name": "Aus dem Grab",
+     "theme": "recursion",
+     "cards": [
+      "Animate Dead",
+      "Reanimate",
+      "Necromancy",
+      "Living Death",
+      "Phyrexian Reclamation",
+      "Unearth",
+      "Champion of Stray Souls",
+      "Liliana, Death's Majesty"
+     ]
+    },
+    {
+     "name": "Blutzoll",
+     "theme": "sacrifice",
+     "cards": [
+      "Blood Artist",
+      "Zulaport Cutthroat",
+      "Carrion Feeder",
+      "Viscera Seer",
+      "Gray Merchant of Asphodel",
+      "Grim Haruspex",
+      "Pitiless Plunderer",
+      "Bastion of Remembrance"
+     ]
+    },
+    {
+     "name": "Friedhofsfüller",
+     "theme": "mill",
+     "cards": [
+      "Stitcher's Supplier",
+      "Glimpse the Unthinkable",
+      "Mesmeric Orb",
+      "Fraying Sanity",
+      "Hedron Crab",
+      "Bruvac the Grandiloquent",
+      "Jace's Erasure",
+      "Mirror-Mad Phantasm"
+     ]
+    },
+    {
+     "name": "Dimir-Kontrolle",
+     "theme": "control",
+     "cards": [
+      "Counterspell",
+      "Hero's Downfall",
+      "Damnation",
+      "Infernal Grasp",
+      "Baleful Strix",
+      "Dimir Charm",
+      "Drown in the Loch",
+      "Fatal Push"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Lathliss, Dragon Queen",
+   "theme": "Drachen",
+   "colors": "R",
+   "blurb": "Horte Schätze, beschwör Drachen und verbrenn alles, was sich dir in den Weg stellt.",
+   "lands": [
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Castle Embereth",
+    "Temple of the Dragon Queen"
+   ],
+   "starter": [
+    "Furnace Whelp",
+    "Dragon Hatchling",
+    "Dragon Egg",
+    "Volcanic Dragon",
+    "Shivan Dragon",
+    "Mordant Dragon",
+    "Rapacious Dragon",
+    "Avaricious Dragon",
+    "Kargan Dragonrider",
+    "Dragonspeaker Shaman",
+    "Mind Stone",
+    "Fire Diamond",
+    "Arcane Signet",
+    "Commander's Sphere",
+    "Wayfarer's Bauble",
+    "Worn Powerstone",
+    "Hedron Archive",
+    "Prismatic Lens",
+    "Shock",
+    "Lightning Bolt",
+    "Abrade",
+    "Incinerate",
+    "Flame Slash",
+    "Searing Spear",
+    "Roast",
+    "Chandra's Outrage",
+    "Mizzium Mortars",
+    "Volcanic Hammer",
+    "Tormenting Voice",
+    "Thrill of Possibility",
+    "Faithless Looting",
+    "Light Up the Stage",
+    "Wild Guess",
+    "Big Score",
+    "Cathartic Reunion"
+   ],
+   "packages": [
+    {
+     "name": "Uralte Drachen",
+     "theme": "dragons",
+     "cards": [
+      "Thundermaw Hellkite",
+      "Glorybringer",
+      "Balefire Dragon",
+      "Hellkite Charger",
+      "Utvara Hellkite",
+      "Scourge of Valkas",
+      "Hellkite Tyrant",
+      "Terror of the Peaks"
+     ]
+    },
+    {
+     "name": "Drachenfürsten",
+     "theme": "dragon payoffs",
+     "cards": [
+      "Dragon Tempest",
+      "Sarkhan, Fireblood",
+      "Dragonlord's Servant",
+      "Crucible of Fire",
+      "Dragon Mage",
+      "Goldspan Dragon",
+      "Ancient Copper Dragon",
+      "Moonveil Dragon"
+     ]
+    },
+    {
+     "name": "Schatzhort",
+     "theme": "treasure",
+     "cards": [
+      "Dockside Extortionist",
+      "Professional Face-Breaker",
+      "Pirate's Pillage",
+      "Unexpected Windfall",
+      "Seize the Spoils",
+      "Captain Lannery Storm",
+      "Brass's Bounty",
+      "Strike It Rich"
+     ]
+    },
+    {
+     "name": "Feuer & Zorn",
+     "theme": "burn",
+     "cards": [
+      "Fiery Confluence",
+      "Fireball",
+      "Crater's Claws",
+      "Torbran, Thane of Red Fell",
+      "Purphoros, God of the Forge",
+      "Chandra, Torch of Defiance",
+      "Hellrider",
+      "Fury"
+     ]
+    },
+    {
+     "name": "Ungestüm",
+     "theme": "haste",
+     "cards": [
+      "Anger",
+      "Lightning Greaves",
+      "Swiftfoot Boots",
+      "Fervor",
+      "Rite of the Dragoncaller",
+      "Sarkhan's Unsealing",
+      "Spit Flame",
+      "Embercleave"
+     ]
+    },
+    {
+     "name": "Flächenbrand",
+     "theme": "removal",
+     "cards": [
+      "Chaos Warp",
+      "Blasphemous Act",
+      "Vandalblast",
+      "Volcanic Fallout",
+      "Starstorm",
+      "Delayed Blast Fireball",
+      "Stoke the Flames",
+      "Banefire"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Niv-Mizzet, Parun",
+   "theme": "Spellslinger",
+   "colors": "UR",
+   "blurb": "Jeder Zauber zählt: Karten ziehen, Blitze schleudern und Zauber kopieren, bis der Gegner verglüht.",
+   "lands": [
+    "Command Tower",
+    "Izzet Guildgate",
+    "Swiftwater Cliffs",
+    "Shivan Reef",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain",
+    "Mountain"
+   ],
+   "starter": [
+    "Opt",
+    "Consider",
+    "Ponder",
+    "Preordain",
+    "Brainstorm",
+    "Serum Visions",
+    "Sleight of Hand",
+    "Shock",
+    "Lightning Bolt",
+    "Magma Jet",
+    "Fire // Ice",
+    "Electrolyze",
+    "Izzet Charm",
+    "Thrill of Possibility",
+    "Tormenting Voice",
+    "Think Twice",
+    "Mana Leak",
+    "Essence Scatter",
+    "Negate",
+    "Unsummon",
+    "Izzet Signet",
+    "Arcane Signet",
+    "Chart a Course",
+    "Young Pyromancer",
+    "Enigma Drake",
+    "Crackling Drake",
+    "Guttersnipe",
+    "Kiln Fiend",
+    "Thermo-Alchemist",
+    "Firebrand Archer",
+    "Sprite Dragon",
+    "Spellgorger Weird",
+    "Wee Dragonauts",
+    "Electrostatic Field",
+    "Delver of Secrets"
+   ],
+   "packages": [
+    {
+     "name": "Zauber-Echo",
+     "theme": "spell payoffs",
+     "cards": [
+      "Talrand, Sky Summoner",
+      "Murmuring Mystic",
+      "Archmage Emeritus",
+      "Storm-Kiln Artist",
+      "Veyran, Voice of Duality",
+      "Third Path Iconoclast",
+      "Niv-Mizzet, the Firemind",
+      "Ral, Storm Conduit"
+     ]
+    },
+    {
+     "name": "Spiegelzauber",
+     "theme": "copy",
+     "cards": [
+      "Twincast",
+      "Reverberate",
+      "Dual Strike",
+      "Increasing Vengeance",
+      "Reiterate",
+      "Bonus Round",
+      "Thousand-Year Storm",
+      "Expansion // Explosion"
+     ]
+    },
+    {
+     "name": "Arkanes Wissen",
+     "theme": "draw",
+     "cards": [
+      "Treasure Cruise",
+      "Dig Through Time",
+      "Frantic Search",
+      "Faithless Looting",
+      "Jori En, Ruin Diver",
+      "Curiosity",
+      "Ophidian Eye",
+      "Fact or Fiction"
+     ]
+    },
+    {
+     "name": "Blitzgewitter",
+     "theme": "burn",
+     "cards": [
+      "Fireball",
+      "Comet Storm",
+      "Crackle with Power",
+      "Firebolt",
+      "Fiery Confluence",
+      "Chain Lightning",
+      "Skewer the Critics",
+      "Kaervek's Torch"
+     ]
+    },
+    {
+     "name": "Gegenmagie",
+     "theme": "counters",
+     "cards": [
+      "Counterspell",
+      "Mana Drain",
+      "Arcane Denial",
+      "Swan Song",
+      "Remand",
+      "Memory Lapse",
+      "Mystic Confluence",
+      "Saw It Coming"
+     ]
+    },
+    {
+     "name": "Sturmfinale",
+     "theme": "storm",
+     "cards": [
+      "Grapeshot",
+      "Empty the Warrens",
+      "Past in Flames",
+      "Brain Freeze",
+      "Aetherflux Reservoir",
+      "Seething Song",
+      "Rite of Flame",
+      "Mind's Desire"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Karlov of the Ghost Council",
+   "theme": "Lebensgewinn",
+   "colors": "WB",
+   "blurb": "Gewinne Leben, verwandle es in Schaden und sauge den Gegner aus wie ein Vampirfürst.",
+   "lands": [
+    "Command Tower",
+    "Orzhov Guildgate",
+    "Scoured Barrens",
+    "Caves of Koilos",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp",
+    "Swamp"
+   ],
+   "starter": [
+    "Soul Warden",
+    "Soul's Attendant",
+    "Ajani's Pridemate",
+    "Vampire Nighthawk",
+    "Lone Missionary",
+    "Child of Night",
+    "Healer's Hawk",
+    "Charity Extractor",
+    "Vampire Sovereign",
+    "Vampire of the Dire Moon",
+    "Indulgent Aristocrat",
+    "Bloodthirsty Aerialist",
+    "Daxos, Blessed by the Sun",
+    "Cliffhaven Vampire",
+    "Inspiring Cleric",
+    "Lunarch Veteran",
+    "Cruel Celebrant",
+    "Mourning Thrull",
+    "Tithe Drinker",
+    "Pacifism",
+    "Doom Blade",
+    "Sorin's Thirst",
+    "Vampire's Kiss",
+    "Last Gasp",
+    "Orzhov Signet",
+    "Arcane Signet",
+    "Night's Whisper",
+    "Sign in Blood",
+    "Revitalize",
+    "Feed the Swarm",
+    "Moment of Heroism",
+    "Gift of Orzhova",
+    "Zealous Persecution",
+    "Kaya's Guile",
+    "Divine Verdict"
+   ],
+   "packages": [
+    {
+     "name": "Blutbund",
+     "theme": "lifegain payoffs",
+     "cards": [
+      "Sanguine Bond",
+      "Exquisite Blood",
+      "Archangel of Thune",
+      "Heliod, Sun-Crowned",
+      "Well of Lost Dreams",
+      "Vito, Thorn of the Dusk Rose",
+      "Righteous Valkyrie",
+      "Linden, the Steadfast Queen"
+     ]
+    },
+    {
+     "name": "Lebensentzug",
+     "theme": "drain",
+     "cards": [
+      "Gray Merchant of Asphodel",
+      "Exsanguinate",
+      "Kokusho, the Evening Star",
+      "Debt to the Deathless",
+      "Sovereign's Bite",
+      "Blood Tithe",
+      "Defiant Bloodlord",
+      "Sorin, Vengeful Bloodlord"
+     ]
+    },
+    {
+     "name": "Vampirhof",
+     "theme": "vampires",
+     "cards": [
+      "Bloodline Keeper",
+      "Captivating Vampire",
+      "Legion Lieutenant",
+      "Vampire Nocturnus",
+      "Elenda, the Dusk Rose",
+      "Sorin, Lord of Innistrad",
+      "Patron of the Vein",
+      "Arguel's Blood Fast"
+     ]
+    },
+    {
+     "name": "Orzhov-Urteil",
+     "theme": "removal",
+     "cards": [
+      "Swords to Plowshares",
+      "Anguished Unmaking",
+      "Vindicate",
+      "Mortify",
+      "Utter End",
+      "Despark",
+      "Kaya's Wrath",
+      "Austere Command"
+     ]
+    },
+    {
+     "name": "Engelsschwingen",
+     "theme": "lifelink",
+     "cards": [
+      "Lyra Dawnbringer",
+      "Baneslayer Angel",
+      "Serra Ascendant",
+      "Basilisk Collar",
+      "Batterskull",
+      "Shadowspear",
+      "Vault of the Archangel",
+      "Divinity of Pride"
+     ]
+    },
+    {
+     "name": "Dunkle Bücher",
+     "theme": "draw",
+     "cards": [
+      "Phyrexian Arena",
+      "Bolas's Citadel",
+      "Necropotence",
+      "Sun Titan",
+      "Read the Bones",
+      "Twilight Prophet",
+      "Ravenous Chupacabra",
+      "Unburial Rites"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Tatyova, Benthic Druid",
+   "theme": "Landfall & Rampe",
+   "colors": "GU",
+   "blurb": "Spiel Land um Land, zieh dabei Karten und lass riesige Kreaturen aus dem Boden wachsen.",
+   "lands": [
+    "Command Tower",
+    "Simic Guildgate",
+    "Thornwood Falls",
+    "Yavimaya Coast",
+    "Evolving Wilds",
+    "Terramorphic Expanse",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island",
+    "Island"
+   ],
+   "starter": [
+    "Rampant Growth",
+    "Cultivate",
+    "Kodama's Reach",
+    "Explore",
+    "Growth Spiral",
+    "Harrow",
+    "Sakura-Tribe Elder",
+    "Wood Elves",
+    "Farhaven Elf",
+    "Yavimaya Elder",
+    "Llanowar Elves",
+    "Elvish Mystic",
+    "Grazing Gladehart",
+    "Territorial Baloth",
+    "Snapping Gnarlid",
+    "Retreat to Kazandu",
+    "Retreat to Coralhelm",
+    "Ondu Giant",
+    "Coiling Oracle",
+    "Plated Crusher",
+    "Roil Elemental",
+    "Divination",
+    "Harmonize",
+    "Mana Leak",
+    "Essence Scatter",
+    "Unsummon",
+    "Pongify",
+    "Beast Within",
+    "Simic Signet",
+    "Arcane Signet",
+    "Frilled Mystic",
+    "Kiora's Follower",
+    "Krosan Grip",
+    "Repulse",
+    "Momentous Fall"
+   ],
+   "packages": [
+    {
+     "name": "Landfall-Motoren",
+     "theme": "landfall",
+     "cards": [
+      "Lotus Cobra",
+      "Tireless Tracker",
+      "Scute Swarm",
+      "Avenger of Zendikar",
+      "Rampaging Baloths",
+      "Ancient Greenwarden",
+      "Aesi, Tyrant of Gyre Strait",
+      "Undergrowth Champion"
+     ]
+    },
+    {
+     "name": "Extra-Länder",
+     "theme": "extra lands",
+     "cards": [
+      "Azusa, Lost but Seeking",
+      "Oracle of Mul Daya",
+      "Exploration",
+      "Burgeoning",
+      "Dryad of the Ilysian Grove",
+      "Ramunap Excavator",
+      "Crucible of Worlds",
+      "Wayward Swordtooth"
+     ]
+    },
+    {
+     "name": "Große Rampe",
+     "theme": "ramp",
+     "cards": [
+      "Skyshroud Claim",
+      "Explosive Vegetation",
+      "Hour of Promise",
+      "Nissa, Who Shakes the World",
+      "Zendikar Resurgent",
+      "Splendid Reclamation",
+      "Migration Path",
+      "Mana Reflection"
+     ]
+    },
+    {
+     "name": "Simic-Weisheit",
+     "theme": "draw",
+     "cards": [
+      "Kiora, Behemoth Beckoner",
+      "Mulldrifter",
+      "Hydroid Krasis",
+      "Prime Speaker Zegana",
+      "Return of the Wildspeaker",
+      "Dig Through Time",
+      "Fact or Fiction",
+      "Elemental Bond"
+     ]
+    },
+    {
+     "name": "Kolosse",
+     "theme": "big creatures",
+     "cards": [
+      "Koma, Cosmos Serpent",
+      "Terastodon",
+      "Pelakka Wurm",
+      "Thragtusk",
+      "Primeval Titan",
+      "Kogla, the Titan Ape",
+      "Ghalta, Primal Hunger",
+      "Lorthos, the Tidemaker"
+     ]
+    },
+    {
+     "name": "Simic-Tempo",
+     "theme": "tempo",
+     "cards": [
+      "Counterspell",
+      "Mystic Snake",
+      "Cyclonic Rift",
+      "Simic Charm",
+      "Heroic Intervention",
+      "Nature's Claim",
+      "Ravenform",
+      "Arcane Denial"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Rhys the Redeemed",
+   "theme": "Spielsteine",
+   "colors": "GW",
+   "blurb": "Flute das Feld mit Spielsteinen, verdopple sie und walz den Gegner mit einer Armee nieder.",
+   "lands": [
+    "Command Tower",
+    "Selesnya Guildgate",
+    "Blossoming Sands",
+    "Brushland",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Forest",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains",
+    "Plains"
+   ],
+   "starter": [
+    "Raise the Alarm",
+    "Gather the Townsfolk",
+    "Midnight Haunting",
+    "Sprout Swarm",
+    "Saproling Migration",
+    "Battle Screech",
+    "Spectral Procession",
+    "Secure the Wastes",
+    "Call the Cavalry",
+    "Join the Ranks",
+    "Fungal Sprouting",
+    "Sprout",
+    "Attended Knight",
+    "Selesnya Evangel",
+    "Conclave Cavalier",
+    "Doomed Traveler",
+    "Seller of Songbirds",
+    "Thraben Inspector",
+    "Llanowar Elves",
+    "Sakura-Tribe Elder",
+    "Precinct Captain",
+    "Sporemound",
+    "Emancipation Angel",
+    "Keeper of the Accord",
+    "Pacifism",
+    "Journey to Nowhere",
+    "Selesnya Signet",
+    "Arcane Signet",
+    "Rampant Growth",
+    "Cultivate",
+    "Glorious Anthem",
+    "Intangible Virtue",
+    "Beastmaster Ascension",
+    "Harmonize",
+    "Selesnya Charm"
+   ],
+   "packages": [
+    {
+     "name": "Verdoppler",
+     "theme": "doublers",
+     "cards": [
+      "Doubling Season",
+      "Parallel Lives",
+      "Anointed Procession",
+      "Primal Vigor",
+      "Mondrak, Glory Dominus",
+      "Second Harvest",
+      "Elspeth, Sun's Champion",
+      "Divine Visitation"
+     ]
+    },
+    {
+     "name": "Hymnen",
+     "theme": "anthems",
+     "cards": [
+      "Cathars' Crusade",
+      "Coat of Arms",
+      "Dictate of Heliod",
+      "Mirror Entity",
+      "Honor of the Pure",
+      "Spear of Heliod",
+      "Benalish Marshal",
+      "Crusade"
+     ]
+    },
+    {
+     "name": "Sturmangriff",
+     "theme": "finishers",
+     "cards": [
+      "Craterhoof Behemoth",
+      "Overrun",
+      "Triumph of the Hordes",
+      "Finale of Glory",
+      "Akroma's Will",
+      "Overwhelming Stampede",
+      "Moonshaker Cavalry",
+      "Pathbreaker Ibex"
+     ]
+    },
+    {
+     "name": "Spielstein-Motoren",
+     "theme": "token engines",
+     "cards": [
+      "Tendershoot Dryad",
+      "Adeline, Resplendent Cathar",
+      "Emmara, Soul of the Accord",
+      "Sigil of the Empty Throne",
+      "Hornet Nest",
+      "Trostani, Selesnya's Voice",
+      "Verdant Force",
+      "Captain of the Watch"
+     ]
+    },
+    {
+     "name": "Bollwerk",
+     "theme": "protection",
+     "cards": [
+      "Heroic Intervention",
+      "Teferi's Protection",
+      "Flawless Maneuver",
+      "Make a Stand",
+      "Unbreakable Formation",
+      "Selfless Spirit",
+      "Brave the Elements",
+      "Spore Frog"
+     ]
+    },
+    {
+     "name": "Selesnya-Urteil",
+     "theme": "removal",
+     "cards": [
+      "Swords to Plowshares",
+      "Path to Exile",
+      "Generous Gift",
+      "Beast Within",
+      "Conclave Tribunal",
+      "Oblivion Ring",
+      "Council's Judgment",
+      "Banishing Light"
+     ]
+    }
+   ]
+  }
+ ]
+}

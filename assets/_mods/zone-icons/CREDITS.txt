@@ -1,0 +1,8 @@
+hand.png - "poker-hand" by lorc, https://game-icons.net, CC BY 3.0
+graveyard.png - "tombstone" by lorc, https://game-icons.net, CC BY 3.0
+library.png - "card-draw" by faithtoken, https://game-icons.net, CC BY 3.0
+flashback.png - "bolt" by badges, https://game-icons.net, CC BY 3.0
+exile.png - "vortex" by lorc, https://game-icons.net, CC BY 3.0
+command.png - "crown" by lorc, https://game-icons.net, CC BY 3.0
+extra.png - "round-star" by delapouite, https://game-icons.net, CC BY 3.0
+hand-toggle.png - "hand" by lorc, https://game-icons.net, CC BY 3.0

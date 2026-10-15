@@ -1,0 +1,26 @@
+[
+  {
+    "file": "monster_roar.wav",
+    "url": "https://opengameart.org/sites/default/files/monster_roar.wav",
+    "page": "https://opengameart.org/content/cc0-deep-monster-roar",
+    "author": "trazzz123",
+    "license": "CC0-1.0",
+    "sha256": "040d2841619c732098c30a638731317d13d7647e5ce1a75a3246219ce4b162ff"
+  },
+  {
+    "file": "monster-snarls.ogg",
+    "url": "https://opengameart.org/sites/default/files/monster-snarls_0.ogg",
+    "page": "https://opengameart.org/content/monster-snarls",
+    "author": "Darsycho",
+    "license": "CC0-1.0",
+    "sha256": "7401193d0cc5eb193379cf326c8868d6823a284ebc32ffaa298c1a94d2e25994"
+  },
+  {
+    "file": "monster-snarl-attack.ogg",
+    "url": "https://opengameart.org/sites/default/files/monster-snarl-attack.ogg",
+    "page": "https://opengameart.org/content/monster-snarls",
+    "author": "Darsycho",
+    "license": "CC0-1.0",
+    "sha256": "34bf1ceef265725abf00ab3263bbbb492792e126bb1619addd4a5d3ad123347f"
+  }
+]

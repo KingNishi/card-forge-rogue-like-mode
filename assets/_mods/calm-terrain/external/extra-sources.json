@@ -1,0 +1,18 @@
+[
+  {
+    "file": "water.png",
+    "url": "https://opengameart.org/sites/default/files/y2k_water_texture.png",
+    "page": "https://opengameart.org/content/y2k-water-texture",
+    "author": "GGBotNet",
+    "license": "CC0",
+    "sha256": "e59507c3d7206d6deba6ad6e9dc87d3f0a9b7c866ca0cd21b78f1120c710ce91"
+  },
+  {
+    "file": "snow.png",
+    "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/snow_02/snow_02_diff_2k.png",
+    "page": "https://polyhaven.com/a/snow_02",
+    "author": "Poly Haven",
+    "license": "CC0",
+    "sha256": "9abe413e1740fa91564ce8111eb9cf11ae52b8de2914b884dda39c162e598289"
+  }
+]

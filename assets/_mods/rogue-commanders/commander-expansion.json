@@ -1,0 +1,2224 @@
+[
+ {
+  "name": "Teysa Karlov",
+  "slug": "teysa-karlov",
+  "colors": "WB",
+  "board": "MID_Mobile",
+  "blurb": "Aristocrats: sacrifice expendable creatures, double death triggers, drain life and rebuild your board.",
+  "bonus": false,
+  "lands": [
+   "Command Tower",
+   "Godless Shrine",
+   "Isolated Chapel",
+   "Caves of Koilos",
+   "Concealed Courtyard",
+   "Shattered Sanctum",
+   "Temple of Silence",
+   "Orzhov Basilica",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp"
+  ],
+  "starter": [
+   "Sol Ring",
+   "Arcane Signet",
+   "Orzhov Signet",
+   "Talisman of Hierarchy",
+   "Viscera Seer",
+   "Carrion Feeder",
+   "Bartolomé del Presidio",
+   "Woe Strider",
+   "Blood Artist",
+   "Zulaport Cutthroat",
+   "Cruel Celebrant",
+   "Elas il-Kor, Sadistic Pilgrim",
+   "Bastion of Remembrance",
+   "Doomed Traveler",
+   "Hunted Witness",
+   "Shambling Ghast",
+   "Orzhov Enforcer",
+   "Ministrant of Obligation",
+   "Reassembling Skeleton",
+   "Persistent Specimen",
+   "Pawn of Ulamog",
+   "Midnight Reaper",
+   "Grim Haruspex",
+   "Village Rites",
+   "Deadly Dispute",
+   "Victimize",
+   "Unearth",
+   "Swords to Plowshares",
+   "Generous Gift",
+   "Mortify",
+   "Despark",
+   "Sign in Blood",
+   "Read the Bones",
+   "Ophiomancer",
+   "Syr Konrad, the Grim"
+  ],
+  "specific": [
+   {
+    "n": "Skullclamp",
+    "c": "",
+    "s": 100
+   },
+   {
+    "n": "Ashnod's Altar",
+    "c": "",
+    "s": 99
+   },
+   {
+    "n": "Phyrexian Altar",
+    "c": "",
+    "s": 98
+   },
+   {
+    "n": "Altar of Dementia",
+    "c": "",
+    "s": 97
+   },
+   {
+    "n": "Pitiless Plunderer",
+    "c": "B",
+    "s": 96
+   },
+   {
+    "n": "Elenda, the Dusk Rose",
+    "c": "WB",
+    "s": 95
+   },
+   {
+    "n": "Karmic Guide",
+    "c": "W",
+    "s": 94
+   },
+   {
+    "n": "Reveillark",
+    "c": "W",
+    "s": 93
+   },
+   {
+    "n": "Living Death",
+    "c": "B",
+    "s": 92
+   },
+   {
+    "n": "Yawgmoth, Thran Physician",
+    "c": "B",
+    "s": 91
+   },
+   {
+    "n": "Dictate of Erebos",
+    "c": "B",
+    "s": 90
+   },
+   {
+    "n": "Grave Pact",
+    "c": "B",
+    "s": 89
+   },
+   {
+    "n": "The Meathook Massacre",
+    "c": "B",
+    "s": 88
+   },
+   {
+    "n": "Nim Deathmantle",
+    "c": "",
+    "s": 87
+   },
+   {
+    "n": "Liliana, Dreadhorde General",
+    "c": "B",
+    "s": 86
+   },
+   {
+    "n": "Diabolic Intent",
+    "c": "B",
+    "s": 85
+   }
+  ],
+  "themes": [
+   {
+    "key": "sacrifice",
+    "name": "Sacrifice outlets",
+    "cards": [
+     {
+      "n": "Viscera Seer",
+      "c": "B",
+      "s": 95
+     },
+     {
+      "n": "Carrion Feeder",
+      "c": "B",
+      "s": 94
+     },
+     {
+      "n": "Woe Strider",
+      "c": "B",
+      "s": 93
+     },
+     {
+      "n": "Bartolomé del Presidio",
+      "c": "WB",
+      "s": 92
+     },
+     {
+      "n": "Yahenni, Undying Partisan",
+      "c": "B",
+      "s": 91
+     },
+     {
+      "n": "Ashnod's Altar",
+      "c": "",
+      "s": 90
+     },
+     {
+      "n": "Phyrexian Altar",
+      "c": "",
+      "s": 89
+     },
+     {
+      "n": "Altar of Dementia",
+      "c": "",
+      "s": 88
+     },
+     {
+      "n": "Spawning Pit",
+      "c": "",
+      "s": 87
+     },
+     {
+      "n": "Blasting Station",
+      "c": "",
+      "s": 86
+     },
+     {
+      "n": "Fallen Ideal",
+      "c": "B",
+      "s": 85
+     },
+     {
+      "n": "Dimir House Guard",
+      "c": "B",
+      "s": 84
+     }
+    ],
+    "focus": true,
+    "rare": false,
+    "progression": false,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "death-drain",
+    "name": "Death triggers",
+    "cards": [
+     {
+      "n": "Blood Artist",
+      "c": "B",
+      "s": 95
+     },
+     {
+      "n": "Zulaport Cutthroat",
+      "c": "B",
+      "s": 94
+     },
+     {
+      "n": "Cruel Celebrant",
+      "c": "WB",
+      "s": 93
+     },
+     {
+      "n": "Elas il-Kor, Sadistic Pilgrim",
+      "c": "WB",
+      "s": 92
+     },
+     {
+      "n": "Bastion of Remembrance",
+      "c": "B",
+      "s": 91
+     },
+     {
+      "n": "Syr Konrad, the Grim",
+      "c": "B",
+      "s": 90
+     },
+     {
+      "n": "Marionette Apprentice",
+      "c": "B",
+      "s": 89
+     },
+     {
+      "n": "Vindictive Vampire",
+      "c": "B",
+      "s": 88
+     },
+     {
+      "n": "Falkenrath Noble",
+      "c": "B",
+      "s": 87
+     },
+     {
+      "n": "The Meathook Massacre",
+      "c": "B",
+      "s": 86
+     },
+     {
+      "n": "Pawn of Ulamog",
+      "c": "B",
+      "s": 85
+     },
+     {
+      "n": "Sifter of Skulls",
+      "c": "B",
+      "s": 84
+     }
+    ],
+    "focus": true,
+    "rare": false,
+    "progression": false,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "fodder",
+    "name": "Expendable bodies",
+    "cards": [
+     {
+      "n": "Ophiomancer",
+      "c": "B",
+      "s": 95
+     },
+     {
+      "n": "Jadar, Ghoulcaller of Nephalia",
+      "c": "B",
+      "s": 94
+     },
+     {
+      "n": "Doomed Traveler",
+      "c": "W",
+      "s": 93
+     },
+     {
+      "n": "Hunted Witness",
+      "c": "W",
+      "s": 92
+     },
+     {
+      "n": "Orzhov Enforcer",
+      "c": "B",
+      "s": 91
+     },
+     {
+      "n": "Ministrant of Obligation",
+      "c": "W",
+      "s": 90
+     },
+     {
+      "n": "Elenda, the Dusk Rose",
+      "c": "WB",
+      "s": 89
+     },
+     {
+      "n": "Requiem Angel",
+      "c": "W",
+      "s": 88
+     },
+     {
+      "n": "Hangarback Walker",
+      "c": "",
+      "s": 87
+     },
+     {
+      "n": "Nested Shambler",
+      "c": "B",
+      "s": 86
+     },
+     {
+      "n": "Shambling Ghast",
+      "c": "B",
+      "s": 85
+     },
+     {
+      "n": "Black Market Connections",
+      "c": "B",
+      "s": 84
+     }
+    ],
+    "focus": true,
+    "rare": false,
+    "progression": false,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "recursion",
+    "name": "Return from death",
+    "cards": [
+     {
+      "n": "Reassembling Skeleton",
+      "c": "B",
+      "s": 95
+     },
+     {
+      "n": "Persistent Specimen",
+      "c": "B",
+      "s": 94
+     },
+     {
+      "n": "Nether Traitor",
+      "c": "B",
+      "s": 93
+     },
+     {
+      "n": "Bloodghast",
+      "c": "B",
+      "s": 92
+     },
+     {
+      "n": "Victimize",
+      "c": "B",
+      "s": 91
+     },
+     {
+      "n": "Animate Dead",
+      "c": "B",
+      "s": 90
+     },
+     {
+      "n": "Necromancy",
+      "c": "B",
+      "s": 89
+     },
+     {
+      "n": "Reanimate",
+      "c": "B",
+      "s": 88
+     },
+     {
+      "n": "Unearth",
+      "c": "B",
+      "s": 87
+     },
+     {
+      "n": "Living Death",
+      "c": "B",
+      "s": 86
+     },
+     {
+      "n": "Sevinne's Reclamation",
+      "c": "W",
+      "s": 85
+     },
+     {
+      "n": "Nim Deathmantle",
+      "c": "",
+      "s": 84
+     }
+    ],
+    "focus": false,
+    "rare": true,
+    "progression": false,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "death-draw",
+    "name": "Death into cards",
+    "cards": [
+     {
+      "n": "Skullclamp",
+      "c": "",
+      "s": 95
+     },
+     {
+      "n": "Dark Prophecy",
+      "c": "B",
+      "s": 94
+     },
+     {
+      "n": "Midnight Reaper",
+      "c": "B",
+      "s": 93
+     },
+     {
+      "n": "Grim Haruspex",
+      "c": "B",
+      "s": 92
+     },
+     {
+      "n": "Liliana, Dreadhorde General",
+      "c": "B",
+      "s": 91
+     },
+     {
+      "n": "Erebos, Bleak-Hearted",
+      "c": "B",
+      "s": 90
+     },
+     {
+      "n": "Plumb the Forbidden",
+      "c": "B",
+      "s": 89
+     },
+     {
+      "n": "Deadly Dispute",
+      "c": "B",
+      "s": 88
+     },
+     {
+      "n": "Village Rites",
+      "c": "B",
+      "s": 87
+     },
+     {
+      "n": "Diabolic Intent",
+      "c": "B",
+      "s": 86
+     },
+     {
+      "n": "Disciple of Bolas",
+      "c": "B",
+      "s": 85
+     },
+     {
+      "n": "Harvester of Souls",
+      "c": "B",
+      "s": 84
+     }
+    ],
+    "focus": false,
+    "rare": true,
+    "progression": false,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "resilience",
+    "name": "Resilience and answers",
+    "cards": [
+     {
+      "n": "Teferi's Protection",
+      "c": "W",
+      "s": 95
+     },
+     {
+      "n": "Flawless Maneuver",
+      "c": "W",
+      "s": 94
+     },
+     {
+      "n": "Unbreakable Formation",
+      "c": "W",
+      "s": 93
+     },
+     {
+      "n": "Selfless Spirit",
+      "c": "W",
+      "s": 92
+     },
+     {
+      "n": "Luminous Broodmoth",
+      "c": "W",
+      "s": 91
+     },
+     {
+      "n": "Malakir Rebirth",
+      "c": "B",
+      "s": 90
+     },
+     {
+      "n": "Swords to Plowshares",
+      "c": "W",
+      "s": 89
+     },
+     {
+      "n": "Anguished Unmaking",
+      "c": "WB",
+      "s": 88
+     },
+     {
+      "n": "Path to Exile",
+      "c": "W",
+      "s": 87
+     },
+     {
+      "n": "Generous Gift",
+      "c": "W",
+      "s": 86
+     },
+     {
+      "n": "Damn",
+      "c": "WB",
+      "s": 85
+     },
+     {
+      "n": "Loran of the Third Path",
+      "c": "W",
+      "s": 84
+     }
+    ],
+    "focus": false,
+    "rare": true,
+    "progression": true,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "death-control",
+    "name": "Advanced death engine",
+    "cards": [
+     {
+      "n": "Grave Pact",
+      "c": "B",
+      "s": 95
+     },
+     {
+      "n": "Dictate of Erebos",
+      "c": "B",
+      "s": 94
+     },
+     {
+      "n": "Butcher of Malakir",
+      "c": "B",
+      "s": 93
+     },
+     {
+      "n": "Yawgmoth, Thran Physician",
+      "c": "B",
+      "s": 92
+     },
+     {
+      "n": "Pitiless Plunderer",
+      "c": "B",
+      "s": 91
+     },
+     {
+      "n": "Revel in Riches",
+      "c": "B",
+      "s": 90
+     },
+     {
+      "n": "Bolas's Citadel",
+      "c": "B",
+      "s": 89
+     },
+     {
+      "n": "Smothering Abomination",
+      "c": "B",
+      "s": 88
+     },
+     {
+      "n": "Karmic Guide",
+      "c": "W",
+      "s": 87
+     },
+     {
+      "n": "Reveillark",
+      "c": "W",
+      "s": 86
+     },
+     {
+      "n": "Athreos, God of Passage",
+      "c": "WB",
+      "s": 85
+     },
+     {
+      "n": "Teysa, Orzhov Scion",
+      "c": "WB",
+      "s": 84
+     }
+    ],
+    "focus": false,
+    "rare": true,
+    "progression": true,
+    "cost": 30,
+    "requiredWins": 3
+   }
+  ],
+  "minimumPackages": 5,
+  "alts": [],
+  "protectedStarter": [],
+  "scores": {
+   "Viscera Seer": 95,
+   "Carrion Feeder": 94,
+   "Woe Strider": 93,
+   "Bartolomé del Presidio": 92,
+   "Yahenni, Undying Partisan": 91,
+   "Ashnod's Altar": 90,
+   "Phyrexian Altar": 89,
+   "Altar of Dementia": 88,
+   "Spawning Pit": 87,
+   "Blasting Station": 86,
+   "Fallen Ideal": 85,
+   "Dimir House Guard": 84,
+   "Blood Artist": 95,
+   "Zulaport Cutthroat": 94,
+   "Cruel Celebrant": 93,
+   "Elas il-Kor, Sadistic Pilgrim": 92,
+   "Bastion of Remembrance": 91,
+   "Syr Konrad, the Grim": 90,
+   "Marionette Apprentice": 89,
+   "Vindictive Vampire": 88,
+   "Falkenrath Noble": 87,
+   "The Meathook Massacre": 86,
+   "Pawn of Ulamog": 85,
+   "Sifter of Skulls": 84,
+   "Ophiomancer": 95,
+   "Jadar, Ghoulcaller of Nephalia": 94,
+   "Doomed Traveler": 93,
+   "Hunted Witness": 92,
+   "Orzhov Enforcer": 91,
+   "Ministrant of Obligation": 90,
+   "Elenda, the Dusk Rose": 89,
+   "Requiem Angel": 88,
+   "Hangarback Walker": 87,
+   "Nested Shambler": 86,
+   "Shambling Ghast": 85,
+   "Black Market Connections": 84,
+   "Reassembling Skeleton": 95,
+   "Persistent Specimen": 94,
+   "Nether Traitor": 93,
+   "Bloodghast": 92,
+   "Victimize": 91,
+   "Animate Dead": 90,
+   "Necromancy": 89,
+   "Reanimate": 88,
+   "Unearth": 87,
+   "Living Death": 86,
+   "Sevinne's Reclamation": 85,
+   "Nim Deathmantle": 84,
+   "Skullclamp": 95,
+   "Dark Prophecy": 94,
+   "Midnight Reaper": 93,
+   "Grim Haruspex": 92,
+   "Liliana, Dreadhorde General": 91,
+   "Erebos, Bleak-Hearted": 90,
+   "Plumb the Forbidden": 89,
+   "Deadly Dispute": 88,
+   "Village Rites": 87,
+   "Diabolic Intent": 86,
+   "Disciple of Bolas": 85,
+   "Harvester of Souls": 84,
+   "Teferi's Protection": 95,
+   "Flawless Maneuver": 94,
+   "Unbreakable Formation": 93,
+   "Selfless Spirit": 92,
+   "Luminous Broodmoth": 91,
+   "Malakir Rebirth": 90,
+   "Swords to Plowshares": 89,
+   "Anguished Unmaking": 88,
+   "Path to Exile": 87,
+   "Generous Gift": 86,
+   "Damn": 85,
+   "Loran of the Third Path": 84,
+   "Grave Pact": 95,
+   "Dictate of Erebos": 94,
+   "Butcher of Malakir": 93,
+   "Yawgmoth, Thran Physician": 92,
+   "Pitiless Plunderer": 91,
+   "Revel in Riches": 90,
+   "Bolas's Citadel": 89,
+   "Smothering Abomination": 88,
+   "Karmic Guide": 87,
+   "Reveillark": 86,
+   "Athreos, God of Passage": 85,
+   "Teysa, Orzhov Scion": 84
+  }
+ },
+ {
+  "name": "Breya, Etherium Shaper",
+  "slug": "breya-etherium-shaper",
+  "colors": "WUBR",
+  "board": "WAR_Mobile",
+  "blurb": "Artifact engine: build Thopters, recycle artifacts and turn expendable machines into damage and control. No Voltron plan.",
+  "bonus": false,
+  "lands": [
+   "Command Tower",
+   "Exotic Orchard",
+   "Raugrin Triome",
+   "Savai Triome",
+   "Xander's Lounge",
+   "Raffine's Tower",
+   "Hallowed Fountain",
+   "Watery Grave",
+   "Blood Crypt",
+   "Steam Vents",
+   "Godless Shrine",
+   "Sacred Foundry",
+   "Evolving Wilds",
+   "Terramorphic Expanse",
+   "Plains",
+   "Plains",
+   "Island",
+   "Island",
+   "Island",
+   "Island",
+   "Swamp",
+   "Swamp",
+   "Mountain",
+   "Mountain"
+  ],
+  "starter": [
+   "Sol Ring",
+   "Arcane Signet",
+   "Fellwar Stone",
+   "Chromatic Lantern",
+   "Azorius Signet",
+   "Rakdos Signet",
+   "Etherium Sculptor",
+   "Foundry Inspector",
+   "Ichor Wellspring",
+   "Chromatic Star",
+   "Chromatic Sphere",
+   "Terrarion",
+   "Myr Retriever",
+   "Junk Diver",
+   "Workshop Assistant",
+   "Servo Schematic",
+   "Ornithopter of Paradise",
+   "Solemn Simulacrum",
+   "Thought Monitor",
+   "Thoughtcast",
+   "Sai, Master Thopterist",
+   "Efficient Construction",
+   "Thopter Spy Network",
+   "Whirler Rogue",
+   "Myr Battlesphere",
+   "Emry, Lurker of the Loch",
+   "Goblin Engineer",
+   "Goblin Welder",
+   "Disciple of the Vault",
+   "Reckless Fireweaver",
+   "Marionette Apprentice",
+   "Swords to Plowshares",
+   "Dispatch",
+   "Counterspell",
+   "Negate"
+  ],
+  "specific": [
+   {
+    "n": "Scrap Trawler",
+    "c": "",
+    "s": 100
+   },
+   {
+    "n": "Krark-Clan Ironworks",
+    "c": "",
+    "s": 99
+   },
+   {
+    "n": "Time Sieve",
+    "c": "UB",
+    "s": 98
+   },
+   {
+    "n": "Thopter Foundry",
+    "c": "WUB",
+    "s": 97
+   },
+   {
+    "n": "Sword of the Meek",
+    "c": "",
+    "s": 96
+   },
+   {
+    "n": "Cyberdrive Awakener",
+    "c": "U",
+    "s": 95
+   },
+   {
+    "n": "Simulacrum Synthesizer",
+    "c": "U",
+    "s": 94
+   },
+   {
+    "n": "Smothering Tithe",
+    "c": "W",
+    "s": 93
+   },
+   {
+    "n": "Urza, Lord High Artificer",
+    "c": "U",
+    "s": 92
+   },
+   {
+    "n": "Shimmer Dragon",
+    "c": "U",
+    "s": 91
+   },
+   {
+    "n": "Tezzeret, Master of the Bridge",
+    "c": "UB",
+    "s": 90
+   },
+   {
+    "n": "Master Transmuter",
+    "c": "U",
+    "s": 89
+   },
+   {
+    "n": "Academy Ruins",
+    "c": "U",
+    "s": 88
+   },
+   {
+    "n": "Scrap Mastery",
+    "c": "R",
+    "s": 87
+   },
+   {
+    "n": "Ashnod's Altar",
+    "c": "",
+    "s": 86
+   },
+   {
+    "n": "Oswald Fiddlebender",
+    "c": "W",
+    "s": 85
+   }
+  ],
+  "themes": [
+   {
+    "key": "artifact-fodder",
+    "name": "Cheap machines",
+    "cards": [
+     {
+      "n": "Ichor Wellspring",
+      "c": "",
+      "s": 95
+     },
+     {
+      "n": "Chromatic Star",
+      "c": "",
+      "s": 94
+     },
+     {
+      "n": "Chromatic Sphere",
+      "c": "",
+      "s": 93
+     },
+     {
+      "n": "Terrarion",
+      "c": "",
+      "s": 92
+     },
+     {
+      "n": "Servo Schematic",
+      "c": "",
+      "s": 91
+     },
+     {
+      "n": "Myr Retriever",
+      "c": "",
+      "s": 90
+     },
+     {
+      "n": "Junk Diver",
+      "c": "",
+      "s": 89
+     },
+     {
+      "n": "Workshop Assistant",
+      "c": "",
+      "s": 88
+     },
+     {
+      "n": "Experimental Synthesizer",
+      "c": "R",
+      "s": 87
+     },
+     {
+      "n": "Ornithopter of Paradise",
+      "c": "",
+      "s": 86
+     },
+     {
+      "n": "Etherium Sculptor",
+      "c": "U",
+      "s": 85
+     },
+     {
+      "n": "Foundry Inspector",
+      "c": "",
+      "s": 84
+     }
+    ],
+    "focus": true,
+    "rare": false,
+    "progression": false,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "thopters",
+    "name": "Thopters and tokens",
+    "cards": [
+     {
+      "n": "Sai, Master Thopterist",
+      "c": "U",
+      "s": 95
+     },
+     {
+      "n": "Efficient Construction",
+      "c": "U",
+      "s": 94
+     },
+     {
+      "n": "Mirrodin Besieged",
+      "c": "U",
+      "s": 93
+     },
+     {
+      "n": "Sharding Sphinx",
+      "c": "U",
+      "s": 92
+     },
+     {
+      "n": "Thopter Assembly",
+      "c": "",
+      "s": 91
+     },
+     {
+      "n": "Whirler Rogue",
+      "c": "U",
+      "s": 90
+     },
+     {
+      "n": "Myr Battlesphere",
+      "c": "",
+      "s": 89
+     },
+     {
+      "n": "Hangarback Walker",
+      "c": "",
+      "s": 88
+     },
+     {
+      "n": "Retrofitter Foundry",
+      "c": "",
+      "s": 87
+     },
+     {
+      "n": "Thopter Shop",
+      "c": "W",
+      "s": 86
+     },
+     {
+      "n": "Master of Etherium",
+      "c": "U",
+      "s": 85
+     },
+     {
+      "n": "Steel Overseer",
+      "c": "",
+      "s": 84
+     }
+    ],
+    "focus": true,
+    "rare": false,
+    "progression": false,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "artifact-recursion",
+    "name": "Recycle the engine",
+    "cards": [
+     {
+      "n": "Emry, Lurker of the Loch",
+      "c": "U",
+      "s": 95
+     },
+     {
+      "n": "Goblin Welder",
+      "c": "R",
+      "s": 94
+     },
+     {
+      "n": "Goblin Engineer",
+      "c": "R",
+      "s": 93
+     },
+     {
+      "n": "Scrap Trawler",
+      "c": "",
+      "s": 92
+     },
+     {
+      "n": "Myr Retriever",
+      "c": "",
+      "s": 91
+     },
+     {
+      "n": "Junk Diver",
+      "c": "",
+      "s": 90
+     },
+     {
+      "n": "Workshop Assistant",
+      "c": "",
+      "s": 89
+     },
+     {
+      "n": "Trading Post",
+      "c": "",
+      "s": 88
+     },
+     {
+      "n": "Scrap Mastery",
+      "c": "R",
+      "s": 87
+     },
+     {
+      "n": "Open the Vaults",
+      "c": "W",
+      "s": 86
+     },
+     {
+      "n": "Academy Ruins",
+      "c": "U",
+      "s": 85
+     },
+     {
+      "n": "Buried Ruin",
+      "c": "",
+      "s": 84
+     }
+    ],
+    "focus": true,
+    "rare": false,
+    "progression": false,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "artifact-draw",
+    "name": "Machine intelligence",
+    "cards": [
+     {
+      "n": "Thought Monitor",
+      "c": "U",
+      "s": 95
+     },
+     {
+      "n": "Thoughtcast",
+      "c": "U",
+      "s": 94
+     },
+     {
+      "n": "Reality Heist",
+      "c": "U",
+      "s": 93
+     },
+     {
+      "n": "Reverse Engineer",
+      "c": "U",
+      "s": 92
+     },
+     {
+      "n": "Shimmer Dragon",
+      "c": "U",
+      "s": 91
+     },
+     {
+      "n": "Vedalken Archmage",
+      "c": "U",
+      "s": 90
+     },
+     {
+      "n": "Jhoira, Weatherlight Captain",
+      "c": "UR",
+      "s": 89
+     },
+     {
+      "n": "Thopter Spy Network",
+      "c": "U",
+      "s": 88
+     },
+     {
+      "n": "One with the Machine",
+      "c": "U",
+      "s": 87
+     },
+     {
+      "n": "Bident of Thassa",
+      "c": "U",
+      "s": 86
+     },
+     {
+      "n": "Idol of Oblivion",
+      "c": "",
+      "s": 85
+     },
+     {
+      "n": "Losheel, Clockwork Scholar",
+      "c": "W",
+      "s": 84
+     }
+    ],
+    "focus": false,
+    "rare": true,
+    "progression": false,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "artifact-payoffs",
+    "name": "Engine payoffs",
+    "cards": [
+     {
+      "n": "Cyberdrive Awakener",
+      "c": "U",
+      "s": 95
+     },
+     {
+      "n": "Rise and Shine",
+      "c": "U",
+      "s": 94
+     },
+     {
+      "n": "The Antiquities War",
+      "c": "U",
+      "s": 93
+     },
+     {
+      "n": "Masterful Replication",
+      "c": "U",
+      "s": 92
+     },
+     {
+      "n": "Mechanized Production",
+      "c": "U",
+      "s": 91
+     },
+     {
+      "n": "Simulacrum Synthesizer",
+      "c": "U",
+      "s": 90
+     },
+     {
+      "n": "Marionette Master",
+      "c": "B",
+      "s": 89
+     },
+     {
+      "n": "Marionette Apprentice",
+      "c": "B",
+      "s": 88
+     },
+     {
+      "n": "Disciple of the Vault",
+      "c": "B",
+      "s": 87
+     },
+     {
+      "n": "Reckless Fireweaver",
+      "c": "R",
+      "s": 86
+     },
+     {
+      "n": "Ingenious Artillerist",
+      "c": "R",
+      "s": 85
+     },
+     {
+      "n": "Impact Tremors",
+      "c": "R",
+      "s": 84
+     }
+    ],
+    "focus": false,
+    "rare": true,
+    "progression": false,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "artifact-control",
+    "name": "Artifact control",
+    "cards": [
+     {
+      "n": "Dispatch",
+      "c": "W",
+      "s": 95
+     },
+     {
+      "n": "Swords to Plowshares",
+      "c": "W",
+      "s": 94
+     },
+     {
+      "n": "Vandalblast",
+      "c": "R",
+      "s": 93
+     },
+     {
+      "n": "Wear // Tear",
+      "c": "WR",
+      "s": 92
+     },
+     {
+      "n": "Dovin's Veto",
+      "c": "WU",
+      "s": 91
+     },
+     {
+      "n": "Swan Song",
+      "c": "U",
+      "s": 90
+     },
+     {
+      "n": "Whir of Invention",
+      "c": "U",
+      "s": 89
+     },
+     {
+      "n": "Reshape",
+      "c": "U",
+      "s": 88
+     },
+     {
+      "n": "Fabricate",
+      "c": "U",
+      "s": 87
+     },
+     {
+      "n": "Oswald Fiddlebender",
+      "c": "W",
+      "s": 86
+     },
+     {
+      "n": "Padeem, Consul of Innovation",
+      "c": "U",
+      "s": 85
+     },
+     {
+      "n": "Daretti, Scrap Savant",
+      "c": "R",
+      "s": 84
+     }
+    ],
+    "focus": false,
+    "rare": true,
+    "progression": true,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "advanced-engine",
+    "name": "Advanced machine engine",
+    "cards": [
+     {
+      "n": "Krark-Clan Ironworks",
+      "c": "",
+      "s": 95
+     },
+     {
+      "n": "Ashnod's Altar",
+      "c": "",
+      "s": 94
+     },
+     {
+      "n": "Arcbound Ravager",
+      "c": "",
+      "s": 93
+     },
+     {
+      "n": "Salvaging Station",
+      "c": "",
+      "s": 92
+     },
+     {
+      "n": "Grinding Station",
+      "c": "",
+      "s": 91
+     },
+     {
+      "n": "Thopter Foundry",
+      "c": "WUB",
+      "s": 90
+     },
+     {
+      "n": "Sword of the Meek",
+      "c": "",
+      "s": 89
+     },
+     {
+      "n": "Time Sieve",
+      "c": "UB",
+      "s": 88
+     },
+     {
+      "n": "Urza, Lord High Artificer",
+      "c": "U",
+      "s": 87
+     },
+     {
+      "n": "Master Transmuter",
+      "c": "U",
+      "s": 86
+     },
+     {
+      "n": "Tezzeret, Master of the Bridge",
+      "c": "UB",
+      "s": 85
+     },
+     {
+      "n": "Nim Deathmantle",
+      "c": "",
+      "s": 84
+     }
+    ],
+    "focus": false,
+    "rare": true,
+    "progression": true,
+    "cost": 30,
+    "requiredWins": 3
+   }
+  ],
+  "minimumPackages": 5,
+  "alts": [],
+  "protectedStarter": [
+   "Chromatic Lantern"
+  ],
+  "scores": {
+   "Ichor Wellspring": 95,
+   "Chromatic Star": 94,
+   "Chromatic Sphere": 93,
+   "Terrarion": 92,
+   "Servo Schematic": 91,
+   "Myr Retriever": 91,
+   "Junk Diver": 90,
+   "Workshop Assistant": 89,
+   "Experimental Synthesizer": 87,
+   "Ornithopter of Paradise": 86,
+   "Etherium Sculptor": 85,
+   "Foundry Inspector": 84,
+   "Sai, Master Thopterist": 95,
+   "Efficient Construction": 94,
+   "Mirrodin Besieged": 93,
+   "Sharding Sphinx": 92,
+   "Thopter Assembly": 91,
+   "Whirler Rogue": 90,
+   "Myr Battlesphere": 89,
+   "Hangarback Walker": 88,
+   "Retrofitter Foundry": 87,
+   "Thopter Shop": 86,
+   "Master of Etherium": 85,
+   "Steel Overseer": 84,
+   "Emry, Lurker of the Loch": 95,
+   "Goblin Welder": 94,
+   "Goblin Engineer": 93,
+   "Scrap Trawler": 92,
+   "Trading Post": 88,
+   "Scrap Mastery": 87,
+   "Open the Vaults": 86,
+   "Academy Ruins": 85,
+   "Buried Ruin": 84,
+   "Thought Monitor": 95,
+   "Thoughtcast": 94,
+   "Reality Heist": 93,
+   "Reverse Engineer": 92,
+   "Shimmer Dragon": 91,
+   "Vedalken Archmage": 90,
+   "Jhoira, Weatherlight Captain": 89,
+   "Thopter Spy Network": 88,
+   "One with the Machine": 87,
+   "Bident of Thassa": 86,
+   "Idol of Oblivion": 85,
+   "Losheel, Clockwork Scholar": 84,
+   "Cyberdrive Awakener": 95,
+   "Rise and Shine": 94,
+   "The Antiquities War": 93,
+   "Masterful Replication": 92,
+   "Mechanized Production": 91,
+   "Simulacrum Synthesizer": 90,
+   "Marionette Master": 89,
+   "Marionette Apprentice": 88,
+   "Disciple of the Vault": 87,
+   "Reckless Fireweaver": 86,
+   "Ingenious Artillerist": 85,
+   "Impact Tremors": 84,
+   "Dispatch": 95,
+   "Swords to Plowshares": 94,
+   "Vandalblast": 93,
+   "Wear // Tear": 92,
+   "Dovin's Veto": 91,
+   "Swan Song": 90,
+   "Whir of Invention": 89,
+   "Reshape": 88,
+   "Fabricate": 87,
+   "Oswald Fiddlebender": 86,
+   "Padeem, Consul of Innovation": 85,
+   "Daretti, Scrap Savant": 84,
+   "Krark-Clan Ironworks": 95,
+   "Ashnod's Altar": 94,
+   "Arcbound Ravager": 93,
+   "Salvaging Station": 92,
+   "Grinding Station": 91,
+   "Thopter Foundry": 90,
+   "Sword of the Meek": 89,
+   "Time Sieve": 88,
+   "Urza, Lord High Artificer": 87,
+   "Master Transmuter": 86,
+   "Tezzeret, Master of the Bridge": 85,
+   "Nim Deathmantle": 84
+  }
+ },
+ {
+  "name": "Eriette of the Charmed Apple",
+  "slug": "eriette-of-the-charmed-apple",
+  "colors": "WB",
+  "board": "DSK_Mobile",
+  "blurb": "Aura control: charm opposing creatures so they cannot attack you; each Aura fuels your end-step life drain.",
+  "bonus": false,
+  "lands": [
+   "Command Tower",
+   "Godless Shrine",
+   "Isolated Chapel",
+   "Caves of Koilos",
+   "Concealed Courtyard",
+   "Shattered Sanctum",
+   "Temple of Silence",
+   "Orzhov Basilica",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp"
+  ],
+  "starter": [
+   "Sol Ring",
+   "Arcane Signet",
+   "Orzhov Signet",
+   "Talisman of Hierarchy",
+   "Sram, Senior Edificer",
+   "Mesa Enchantress",
+   "Hateful Eidolon",
+   "Killian, Ink Duelist",
+   "Transcendent Envoy",
+   "Starfield Mystic",
+   "Danitha Capashen, Paragon",
+   "Pacifism",
+   "Planar Disruption",
+   "Arrest",
+   "Faith's Fetters",
+   "Heliod's Punishment",
+   "Candletrap",
+   "Ossification",
+   "Dead Weight",
+   "Mire's Grasp",
+   "Parasitic Impetus",
+   "Vampiric Link",
+   "Spirit Link",
+   "Trespasser's Curse",
+   "Rune of Mortality",
+   "Rune of Sustenance",
+   "Flickering Ward",
+   "Kaya's Ghostform",
+   "Hyena Umbra",
+   "Unquestioned Authority",
+   "Swords to Plowshares",
+   "Despark",
+   "Sign in Blood",
+   "Retether",
+   "Crystal Chimes"
+  ],
+  "specific": [
+   {
+    "n": "Darksteel Mutation",
+    "c": "W",
+    "s": 100
+   },
+   {
+    "n": "Replenish",
+    "c": "W",
+    "s": 99
+   },
+   {
+    "n": "Hall of Heliod's Generosity",
+    "c": "W",
+    "s": 98
+   },
+   {
+    "n": "Greater Auramancy",
+    "c": "W",
+    "s": 97
+   },
+   {
+    "n": "Sphere of Safety",
+    "c": "W",
+    "s": 96
+   },
+   {
+    "n": "Sigil of the Empty Throne",
+    "c": "W",
+    "s": 95
+   },
+   {
+    "n": "Archon of Sun's Grace",
+    "c": "W",
+    "s": 94
+   },
+   {
+    "n": "Grim Guardian",
+    "c": "B",
+    "s": 93
+   },
+   {
+    "n": "Doomwake Giant",
+    "c": "B",
+    "s": 92
+   },
+   {
+    "n": "Starfield of Nyx",
+    "c": "W",
+    "s": 91
+   },
+   {
+    "n": "Gift of Immortality",
+    "c": "W",
+    "s": 90
+   },
+   {
+    "n": "Umbra Mystic",
+    "c": "W",
+    "s": 89
+   },
+   {
+    "n": "Kor Spiritdancer",
+    "c": "W",
+    "s": 88
+   },
+   {
+    "n": "Ondu Spiritdancer",
+    "c": "W",
+    "s": 87
+   },
+   {
+    "n": "Pearl-Ear, Imperial Advisor",
+    "c": "W",
+    "s": 86
+   },
+   {
+    "n": "Resurgent Belief",
+    "c": "W",
+    "s": 85
+   }
+  ],
+  "themes": [
+   {
+    "key": "aura-control",
+    "name": "Charm their creatures",
+    "cards": [
+     {
+      "n": "Darksteel Mutation",
+      "c": "W",
+      "s": 95
+     },
+     {
+      "n": "Pacifism",
+      "c": "W",
+      "s": 94
+     },
+     {
+      "n": "Planar Disruption",
+      "c": "W",
+      "s": 93
+     },
+     {
+      "n": "Arrest",
+      "c": "W",
+      "s": 92
+     },
+     {
+      "n": "Faith's Fetters",
+      "c": "W",
+      "s": 91
+     },
+     {
+      "n": "Heliod's Punishment",
+      "c": "W",
+      "s": 90
+     },
+     {
+      "n": "Candletrap",
+      "c": "W",
+      "s": 89
+     },
+     {
+      "n": "Reprobation",
+      "c": "W",
+      "s": 88
+     },
+     {
+      "n": "Ossification",
+      "c": "W",
+      "s": 87
+     },
+     {
+      "n": "Dead Weight",
+      "c": "B",
+      "s": 86
+     },
+     {
+      "n": "Mire's Grasp",
+      "c": "B",
+      "s": 85
+     },
+     {
+      "n": "Minimus Containment",
+      "c": "W",
+      "s": 84
+     }
+    ],
+    "focus": true,
+    "rare": false,
+    "progression": false,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "aura-drain",
+    "name": "Curses and drain",
+    "cards": [
+     {
+      "n": "Parasitic Impetus",
+      "c": "B",
+      "s": 95
+     },
+     {
+      "n": "Vampiric Link",
+      "c": "B",
+      "s": 94
+     },
+     {
+      "n": "Spirit Link",
+      "c": "W",
+      "s": 93
+     },
+     {
+      "n": "Stab Wound",
+      "c": "B",
+      "s": 92
+     },
+     {
+      "n": "Trespasser's Curse",
+      "c": "B",
+      "s": 91
+     },
+     {
+      "n": "Grim Guardian",
+      "c": "B",
+      "s": 90
+     },
+     {
+      "n": "Underworld Coinsmith",
+      "c": "WB",
+      "s": 89
+     },
+     {
+      "n": "Vow of Duty",
+      "c": "W",
+      "s": 88
+     },
+     {
+      "n": "Vow of Malice",
+      "c": "B",
+      "s": 87
+     },
+     {
+      "n": "Pariah",
+      "c": "W",
+      "s": 86
+     },
+     {
+      "n": "Unholy Indenture",
+      "c": "B",
+      "s": 85
+     },
+     {
+      "n": "Minion's Return",
+      "c": "B",
+      "s": 84
+     }
+    ],
+    "focus": true,
+    "rare": false,
+    "progression": false,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "enchantress",
+    "name": "Aura card engines",
+    "cards": [
+     {
+      "n": "Sram, Senior Edificer",
+      "c": "W",
+      "s": 95
+     },
+     {
+      "n": "Kor Spiritdancer",
+      "c": "W",
+      "s": 94
+     },
+     {
+      "n": "Mesa Enchantress",
+      "c": "W",
+      "s": 93
+     },
+     {
+      "n": "Hateful Eidolon",
+      "c": "B",
+      "s": 92
+     },
+     {
+      "n": "Killian, Ink Duelist",
+      "c": "WB",
+      "s": 91
+     },
+     {
+      "n": "Transcendent Envoy",
+      "c": "W",
+      "s": 90
+     },
+     {
+      "n": "Starfield Mystic",
+      "c": "W",
+      "s": 89
+     },
+     {
+      "n": "Danitha Capashen, Paragon",
+      "c": "W",
+      "s": 88
+     },
+     {
+      "n": "Rune of Mortality",
+      "c": "B",
+      "s": 87
+     },
+     {
+      "n": "Rune of Sustenance",
+      "c": "W",
+      "s": 86
+     },
+     {
+      "n": "Unquestioned Authority",
+      "c": "W",
+      "s": 85
+     },
+     {
+      "n": "Light-Paws, Emperor's Voice",
+      "c": "W",
+      "s": 84
+     }
+    ],
+    "focus": true,
+    "rare": false,
+    "progression": false,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "aura-protection",
+    "name": "Protect the charmer",
+    "cards": [
+     {
+      "n": "Flickering Ward",
+      "c": "W",
+      "s": 95
+     },
+     {
+      "n": "Kaya's Ghostform",
+      "c": "B",
+      "s": 94
+     },
+     {
+      "n": "Gift of Immortality",
+      "c": "W",
+      "s": 93
+     },
+     {
+      "n": "Timely Ward",
+      "c": "W",
+      "s": 92
+     },
+     {
+      "n": "Hyena Umbra",
+      "c": "W",
+      "s": 91
+     },
+     {
+      "n": "Greater Auramancy",
+      "c": "W",
+      "s": 90
+     },
+     {
+      "n": "Shielded by Faith",
+      "c": "W",
+      "s": 89
+     },
+     {
+      "n": "Flickerform",
+      "c": "W",
+      "s": 88
+     },
+     {
+      "n": "Umbra Mystic",
+      "c": "W",
+      "s": 87
+     },
+     {
+      "n": "Swift Reconfiguration",
+      "c": "W",
+      "s": 86
+     },
+     {
+      "n": "Indestructibility",
+      "c": "W",
+      "s": 85
+     },
+     {
+      "n": "Gift of Doom",
+      "c": "B",
+      "s": 84
+     }
+    ],
+    "focus": false,
+    "rare": true,
+    "progression": false,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "aura-recursion",
+    "name": "Return your charms",
+    "cards": [
+     {
+      "n": "Retether",
+      "c": "W",
+      "s": 95
+     },
+     {
+      "n": "Replenish",
+      "c": "W",
+      "s": 94
+     },
+     {
+      "n": "Resurgent Belief",
+      "c": "W",
+      "s": 93
+     },
+     {
+      "n": "Open the Vaults",
+      "c": "W",
+      "s": 92
+     },
+     {
+      "n": "Hall of Heliod's Generosity",
+      "c": "W",
+      "s": 91
+     },
+     {
+      "n": "Crystal Chimes",
+      "c": "",
+      "s": 90
+     },
+     {
+      "n": "Starfield of Nyx",
+      "c": "W",
+      "s": 89
+     },
+     {
+      "n": "Auramancer",
+      "c": "W",
+      "s": 88
+     },
+     {
+      "n": "Boonweaver Giant",
+      "c": "W",
+      "s": 87
+     },
+     {
+      "n": "Sun Titan",
+      "c": "W",
+      "s": 86
+     },
+     {
+      "n": "Sevinne's Reclamation",
+      "c": "W",
+      "s": 85
+     },
+     {
+      "n": "Mantle of the Ancients",
+      "c": "W",
+      "s": 84
+     }
+    ],
+    "focus": false,
+    "rare": true,
+    "progression": false,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "enchantment-board",
+    "name": "Enchanted board",
+    "cards": [
+     {
+      "n": "Sigil of the Empty Throne",
+      "c": "W",
+      "s": 95
+     },
+     {
+      "n": "Archon of Sun's Grace",
+      "c": "W",
+      "s": 94
+     },
+     {
+      "n": "Doomwake Giant",
+      "c": "B",
+      "s": 93
+     },
+     {
+      "n": "Sphere of Safety",
+      "c": "W",
+      "s": 92
+     },
+     {
+      "n": "Ghostly Prison",
+      "c": "W",
+      "s": 91
+     },
+     {
+      "n": "Blind Obedience",
+      "c": "W",
+      "s": 90
+     },
+     {
+      "n": "Authority of the Consuls",
+      "c": "W",
+      "s": 89
+     },
+     {
+      "n": "Swords to Plowshares",
+      "c": "W",
+      "s": 88
+     },
+     {
+      "n": "Anguished Unmaking",
+      "c": "WB",
+      "s": 87
+     },
+     {
+      "n": "Damn",
+      "c": "WB",
+      "s": 86
+     },
+     {
+      "n": "Loran of the Third Path",
+      "c": "W",
+      "s": 85
+     },
+     {
+      "n": "Omen of the Dead",
+      "c": "B",
+      "s": 84
+     }
+    ],
+    "focus": false,
+    "rare": true,
+    "progression": true,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "aura-mastery",
+    "name": "Advanced Aura mastery",
+    "cards": [
+     {
+      "n": "Ondu Spiritdancer",
+      "c": "W",
+      "s": 95
+     },
+     {
+      "n": "Demonic Embrace",
+      "c": "B",
+      "s": 94
+     },
+     {
+      "n": "Angelic Destiny",
+      "c": "W",
+      "s": 93
+     },
+     {
+      "n": "Necromancy",
+      "c": "B",
+      "s": 92
+     },
+     {
+      "n": "Animate Dead",
+      "c": "B",
+      "s": 91
+     },
+     {
+      "n": "Dance of the Dead",
+      "c": "B",
+      "s": 90
+     },
+     {
+      "n": "Songbirds' Blessing",
+      "c": "W",
+      "s": 89
+     },
+     {
+      "n": "Ethereal Armor",
+      "c": "W",
+      "s": 88
+     },
+     {
+      "n": "All That Glitters",
+      "c": "W",
+      "s": 87
+     },
+     {
+      "n": "Battle Mastery",
+      "c": "W",
+      "s": 86
+     },
+     {
+      "n": "Felidar Umbra",
+      "c": "W",
+      "s": 85
+     },
+     {
+      "n": "Spirit Mantle",
+      "c": "W",
+      "s": 84
+     }
+    ],
+    "focus": false,
+    "rare": true,
+    "progression": true,
+    "cost": 30,
+    "requiredWins": 3
+   }
+  ],
+  "minimumPackages": 5,
+  "alts": [],
+  "protectedStarter": [],
+  "scores": {
+   "Darksteel Mutation": 95,
+   "Pacifism": 94,
+   "Planar Disruption": 93,
+   "Arrest": 92,
+   "Faith's Fetters": 91,
+   "Heliod's Punishment": 90,
+   "Candletrap": 89,
+   "Reprobation": 88,
+   "Ossification": 87,
+   "Dead Weight": 86,
+   "Mire's Grasp": 85,
+   "Minimus Containment": 84,
+   "Parasitic Impetus": 95,
+   "Vampiric Link": 94,
+   "Spirit Link": 93,
+   "Stab Wound": 92,
+   "Trespasser's Curse": 91,
+   "Grim Guardian": 90,
+   "Underworld Coinsmith": 89,
+   "Vow of Duty": 88,
+   "Vow of Malice": 87,
+   "Pariah": 86,
+   "Unholy Indenture": 85,
+   "Minion's Return": 84,
+   "Sram, Senior Edificer": 95,
+   "Kor Spiritdancer": 94,
+   "Mesa Enchantress": 93,
+   "Hateful Eidolon": 92,
+   "Killian, Ink Duelist": 91,
+   "Transcendent Envoy": 90,
+   "Starfield Mystic": 89,
+   "Danitha Capashen, Paragon": 88,
+   "Rune of Mortality": 87,
+   "Rune of Sustenance": 86,
+   "Unquestioned Authority": 85,
+   "Light-Paws, Emperor's Voice": 84,
+   "Flickering Ward": 95,
+   "Kaya's Ghostform": 94,
+   "Gift of Immortality": 93,
+   "Timely Ward": 92,
+   "Hyena Umbra": 91,
+   "Greater Auramancy": 90,
+   "Shielded by Faith": 89,
+   "Flickerform": 88,
+   "Umbra Mystic": 87,
+   "Swift Reconfiguration": 86,
+   "Indestructibility": 85,
+   "Gift of Doom": 84,
+   "Retether": 95,
+   "Replenish": 94,
+   "Resurgent Belief": 93,
+   "Open the Vaults": 92,
+   "Hall of Heliod's Generosity": 91,
+   "Crystal Chimes": 90,
+   "Starfield of Nyx": 89,
+   "Auramancer": 88,
+   "Boonweaver Giant": 87,
+   "Sun Titan": 86,
+   "Sevinne's Reclamation": 85,
+   "Mantle of the Ancients": 84,
+   "Sigil of the Empty Throne": 95,
+   "Archon of Sun's Grace": 94,
+   "Doomwake Giant": 93,
+   "Sphere of Safety": 92,
+   "Ghostly Prison": 91,
+   "Blind Obedience": 90,
+   "Authority of the Consuls": 89,
+   "Swords to Plowshares": 88,
+   "Anguished Unmaking": 87,
+   "Damn": 86,
+   "Loran of the Third Path": 85,
+   "Omen of the Dead": 84,
+   "Ondu Spiritdancer": 95,
+   "Demonic Embrace": 94,
+   "Angelic Destiny": 93,
+   "Necromancy": 92,
+   "Animate Dead": 91,
+   "Dance of the Dead": 90,
+   "Songbirds' Blessing": 89,
+   "Ethereal Armor": 88,
+   "All That Glitters": 87,
+   "Battle Mastery": 86,
+   "Felidar Umbra": 85,
+   "Spirit Mantle": 84
+  }
+ }
+]

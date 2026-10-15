@@ -1,0 +1,6 @@
+{
+  "name": "card-forge-rogue-like-mode",
+  "visibility": "public",
+  "description": "Unofficial roguelike Commander mod for Forge (GPL-3.0-or-later). Original: github.com/Card-Forge/forge.",
+  "upstream": "https://github.com/Card-Forge/forge"
+}

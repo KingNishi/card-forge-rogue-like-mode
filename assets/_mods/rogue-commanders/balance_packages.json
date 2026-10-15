@@ -1,0 +1,7393 @@
+{
+ "yshtola-nights-blessed": {
+  "lands": [
+   "Command Tower",
+   "Arcane Sanctum",
+   "Tranquil Cove",
+   "Dimir Guildgate",
+   "Path of Ancestry",
+   "Orzhov Guildgate",
+   "Exotic Orchard",
+   "Dismal Backwater",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Island",
+   "Island",
+   "Island",
+   "Island",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp"
+  ],
+  "starter": [
+   "Sol Ring",
+   "Arcane Signet",
+   "Undermine",
+   "Unwind",
+   "Helm of the Ghastlord",
+   "Transpose",
+   "Exsanguinate",
+   "Vindicate",
+   "Alisaie Leveilleur",
+   "Kambal, Consul of Allocation",
+   "Alphinaud Leveilleur",
+   "Rewind",
+   "Fandaniel, Telophoroi Ascian",
+   "Circle of Power",
+   "Bloodchief Ascension",
+   "Delney, Streetwise Lookout",
+   "G'raha Tia, Scion Reborn",
+   "Dig Through Time",
+   "Archaeomancer's Map",
+   "Painful Truths",
+   "Risky Shortcut",
+   "Tataru Taru",
+   "Toxic Deluge",
+   "Talisman of Progress",
+   "Lethal Scheme",
+   "Talisman of Dominance",
+   "Sheoldred, the Apocalypse",
+   "Vito, Thorn of the Dusk Rose",
+   "Dancer's Chakrams",
+   "Get Lost",
+   "Talisman of Hierarchy",
+   "Irenicus's Vile Duplication",
+   "Anguished Unmaking",
+   "Fellwar Stone",
+   "Lotho, Corrupt Shirriff"
+  ],
+  "minimumPackages": 5,
+  "themes": [
+   {
+    "key": "control",
+    "name": "Control",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Swords to Plowshares",
+      "s": 84
+     },
+     {
+      "n": "Generous Gift",
+      "s": 82
+     },
+     {
+      "n": "Stroke of Midnight",
+      "s": 82
+     },
+     {
+      "n": "Hero's Downfall",
+      "s": 80
+     },
+     {
+      "n": "Mortify",
+      "s": 80
+     },
+     {
+      "n": "Utter End",
+      "s": 82
+     },
+     {
+      "n": "Deadly Rollick",
+      "s": 84
+     },
+     {
+      "n": "Baleful Mastery",
+      "s": 76
+     },
+     {
+      "n": "Withering Torment",
+      "s": 78
+     },
+     {
+      "n": "Fell the Profane",
+      "s": 76
+     },
+     {
+      "n": "Murderous Rider",
+      "s": 76
+     },
+     {
+      "n": "Soul Shatter",
+      "s": 74
+     },
+     {
+      "n": "Observed Stasis",
+      "s": 70
+     },
+     {
+      "n": "Damnation",
+      "s": 86
+     },
+     {
+      "n": "Supreme Verdict",
+      "s": 86
+     },
+     {
+      "n": "Toxic Deluge",
+      "s": 84
+     },
+     {
+      "n": "Wrath of God",
+      "s": 80
+     },
+     {
+      "n": "Austere Command",
+      "s": 82
+     },
+     {
+      "n": "Starfall Invocation",
+      "s": 76
+     },
+     {
+      "n": "Counterspell",
+      "s": 80
+     },
+     {
+      "n": "Undermine",
+      "s": 84
+     },
+     {
+      "n": "Disallow",
+      "s": 78
+     },
+     {
+      "n": "Render Silent",
+      "s": 76
+     },
+     {
+      "n": "Archmage's Charm",
+      "s": 78
+     },
+     {
+      "n": "Dovin's Veto",
+      "s": 72
+     },
+     {
+      "n": "Mystic Confluence",
+      "s": 80
+     },
+     {
+      "n": "Cryptic Command",
+      "s": 82
+     },
+     {
+      "n": "Teferi, Time Raveler",
+      "s": 84
+     },
+     {
+      "n": "Teferi, Hero of Dominaria",
+      "s": 82
+     },
+     {
+      "n": "Elspeth, Sun's Champion",
+      "s": 82
+     }
+    ]
+   },
+   {
+    "key": "spellslinger",
+    "name": "Spellslinger",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Jin-Gitaxias",
+      "s": 88
+     },
+     {
+      "n": "Archmage of Runes",
+      "s": 84
+     },
+     {
+      "n": "Shark Typhoon",
+      "s": 82
+     },
+     {
+      "n": "Talrand, Sky Summoner",
+      "s": 78
+     },
+     {
+      "n": "Monastery Mentor",
+      "s": 74
+     },
+     {
+      "n": "Hermes, Overseer of Elpis",
+      "s": 72
+     },
+     {
+      "n": "Geist of Saint Thalia",
+      "s": 76
+     },
+     {
+      "n": "Black Mage's Rod",
+      "s": 70
+     },
+     {
+      "n": "Cornered by Black Mages",
+      "s": 76
+     },
+     {
+      "n": "Astrologian's Planisphere",
+      "s": 64
+     },
+     {
+      "n": "Stock Up",
+      "s": 80
+     },
+     {
+      "n": "Read the Bones",
+      "s": 80
+     },
+     {
+      "n": "Painful Truths",
+      "s": 80
+     },
+     {
+      "n": "Fact or Fiction",
+      "s": 82
+     },
+     {
+      "n": "Sphinx's Revelation",
+      "s": 80
+     },
+     {
+      "n": "Stinging Study",
+      "s": 82
+     },
+     {
+      "n": "Deep Analysis",
+      "s": 78
+     },
+     {
+      "n": "Ambition's Cost",
+      "s": 80
+     },
+     {
+      "n": "Brainsurge",
+      "s": 74
+     },
+     {
+      "n": "Cast Away Doubt",
+      "s": 74
+     },
+     {
+      "n": "Into the Story",
+      "s": 76
+     },
+     {
+      "n": "Treasure Cruise",
+      "s": 72
+     },
+     {
+      "n": "Lórien Revealed",
+      "s": 72
+     },
+     {
+      "n": "Esper Charm",
+      "s": 70
+     },
+     {
+      "n": "Sublime Epiphany",
+      "s": 78
+     },
+     {
+      "n": "Press the Enemy",
+      "s": 70
+     },
+     {
+      "n": "Diresight",
+      "s": 72
+     }
+    ]
+   },
+   {
+    "key": "lifegain",
+    "name": "Lifegain",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Sanguine Bond",
+      "s": 88
+     },
+     {
+      "n": "Exquisite Blood",
+      "s": 84
+     },
+     {
+      "n": "Enduring Tenacity",
+      "s": 84
+     },
+     {
+      "n": "Marauding Blight-Priest",
+      "s": 80
+     },
+     {
+      "n": "Aetherflux Reservoir",
+      "s": 82
+     },
+     {
+      "n": "Alhammarret's Archive",
+      "s": 80
+     },
+     {
+      "n": "Well of Lost Dreams",
+      "s": 76
+     },
+     {
+      "n": "Bloodthirsty Conqueror",
+      "s": 78
+     },
+     {
+      "n": "Queza, Augur of Agonies",
+      "s": 78
+     },
+     {
+      "n": "The Wind Crystal",
+      "s": 76
+     },
+     {
+      "n": "Archangel of Thune",
+      "s": 76
+     },
+     {
+      "n": "Absorb",
+      "s": 76
+     },
+     {
+      "n": "Blind Obedience",
+      "s": 74
+     },
+     {
+      "n": "The Meathook Massacre",
+      "s": 74
+     },
+     {
+      "n": "Heliod, Sun-Crowned",
+      "s": 72
+     },
+     {
+      "n": "Exemplar of Light",
+      "s": 72
+     },
+     {
+      "n": "Dawn of Hope",
+      "s": 70
+     },
+     {
+      "n": "Crested Sunmare",
+      "s": 82
+     },
+     {
+      "n": "Rhox Faithmender",
+      "s": 66
+     },
+     {
+      "n": "Cliffhaven Vampire",
+      "s": 66
+     },
+     {
+      "n": "Vampire Nighthawk",
+      "s": 68
+     },
+     {
+      "n": "Sorin, Vengeful Bloodlord",
+      "s": 66
+     },
+     {
+      "n": "Lunar Convocation",
+      "s": 64
+     },
+     {
+      "n": "Attended Healer",
+      "s": 78
+     },
+     {
+      "n": "Cleric Class",
+      "s": 62
+     },
+     {
+      "n": "Soul Warden",
+      "s": 78
+     }
+    ]
+   },
+   {
+    "key": "burn",
+    "name": "Drain & Burn",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Torment of Hailfire",
+      "s": 82
+     },
+     {
+      "n": "Sword of Fire and Ice",
+      "s": 82
+     },
+     {
+      "n": "Psychosis Crawler",
+      "s": 80
+     },
+     {
+      "n": "Ugin, the Spirit Dragon",
+      "s": 80
+     },
+     {
+      "n": "Debt to the Deathless",
+      "s": 78
+     },
+     {
+      "n": "Professor Onyx",
+      "s": 76
+     },
+     {
+      "n": "Gray Merchant of Asphodel",
+      "s": 76
+     },
+     {
+      "n": "Wound Reflection",
+      "s": 76
+     },
+     {
+      "n": "Underworld Dreams",
+      "s": 74
+     },
+     {
+      "n": "Creeping Bloodsucker",
+      "s": 74
+     },
+     {
+      "n": "Painful Quandary",
+      "s": 74
+     },
+     {
+      "n": "Skysovereign, Consul Flagship",
+      "s": 72
+     },
+     {
+      "n": "Fate Unraveler",
+      "s": 72
+     },
+     {
+      "n": "Walking Ballista",
+      "s": 72
+     },
+     {
+      "n": "Sorin Markov",
+      "s": 70
+     },
+     {
+      "n": "God-Pharaoh's Statue",
+      "s": 66
+     },
+     {
+      "n": "Court of Ambition",
+      "s": 66
+     },
+     {
+      "n": "Bloodletter of Aclazotz",
+      "s": 82
+     }
+    ]
+   },
+   {
+    "key": "enchantress",
+    "name": "Enchantments",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Phyrexian Arena",
+      "s": 84
+     },
+     {
+      "n": "Propaganda",
+      "s": 80
+     },
+     {
+      "n": "Ghostly Prison",
+      "s": 80
+     },
+     {
+      "n": "Oblivion Ring",
+      "s": 78
+     },
+     {
+      "n": "Banishing Light",
+      "s": 78
+     },
+     {
+      "n": "Cast Out",
+      "s": 78
+     },
+     {
+      "n": "Detention Sphere",
+      "s": 74
+     },
+     {
+      "n": "Grasp of Fate",
+      "s": 76
+     },
+     {
+      "n": "Imprisoned in the Moon",
+      "s": 72
+     },
+     {
+      "n": "Elspeth Conquers Death",
+      "s": 78
+     },
+     {
+      "n": "Teferi's Ageless Insight",
+      "s": 76
+     },
+     {
+      "n": "Black Market Connections",
+      "s": 76
+     },
+     {
+      "n": "Sigil of the Empty Throne",
+      "s": 74
+     },
+     {
+      "n": "Sphere of Safety",
+      "s": 70
+     },
+     {
+      "n": "Sheltered by Ghosts",
+      "s": 70
+     },
+     {
+      "n": "Copy Enchantment",
+      "s": 66
+     },
+     {
+      "n": "Mesa Enchantress",
+      "s": 66
+     },
+     {
+      "n": "Entity Tracker",
+      "s": 64
+     },
+     {
+      "n": "Zur the Enchanter",
+      "s": 66
+     }
+    ]
+   },
+   {
+    "key": "progression-0",
+    "name": "Duel control",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Swords to Plowshares",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Path to Exile",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Mortify",
+      "c": "WB",
+      "s": 75
+     },
+     {
+      "n": "Despark",
+      "c": "WB",
+      "s": 75
+     },
+     {
+      "n": "Dovin's Veto",
+      "c": "WU",
+      "s": 75
+     },
+     {
+      "n": "Absorb",
+      "c": "WU",
+      "s": 75
+     },
+     {
+      "n": "Undermine",
+      "c": "UB",
+      "s": 75
+     },
+     {
+      "n": "Painful Truths",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Night's Whisper",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Read the Bones",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Blind Obedience",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Creeping Bloodsucker",
+      "c": "B",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "progression-1",
+    "name": "Life into cards",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Dawn of Hope",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Greed",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Erebos, God of the Dead",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Bolas's Citadel",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Drogskol Reaver",
+      "c": "WU",
+      "s": 75
+     },
+     {
+      "n": "Cliffhaven Vampire",
+      "c": "WB",
+      "s": 75
+     },
+     {
+      "n": "Marauding Blight-Priest",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Sorin, Vengeful Bloodlord",
+      "c": "WB",
+      "s": 75
+     },
+     {
+      "n": "Revitalize",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Union of the Third Path",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Pristine Talisman",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Aetherflux Reservoir",
+      "c": "",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 30,
+    "requiredWins": 3
+   }
+  ],
+  "protectedStarter": [
+   "Painful Truths",
+   "Toxic Deluge",
+   "Fellwar Stone",
+   "Get Lost",
+   "Undermine"
+  ]
+ },
+ "teval-the-balanced-scale": {
+  "lands": [
+   "Command Tower",
+   "Exotic Orchard",
+   "Jungle Hollow",
+   "Simic Guildgate",
+   "Dimir Guildgate",
+   "Thornwood Falls",
+   "Golgari Guildgate",
+   "Opulent Palace",
+   "Island",
+   "Island",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest"
+  ],
+  "starter": [
+   "Sol Ring",
+   "Arcane Signet",
+   "Kishla Skimmer",
+   "Conduit of Worlds",
+   "Stitcher's Supplier",
+   "Six",
+   "Insidious Roots",
+   "Meren of Clan Nel Toth",
+   "Kheru Goldkeeper",
+   "Skull Prophet",
+   "Phyrexian Reclamation",
+   "Timeless Witness",
+   "Muldrotha, the Gravetide",
+   "Ripples of Undeath",
+   "Tear Asunder",
+   "Grapple with the Past",
+   "Sidisi, Brood Tyrant",
+   "Afterlife from the Loam",
+   "River Kelpie",
+   "Ob Nixilis, the Fallen",
+   "Avenger of Zendikar",
+   "The Gitrog Monster",
+   "Kotis, Sibsig Champion",
+   "Dread Return",
+   "Harrow",
+   "Lethal Scheme",
+   "Hedge Shredder",
+   "Icetill Explorer",
+   "Nyx Weaver",
+   "The Scarab God",
+   "Tortured Existence",
+   "Welcome the Dead",
+   "Shigeki, Jukai Visionary",
+   "Jarad, Golgari Lich Lord",
+   "Floral Evoker"
+  ],
+  "minimumPackages": 5,
+  "themes": [
+   {
+    "key": "reanimator",
+    "name": "Reanimator",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Reanimate",
+      "s": 88
+     },
+     {
+      "n": "Animate Dead",
+      "s": 88
+     },
+     {
+      "n": "Necromancy",
+      "s": 82
+     },
+     {
+      "n": "Persist",
+      "s": 78
+     },
+     {
+      "n": "Victimize",
+      "s": 82
+     },
+     {
+      "n": "Agadeem's Awakening",
+      "s": 80
+     },
+     {
+      "n": "Sheoldred, Whispering One",
+      "s": 80
+     },
+     {
+      "n": "Overlord of the Balemurk",
+      "s": 78
+     },
+     {
+      "n": "Liliana, Death's Majesty",
+      "s": 78
+     },
+     {
+      "n": "Lich-Knights' Conquest",
+      "s": 76
+     },
+     {
+      "n": "Whip of Erebos",
+      "s": 76
+     },
+     {
+      "n": "Junji, the Midnight Sky",
+      "s": 76
+     },
+     {
+      "n": "Breach the Multiverse",
+      "s": 74
+     },
+     {
+      "n": "Stitch Together",
+      "s": 74
+     },
+     {
+      "n": "Dance of the Dead",
+      "s": 72
+     },
+     {
+      "n": "Virtue of Persistence",
+      "s": 74
+     },
+     {
+      "n": "Rise of the Witch-king",
+      "s": 72
+     },
+     {
+      "n": "Zombify",
+      "s": 70
+     },
+     {
+      "n": "Phyrexian Delver",
+      "s": 70
+     },
+     {
+      "n": "Extract from Darkness",
+      "s": 70
+     },
+     {
+      "n": "Incarnation Technique",
+      "s": 70
+     },
+     {
+      "n": "Cauldron of Essence",
+      "s": 70
+     },
+     {
+      "n": "The Eldest Reborn",
+      "s": 70
+     },
+     {
+      "n": "Chthonian Nightmare",
+      "s": 66
+     },
+     {
+      "n": "Doomed Necromancer",
+      "s": 66
+     },
+     {
+      "n": "Metamorphosis Fanatic",
+      "s": 64
+     }
+    ]
+   },
+   {
+    "key": "self-mill",
+    "name": "Self-mill",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Entomb",
+      "s": 86
+     },
+     {
+      "n": "Buried Alive",
+      "s": 82
+     },
+     {
+      "n": "Grisly Salvage",
+      "s": 80
+     },
+     {
+      "n": "Blossoming Tortoise",
+      "s": 80
+     },
+     {
+      "n": "Forbidden Alchemy",
+      "s": 78
+     },
+     {
+      "n": "Satyr Wayfinder",
+      "s": 78
+     },
+     {
+      "n": "Primal Witchstalker",
+      "s": 78
+     },
+     {
+      "n": "Doom Whisperer",
+      "s": 76
+     },
+     {
+      "n": "Midnight Tilling",
+      "s": 76
+     },
+     {
+      "n": "Awaken the Honored Dead",
+      "s": 76
+     },
+     {
+      "n": "Vile Entomber",
+      "s": 74
+     },
+     {
+      "n": "Unmarked Grave",
+      "s": 74
+     },
+     {
+      "n": "Thought Scour",
+      "s": 74
+     },
+     {
+      "n": "Smuggler's Surprise",
+      "s": 74
+     },
+     {
+      "n": "Malevolent Rumble",
+      "s": 74
+     },
+     {
+      "n": "Crawling Sensation",
+      "s": 74
+     },
+     {
+      "n": "Millikin",
+      "s": 72
+     },
+     {
+      "n": "Essence Anchor",
+      "s": 72
+     },
+     {
+      "n": "Diviner of Mist",
+      "s": 72
+     },
+     {
+      "n": "Dread Summons",
+      "s": 72
+     },
+     {
+      "n": "Crawling Infestation",
+      "s": 80
+     },
+     {
+      "n": "Underrealm Lich",
+      "s": 72
+     },
+     {
+      "n": "Summon: Titan",
+      "s": 72
+     },
+     {
+      "n": "The Mending of Dominaria",
+      "s": 70
+     },
+     {
+      "n": "Lotuslight Dancers",
+      "s": 70
+     },
+     {
+      "n": "Liliana the Repentant",
+      "s": 66
+     },
+     {
+      "n": "Glowspore Shaman",
+      "s": 64
+     }
+    ]
+   },
+   {
+    "key": "lands-matter",
+    "name": "Lands",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Crucible of Worlds",
+      "s": 86
+     },
+     {
+      "n": "Ramunap Excavator",
+      "s": 84
+     },
+     {
+      "n": "Ancient Greenwarden",
+      "s": 84
+     },
+     {
+      "n": "Lumra, Bellow of the Woods",
+      "s": 84
+     },
+     {
+      "n": "Aftermath Analyst",
+      "s": 84
+     },
+     {
+      "n": "Uro, Titan of Nature's Wrath",
+      "s": 82
+     },
+     {
+      "n": "Tireless Tracker",
+      "s": 82
+     },
+     {
+      "n": "Splendid Reclamation",
+      "s": 80
+     },
+     {
+      "n": "Titania, Protector of Argoth",
+      "s": 80
+     },
+     {
+      "n": "World Shaper",
+      "s": 80
+     },
+     {
+      "n": "Lotus Cobra",
+      "s": 80
+     },
+     {
+      "n": "Polluted Delta",
+      "s": 80
+     },
+     {
+      "n": "Verdant Catacombs",
+      "s": 80
+     },
+     {
+      "n": "Misty Rainforest",
+      "s": 80
+     },
+     {
+      "n": "Aesi, Tyrant of Gyre Strait",
+      "s": 78
+     },
+     {
+      "n": "Oracle of Mul Daya",
+      "s": 78
+     },
+     {
+      "n": "Boseiju, Who Endures",
+      "s": 78
+     },
+     {
+      "n": "Exploration",
+      "s": 76
+     },
+     {
+      "n": "Azusa, Lost but Seeking",
+      "s": 76
+     },
+     {
+      "n": "Scute Swarm",
+      "s": 76
+     },
+     {
+      "n": "Fabled Passage",
+      "s": 76
+     },
+     {
+      "n": "Mole Man, Moloid Master",
+      "s": 74
+     },
+     {
+      "n": "Springbloom Druid",
+      "s": 74
+     },
+     {
+      "n": "Takenuma, Abandoned Mire",
+      "s": 74
+     },
+     {
+      "n": "Evolving Wilds",
+      "s": 72
+     },
+     {
+      "n": "Glacierwood Siege",
+      "s": 72
+     },
+     {
+      "n": "Spelunking",
+      "s": 72
+     },
+     {
+      "n": "Multani, Yavimaya's Avatar",
+      "s": 72
+     },
+     {
+      "n": "Wight of the Reliquary",
+      "s": 70
+     },
+     {
+      "n": "Bojuka Bog",
+      "s": 68
+     }
+    ]
+   },
+   {
+    "key": "graveyard",
+    "name": "Graveyard value",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Eternal Witness",
+      "s": 82
+     },
+     {
+      "n": "Deathrite Shaman",
+      "s": 80
+     },
+     {
+      "n": "Tormod, the Desecrator",
+      "s": 80
+     },
+     {
+      "n": "Titans' Nest",
+      "s": 78
+     },
+     {
+      "n": "Scavenging Ooze",
+      "s": 78
+     },
+     {
+      "n": "Dig Through Time",
+      "s": 78
+     },
+     {
+      "n": "Syr Konrad, the Grim",
+      "s": 76
+     },
+     {
+      "n": "Bloodghast",
+      "s": 76
+     },
+     {
+      "n": "Treasure Cruise",
+      "s": 76
+     },
+     {
+      "n": "Tasigur, the Golden Fang",
+      "s": 74
+     },
+     {
+      "n": "Unearth",
+      "s": 74
+     },
+     {
+      "n": "Cemetery Reaper",
+      "s": 72
+     },
+     {
+      "n": "Reassembling Skeleton",
+      "s": 72
+     },
+     {
+      "n": "Woe Strider",
+      "s": 72
+     },
+     {
+      "n": "Splinterfright",
+      "s": 78
+     },
+     {
+      "n": "Fanatic of Rhonas",
+      "s": 66
+     },
+     {
+      "n": "Amphin Mutineer",
+      "s": 66
+     },
+     {
+      "n": "Lie in Wait",
+      "s": 64
+     }
+    ]
+   },
+   {
+    "key": "tokens",
+    "name": "Zombies & tokens",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Doubling Season",
+      "s": 86
+     },
+     {
+      "n": "Liliana, Dreadhorde General",
+      "s": 84
+     },
+     {
+      "n": "Parallel Lives",
+      "s": 82
+     },
+     {
+      "n": "Grave Titan",
+      "s": 82
+     },
+     {
+      "n": "Rampaging Baloths",
+      "s": 80
+     },
+     {
+      "n": "Tendershoot Dryad",
+      "s": 78
+     },
+     {
+      "n": "Adrix and Nev, Twincasters",
+      "s": 76
+     },
+     {
+      "n": "Second Harvest",
+      "s": 76
+     },
+     {
+      "n": "Hornet Queen",
+      "s": 74
+     },
+     {
+      "n": "Lord of the Accursed",
+      "s": 74
+     },
+     {
+      "n": "Death Baron",
+      "s": 74
+     },
+     {
+      "n": "Cryptbreaker",
+      "s": 72
+     },
+     {
+      "n": "Bitterblossom",
+      "s": 72
+     },
+     {
+      "n": "Undead Warchief",
+      "s": 70
+     },
+     {
+      "n": "Wilhelt, the Rotcleaver",
+      "s": 70
+     },
+     {
+      "n": "Bastion of Remembrance",
+      "s": 70
+     },
+     {
+      "n": "Ghoulcaller Gisa",
+      "s": 68
+     },
+     {
+      "n": "Springheart Nantuko",
+      "s": 66
+     },
+     {
+      "n": "Champion of the Perished",
+      "s": 64
+     }
+    ]
+   },
+   {
+    "key": "progression-0",
+    "name": "Graveyard gardener",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Satyr Wayfinder",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Stitcher's Supplier",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Grisly Salvage",
+      "c": "BG",
+      "s": 75
+     },
+     {
+      "n": "Mulch",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Sudden Reclamation",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Grapple with the Past",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Crawling Sensation",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Crawling Infestation",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Perpetual Timepiece",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Timeless Witness",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Eternal Witness",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Reclamation Sage",
+      "c": "G",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "progression-1",
+    "name": "Return and renew",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Tortured Existence",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Phyrexian Reclamation",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Oversold Cemetery",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Genesis",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Deadbridge Chant",
+      "c": "BG",
+      "s": 75
+     },
+     {
+      "n": "The Mending of Dominaria",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Winding Way",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Dread Return",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Victimize",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Patriarch's Bidding",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Skull Prophet",
+      "c": "BG",
+      "s": 75
+     },
+     {
+      "n": "Old Rutstein",
+      "c": "BG",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 30,
+    "requiredWins": 3
+   }
+  ]
+ },
+ "fire-lord-azula": {
+  "lands": [
+   "Command Tower",
+   "Exotic Orchard",
+   "Rakdos Guildgate",
+   "Izzet Guildgate",
+   "Dismal Backwater",
+   "Path of Ancestry",
+   "Crumbling Necropolis",
+   "Swiftwater Cliffs",
+   "Island",
+   "Island",
+   "Island",
+   "Island",
+   "Island",
+   "Swamp",
+   "Swamp",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Mountain"
+  ],
+  "starter": [
+   "Sol Ring",
+   "Arcane Signet",
+   "Electro, Assaulting Battery",
+   "Firebending Student",
+   "Twinning Staff",
+   "Bulk Up",
+   "Dualcaster Mage",
+   "Fists of Flame",
+   "Sozin's Comet",
+   "Ashling, Flame Dancer",
+   "Fated Firepower",
+   "Etali, Primal Storm",
+   "Waterlogged Teachings",
+   "Firebender Ascension",
+   "Azula, Cunning Usurper",
+   "Pyretic Ritual",
+   "Lightning Strike",
+   "Torrential Gearhulk",
+   "Goblin Electromancer",
+   "Zuko, Firebending Master",
+   "Valley Floodcaller",
+   "Nightscape Familiar",
+   "Crackle with Power",
+   "Talisman of Creativity",
+   "Izzet Signet",
+   "Talisman of Indulgence",
+   "Talisman of Dominance",
+   "Dimir Signet",
+   "Flashback",
+   "Unleash Fury",
+   "Desperate Ritual",
+   "Stormcatch Mentor",
+   "Comet Storm",
+   "Snapcaster Mage",
+   "Prismari Command"
+  ],
+  "minimumPackages": 6,
+  "themes": [
+   {
+    "key": "spellslinger",
+    "name": "Spellslinger: instant removal & draw",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Vivi Ornitier",
+      "s": 80
+     },
+     {
+      "n": "Archmage Emeritus",
+      "s": 80
+     },
+     {
+      "n": "Storm-Kiln Artist",
+      "s": 80
+     },
+     {
+      "n": "Big Score",
+      "s": 80
+     },
+     {
+      "n": "Terminate",
+      "s": 82
+     },
+     {
+      "n": "Infernal Grasp",
+      "s": 80
+     },
+     {
+      "n": "Unexpected Windfall",
+      "s": 78
+     },
+     {
+      "n": "Guttersnipe",
+      "s": 76
+     },
+     {
+      "n": "Talrand, Sky Summoner",
+      "s": 76
+     },
+     {
+      "n": "Go for the Throat",
+      "s": 76
+     },
+     {
+      "n": "Bedevil",
+      "s": 76
+     },
+     {
+      "n": "Invoke Calamity",
+      "s": 74
+     },
+     {
+      "n": "Longshot, Rebel Bowman",
+      "s": 74
+     },
+     {
+      "n": "Izzet Charm",
+      "s": 72
+     },
+     {
+      "n": "Bitter Triumph",
+      "s": 72
+     },
+     {
+      "n": "Brazen Borrower",
+      "s": 72
+     },
+     {
+      "n": "Hero's Downfall",
+      "s": 70
+     },
+     {
+      "n": "Flame of Anor",
+      "s": 70
+     },
+     {
+      "n": "Young Pyromancer",
+      "s": 70
+     },
+     {
+      "n": "Third Path Iconoclast",
+      "s": 70
+     },
+     {
+      "n": "Frantic Search",
+      "s": 66
+     },
+     {
+      "n": "Brainstorm",
+      "s": 66
+     },
+     {
+      "n": "Fact or Fiction",
+      "s": 66
+     },
+     {
+      "n": "Expressive Iteration",
+      "s": 64
+     },
+     {
+      "n": "Black Waltz No. 3",
+      "s": 64
+     },
+     {
+      "n": "Consider",
+      "s": 62
+     },
+     {
+      "n": "Kess, Dissident Mage",
+      "s": 62
+     },
+     {
+      "n": "Coruscation Mage",
+      "s": 60
+     }
+    ]
+   },
+   {
+    "key": "spell-copy",
+    "name": "Spell copying",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Reverberate",
+      "s": 82
+     },
+     {
+      "n": "Return the Favor",
+      "s": 80
+     },
+     {
+      "n": "Twinferno",
+      "s": 80
+     },
+     {
+      "n": "Leyline of Resonance",
+      "s": 78
+     },
+     {
+      "n": "Galvanic Iteration",
+      "s": 78
+     },
+     {
+      "n": "Twincast",
+      "s": 76
+     },
+     {
+      "n": "Increasing Vengeance",
+      "s": 76
+     },
+     {
+      "n": "Pyromancer's Goggles",
+      "s": 76
+     },
+     {
+      "n": "Chandra, Hope's Beacon",
+      "s": 76
+     },
+     {
+      "n": "Reiterate",
+      "s": 74
+     },
+     {
+      "n": "Flare of Duplication",
+      "s": 74
+     },
+     {
+      "n": "Expansion // Explosion",
+      "s": 74
+     },
+     {
+      "n": "Kitsa, Otterball Elite",
+      "s": 74
+     },
+     {
+      "n": "Fork",
+      "s": 72
+     },
+     {
+      "n": "Double Vision",
+      "s": 72
+     },
+     {
+      "n": "Stella Lee, Wild Card",
+      "s": 72
+     },
+     {
+      "n": "Primal Amulet",
+      "s": 72
+     },
+     {
+      "n": "Teach by Example",
+      "s": 70
+     },
+     {
+      "n": "Lithoform Engine",
+      "s": 70
+     },
+     {
+      "n": "Ral, Storm Conduit",
+      "s": 70
+     },
+     {
+      "n": "Storm of Saruman",
+      "s": 68
+     },
+     {
+      "n": "Naru Meha, Master Wizard",
+      "s": 68
+     },
+     {
+      "n": "Jin-Gitaxias, Progress Tyrant",
+      "s": 66
+     },
+     {
+      "n": "Dual Strike",
+      "s": 66
+     },
+     {
+      "n": "Storm King's Thunder",
+      "s": 66
+     },
+     {
+      "n": "Bonus Round",
+      "s": 66
+     },
+     {
+      "n": "Wild Ricochet",
+      "s": 64
+     },
+     {
+      "n": "Swarm Intelligence",
+      "s": 64
+     }
+    ]
+   },
+   {
+    "key": "aggro",
+    "name": "Aggro: haste, evasion & attackers",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Goldspan Dragon",
+      "s": 82
+     },
+     {
+      "n": "Swiftfoot Boots",
+      "s": 80
+     },
+     {
+      "n": "Embercleave",
+      "s": 80
+     },
+     {
+      "n": "Ragavan, Nimble Pilferer",
+      "s": 78
+     },
+     {
+      "n": "Karlach, Fury of Avernus",
+      "s": 78
+     },
+     {
+      "n": "Brotherhood Regalia",
+      "s": 76
+     },
+     {
+      "n": "Rankle, Master of Pranks",
+      "s": 76
+     },
+     {
+      "n": "Fable of the Mirror-Breaker",
+      "s": 76
+     },
+     {
+      "n": "Savage Beating",
+      "s": 76
+     },
+     {
+      "n": "Rising of the Day",
+      "s": 74
+     },
+     {
+      "n": "Aggravated Assault",
+      "s": 74
+     },
+     {
+      "n": "Professional Face-Breaker",
+      "s": 74
+     },
+     {
+      "n": "Bria, Riptide Rogue",
+      "s": 74
+     },
+     {
+      "n": "Laelia, the Blade Reforged",
+      "s": 72
+     },
+     {
+      "n": "Zuko, Exiled Prince",
+      "s": 72
+     },
+     {
+      "n": "Enduring Curiosity",
+      "s": 72
+     },
+     {
+      "n": "Lavaspur Boots",
+      "s": 70
+     },
+     {
+      "n": "The Fire Crystal",
+      "s": 70
+     },
+     {
+      "n": "Combat Celebrant",
+      "s": 70
+     },
+     {
+      "n": "Relentless Assault",
+      "s": 70
+     },
+     {
+      "n": "Seize the Day",
+      "s": 70
+     },
+     {
+      "n": "Avatar Roku, Firebender",
+      "s": 70
+     },
+     {
+      "n": "Loyal Apprentice",
+      "s": 70
+     },
+     {
+      "n": "Screaming Nemesis",
+      "s": 70
+     },
+     {
+      "n": "Balmor, Battlemage Captain",
+      "s": 68
+     },
+     {
+      "n": "Dolmen Gate",
+      "s": 66
+     },
+     {
+      "n": "Leyline Tyrant",
+      "s": 64
+     },
+     {
+      "n": "Ty Lee, Artful Acrobat",
+      "s": 62
+     }
+    ]
+   },
+   {
+    "key": "storm",
+    "name": "Storm & rituals",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Birgi, God of Storytelling",
+      "s": 76
+     },
+     {
+      "n": "Seething Song",
+      "s": 74
+     },
+     {
+      "n": "Grapeshot",
+      "s": 74
+     },
+     {
+      "n": "Cabal Ritual",
+      "s": 70
+     },
+     {
+      "n": "Tendrils of Agony",
+      "s": 70
+     },
+     {
+      "n": "Past in Flames",
+      "s": 70
+     },
+     {
+      "n": "Ruby Medallion",
+      "s": 70
+     },
+     {
+      "n": "Haughty Djinn",
+      "s": 68
+     },
+     {
+      "n": "Baral, Chief of Compliance",
+      "s": 66
+     },
+     {
+      "n": "Empty the Warrens",
+      "s": 66
+     },
+     {
+      "n": "Aetherflux Reservoir",
+      "s": 66
+     },
+     {
+      "n": "Will of the Jeskai",
+      "s": 64
+     },
+     {
+      "n": "Spellseeker",
+      "s": 64
+     },
+     {
+      "n": "Preordain",
+      "s": 62
+     },
+     {
+      "n": "Crackling Spellslinger",
+      "s": 62
+     },
+     {
+      "n": "Mox Amber",
+      "s": 60
+     },
+     {
+      "n": "Valakut Awakening",
+      "s": 60
+     },
+     {
+      "n": "Brain Freeze",
+      "s": 58
+     },
+     {
+      "n": "Strike It Rich",
+      "s": 58
+     },
+     {
+      "n": "Gitaxian Probe",
+      "s": 56
+     }
+    ]
+   },
+   {
+    "key": "burn",
+    "name": "Burn spells",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Lightning Bolt",
+      "s": 88
+     },
+     {
+      "n": "Abrade",
+      "s": 78
+     },
+     {
+      "n": "Fire Covenant",
+      "s": 78
+     },
+     {
+      "n": "Kolaghan's Command",
+      "s": 78
+     },
+     {
+      "n": "Delayed Blast Fireball",
+      "s": 78
+     },
+     {
+      "n": "Burst Lightning",
+      "s": 76
+     },
+     {
+      "n": "Searing Spear",
+      "s": 74
+     },
+     {
+      "n": "Electrolyze",
+      "s": 74
+     },
+     {
+      "n": "Fiery Confluence",
+      "s": 74
+     },
+     {
+      "n": "Shock",
+      "s": 72
+     },
+     {
+      "n": "Fire // Ice",
+      "s": 72
+     },
+     {
+      "n": "Magma Jet",
+      "s": 70
+     },
+     {
+      "n": "Banefire",
+      "s": 70
+     },
+     {
+      "n": "Bonecrusher Giant",
+      "s": 70
+     },
+     {
+      "n": "Stoke the Flames",
+      "s": 66
+     },
+     {
+      "n": "Cathartic Pyre",
+      "s": 66
+     },
+     {
+      "n": "Firebending Lesson",
+      "s": 64
+     },
+     {
+      "n": "Boltwave",
+      "s": 62
+     },
+     {
+      "n": "Spikefield Hazard",
+      "s": 62
+     }
+    ]
+   },
+   {
+    "key": "combat-tricks",
+    "name": "Combat tricks",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Brute Force",
+      "s": 82
+     },
+     {
+      "n": "Temur Battle Rage",
+      "s": 80
+     },
+     {
+      "n": "Shore Up",
+      "s": 80
+     },
+     {
+      "n": "Psychotic Fury",
+      "s": 78
+     },
+     {
+      "n": "Blazing Crescendo",
+      "s": 78
+     },
+     {
+      "n": "Great Train Heist",
+      "s": 78
+     },
+     {
+      "n": "Infuriate",
+      "s": 76
+     },
+     {
+      "n": "Titan's Strength",
+      "s": 76
+     },
+     {
+      "n": "Haste Magic",
+      "s": 74
+     },
+     {
+      "n": "Fake Your Own Death",
+      "s": 74
+     },
+     {
+      "n": "Rabid Gnaw",
+      "s": 74
+     },
+     {
+      "n": "Supernatural Stamina",
+      "s": 72
+     },
+     {
+      "n": "Run Amok",
+      "s": 72
+     },
+     {
+      "n": "Dive Down",
+      "s": 70
+     },
+     {
+      "n": "Reckless Ransacking",
+      "s": 70
+     },
+     {
+      "n": "Monstrous Rage",
+      "s": 70
+     },
+     {
+      "n": "Gimli's Fury",
+      "s": 68
+     },
+     {
+      "n": "Cunning Maneuver",
+      "s": 68
+     },
+     {
+      "n": "Antagonize",
+      "s": 66
+     },
+     {
+      "n": "Frantic Confrontation",
+      "s": 66
+     }
+    ],
+    "focus": true
+   },
+   {
+    "key": "progression-0",
+    "name": "Combat response",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Soul's Fire",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Fling",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Quicken",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Fists of Flame",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Dramatic Reversal",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Reverberate",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Bolt Bend",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Unleash Fury",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Brute Strength",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Infuriate",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Expedite",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Shadow Rift",
+      "c": "U",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "progression-1",
+    "name": "Arcane ambush",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Emergence Zone",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Torrential Gearhulk",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Snapcaster Mage",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Hypersonic Dragon",
+      "c": "UR",
+      "s": 75
+     },
+     {
+      "n": "Tidal Barracuda",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Winding Canyons",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Electrostatic Field",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Firebrand Archer",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Third Path Iconoclast",
+      "c": "UR",
+      "s": 75
+     },
+     {
+      "n": "Young Pyromancer",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Archmage Emeritus",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Storm-Kiln Artist",
+      "c": "R",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 30,
+    "requiredWins": 3
+   }
+  ]
+ },
+ "cloud-ex-soldier": {
+  "lands": [
+   "Command Tower",
+   "Jungle Shrine",
+   "Boros Guildgate",
+   "Blossoming Sands",
+   "Wind-Scarred Crag",
+   "Selesnya Guildgate",
+   "Path of Ancestry",
+   "Gruul Guildgate",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Forest",
+   "Forest",
+   "Forest"
+  ],
+  "starter": [
+   "Sol Ring",
+   "Arcane Signet",
+   "Cloud, Midgar Mercenary",
+   "Bugenhagen, Wise Elder",
+   "Buster Sword",
+   "Wrecking Ball Arm",
+   "Champion's Helm",
+   "Ultimate Magic: Holy",
+   "Sram, Senior Edificer",
+   "Forge Anew",
+   "Trailblazer's Boots",
+   "Behemoth Sledge",
+   "Darksteel Plate",
+   "Sephiroth, Fallen Hero",
+   "Hero's Blade",
+   "Cloud's Limit Break",
+   "Barret, Avalanche Leader",
+   "Zack Fair",
+   "Conformer Shuriken",
+   "Vincent, Vengeful Atoner",
+   "Sigarda's Aid",
+   "Unfinished Business",
+   "Yuffie, Materia Hunter",
+   "Summoning Materia",
+   "Bastion Protector",
+   "Danitha Capashen, Paragon",
+   "Vanquish the Horde",
+   "Genji Glove",
+   "Stoneforge Mystic",
+   "Helitrooper",
+   "The Reaver Cleaver",
+   "Sword of Feast and Famine",
+   "Steelshaper's Gift",
+   "Hero's Heirloom",
+   "Hammer of Nazahn"
+  ],
+  "minimumPackages": 5,
+  "themes": [
+   {
+    "key": "equipment",
+    "name": "Equipment engine",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Fighter Class",
+      "s": 80
+     },
+     {
+      "n": "Bruenor Battlehammer",
+      "s": 80
+     },
+     {
+      "n": "Open the Armory",
+      "s": 74
+     },
+     {
+      "n": "Akiri, Fearless Voyager",
+      "s": 74
+     },
+     {
+      "n": "Cloud, Planet's Champion",
+      "s": 74
+     },
+     {
+      "n": "Bureau Headmaster",
+      "s": 72
+     },
+     {
+      "n": "Codsworth, Handy Helper",
+      "s": 72
+     },
+     {
+      "n": "Armored Skyhunter",
+      "s": 72
+     },
+     {
+      "n": "Firion, Wild Rose Warrior",
+      "s": 72
+     },
+     {
+      "n": "Danitha, Sword of Hope",
+      "s": 72
+     },
+     {
+      "n": "Lizard Blades",
+      "s": 72
+     },
+     {
+      "n": "Kellan, the Fae-Blooded",
+      "s": 70
+     },
+     {
+      "n": "Gilgamesh, Master-at-Arms",
+      "s": 70
+     },
+     {
+      "n": "Mask of Memory",
+      "s": 70
+     },
+     {
+      "n": "Nettlecyst",
+      "s": 70
+     },
+     {
+      "n": "Diamond Pick-Axe",
+      "s": 70
+     },
+     {
+      "n": "Bloodforged Battle-Axe",
+      "s": 70
+     },
+     {
+      "n": "Sword of Vengeance",
+      "s": 70
+     },
+     {
+      "n": "Armory Automaton",
+      "s": 68
+     },
+     {
+      "n": "Raubahn, Bull of Ala Mhigo",
+      "s": 66
+     },
+     {
+      "n": "Weapons Vendor",
+      "s": 66
+     },
+     {
+      "n": "Brass Squire",
+      "s": 66
+     },
+     {
+      "n": "Blacksmith's Talent",
+      "s": 66
+     },
+     {
+      "n": "Skullclamp",
+      "s": 66
+     },
+     {
+      "n": "Lavaspur Boots",
+      "s": 66
+     },
+     {
+      "n": "Adaptive Omnitool",
+      "s": 66
+     },
+     {
+      "n": "Masterwork of Ingenuity",
+      "s": 64
+     },
+     {
+      "n": "Samurai's Katana",
+      "s": 62
+     },
+     {
+      "n": "Adelbert Steiner",
+      "s": 62
+     }
+    ]
+   },
+   {
+    "key": "voltron",
+    "name": "Voltron: make Cloud huge & safe",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Commander's Plate",
+      "s": 82
+     },
+     {
+      "n": "Blackblade Reforged",
+      "s": 80
+     },
+     {
+      "n": "Embercleave",
+      "s": 80
+     },
+     {
+      "n": "Mithril Coat",
+      "s": 78
+     },
+     {
+      "n": "Swiftfoot Boots",
+      "s": 78
+     },
+     {
+      "n": "Dragonfire Blade",
+      "s": 76
+     },
+     {
+      "n": "Shadowspear",
+      "s": 74
+     },
+     {
+      "n": "Mjölnir, Hammer of Thor",
+      "s": 74
+     },
+     {
+      "n": "Leyline Axe",
+      "s": 74
+     },
+     {
+      "n": "Heroic Intervention",
+      "s": 74
+     },
+     {
+      "n": "Two-Handed Axe",
+      "s": 72
+     },
+     {
+      "n": "Kaldra Compleat",
+      "s": 72
+     },
+     {
+      "n": "Loxodon Warhammer",
+      "s": 70
+     },
+     {
+      "n": "Fireshrieker",
+      "s": 70
+     },
+     {
+      "n": "Boros Charm",
+      "s": 70
+     },
+     {
+      "n": "Restoration Magic",
+      "s": 70
+     },
+     {
+      "n": "Tifa's Limit Break",
+      "s": 70
+     },
+     {
+      "n": "Blossoming Defense",
+      "s": 68
+     },
+     {
+      "n": "Sword of Once and Future",
+      "s": 68
+     },
+     {
+      "n": "SOLDIER Military Program",
+      "s": 68
+     },
+     {
+      "n": "Nibelheim Aflame",
+      "s": 68
+     },
+     {
+      "n": "Power Fist",
+      "s": 66
+     },
+     {
+      "n": "Silver Shroud Costume",
+      "s": 66
+     },
+     {
+      "n": "Super-Soldier Serum",
+      "s": 64
+     },
+     {
+      "n": "Excalibur, Sword of Eden",
+      "s": 64
+     },
+     {
+      "n": "Lifestream's Blessing",
+      "s": 64
+     },
+     {
+      "n": "Strong Back",
+      "s": 62
+     },
+     {
+      "n": "Ultima Weapon",
+      "s": 62
+     },
+     {
+      "n": "Aettir and Priwen",
+      "s": 60
+     }
+    ]
+   },
+   {
+    "key": "extra-combats",
+    "name": "Extra combats",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Aurelia, the Warleader",
+      "s": 84
+     },
+     {
+      "n": "Aggravated Assault",
+      "s": 80
+     },
+     {
+      "n": "Karlach, Fury of Avernus",
+      "s": 80
+     },
+     {
+      "n": "Combat Celebrant",
+      "s": 76
+     },
+     {
+      "n": "Great Train Heist",
+      "s": 76
+     },
+     {
+      "n": "Seize the Day",
+      "s": 76
+     },
+     {
+      "n": "Savage Beating",
+      "s": 76
+     },
+     {
+      "n": "Relentless Assault",
+      "s": 74
+     },
+     {
+      "n": "Full Throttle",
+      "s": 74
+     },
+     {
+      "n": "Hexplate Wallbreaker",
+      "s": 74
+     },
+     {
+      "n": "Overpowering Attack",
+      "s": 72
+     },
+     {
+      "n": "Akki Battle Squad",
+      "s": 72
+     },
+     {
+      "n": "Scourge of the Throne",
+      "s": 70
+     },
+     {
+      "n": "Hellkite Charger",
+      "s": 68
+     },
+     {
+      "n": "Port Razer",
+      "s": 66
+     },
+     {
+      "n": "Anzrag, the Quake-Mole",
+      "s": 66
+     },
+     {
+      "n": "World at War",
+      "s": 66
+     },
+     {
+      "n": "Last Night Together",
+      "s": 66
+     },
+     {
+      "n": "Waves of Aggression",
+      "s": 64
+     },
+     {
+      "n": "Response // Resurgence",
+      "s": 64
+     },
+     {
+      "n": "Moraug, Fury of Akoum",
+      "s": 64
+     },
+     {
+      "n": "Godo, Bandit Warlord",
+      "s": 64
+     },
+     {
+      "n": "Raph & Leo, Sibling Rivals",
+      "s": 62
+     },
+     {
+      "n": "Fury of the Horde",
+      "s": 60
+     },
+     {
+      "n": "Grim Reaper's Sprint",
+      "s": 58
+     }
+    ]
+   },
+   {
+    "key": "artifacts",
+    "name": "Artifact ramp (mana rocks)",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Talisman of Conviction",
+      "s": 74
+     },
+     {
+      "n": "Boros Signet",
+      "s": 72
+     },
+     {
+      "n": "Talisman of Impulse",
+      "s": 72
+     },
+     {
+      "n": "Talisman of Unity",
+      "s": 72
+     },
+     {
+      "n": "Thran Dynamo",
+      "s": 72
+     },
+     {
+      "n": "The Great Henge",
+      "s": 72
+     },
+     {
+      "n": "Gruul Signet",
+      "s": 70
+     },
+     {
+      "n": "Selesnya Signet",
+      "s": 70
+     },
+     {
+      "n": "Fellwar Stone",
+      "s": 70
+     },
+     {
+      "n": "Mind Stone",
+      "s": 70
+     },
+     {
+      "n": "Worn Powerstone",
+      "s": 66
+     },
+     {
+      "n": "Everflowing Chalice",
+      "s": 66
+     },
+     {
+      "n": "Hedron Archive",
+      "s": 62
+     },
+     {
+      "n": "Prismatic Lens",
+      "s": 62
+     },
+     {
+      "n": "Coldsteel Heart",
+      "s": 62
+     },
+     {
+      "n": "Patchwork Banner",
+      "s": 60
+     },
+     {
+      "n": "Ornithopter of Paradise",
+      "s": 60
+     },
+     {
+      "n": "Relic of Legends",
+      "s": 58
+     }
+    ]
+   },
+   {
+    "key": "modified-creatures",
+    "name": "Modified creatures (equipped & enchanted)",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Kodama of the West Tree",
+      "s": 80
+     },
+     {
+      "n": "Halvar, God of Battle",
+      "s": 78
+     },
+     {
+      "n": "Reyav, Master Smith",
+      "s": 76
+     },
+     {
+      "n": "Rancor",
+      "s": 72
+     },
+     {
+      "n": "Lion Umbra",
+      "s": 72
+     },
+     {
+      "n": "Chishiro, the Shattered Blade",
+      "s": 70
+     },
+     {
+      "n": "Thran Power Suit",
+      "s": 70
+     },
+     {
+      "n": "Silkguard",
+      "s": 70
+     },
+     {
+      "n": "Wyleth, Soul of Steel",
+      "s": 70
+     },
+     {
+      "n": "All That Glitters",
+      "s": 70
+     },
+     {
+      "n": "Invigorating Hot Spring",
+      "s": 66
+     },
+     {
+      "n": "Araña, Heart of the Spider",
+      "s": 66
+     },
+     {
+      "n": "Dogmeat, Ever Loyal",
+      "s": 64
+     },
+     {
+      "n": "Envoy of the Ancestors",
+      "s": 62
+     },
+     {
+      "n": "Valduk, Keeper of the Flame",
+      "s": 62
+     },
+     {
+      "n": "With Great Power . . .",
+      "s": 62
+     },
+     {
+      "n": "Vigorbloom Charm",
+      "s": 62
+     },
+     {
+      "n": "Kami of Celebration",
+      "s": 60
+     }
+    ]
+   },
+   {
+    "key": "progression-0",
+    "name": "Equipment economy",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Astor, Bearer of Blades",
+      "c": "WR",
+      "s": 75
+     },
+     {
+      "n": "Sram, Senior Edificer",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Stonehewer Giant",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Steelshaper's Gift",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Open the Armory",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Sigarda's Aid",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Forge Anew",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Danitha Capashen, Paragon",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Kemba, Kha Enduring",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Leonin Shikari",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Sunforger",
+      "c": "WR",
+      "s": 75
+     },
+     {
+      "n": "Hammer of Nazahn",
+      "c": "",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "progression-1",
+    "name": "Living armory",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Batterskull",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Kaldra Compleat",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Nettlecyst",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Maul of the Skyclaves",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Bitterthorn, Nissa's Animus",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Sword of Hearth and Home",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Dowsing Dagger",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Masterwork of Ingenuity",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Mantle of the Ancients",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Heavenly Blademaster",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Loxodon Warhammer",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Reyav, Master Smith",
+      "c": "WR",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 30,
+    "requiredWins": 3
+   }
+  ]
+ },
+ "ureni-of-the-unwritten": {
+  "lands": [
+   "Command Tower",
+   "Rugged Highlands",
+   "Simic Guildgate",
+   "Izzet Guildgate",
+   "Thornwood Falls",
+   "Frontier Bivouac",
+   "Exotic Orchard",
+   "Gruul Guildgate",
+   "Island",
+   "Island",
+   "Island",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest"
+  ],
+  "starter": [
+   "Sol Ring",
+   "Arcane Signet",
+   "Deceptive Frostkite",
+   "Scourge of the Throne",
+   "Parapet Thrasher",
+   "Encroaching Dragonstorm",
+   "Thundermane Dragon",
+   "Hammerhead Tyrant",
+   "Dragon's Hoard",
+   "Dragonlord's Servant",
+   "Dragonlord Atarka",
+   "Elemental Bond",
+   "Nogi, Draco-Zealot",
+   "Frontier Siege",
+   "Will of the Temur",
+   "Selvala's Stampede",
+   "Thunderbreak Regent",
+   "Atsushi, the Blazing Sky",
+   "Ureni, the Song Unending",
+   "Dragonspeaker Shaman",
+   "Terror of the Peaks",
+   "Ganax, Astral Hunter",
+   "Bloomvine Regent",
+   "Scourge of Valkas",
+   "Dracogenesis",
+   "Whirlwing Stormbrood",
+   "Twinflame Tyrant",
+   "Utvara Hellkite",
+   "Migration Path",
+   "Carnelian Orb of Dragonkind",
+   "Keiga, the Tide Star",
+   "Marang River Regent",
+   "Old Gnawbone",
+   "Savage Ventmaw",
+   "Talisman of Impulse"
+  ],
+  "minimumPackages": 5,
+  "themes": [
+   {
+    "key": "dragons",
+    "name": "Dragons",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Goldspan Dragon",
+      "s": 90
+     },
+     {
+      "n": "Bonehoard Dracosaur",
+      "s": 88
+     },
+     {
+      "n": "Drakuseth, Maw of Flames",
+      "s": 85
+     },
+     {
+      "n": "Ancient Copper Dragon",
+      "s": 84
+     },
+     {
+      "n": "Balefire Dragon",
+      "s": 82
+     },
+     {
+      "n": "Glorybringer",
+      "s": 82
+     },
+     {
+      "n": "Klauth, Unrivaled Ancient",
+      "s": 80
+     },
+     {
+      "n": "Ancient Silver Dragon",
+      "s": 80
+     },
+     {
+      "n": "Thundermaw Hellkite",
+      "s": 78
+     },
+     {
+      "n": "Steel Hellkite",
+      "s": 78
+     },
+     {
+      "n": "Summon: Bahamut",
+      "s": 76
+     },
+     {
+      "n": "Dragonhawk, Fate's Tempest",
+      "s": 76
+     },
+     {
+      "n": "Thrakkus the Butcher",
+      "s": 76
+     },
+     {
+      "n": "Korlessa, Scale Singer",
+      "s": 74
+     },
+     {
+      "n": "Skarrgan Hellkite",
+      "s": 74
+     },
+     {
+      "n": "Ancient Bronze Dragon",
+      "s": 74
+     },
+     {
+      "n": "Canopy Gargantuan",
+      "s": 72
+     },
+     {
+      "n": "Terror of Mount Velus",
+      "s": 72
+     },
+     {
+      "n": "Rapacious Dragon",
+      "s": 72
+     },
+     {
+      "n": "Blast-Furnace Hellkite",
+      "s": 72
+     },
+     {
+      "n": "Dragon Broodmother",
+      "s": 70
+     },
+     {
+      "n": "Dragonborn Champion",
+      "s": 82
+     },
+     {
+      "n": "Earthquake Dragon",
+      "s": 70
+     },
+     {
+      "n": "Bogardan Hellkite",
+      "s": 68
+     },
+     {
+      "n": "Stormbreath Dragon",
+      "s": 68
+     },
+     {
+      "n": "Wrathful Red Dragon",
+      "s": 66
+     },
+     {
+      "n": "Hellkite Tyrant",
+      "s": 66
+     },
+     {
+      "n": "Patron of the Arts",
+      "s": 64
+     },
+     {
+      "n": "Sagu Wildling",
+      "s": 62
+     },
+     {
+      "n": "Smaug the Magnificent",
+      "s": 62
+     }
+    ]
+   },
+   {
+    "key": "ramp",
+    "name": "Ramp",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Urza's Incubator",
+      "s": 88
+     },
+     {
+      "n": "Birds of Paradise",
+      "s": 84
+     },
+     {
+      "n": "Herald's Horn",
+      "s": 82
+     },
+     {
+      "n": "Fanatic of Rhonas",
+      "s": 82
+     },
+     {
+      "n": "Orb of Dragonkind",
+      "s": 80
+     },
+     {
+      "n": "Thran Dynamo",
+      "s": 80
+     },
+     {
+      "n": "Nature's Lore",
+      "s": 78
+     },
+     {
+      "n": "Three Visits",
+      "s": 78
+     },
+     {
+      "n": "Selvala, Heart of the Wilds",
+      "s": 78
+     },
+     {
+      "n": "Sarkhan, Fireblood",
+      "s": 78
+     },
+     {
+      "n": "Dragonstorm Globe",
+      "s": 76
+     },
+     {
+      "n": "Cultivate",
+      "s": 76
+     },
+     {
+      "n": "Kodama's Reach",
+      "s": 76
+     },
+     {
+      "n": "Somberwald Sage",
+      "s": 76
+     },
+     {
+      "n": "Llanowar Elves",
+      "s": 75
+     },
+     {
+      "n": "Rampant Growth",
+      "s": 75
+     },
+     {
+      "n": "Sakura-Tribe Elder",
+      "s": 75
+     },
+     {
+      "n": "Patchwork Banner",
+      "s": 74
+     },
+     {
+      "n": "Farseek",
+      "s": 74
+     },
+     {
+      "n": "Herd Heirloom",
+      "s": 74
+     },
+     {
+      "n": "Elvish Mystic",
+      "s": 72
+     },
+     {
+      "n": "Paradise Druid",
+      "s": 72
+     },
+     {
+      "n": "Talisman of Creativity",
+      "s": 72
+     },
+     {
+      "n": "Commander's Sphere",
+      "s": 72
+     },
+     {
+      "n": "Wild Growth",
+      "s": 84
+     },
+     {
+      "n": "Rattleclaw Mystic",
+      "s": 70
+     },
+     {
+      "n": "Jade Orb of Dragonkind",
+      "s": 70
+     },
+     {
+      "n": "Skyshroud Claim",
+      "s": 70
+     },
+     {
+      "n": "Explosive Vegetation",
+      "s": 68
+     },
+     {
+      "n": "Scaled Nurturer",
+      "s": 66
+     }
+    ]
+   },
+   {
+    "key": "flying",
+    "name": "Dragon Support & Protection",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Crucible of Fire",
+      "s": 78
+     },
+     {
+      "n": "Sarkhan Unbroken",
+      "s": 78
+     },
+     {
+      "n": "Lightning Greaves",
+      "s": 76
+     },
+     {
+      "n": "Swiftfoot Boots",
+      "s": 76
+     },
+     {
+      "n": "Heroic Intervention",
+      "s": 76
+     },
+     {
+      "n": "Dragonmaster Outcast",
+      "s": 74
+     },
+     {
+      "n": "Sarkhan's Triumph",
+      "s": 74
+     },
+     {
+      "n": "Rising of the Day",
+      "s": 72
+     },
+     {
+      "n": "Breaching Dragonstorm",
+      "s": 72
+     },
+     {
+      "n": "Spit Flame",
+      "s": 72
+     },
+     {
+      "n": "Dragon's Fire",
+      "s": 70
+     },
+     {
+      "n": "Dragonologist",
+      "s": 70
+     },
+     {
+      "n": "Fires of Yavimaya",
+      "s": 68
+     },
+     {
+      "n": "Enduring Courage",
+      "s": 68
+     },
+     {
+      "n": "Rhythm of the Wild",
+      "s": 85
+     },
+     {
+      "n": "Draconic Lore",
+      "s": 68
+     },
+     {
+      "n": "Dragonback Assault",
+      "s": 66
+     },
+     {
+      "n": "Piercing Exhale",
+      "s": 66
+     },
+     {
+      "n": "Tamiyo's Safekeeping",
+      "s": 66
+     },
+     {
+      "n": "Dispelling Exhale",
+      "s": 64
+     },
+     {
+      "n": "Roiling Dragonstorm",
+      "s": 64
+     },
+     {
+      "n": "Garruk's Uprising",
+      "s": 85
+     },
+     {
+      "n": "Sarkhan's Unsealing",
+      "s": 64
+     },
+     {
+      "n": "Winged Words",
+      "s": 62
+     },
+     {
+      "n": "Lofty Denial",
+      "s": 60
+     },
+     {
+      "n": "Molten Exhale",
+      "s": 58
+     }
+    ]
+   },
+   {
+    "key": "extra-combats",
+    "name": "Extra Combats",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Aggravated Assault",
+      "s": 88
+     },
+     {
+      "n": "Hellkite Charger",
+      "s": 85
+     },
+     {
+      "n": "Karlach, Fury of Avernus",
+      "s": 84
+     },
+     {
+      "n": "Genji Glove",
+      "s": 80
+     },
+     {
+      "n": "Seize the Day",
+      "s": 80
+     },
+     {
+      "n": "Relentless Assault",
+      "s": 80
+     },
+     {
+      "n": "Full Throttle",
+      "s": 78
+     },
+     {
+      "n": "Combat Celebrant",
+      "s": 76
+     },
+     {
+      "n": "Savage Beating",
+      "s": 76
+     },
+     {
+      "n": "Great Train Heist",
+      "s": 74
+     },
+     {
+      "n": "Port Razer",
+      "s": 72
+     },
+     {
+      "n": "World at War",
+      "s": 72
+     },
+     {
+      "n": "Moraug, Fury of Akoum",
+      "s": 70
+     },
+     {
+      "n": "Overpowering Attack",
+      "s": 68
+     },
+     {
+      "n": "Last Night Together",
+      "s": 62
+     },
+     {
+      "n": "Fury of the Horde",
+      "s": 62
+     },
+     {
+      "n": "Anzrag, the Quake-Mole",
+      "s": 60
+     }
+    ]
+   },
+   {
+    "key": "blink",
+    "name": "Blink & Triggers",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Essence Flux",
+      "s": 85
+     },
+     {
+      "n": "Panharmonicon",
+      "s": 84
+     },
+     {
+      "n": "Roaming Throne",
+      "s": 84
+     },
+     {
+      "n": "Conjurer's Closet",
+      "s": 80
+     },
+     {
+      "n": "Ghostly Flicker",
+      "s": 80
+     },
+     {
+      "n": "Thassa, Deep-Dwelling",
+      "s": 80
+     },
+     {
+      "n": "Deadeye Navigator",
+      "s": 76
+     },
+     {
+      "n": "Starfield Vocalist",
+      "s": 76
+     },
+     {
+      "n": "Teferi's Time Twist",
+      "s": 74
+     },
+     {
+      "n": "Displace",
+      "s": 72
+     },
+     {
+      "n": "Blur",
+      "s": 72
+     },
+     {
+      "n": "Planar Incision",
+      "s": 72
+     },
+     {
+      "n": "Y'shtola Rhul",
+      "s": 72
+     },
+     {
+      "n": "Displacer Kitten",
+      "s": 70
+     },
+     {
+      "n": "Eldrazi Confluence",
+      "s": 68
+     },
+     {
+      "n": "Lilysplash Mentor",
+      "s": 68
+     },
+     {
+      "n": "Virtue of Knowledge",
+      "s": 66
+     },
+     {
+      "n": "Splash Portal",
+      "s": 64
+     },
+     {
+      "n": "Hide on the Ceiling",
+      "s": 60
+     }
+    ]
+   },
+   {
+    "key": "progression-0",
+    "name": "Dragon defence",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Frontier Siege",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Garruk's Uprising",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Rhythm of the Wild",
+      "c": "RG",
+      "s": 75
+     },
+     {
+      "n": "Sarkhan's Triumph",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Dragon's Hoard",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Spit Flame",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Blasphemous Act",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Silumgar's Scorn",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Stubborn Denial",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Heroic Intervention",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Dragonlord's Servant",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Dragonspeaker Shaman",
+      "c": "R",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "progression-1",
+    "name": "Ancient skies",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Scourge of the Throne",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Utvara Hellkite",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Scourge of Valkas",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Terror of the Peaks",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Dragon Broodmother",
+      "c": "RG",
+      "s": 75
+     },
+     {
+      "n": "Dragonmaster Outcast",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Thunderbreak Regent",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Roaming Throne",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Panharmonicon",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Molten Echoes",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Elemental Bond",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Kindred Discovery",
+      "c": "U",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 30,
+    "requiredWins": 3
+   }
+  ]
+ },
+ "karolina-dean-runaway": {
+  "lands": [
+   "Command Tower",
+   "City of Brass",
+   "Mana Confluence",
+   "Reflecting Pool",
+   "Indatha Triome",
+   "Ketria Triome",
+   "Raugrin Triome",
+   "Zagoth Triome",
+   "Plains",
+   "Plains",
+   "Island",
+   "Island",
+   "Island",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Forest",
+   "Forest",
+   "Forest"
+  ],
+  "starter": [
+   "Sol Ring",
+   "Arcane Signet",
+   "Wild Wasteland",
+   "Chase Stein, Runaway",
+   "Kellan, the Kid",
+   "Interdimensional Web Watch",
+   "Charred Foyer // Warped Space",
+   "Delayed Blast Fireball",
+   "Faldorn, Dread Wolf Herald",
+   "Party Thrasher",
+   "Escape to the Wilds",
+   "Wild-Magic Sorcerer",
+   "Fortune Teller's Talent",
+   "Laelia, the Blade Reforged",
+   "Alex Wilder, Runaway",
+   "Eruth, Tormented Prophet",
+   "Crossover Collaboration",
+   "Flaming Tyrannosaurus",
+   "Fire Lord Zuko",
+   "Ignite the Future",
+   "Victor Mancha, Runaway",
+   "Quintorius Kand",
+   "Loot, the Key to Everything",
+   "Improvisation Capstone",
+   "Rocco, Street Chef",
+   "Keeper of Secrets",
+   "Savvy Trader",
+   "Molly Hayes, Runaway",
+   "Shadow of the Goblin",
+   "Chromatic Lantern",
+   "The Lost and the Damned",
+   "Ultimate Magic: Holy",
+   "Pia Nalaar, Consul of Revival",
+   "Wiccan, Young Avenger",
+   "Wanda's Vision"
+  ],
+  "minimumPackages": 5,
+  "themes": [
+   {
+    "key": "impulse-draw",
+    "name": "Impulse Draw",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Zuko, Exiled Prince",
+      "s": 86
+     },
+     {
+      "n": "Bonehoard Dracosaur",
+      "s": 86
+     },
+     {
+      "n": "Chandra, Torch of Defiance",
+      "s": 82
+     },
+     {
+      "n": "Hidetsugu, Devouring Chaos",
+      "s": 80
+     },
+     {
+      "n": "Outpost Siege",
+      "s": 80
+     },
+     {
+      "n": "Professional Face-Breaker",
+      "s": 76
+     },
+     {
+      "n": "Valakut Exploration",
+      "s": 74
+     },
+     {
+      "n": "Tavern Brawler",
+      "s": 72
+     },
+     {
+      "n": "Light Up the Stage",
+      "s": 72
+     },
+     {
+      "n": "Count on Luck",
+      "s": 72
+     },
+     {
+      "n": "Elkin Bottle",
+      "s": 72
+     },
+     {
+      "n": "Urabrask, Heretic Praetor",
+      "s": 70
+     },
+     {
+      "n": "Rassilon, the War President",
+      "s": 70
+     },
+     {
+      "n": "Heroes for Hire",
+      "s": 70
+     },
+     {
+      "n": "Embrace the Unknown",
+      "s": 68
+     },
+     {
+      "n": "Fires of Mount Doom",
+      "s": 68
+     },
+     {
+      "n": "Tectonic Giant",
+      "s": 68
+     },
+     {
+      "n": "Wrenn's Resolve",
+      "s": 66
+     },
+     {
+      "n": "Reckless Impulse",
+      "s": 66
+     },
+     {
+      "n": "Jessica Jones, Private Eye",
+      "s": 64
+     },
+     {
+      "n": "Narset, Enlightened Master",
+      "s": 64
+     },
+     {
+      "n": "Inspired Tinkering",
+      "s": 64
+     },
+     {
+      "n": "Oracle's Vault",
+      "s": 62
+     },
+     {
+      "n": "Questing Druid",
+      "s": 62
+     },
+     {
+      "n": "Hugs, Grisly Guardian",
+      "s": 62
+     },
+     {
+      "n": "Glimpse the Impossible",
+      "s": 60
+     },
+     {
+      "n": "The Flux",
+      "s": 58
+     },
+     {
+      "n": "Opera Love Song",
+      "s": 58
+     }
+    ]
+   },
+   {
+    "key": "exile",
+    "name": "Cast from Exile",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Dream Devourer",
+      "s": 86
+     },
+     {
+      "n": "Sage of the Beyond",
+      "s": 82
+     },
+     {
+      "n": "Hostage Taker",
+      "s": 82
+     },
+     {
+      "n": "Etali, Primal Conqueror",
+      "s": 80
+     },
+     {
+      "n": "Etali, Primal Storm",
+      "s": 78
+     },
+     {
+      "n": "Bilbo, Thief in the Night",
+      "s": 78
+     },
+     {
+      "n": "Murderous Rider",
+      "s": 78
+     },
+     {
+      "n": "Brazen Borrower",
+      "s": 76
+     },
+     {
+      "n": "Gonti, Lord of Luxury",
+      "s": 74
+     },
+     {
+      "n": "Fallen Shinobi",
+      "s": 72
+     },
+     {
+      "n": "Unstable Amulet",
+      "s": 72
+     },
+     {
+      "n": "Avatar's Wrath",
+      "s": 72
+     },
+     {
+      "n": "Hurl Through Hell",
+      "s": 72
+     },
+     {
+      "n": "Ravenform",
+      "s": 72
+     },
+     {
+      "n": "Doomskar",
+      "s": 70
+     },
+     {
+      "n": "Alrund's Epiphany",
+      "s": 70
+     },
+     {
+      "n": "Urianger Augurelt",
+      "s": 70
+     },
+     {
+      "n": "Chimil, the Inner Sun",
+      "s": 70
+     },
+     {
+      "n": "Beanstalk Giant",
+      "s": 68
+     },
+     {
+      "n": "Thief of Sanity",
+      "s": 66
+     },
+     {
+      "n": "Realm-Cloaked Giant",
+      "s": 66
+     },
+     {
+      "n": "Cosmos Charger",
+      "s": 66
+     },
+     {
+      "n": "Maelstrom Nexus",
+      "s": 64
+     },
+     {
+      "n": "Stolen Strategy",
+      "s": 64
+     },
+     {
+      "n": "Abstruse Appropriation",
+      "s": 64
+     },
+     {
+      "n": "Suspend Aggression",
+      "s": 64
+     },
+     {
+      "n": "Saw It Coming",
+      "s": 64
+     },
+     {
+      "n": "Poison the Cup",
+      "s": 64
+     },
+     {
+      "n": "Ethereal Valkyrie",
+      "s": 64
+     },
+     {
+      "n": "Starnheim Unleashed",
+      "s": 62
+     }
+    ]
+   },
+   {
+    "key": "burn",
+    "name": "Burn",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Bonecrusher Giant",
+      "s": 82
+     },
+     {
+      "n": "Walking Ballista",
+      "s": 80
+     },
+     {
+      "n": "Torbran, Thane of Red Fell",
+      "s": 78
+     },
+     {
+      "n": "Guttersnipe",
+      "s": 76
+     },
+     {
+      "n": "Memory Worm",
+      "s": 76
+     },
+     {
+      "n": "Demon Bolt",
+      "s": 76
+     },
+     {
+      "n": "Brash Taunter",
+      "s": 76
+     },
+     {
+      "n": "Fiery Confluence",
+      "s": 74
+     },
+     {
+      "n": "Lightning Bolt",
+      "s": 74
+     },
+     {
+      "n": "Phlage, Titan of Fire's Fury",
+      "s": 74
+     },
+     {
+      "n": "Devil's Play",
+      "s": 74
+     },
+     {
+      "n": "Advanced Reconstruction",
+      "s": 72
+     },
+     {
+      "n": "Fire Covenant",
+      "s": 72
+     },
+     {
+      "n": "Impending Flux",
+      "s": 70
+     },
+     {
+      "n": "Firebolt",
+      "s": 70
+     },
+     {
+      "n": "Kolaghan's Command",
+      "s": 70
+     },
+     {
+      "n": "Boros Charm",
+      "s": 68
+     },
+     {
+      "n": "Cut // Ribbons",
+      "s": 68
+     },
+     {
+      "n": "Grim Lavamancer",
+      "s": 68
+     },
+     {
+      "n": "Crystal, Inhuman Princess",
+      "s": 66
+     },
+     {
+      "n": "Hellrider",
+      "s": 64
+     },
+     {
+      "n": "Nibelheim Aflame",
+      "s": 64
+     },
+     {
+      "n": "Rolling Thunder",
+      "s": 64
+     },
+     {
+      "n": "Sacred Fire",
+      "s": 62
+     },
+     {
+      "n": "Rift Bolt",
+      "s": 62
+     },
+     {
+      "n": "Coruscation Mage",
+      "s": 62
+     },
+     {
+      "n": "Purphoros, God of the Forge",
+      "s": 62
+     },
+     {
+      "n": "Risk Factor",
+      "s": 56
+     }
+    ]
+   },
+   {
+    "key": "legends",
+    "name": "Heroes & Mana Sinks",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Sisay, Weatherlight Captain",
+      "s": 84
+     },
+     {
+      "n": "Super-Skrull",
+      "s": 82
+     },
+     {
+      "n": "Nick Fury, Agent of S.H.I.E.L.D.",
+      "s": 78
+     },
+     {
+      "n": "Legacy Weapon",
+      "s": 74
+     },
+     {
+      "n": "The Thirteenth Doctor",
+      "s": 70
+     },
+     {
+      "n": "Captain Marvel, Earth's Protector",
+      "s": 70
+     },
+     {
+      "n": "Jennifer Walters",
+      "s": 68
+     },
+     {
+      "n": "Kang the Conqueror",
+      "s": 66
+     },
+     {
+      "n": "Appa, Steadfast Guardian",
+      "s": 66
+     },
+     {
+      "n": "Hawkeye, Young Avenger",
+      "s": 66
+     },
+     {
+      "n": "Kyodai, Soul of Kamigawa",
+      "s": 64
+     },
+     {
+      "n": "Thanos, the Mad Titan",
+      "s": 64
+     },
+     {
+      "n": "She-Hulk, Jade Defender",
+      "s": 62
+     },
+     {
+      "n": "Quicksilver, Brash Blur",
+      "s": 62
+     },
+     {
+      "n": "Hawkeye, Trick Shot",
+      "s": 62
+     },
+     {
+      "n": "Iron Fist, Hero for Hire",
+      "s": 60
+     },
+     {
+      "n": "Abomination, Terrifying Titan",
+      "s": 60
+     },
+     {
+      "n": "Black Panther, Most Dangerous",
+      "s": 58
+     },
+     {
+      "n": "Hulk, Gamma Goliath",
+      "s": 58
+     },
+     {
+      "n": "Wonder Man, Hollywood Hero",
+      "s": 56
+     }
+    ]
+   },
+   {
+    "key": "flashback",
+    "name": "Flashback & Graveyard Casting",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Muldrotha, the Gravetide",
+      "s": 84
+     },
+     {
+      "n": "Lier, Disciple of the Drowned",
+      "s": 78
+     },
+     {
+      "n": "Six",
+      "s": 78
+     },
+     {
+      "n": "Uro, Titan of Nature's Wrath",
+      "s": 78
+     },
+     {
+      "n": "Snapcaster Mage",
+      "s": 76
+     },
+     {
+      "n": "Kess, Dissident Mage",
+      "s": 74
+     },
+     {
+      "n": "Lingering Souls",
+      "s": 74
+     },
+     {
+      "n": "Lurrus of the Dream-Den",
+      "s": 72
+     },
+     {
+      "n": "Dire Fleet Daredevil",
+      "s": 70
+     },
+     {
+      "n": "Kroxa, Titan of Death's Hunger",
+      "s": 70
+     },
+     {
+      "n": "Deep Analysis",
+      "s": 70
+     },
+     {
+      "n": "Sevinne's Reclamation",
+      "s": 70
+     },
+     {
+      "n": "Unburial Rites",
+      "s": 68
+     },
+     {
+      "n": "Faithless Looting",
+      "s": 66
+     },
+     {
+      "n": "Priest of Fell Rites",
+      "s": 66
+     },
+     {
+      "n": "Angel of Sanctions",
+      "s": 66
+     },
+     {
+      "n": "Mission Briefing",
+      "s": 64
+     },
+     {
+      "n": "Chemister's Insight",
+      "s": 64
+     },
+     {
+      "n": "Champion of Wits",
+      "s": 64
+     },
+     {
+      "n": "Ancient Grudge",
+      "s": 58
+     }
+    ]
+   },
+   {
+    "key": "progression-0",
+    "name": "Cast beyond hand",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Florian, Voldaren Scion",
+      "c": "BR",
+      "s": 75
+     },
+     {
+      "n": "Share the Spoils",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Inti, Seneschal of the Sun",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Professional Face-Breaker",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Wrenn's Resolve",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Reckless Impulse",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Light Up the Stage",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Outpost Siege",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Theater of Horrors",
+      "c": "BR",
+      "s": 75
+     },
+     {
+      "n": "Jeska's Will",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Stolen Strategy",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Dance with Calamity",
+      "c": "R",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "progression-1",
+    "name": "Borrowed futures",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Evelyn, the Covetous",
+      "c": "UBR",
+      "s": 75
+     },
+     {
+      "n": "Gonti, Lord of Luxury",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Gonti, Canny Acquisitor",
+      "c": "UBG",
+      "s": 75
+     },
+     {
+      "n": "Etali, Primal Storm",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Etali, Primal Conqueror",
+      "c": "RG",
+      "s": 75
+     },
+     {
+      "n": "Siphon Insight",
+      "c": "UB",
+      "s": 75
+     },
+     {
+      "n": "Praetor's Grasp",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Villainous Wealth",
+      "c": "UBG",
+      "s": 75
+     },
+     {
+      "n": "Thief of Sanity",
+      "c": "UB",
+      "s": 75
+     },
+     {
+      "n": "Tasha, the Witch Queen",
+      "c": "UB",
+      "s": 75
+     },
+     {
+      "n": "Mind's Dilation",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Hurl Through Hell",
+      "c": "BR",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 30,
+    "requiredWins": 3
+   }
+  ],
+  "protectedStarter": [
+   "Chromatic Lantern"
+  ]
+ },
+ "pantlaza-sun-favored": {
+  "lands": [
+   "Command Tower",
+   "Gruul Guildgate",
+   "Selesnya Guildgate",
+   "Exotic Orchard",
+   "Path of Ancestry",
+   "Jungle Shrine",
+   "Blossoming Sands",
+   "Boros Guildgate",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Mountain",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest"
+  ],
+  "starter": [
+   "Sol Ring",
+   "Arcane Signet",
+   "Bronzebeak Foragers",
+   "Wakening Sun's Avatar",
+   "Apex Altisaur",
+   "Ghalta, Primal Hunger",
+   "Scion of Calamity",
+   "Wayward Swordtooth",
+   "Sunfrill Imitator",
+   "Quartzwood Crasher",
+   "Otepec Huntmaster",
+   "Temple Altisaur",
+   "Hulking Raptor",
+   "Rhythm of the Wild",
+   "Trumpeting Carnosaur",
+   "Kinjalli's Sunwing",
+   "Ghalta, Stampede Tyrant",
+   "Regal Behemoth",
+   "Etali, Primal Conqueror",
+   "Thrashing Brontodon",
+   "Ghalta and Mavren",
+   "Descendants' Path",
+   "Zetalpa, Primal Dawn",
+   "Runic Armasaur",
+   "Bonehoard Dracosaur",
+   "Marauding Raptor",
+   "Atzocan Seer",
+   "Verdant Sun's Avatar",
+   "Ripjaw Raptor",
+   "Rampaging Brontodon",
+   "Hunting Velociraptor",
+   "Thunderherd Migration",
+   "Savage Order",
+   "Monster Manual",
+   "Welcome to . . ."
+  ],
+  "minimumPackages": 5,
+  "themes": [
+   {
+    "key": "dinosaurs",
+    "name": "Dinosaurs",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Gigantosaurus",
+      "s": 88
+     },
+     {
+      "n": "Agonasaur Rex",
+      "s": 84
+     },
+     {
+      "n": "Vaultborn Tyrant",
+      "s": 86
+     },
+     {
+      "n": "Quakestrider Ceratops",
+      "s": 80
+     },
+     {
+      "n": "Palani's Hatcher",
+      "s": 82
+     },
+     {
+      "n": "Devil Dinosaur",
+      "s": 80
+     },
+     {
+      "n": "Regal Imperiosaur",
+      "s": 74
+     },
+     {
+      "n": "Dinosaurs on a Spaceship",
+      "s": 76
+     },
+     {
+      "n": "Thundering Spineback",
+      "s": 66
+     },
+     {
+      "n": "Carnage Tyrant",
+      "s": 74
+     },
+     {
+      "n": "Titanoth Rex",
+      "s": 72
+     },
+     {
+      "n": "Kogla and Yidaro",
+      "s": 74
+     },
+     {
+      "n": "Ravenous Tyrannosaurus",
+      "s": 68
+     },
+     {
+      "n": "Silverclad Ferocidons",
+      "s": 64
+     },
+     {
+      "n": "Trapjaw Tyrant",
+      "s": 68
+     },
+     {
+      "n": "Itzquinth, Firstborn of Gishath",
+      "s": 74
+     },
+     {
+      "n": "Ranging Raptors",
+      "s": 72
+     },
+     {
+      "n": "Pugnacious Hammerskull",
+      "s": 70
+     },
+     {
+      "n": "Tranquil Frillback",
+      "s": 64
+     },
+     {
+      "n": "Tyrranax Rex",
+      "s": 66
+     },
+     {
+      "n": "Displaced Dinosaurs",
+      "s": 66
+     },
+     {
+      "n": "The Tarrasque",
+      "s": 64
+     },
+     {
+      "n": "Needletooth Raptor",
+      "s": 62
+     },
+     {
+      "n": "Swooping Pteranodon",
+      "s": 62
+     },
+     {
+      "n": "Raptor Hatchling",
+      "s": 58
+     },
+     {
+      "n": "Ghalta the Unstoppable",
+      "s": 66
+     },
+     {
+      "n": "From the Rubble",
+      "s": 62
+     },
+     {
+      "n": "Savage Stomp",
+      "s": 72
+     }
+    ]
+   },
+   {
+    "key": "discover",
+    "name": "Discover & Cascade",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Chimil, the Inner Sun",
+      "s": 88
+     },
+     {
+      "n": "Monstrous Vortex",
+      "s": 86
+     },
+     {
+      "n": "Curator of Sun's Creation",
+      "s": 86
+     },
+     {
+      "n": "Annoyed Altisaur",
+      "s": 84
+     },
+     {
+      "n": "Wild-Magic Sorcerer",
+      "s": 80
+     },
+     {
+      "n": "Hit the Mother Lode",
+      "s": 78
+     },
+     {
+      "n": "Rain of Riches",
+      "s": 76
+     },
+     {
+      "n": "Flaming Tyrannosaurus",
+      "s": 76
+     },
+     {
+      "n": "Contest of Claws",
+      "s": 74
+     },
+     {
+      "n": "Quintorius Kand",
+      "s": 70
+     },
+     {
+      "n": "Progenitor's Icon",
+      "s": 70
+     },
+     {
+      "n": "Bloodbraid Elf",
+      "s": 72
+     },
+     {
+      "n": "Sweet-Gum Recluse",
+      "s": 68
+     },
+     {
+      "n": "Geological Appraiser",
+      "s": 70
+     },
+     {
+      "n": "Volcanic Torrent",
+      "s": 68
+     },
+     {
+      "n": "Call Forth the Tempest",
+      "s": 64
+     },
+     {
+      "n": "Lurking Predators",
+      "s": 64
+     },
+     {
+      "n": "Etali's Favor",
+      "s": 60
+     },
+     {
+      "n": "Walk with the Ancestors",
+      "s": 60
+     },
+     {
+      "n": "Daring Discovery",
+      "s": 60
+     },
+     {
+      "n": "Bloodbraid Challenger",
+      "s": 62
+     },
+     {
+      "n": "Violent Outburst",
+      "s": 58
+     },
+     {
+      "n": "Snapping Sailback",
+      "s": 58
+     },
+     {
+      "n": "Cream of the Crop",
+      "s": 60
+     },
+     {
+      "n": "Throes of Chaos",
+      "s": 56
+     }
+    ]
+   },
+   {
+    "key": "ramp",
+    "name": "Ramp",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Birds of Paradise",
+      "s": 88
+     },
+     {
+      "n": "Llanowar Elves",
+      "s": 86
+     },
+     {
+      "n": "Elvish Mystic",
+      "s": 85
+     },
+     {
+      "n": "Fyndhorn Elves",
+      "s": 82
+     },
+     {
+      "n": "Delighted Halfling",
+      "s": 80
+     },
+     {
+      "n": "Ixalli's Lorekeeper",
+      "s": 78
+     },
+     {
+      "n": "Drover of the Mighty",
+      "s": 80
+     },
+     {
+      "n": "Fanatic of Rhonas",
+      "s": 82
+     },
+     {
+      "n": "Sakura-Tribe Elder",
+      "s": 80
+     },
+     {
+      "n": "Wood Elves",
+      "s": 74
+     },
+     {
+      "n": "Faeburrow Elder",
+      "s": 76
+     },
+     {
+      "n": "Selvala, Heart of the Wilds",
+      "s": 70
+     },
+     {
+      "n": "Rampant Growth",
+      "s": 82
+     },
+     {
+      "n": "Nature's Lore",
+      "s": 84
+     },
+     {
+      "n": "Three Visits",
+      "s": 84
+     },
+     {
+      "n": "Farseek",
+      "s": 82
+     },
+     {
+      "n": "Cultivate",
+      "s": 85
+     },
+     {
+      "n": "Kodama's Reach",
+      "s": 85
+     },
+     {
+      "n": "Skyshroud Claim",
+      "s": 78
+     },
+     {
+      "n": "Explosive Vegetation",
+      "s": 74
+     },
+     {
+      "n": "Talisman of Conviction",
+      "s": 72
+     },
+     {
+      "n": "Talisman of Impulse",
+      "s": 72
+     },
+     {
+      "n": "Talisman of Unity",
+      "s": 70
+     },
+     {
+      "n": "Fellwar Stone",
+      "s": 68
+     },
+     {
+      "n": "Thran Dynamo",
+      "s": 78
+     },
+     {
+      "n": "Kinjalli's Caller",
+      "s": 76
+     },
+     {
+      "n": "Urza's Incubator",
+      "s": 84
+     },
+     {
+      "n": "Herd Heirloom",
+      "s": 74
+     },
+     {
+      "n": "Patchwork Banner",
+      "s": 72
+     },
+     {
+      "n": "The Great Henge",
+      "s": 80
+     }
+    ]
+   },
+   {
+    "key": "blink",
+    "name": "Blink",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Ephemerate",
+      "s": 86
+     },
+     {
+      "n": "Restoration Angel",
+      "s": 86
+     },
+     {
+      "n": "Cloudshift",
+      "s": 80
+     },
+     {
+      "n": "Teleportation Circle",
+      "s": 82
+     },
+     {
+      "n": "Conjurer's Closet",
+      "s": 78
+     },
+     {
+      "n": "Emiel the Blessed",
+      "s": 78
+     },
+     {
+      "n": "Felidar Guardian",
+      "s": 74
+     },
+     {
+      "n": "Charming Prince",
+      "s": 72
+     },
+     {
+      "n": "Flickerwisp",
+      "s": 70
+     },
+     {
+      "n": "Eerie Interlude",
+      "s": 72
+     },
+     {
+      "n": "Flicker of Fate",
+      "s": 68
+     },
+     {
+      "n": "Acrobatic Maneuver",
+      "s": 66
+     },
+     {
+      "n": "Scrollshift",
+      "s": 64
+     },
+     {
+      "n": "Go Ninja Go",
+      "s": 70
+     },
+     {
+      "n": "Parting Gust",
+      "s": 70
+     },
+     {
+      "n": "The Eternal Wanderer",
+      "s": 64
+     },
+     {
+      "n": "Semester's End",
+      "s": 62
+     },
+     {
+      "n": "Lae'zel's Acrobatics",
+      "s": 60
+     },
+     {
+      "n": "Gilraen, Dúnedain Protector",
+      "s": 62
+     },
+     {
+      "n": "Justiciar's Portal",
+      "s": 60
+     }
+    ]
+   },
+   {
+    "key": "aggro",
+    "name": "Stampede (haste & trample)",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Garruk's Uprising",
+      "s": 86
+     },
+     {
+      "n": "Overwhelming Stampede",
+      "s": 86
+     },
+     {
+      "n": "Akroma's Will",
+      "s": 82
+     },
+     {
+      "n": "Return of the Wildspeaker",
+      "s": 82
+     },
+     {
+      "n": "Goreclaw, Terror of Qal Sisma",
+      "s": 80
+     },
+     {
+      "n": "Xenagos, God of Revels",
+      "s": 78
+     },
+     {
+      "n": "Embercleave",
+      "s": 76
+     },
+     {
+      "n": "Fires of Yavimaya",
+      "s": 74
+     },
+     {
+      "n": "Swiftfoot Boots",
+      "s": 74
+     },
+     {
+      "n": "Lightning Greaves",
+      "s": 72
+     },
+     {
+      "n": "Hammer of Purphoros",
+      "s": 70
+     },
+     {
+      "n": "Samut, Hazoret's Champion",
+      "s": 68
+     },
+     {
+      "n": "Temur Battle Rage",
+      "s": 70
+     },
+     {
+      "n": "Unnatural Growth",
+      "s": 72
+     },
+     {
+      "n": "Overrun",
+      "s": 72
+     },
+     {
+      "n": "Ogre Battledriver",
+      "s": 66
+     },
+     {
+      "n": "Triumph of the Hordes",
+      "s": 66
+     },
+     {
+      "n": "Shifting Ceratops",
+      "s": 60
+     }
+    ]
+   },
+   {
+    "key": "progression-0",
+    "name": "Dinosaur sanctuary",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Ephemerate",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Eerie Interlude",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Lae'zel's Acrobatics",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Cloudshift",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Ghostway",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Teleportation Circle",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Conjurer's Closet",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Guardian Project",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Elemental Bond",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Garruk's Uprising",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Ripjaw Raptor",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Ranging Raptors",
+      "c": "G",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "progression-1",
+    "name": "Enrage expedition",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Polyraptor",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Needletooth Raptor",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Raptor Hatchling",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Raging Swordtooth",
+      "c": "RG",
+      "s": 75
+     },
+     {
+      "n": "Ranging Raptors",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Ripjaw Raptor",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Trapjaw Tyrant",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Silverclad Ferocidons",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Temple Altisaur",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Cacophodon",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Rile",
+      "c": "R",
+      "s": 75
+     },
+     {
+      "n": "Pyrohemia",
+      "c": "R",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 30,
+    "requiredWins": 3
+   }
+  ]
+ },
+ "jace-multiverse-architect": {
+  "lands": [
+   "Command Tower",
+   "City of Brass",
+   "Mana Confluence",
+   "Reflecting Pool",
+   "Raffine's Tower",
+   "Xander's Lounge",
+   "Savai Triome",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Plains",
+   "Island",
+   "Island",
+   "Island",
+   "Island",
+   "Island",
+   "Island",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Mountain",
+   "Mountain",
+   "Mountain"
+  ],
+  "starter": [
+   "Sol Ring",
+   "Arcane Signet",
+   "Brainsurge",
+   "Archon of Cruelty",
+   "Martial Coup",
+   "Serra's Emissary",
+   "Synthetic Destiny",
+   "Talisman of Indulgence",
+   "Mass Polymorph",
+   "Sunfall",
+   "Archfiend of Despair",
+   "Lingering Souls",
+   "Talisman of Progress",
+   "Overlord of the Mistmoors",
+   "Despark",
+   "Talisman of Dominance",
+   "Whirlwind of Thought",
+   "Azorius Signet",
+   "Dimir Signet",
+   "Chromatic Lantern",
+   "Occult Epiphany",
+   "Windcrag Siege",
+   "Izzet Signet",
+   "Oath of Teferi",
+   "Nicol Bolas, Dragon-God",
+   "Shark Typhoon",
+   "Nissa, Leyline Tamer",
+   "Aminatou, the Fateshifter",
+   "Fatehold Charm",
+   "The Theorist, Jace Beleren",
+   "Darksteel Angel",
+   "Jace, the Mind Sculptor",
+   "Ajani Unrelenting",
+   "Polymorph",
+   "Plan for All Outcomes"
+  ],
+  "minimumPackages": 5,
+  "themes": [
+   {
+    "key": "tokens",
+    "name": "Tokens",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Bitterblossom",
+      "s": 84
+     },
+     {
+      "n": "Court of Grace",
+      "s": 85
+     },
+     {
+      "n": "Sram's Expertise",
+      "s": 82
+     },
+     {
+      "n": "Wedding Announcement",
+      "s": 83
+     },
+     {
+      "n": "Battle Screech",
+      "s": 80
+     },
+     {
+      "n": "Assemble the Legion",
+      "s": 80
+     },
+     {
+      "n": "History of Benalia",
+      "s": 78
+     },
+     {
+      "n": "Dragon Fodder",
+      "s": 75
+     },
+     {
+      "n": "Song of Totentanz",
+      "s": 82
+     },
+     {
+      "n": "Fable of the Mirror-Breaker",
+      "s": 78
+     },
+     {
+      "n": "Caretaker's Talent",
+      "s": 76
+     },
+     {
+      "n": "Increasing Devotion",
+      "s": 80
+     },
+     {
+      "n": "Divine Visitation",
+      "s": 74
+     },
+     {
+      "n": "Midnight Haunting",
+      "s": 78
+     },
+     {
+      "n": "Release the Dogs",
+      "s": 78
+     },
+     {
+      "n": "Anointed Procession",
+      "s": 72
+     },
+     {
+      "n": "Ojer Taq, Deepest Foundation",
+      "s": 72
+     },
+     {
+      "n": "Hordeling Outburst",
+      "s": 70
+     },
+     {
+      "n": "Spectral Procession",
+      "s": 68
+     },
+     {
+      "n": "Raise the Alarm",
+      "s": 66
+     },
+     {
+      "n": "Saheeli, Sublime Artificer",
+      "s": 66
+     },
+     {
+      "n": "Sorin, Lord of Innistrad",
+      "s": 82
+     },
+     {
+      "n": "Servo Exhibition",
+      "s": 75
+     },
+     {
+      "n": "Finale of Glory",
+      "s": 82
+     },
+     {
+      "n": "Decree of Justice",
+      "s": 82
+     },
+     {
+      "n": "Intangible Virtue",
+      "s": 62
+     },
+     {
+      "n": "Inkshield",
+      "s": 64
+     },
+     {
+      "n": "Ovika, Enigma Goliath",
+      "s": 60
+     }
+    ]
+   },
+   {
+    "key": "planeswalkers",
+    "name": "Superfriends",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Elspeth, Storm Slayer",
+      "s": 86
+     },
+     {
+      "n": "Liliana, Dreadhorde General",
+      "s": 84
+     },
+     {
+      "n": "Teferi, Time Raveler",
+      "s": 80
+     },
+     {
+      "n": "Chandra, Torch of Defiance",
+      "s": 80
+     },
+     {
+      "n": "The Wandering Emperor",
+      "s": 80
+     },
+     {
+      "n": "Teferi, Hero of Dominaria",
+      "s": 78
+     },
+     {
+      "n": "Ob Nixilis Reignited",
+      "s": 76
+     },
+     {
+      "n": "Spark Double",
+      "s": 76
+     },
+     {
+      "n": "Liliana, Death's Majesty",
+      "s": 74
+     },
+     {
+      "n": "Ugin, the Ineffable",
+      "s": 74
+     },
+     {
+      "n": "Vraska, Betrayal's Sting",
+      "s": 72
+     },
+     {
+      "n": "The Eternal Wanderer",
+      "s": 72
+     },
+     {
+      "n": "Tezzeret's Gambit",
+      "s": 72
+     },
+     {
+      "n": "Nicol Bolas, God-Pharaoh",
+      "s": 70
+     },
+     {
+      "n": "Ral, Crackling Wit",
+      "s": 68
+     },
+     {
+      "n": "Flux Channeler",
+      "s": 68
+     },
+     {
+      "n": "Liliana of the Veil",
+      "s": 66
+     },
+     {
+      "n": "Commodore Guff",
+      "s": 66
+     },
+     {
+      "n": "Jace, Unraveler of Secrets",
+      "s": 66
+     },
+     {
+      "n": "Oath of Gideon",
+      "s": 66
+     },
+     {
+      "n": "Ichormoon Gauntlet",
+      "s": 66
+     },
+     {
+      "n": "Sanctum Lurker",
+      "s": 66
+     },
+     {
+      "n": "Tekuthal, Inquiry Dominus",
+      "s": 64
+     },
+     {
+      "n": "Deepglow Skate",
+      "s": 64
+     },
+     {
+      "n": "Way of the Mind Sculptor",
+      "s": 64
+     },
+     {
+      "n": "Ripples of Potential",
+      "s": 62
+     },
+     {
+      "n": "Way of the Healer",
+      "s": 62
+     },
+     {
+      "n": "Experimental Augury",
+      "s": 62
+     },
+     {
+      "n": "Way of the Warlord",
+      "s": 60
+     },
+     {
+      "n": "Onakke Oathkeeper",
+      "s": 60
+     }
+    ]
+   },
+   {
+    "key": "polymorph",
+    "name": "Polymorph",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Chaos Warp",
+      "s": 86
+     },
+     {
+      "n": "Identity Echo",
+      "s": 82
+     },
+     {
+      "n": "Transmogrify",
+      "s": 78
+     },
+     {
+      "n": "Reality Scramble",
+      "s": 72
+     },
+     {
+      "n": "Divergent Transformations",
+      "s": 64
+     },
+     {
+      "n": "Shifting Shadow",
+      "s": 62
+     },
+     {
+      "n": "Elesh Norn, Grand Cenobite",
+      "s": 88
+     },
+     {
+      "n": "Avacyn, Angel of Hope",
+      "s": 84
+     },
+     {
+      "n": "Grave Titan",
+      "s": 84
+     },
+     {
+      "n": "Agent of Treachery",
+      "s": 82
+     },
+     {
+      "n": "Inferno Titan",
+      "s": 82
+     },
+     {
+      "n": "Sheoldred, Whispering One",
+      "s": 82
+     },
+     {
+      "n": "Noxious Gearhulk",
+      "s": 80
+     },
+     {
+      "n": "Terror of the Peaks",
+      "s": 80
+     },
+     {
+      "n": "Ashen Rider",
+      "s": 80
+     },
+     {
+      "n": "Blightsteel Colossus",
+      "s": 80
+     },
+     {
+      "n": "Wurmcoil Engine",
+      "s": 78
+     },
+     {
+      "n": "Drakuseth, Maw of Flames",
+      "s": 78
+     },
+     {
+      "n": "Aurelia, the Warleader",
+      "s": 76
+     },
+     {
+      "n": "Summon: Bahamut",
+      "s": 76
+     },
+     {
+      "n": "Gisela, Blade of Goldnight",
+      "s": 74
+     },
+     {
+      "n": "Hullbreaker Horror",
+      "s": 72
+     },
+     {
+      "n": "It That Betrays",
+      "s": 72
+     },
+     {
+      "n": "Galactus, Devourer of Worlds",
+      "s": 70
+     },
+     {
+      "n": "Astral Dragon",
+      "s": 70
+     },
+     {
+      "n": "Valgavoth, Terror Eater",
+      "s": 68
+     }
+    ]
+   },
+   {
+    "key": "board-wipes",
+    "name": "Board Wipes",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Ruinous Ultimatum",
+      "s": 88
+     },
+     {
+      "n": "Wrath of God",
+      "s": 84
+     },
+     {
+      "n": "Damnation",
+      "s": 84
+     },
+     {
+      "n": "Supreme Verdict",
+      "s": 84
+     },
+     {
+      "n": "Toxic Deluge",
+      "s": 84
+     },
+     {
+      "n": "Blasphemous Act",
+      "s": 82
+     },
+     {
+      "n": "Damn",
+      "s": 82
+     },
+     {
+      "n": "Austere Command",
+      "s": 80
+     },
+     {
+      "n": "Time Wipe",
+      "s": 76
+     },
+     {
+      "n": "Cleansing Nova",
+      "s": 76
+     },
+     {
+      "n": "Fumigate",
+      "s": 76
+     },
+     {
+      "n": "Settle the Wreckage",
+      "s": 74
+     },
+     {
+      "n": "Aetherize",
+      "s": 74
+     },
+     {
+      "n": "Overwrite the Multiverse",
+      "s": 72
+     },
+     {
+      "n": "Crux of Fate",
+      "s": 72
+     },
+     {
+      "n": "Kaya's Wrath",
+      "s": 70
+     },
+     {
+      "n": "Merciless Eviction",
+      "s": 70
+     },
+     {
+      "n": "Toxrill, the Corrosive",
+      "s": 70
+     },
+     {
+      "n": "Black Sun's Zenith",
+      "s": 66
+     },
+     {
+      "n": "Anger of the Gods",
+      "s": 64
+     }
+    ]
+   },
+   {
+    "key": "removal",
+    "name": "Removal",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Swords to Plowshares",
+      "s": 88
+     },
+     {
+      "n": "Path to Exile",
+      "s": 86
+     },
+     {
+      "n": "Anguished Unmaking",
+      "s": 84
+     },
+     {
+      "n": "Terminate",
+      "s": 80
+     },
+     {
+      "n": "Bedevil",
+      "s": 80
+     },
+     {
+      "n": "Infernal Grasp",
+      "s": 80
+     },
+     {
+      "n": "Go for the Throat",
+      "s": 78
+     },
+     {
+      "n": "Vindicate",
+      "s": 78
+     },
+     {
+      "n": "Feed the Swarm",
+      "s": 76
+     },
+     {
+      "n": "Generous Gift",
+      "s": 76
+     },
+     {
+      "n": "Mortify",
+      "s": 76
+     },
+     {
+      "n": "Hero's Downfall",
+      "s": 76
+     },
+     {
+      "n": "Get Lost",
+      "s": 76
+     },
+     {
+      "n": "Utter End",
+      "s": 74
+     },
+     {
+      "n": "Banishing Light",
+      "s": 68
+     },
+     {
+      "n": "Lightning Helix",
+      "s": 66
+     }
+    ]
+   },
+   {
+    "key": "progression-0",
+    "name": "Token control",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Bitterblossom",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "History of Benalia",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Omen of the Sun",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Midnight Haunting",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "White Sun's Zenith",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Raise the Alarm",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Call the Coppercoats",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Dovin, Grand Arbiter",
+      "c": "WU",
+      "s": 75
+     },
+     {
+      "n": "Sorin, Solemn Visitor",
+      "c": "WB",
+      "s": 75
+     },
+     {
+      "n": "Gideon, Ally of Zendikar",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Elspeth Tirel",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Kaya, Intangible Slayer",
+      "c": "WB",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "progression-1",
+    "name": "Planeswalker fortress",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Tezzeret's Gambit",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Inexorable Tide",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Karn's Bastion",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Staff of Compleation",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Contentious Plan",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Experimental Augury",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Drown in Ichor",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Ichormoon Gauntlet",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "The Chain Veil",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Deploy the Gatewatch",
+      "c": "W",
+      "s": 75
+     },
+     {
+      "n": "Interplanar Beacon",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Karn, Scion of Urza",
+      "c": "",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 30,
+    "requiredWins": 3
+   }
+  ],
+  "protectedStarter": [
+   "Chromatic Lantern"
+  ]
+ },
+ "the-wise-mothman": {
+  "lands": [
+   "Command Tower",
+   "Dimir Guildgate",
+   "Path of Ancestry",
+   "Opulent Palace",
+   "Jungle Hollow",
+   "Thornwood Falls",
+   "Exotic Orchard",
+   "Dismal Backwater",
+   "Island",
+   "Island",
+   "Island",
+   "Island",
+   "Island",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Swamp",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Island"
+  ],
+  "starter": [
+   "Sol Ring",
+   "Arcane Signet",
+   "The Master, Transcendent",
+   "Mindcrank",
+   "Feral Ghoul",
+   "Struggle for Project Purity",
+   "Bloatfly Swarm",
+   "Inexorable Tide",
+   "Ruin Crab",
+   "Winding Constrictor",
+   "Branching Evolution",
+   "Agent Frank Horrigan",
+   "Tato Farmer",
+   "Mesmeric Orb",
+   "Raul, Trouble Shooter",
+   "Strong, the Brutish Thespian",
+   "Nightkin Ambusher",
+   "Corpsejack Menace",
+   "Radstorm",
+   "Vault 12: The Necropolis",
+   "Bloodchief Ascension",
+   "Evolution Witness",
+   "Marcus, Mutant Mayor",
+   "Evolution Sage",
+   "The Water Crystal",
+   "Ripples of Potential",
+   "Syr Konrad, the Grim",
+   "Talisman of Curiosity",
+   "Kami of Whispered Hopes",
+   "Talisman of Resilience",
+   "Rampaging Yao Guai",
+   "Contaminated Drink",
+   "Thrummingbird",
+   "Talisman of Dominance",
+   "Nuka-Nuke Launcher"
+  ],
+  "minimumPackages": 5,
+  "themes": [
+   {
+    "key": "mill",
+    "name": "Mill Engines",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Hedron Crab",
+      "s": 85
+     },
+     {
+      "n": "Altar of the Brood",
+      "s": 82
+     },
+     {
+      "n": "Phenax, God of Deception",
+      "s": 80
+     },
+     {
+      "n": "Consuming Aberration",
+      "s": 78
+     },
+     {
+      "n": "Psychic Corrosion",
+      "s": 78
+     },
+     {
+      "n": "Skull Prophet",
+      "s": 78
+     },
+     {
+      "n": "Bruvac the Grandiloquent",
+      "s": 76
+     },
+     {
+      "n": "Codex Shredder",
+      "s": 76
+     },
+     {
+      "n": "Riverchurn Monument",
+      "s": 76
+     },
+     {
+      "n": "Zellix, Sanity Flayer",
+      "s": 74
+     },
+     {
+      "n": "Maddening Cacophony",
+      "s": 74
+     },
+     {
+      "n": "Millikin",
+      "s": 72
+     },
+     {
+      "n": "Jace, Wielder of Mysteries",
+      "s": 72
+     },
+     {
+      "n": "Fractured Sanity",
+      "s": 72
+     },
+     {
+      "n": "Sphinx's Tutelage",
+      "s": 72
+     },
+     {
+      "n": "Court of Cunning",
+      "s": 72
+     },
+     {
+      "n": "Altar of Dementia",
+      "s": 70
+     },
+     {
+      "n": "Teferi's Tutelage",
+      "s": 68
+     },
+     {
+      "n": "Memory Erosion",
+      "s": 68
+     },
+     {
+      "n": "Duskmantle Guildmage",
+      "s": 66
+     },
+     {
+      "n": "Thought Scour",
+      "s": 66
+     },
+     {
+      "n": "Glimpse the Unthinkable",
+      "s": 64
+     },
+     {
+      "n": "Ashiok, Dream Render",
+      "s": 64
+     },
+     {
+      "n": "Nemesis of Reason",
+      "s": 64
+     },
+     {
+      "n": "Jace, the Perfected Mind",
+      "s": 60
+     },
+     {
+      "n": "Mindshrieker",
+      "s": 58
+     }
+    ]
+   },
+   {
+    "key": "plus-1-plus-1-counters",
+    "name": "+1/+1 counters",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Hardened Scales",
+      "s": 90
+     },
+     {
+      "n": "Doubling Season",
+      "s": 84
+     },
+     {
+      "n": "Ouroboroid",
+      "s": 84
+     },
+     {
+      "n": "Ozolith, the Shattered Spire",
+      "s": 82
+     },
+     {
+      "n": "Inspiring Call",
+      "s": 80
+     },
+     {
+      "n": "Herald of Secret Streams",
+      "s": 80
+     },
+     {
+      "n": "Rishkar, Peema Renegade",
+      "s": 78
+     },
+     {
+      "n": "Walking Ballista",
+      "s": 78
+     },
+     {
+      "n": "Terrasymbiosis",
+      "s": 78
+     },
+     {
+      "n": "Fathom Mage",
+      "s": 76
+     },
+     {
+      "n": "Kalonian Hydra",
+      "s": 76
+     },
+     {
+      "n": "Hollowmurk Siege",
+      "s": 74
+     },
+     {
+      "n": "Managorger Hydra",
+      "s": 74
+     },
+     {
+      "n": "Innkeeper's Talent",
+      "s": 74
+     },
+     {
+      "n": "Forgotten Ancient",
+      "s": 72
+     },
+     {
+      "n": "The Earth Crystal",
+      "s": 72
+     },
+     {
+      "n": "Duskshell Crawler",
+      "s": 72
+     },
+     {
+      "n": "Danny Pink",
+      "s": 70
+     },
+     {
+      "n": "Incubation Druid",
+      "s": 70
+     },
+     {
+      "n": "Kodama of the West Tree",
+      "s": 70
+     },
+     {
+      "n": "The Ozolith",
+      "s": 68
+     },
+     {
+      "n": "Armorcraft Judge",
+      "s": 68
+     },
+     {
+      "n": "Wave Goodbye",
+      "s": 68
+     },
+     {
+      "n": "Mossborn Hydra",
+      "s": 68
+     },
+     {
+      "n": "Bred for the Hunt",
+      "s": 66
+     },
+     {
+      "n": "Vorel of the Hull Clade",
+      "s": 66
+     },
+     {
+      "n": "Simic Ascendancy",
+      "s": 64
+     },
+     {
+      "n": "Pensive Professor",
+      "s": 64
+     }
+    ]
+   },
+   {
+    "key": "reanimator",
+    "name": "Reanimator",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Reanimate",
+      "s": 88
+     },
+     {
+      "n": "Animate Dead",
+      "s": 88
+     },
+     {
+      "n": "Necromancy",
+      "s": 82
+     },
+     {
+      "n": "Victimize",
+      "s": 80
+     },
+     {
+      "n": "Meren of Clan Nel Toth",
+      "s": 80
+     },
+     {
+      "n": "Muldrotha, the Gravetide",
+      "s": 80
+     },
+     {
+      "n": "Stitcher's Supplier",
+      "s": 78
+     },
+     {
+      "n": "Living Death",
+      "s": 76
+     },
+     {
+      "n": "Breach the Multiverse",
+      "s": 76
+     },
+     {
+      "n": "Whip of Erebos",
+      "s": 76
+     },
+     {
+      "n": "Entomb",
+      "s": 74
+     },
+     {
+      "n": "Dread Return",
+      "s": 74
+     },
+     {
+      "n": "Persist",
+      "s": 74
+     },
+     {
+      "n": "Liliana, Death's Majesty",
+      "s": 74
+     },
+     {
+      "n": "Colossal Grave-Reaver",
+      "s": 74
+     },
+     {
+      "n": "Nyx Weaver",
+      "s": 74
+     },
+     {
+      "n": "Buried Alive",
+      "s": 72
+     },
+     {
+      "n": "Extract from Darkness",
+      "s": 72
+     },
+     {
+      "n": "Sidisi, Brood Tyrant",
+      "s": 72
+     },
+     {
+      "n": "Eternal Witness",
+      "s": 72
+     },
+     {
+      "n": "Ripples of Undeath",
+      "s": 70
+     },
+     {
+      "n": "Stitch Together",
+      "s": 70
+     },
+     {
+      "n": "Phyrexian Reclamation",
+      "s": 70
+     },
+     {
+      "n": "Sheoldred, Whispering One",
+      "s": 70
+     },
+     {
+      "n": "Satyr Wayfinder",
+      "s": 68
+     },
+     {
+      "n": "Agadeem's Awakening",
+      "s": 68
+     },
+     {
+      "n": "Grisly Salvage",
+      "s": 66
+     },
+     {
+      "n": "Unearth",
+      "s": 66
+     },
+     {
+      "n": "Rise of the Dark Realms",
+      "s": 66
+     }
+    ]
+   },
+   {
+    "key": "mutants",
+    "name": "Mutants",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Master Biomancer",
+      "s": 82
+     },
+     {
+      "n": "Jenova, Ancient Calamity",
+      "s": 78
+     },
+     {
+      "n": "Alpha Deathclaw",
+      "s": 74
+     },
+     {
+      "n": "Hancock, Ghoulish Mayor",
+      "s": 72
+     },
+     {
+      "n": "Young Deathclaws",
+      "s": 72
+     },
+     {
+      "n": "Michelangelo, Weirdness to 11",
+      "s": 72
+     },
+     {
+      "n": "Merfolk Skydiver",
+      "s": 66
+     },
+     {
+      "n": "Watchful Radstag",
+      "s": 66
+     },
+     {
+      "n": "Ray Fillet, Wave Warrior",
+      "s": 66
+     },
+     {
+      "n": "Lily Bowen, Raging Grandma",
+      "s": 64
+     },
+     {
+      "n": "Benthic Biomancer",
+      "s": 62
+     },
+     {
+      "n": "Mona Lisa, Science Geek",
+      "s": 62
+     },
+     {
+      "n": "Aberrant",
+      "s": 62
+     },
+     {
+      "n": "Super Shredder",
+      "s": 60
+     },
+     {
+      "n": "The Ghoul, Gunslinger",
+      "s": 58
+     },
+     {
+      "n": "Leatherhead, Iron Gator",
+      "s": 58
+     },
+     {
+      "n": "Jason Bright, Glowing Prophet",
+      "s": 56
+     },
+     {
+      "n": "Plaxcaster Frogling",
+      "s": 56
+     }
+    ]
+   },
+   {
+    "key": "rad-counters",
+    "name": "Rad counters & Proliferate",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Vorinclex, Monstrous Raider",
+      "s": 82
+     },
+     {
+      "n": "Tekuthal, Inquiry Dominus",
+      "s": 80
+     },
+     {
+      "n": "Tezzeret's Gambit",
+      "s": 80
+     },
+     {
+      "n": "Experimental Augury",
+      "s": 74
+     },
+     {
+      "n": "Drown in Ichor",
+      "s": 72
+     },
+     {
+      "n": "Cankerbloom",
+      "s": 72
+     },
+     {
+      "n": "Flux Channeler",
+      "s": 70
+     },
+     {
+      "n": "Contentious Plan",
+      "s": 70
+     },
+     {
+      "n": "Bloated Contaminator",
+      "s": 70
+     },
+     {
+      "n": "Unnatural Restoration",
+      "s": 68
+     },
+     {
+      "n": "Ezuri, Stalker of Spheres",
+      "s": 68
+     },
+     {
+      "n": "Contagion Engine",
+      "s": 66
+     },
+     {
+      "n": "Smell Fear",
+      "s": 64
+     },
+     {
+      "n": "Contagion Clasp",
+      "s": 62
+     },
+     {
+      "n": "Thirsting Roots",
+      "s": 62
+     },
+     {
+      "n": "Expansion Algorithm",
+      "s": 62
+     },
+     {
+      "n": "Steady Progress",
+      "s": 60
+     },
+     {
+      "n": "Harold and Bob, First Numens",
+      "s": 58
+     }
+    ]
+   },
+   {
+    "key": "progression-0",
+    "name": "Measured mutation",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Evolution Sage",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Karn's Bastion",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Flux Channeler",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Inexorable Tide",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Experimental Augury",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Contentious Plan",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Drown in Ichor",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Thrummingbird",
+      "c": "U",
+      "s": 75
+     },
+     {
+      "n": "Evolution Witness",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Kiora's Follower",
+      "c": "UG",
+      "s": 75
+     },
+     {
+      "n": "Master Biomancer",
+      "c": "UG",
+      "s": 75
+     },
+     {
+      "n": "Deepglow Skate",
+      "c": "U",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "progression-1",
+    "name": "Graveyard harvest",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Syr Konrad, the Grim",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "Mesmeric Orb",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Mindcrank",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Cemetery Tampering",
+      "c": "B",
+      "s": 75
+     },
+     {
+      "n": "The Mycotyrant",
+      "c": "BG",
+      "s": 75
+     },
+     {
+      "n": "Izoni, Thousand-Eyed",
+      "c": "BG",
+      "s": 75
+     },
+     {
+      "n": "Spider Spawning",
+      "c": "BG",
+      "s": 75
+     },
+     {
+      "n": "Gnaw to the Bone",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Splinterfright",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Boneyard Wurm",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Golgari Grave-Troll",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Lord of Extinction",
+      "c": "BG",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 30,
+    "requiredWins": 3
+   }
+  ]
+ },
+ "shang-chi-master-of-kung-fu": {
+  "lands": [
+   "Exotic Orchard",
+   "Path of Ancestry",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest",
+   "Forest"
+  ],
+  "starter": [
+   "Sol Ring",
+   "Arcane Signet",
+   "Eladamri, Korvecdal",
+   "Marvin, Murderous Mimic",
+   "Magus of the Candelabra",
+   "Wirewood Symbiote",
+   "Quirion Ranger",
+   "Karametra's Acolyte",
+   "Finale of Devastation",
+   "Arbor Elf",
+   "Nature's Rhythm",
+   "Yisan, the Wanderer Bard",
+   "Allosaurus Shepherd",
+   "Green Sun's Zenith",
+   "Chord of Calling",
+   "Regal Force",
+   "Boreal Druid",
+   "Summoner's Pact",
+   "Joraga Treespeaker",
+   "Seeker of Skybreak",
+   "Eldritch Evolution",
+   "Ashaya, Soul of the Wild",
+   "Duskwatch Recruiter",
+   "Legolas's Quick Reflexes",
+   "Shaman of Forgotten Ways",
+   "Elvish Reclaimer",
+   "Orochi Leafcaller",
+   "Mox Amber",
+   "Magus of the Order",
+   "Dosan the Falling Leaf",
+   "Yeva, Nature's Herald",
+   "Sowing Mycospawn",
+   "Glimpse of Nature",
+   "Disciple of Freyalise",
+   "Elvish Harbinger"
+  ],
+  "minimumPackages": 5,
+  "themes": [
+   {
+    "key": "ramp",
+    "name": "Ramp",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Three Visits",
+      "s": 88
+     },
+     {
+      "n": "Nature's Lore",
+      "s": 88
+     },
+     {
+      "n": "Rampant Growth",
+      "s": 86
+     },
+     {
+      "n": "Cultivate",
+      "s": 84
+     },
+     {
+      "n": "Kodama's Reach",
+      "s": 84
+     },
+     {
+      "n": "Skyshroud Claim",
+      "s": 82
+     },
+     {
+      "n": "Utopia Sprawl",
+      "s": 82
+     },
+     {
+      "n": "Thran Dynamo",
+      "s": 80
+     },
+     {
+      "n": "Solemn Simulacrum",
+      "s": 80
+     },
+     {
+      "n": "Tireless Provisioner",
+      "s": 80
+     },
+     {
+      "n": "Sakura-Tribe Elder",
+      "s": 80
+     },
+     {
+      "n": "Burnished Hart",
+      "s": 78
+     },
+     {
+      "n": "Explosive Vegetation",
+      "s": 76
+     },
+     {
+      "n": "Mind Stone",
+      "s": 76
+     },
+     {
+      "n": "Everflowing Chalice",
+      "s": 76
+     },
+     {
+      "n": "Wood Elves",
+      "s": 76
+     },
+     {
+      "n": "Cryptolith Rite",
+      "s": 76
+     },
+     {
+      "n": "Harrow",
+      "s": 74
+     },
+     {
+      "n": "Thought Vessel",
+      "s": 74
+     },
+     {
+      "n": "Wild Growth",
+      "s": 74
+     },
+     {
+      "n": "Fertile Ground",
+      "s": 74
+     },
+     {
+      "n": "The Great Henge",
+      "s": 74
+     },
+     {
+      "n": "Worn Powerstone",
+      "s": 72
+     },
+     {
+      "n": "Sword of the Animist",
+      "s": 72
+     },
+     {
+      "n": "Exploration",
+      "s": 72
+     },
+     {
+      "n": "Hedron Archive",
+      "s": 70
+     },
+     {
+      "n": "Basalt Monolith",
+      "s": 70
+     },
+     {
+      "n": "Lotus Cobra",
+      "s": 70
+     },
+     {
+      "n": "Dryad of the Ilysian Grove",
+      "s": 70
+     },
+     {
+      "n": "Emerald Medallion",
+      "s": 68
+     }
+    ]
+   },
+   {
+    "key": "mana-dorks",
+    "name": "Mana-Dorks",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Birds of Paradise",
+      "s": 90
+     },
+     {
+      "n": "Llanowar Elves",
+      "s": 88
+     },
+     {
+      "n": "Elvish Mystic",
+      "s": 88
+     },
+     {
+      "n": "Fyndhorn Elves",
+      "s": 86
+     },
+     {
+      "n": "Gwenna, Eyes of Gaea",
+      "s": 84
+     },
+     {
+      "n": "Selvala, Heart of the Wilds",
+      "s": 84
+     },
+     {
+      "n": "Fanatic of Rhonas",
+      "s": 82
+     },
+     {
+      "n": "Delighted Halfling",
+      "s": 80
+     },
+     {
+      "n": "Kami of Whispered Hopes",
+      "s": 80
+     },
+     {
+      "n": "Llanowar Tribe",
+      "s": 80
+     },
+     {
+      "n": "Enduring Vitality",
+      "s": 80
+     },
+     {
+      "n": "Devoted Druid",
+      "s": 78
+     },
+     {
+      "n": "Incubation Druid",
+      "s": 76
+     },
+     {
+      "n": "Ornithopter of Paradise",
+      "s": 76
+     },
+     {
+      "n": "Paradise Druid",
+      "s": 76
+     },
+     {
+      "n": "Ilysian Caryatid",
+      "s": 74
+     },
+     {
+      "n": "Llanowar Loamspeaker",
+      "s": 74
+     },
+     {
+      "n": "Somberwald Sage",
+      "s": 72
+     },
+     {
+      "n": "Poison Dart Frog",
+      "s": 72
+     },
+     {
+      "n": "Arbor Adherent",
+      "s": 72
+     },
+     {
+      "n": "Sylvan Caryatid",
+      "s": 70
+     },
+     {
+      "n": "Palladium Myr",
+      "s": 70
+     },
+     {
+      "n": "Nightshade Dryad",
+      "s": 68
+     },
+     {
+      "n": "Twitching Doll",
+      "s": 68
+     },
+     {
+      "n": "Bighorner Rancher",
+      "s": 64
+     },
+     {
+      "n": "Bugenhagen, Wise Elder",
+      "s": 64
+     },
+     {
+      "n": "Biophagus",
+      "s": 64
+     },
+     {
+      "n": "Gilded Goose",
+      "s": 60
+     }
+    ]
+   },
+   {
+    "key": "elves",
+    "name": "Elves",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Imperious Perfect",
+      "s": 86
+     },
+     {
+      "n": "Marwyn, the Nurturer",
+      "s": 82
+     },
+     {
+      "n": "Ezuri, Renegade Leader",
+      "s": 80
+     },
+     {
+      "n": "Leaf-Crowned Visionary",
+      "s": 78
+     },
+     {
+      "n": "Heritage Druid",
+      "s": 78
+     },
+     {
+      "n": "Wirewood Channeler",
+      "s": 78
+     },
+     {
+      "n": "Elvish Warmaster",
+      "s": 76
+     },
+     {
+      "n": "Canopy Tactician",
+      "s": 76
+     },
+     {
+      "n": "Skyshroud Poacher",
+      "s": 74
+     },
+     {
+      "n": "Timberwatch Elf",
+      "s": 74
+     },
+     {
+      "n": "Dionus, Elvish Archdruid",
+      "s": 72
+     },
+     {
+      "n": "Champions of the Perfect",
+      "s": 72
+     },
+     {
+      "n": "Llanowar Visionary",
+      "s": 72
+     },
+     {
+      "n": "Lys Alana Huntmaster",
+      "s": 72
+     },
+     {
+      "n": "Elvish Visionary",
+      "s": 70
+     },
+     {
+      "n": "Elvish Promenade",
+      "s": 70
+     },
+     {
+      "n": "Elven Chorus",
+      "s": 70
+     },
+     {
+      "n": "Realmwalker",
+      "s": 70
+     },
+     {
+      "n": "Elvish Champion",
+      "s": 68
+     },
+     {
+      "n": "Dwynen's Elite",
+      "s": 68
+     },
+     {
+      "n": "Elvish Piper",
+      "s": 66
+     },
+     {
+      "n": "Copperhorn Scout",
+      "s": 64
+     },
+     {
+      "n": "Joraga Warcaller",
+      "s": 62
+     },
+     {
+      "n": "Jagged-Scar Archers",
+      "s": 62
+     },
+     {
+      "n": "Voice of the Woods",
+      "s": 62
+     },
+     {
+      "n": "Elvish Rejuvenator",
+      "s": 62
+     },
+     {
+      "n": "Elvish Clancaller",
+      "s": 60
+     },
+     {
+      "n": "Elvish Branchbender",
+      "s": 56
+     }
+    ]
+   },
+   {
+    "key": "ability-creatures",
+    "name": "Ability toolbox",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Walking Ballista",
+      "s": 88
+     },
+     {
+      "n": "Steel Hellkite",
+      "s": 84
+     },
+     {
+      "n": "Endbringer",
+      "s": 82
+     },
+     {
+      "n": "Ulvenwald Tracker",
+      "s": 82
+     },
+     {
+      "n": "Scavenging Ooze",
+      "s": 80
+     },
+     {
+      "n": "Loot, Exuberant Explorer",
+      "s": 76
+     },
+     {
+      "n": "Ant Queen",
+      "s": 74
+     },
+     {
+      "n": "Bristly Bill, Spine Sower",
+      "s": 74
+     },
+     {
+      "n": "Polukranos, World Eater",
+      "s": 74
+     },
+     {
+      "n": "Tyvar, the Pummeler",
+      "s": 72
+     },
+     {
+      "n": "Saryth, the Viper's Fang",
+      "s": 70
+     },
+     {
+      "n": "Hangarback Walker",
+      "s": 70
+     },
+     {
+      "n": "Chameleon Colossus",
+      "s": 68
+     },
+     {
+      "n": "Hydra Broodmaster",
+      "s": 66
+     },
+     {
+      "n": "Kamahl, Fist of Krosa",
+      "s": 64
+     },
+     {
+      "n": "Jolrael, Mwonvuli Recluse",
+      "s": 64
+     },
+     {
+      "n": "Oviya, Automech Artisan",
+      "s": 64
+     },
+     {
+      "n": "Marketback Walker",
+      "s": 62
+     },
+     {
+      "n": "Scryb Ranger",
+      "s": 60
+     }
+    ]
+   },
+   {
+    "key": "plus-1-plus-1-counters",
+    "name": "+1/+1 counters",
+    "rare": true,
+    "cards": [
+     {
+      "n": "Hardened Scales",
+      "s": 84
+     },
+     {
+      "n": "Rishkar, Peema Renegade",
+      "s": 84
+     },
+     {
+      "n": "Ouroboroid",
+      "s": 80
+     },
+     {
+      "n": "Doubling Season",
+      "s": 78
+     },
+     {
+      "n": "Branching Evolution",
+      "s": 76
+     },
+     {
+      "n": "Ozolith, the Shattered Spire",
+      "s": 76
+     },
+     {
+      "n": "Inspiring Call",
+      "s": 74
+     },
+     {
+      "n": "Kalonian Hydra",
+      "s": 74
+     },
+     {
+      "n": "Evolution Witness",
+      "s": 72
+     },
+     {
+      "n": "Managorger Hydra",
+      "s": 70
+     },
+     {
+      "n": "Steelbane Hydra",
+      "s": 70
+     },
+     {
+      "n": "Terrasymbiosis",
+      "s": 70
+     },
+     {
+      "n": "Topiary Lecturer",
+      "s": 68
+     },
+     {
+      "n": "The Earth Crystal",
+      "s": 68
+     },
+     {
+      "n": "Immaculate Magistrate",
+      "s": 66
+     },
+     {
+      "n": "Maester Seymour",
+      "s": 66
+     },
+     {
+      "n": "Tromell, Seymour's Butler",
+      "s": 64
+     },
+     {
+      "n": "Mossborn Hydra",
+      "s": 64
+     },
+     {
+      "n": "Basking Broodscale",
+      "s": 62
+     },
+     {
+      "n": "Increasing Savagery",
+      "s": 78
+     }
+    ]
+   },
+   {
+    "key": "progression-0",
+    "name": "Elf engine",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Llanowar Elves",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Elvish Mystic",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Fyndhorn Elves",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Elvish Guidance",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Joraga Treespeaker",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Wirewood Symbiote",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Quirion Ranger",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Wirewood Lodge",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Beast Whisperer",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Realmwalker",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Elvish Visionary",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Dwynen's Elite",
+      "c": "G",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 0,
+    "requiredWins": 0
+   },
+   {
+    "key": "progression-1",
+    "name": "Untap toolbox",
+    "rare": false,
+    "cards": [
+     {
+      "n": "Scryb Ranger",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Seeker of Skybreak",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Thousand-Year Elixir",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Patriar's Seal",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Staff of Domination",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Umbral Mantle",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Magewright's Stone",
+      "c": "",
+      "s": 75
+     },
+     {
+      "n": "Instill Energy",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Vitalize",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Mobilize",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Benefactor's Draught",
+      "c": "G",
+      "s": 75
+     },
+     {
+      "n": "Great Oak Guardian",
+      "c": "G",
+      "s": 75
+     }
+    ],
+    "progression": true,
+    "cost": 30,
+    "requiredWins": 3
+   }
+  ]
+ }
+}

@@ -1,0 +1,5 @@
+Pantlaza nonverbal creature sounds
+CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/
+Deep Monster Roar — trazzz123 — https://opengameart.org/content/cc0-deep-monster-roar
+Monster snarls / snarl attack — Darsycho — https://opengameart.org/content/monster-snarls
+Edited for this mod: filtered, pitched, layered and reduced in level; no spoken TTS.
