@@ -914,7 +914,7 @@ def patch_modern_atmosphere():
              'forge/toolbox/FCardPanel$CardDestroyedAnimation.class',
              'forge/toolbox/FCardPanel$CardTransformAnimation.class']
     install_java_mod('modern battlefield presentation', 'ModernBattlefieldMod.java', [],
-                     [(entry,'PatchModernBattlefield.java') for entry in entries])
+                     [(entry,'PatchModernBattlefield.java') for entry in entries], extra_sources=['FantasyButtonArt.java'])
 
 
 def patch_combat_preferences():
@@ -942,6 +942,7 @@ def patch_arena_motion():
     install_java_mod('smooth Adventure card animations','ArenaMotionMod.java',[],
                      [(entry,'PatchArenaMotion.java') for entry in
                       ['forge/screens/match/CardFlightOverlay.class','forge/screens/match/CardFlightOverlay$Flight.class',
+                       'forge/screens/match/views/VZoneDisplay.class','forge/screens/match/views/VCardDisplayArea$CardAreaPanel.class',
                        'forge/toolbox/FCardPanel$CardTapAnimation.class','forge/toolbox/FCardPanel$CardUnTapAnimation.class',
                        'forge/toolbox/FCardPanel$CardTransformAnimation.class']])
     install_java_mod('manual battlefield card zoom','BattleZoomMod.java',[],
@@ -952,9 +953,21 @@ def patch_arena_motion():
                       ['forge/screens/match/views/VPlayerPanel.class','forge/screens/match/views/VPrompt.class',
                        'forge/screens/match/views/VZoneDisplay.class','forge/screens/match/views/VPrompt$MessageLabel.class',
                        'forge/menu/FMenuBar.class','forge/screens/match/MatchScreen.class',
-                       'forge/screens/match/MatchScreen$FieldScroller.class','forge/screens/match/views/VAvatar.class']], extra_sources=['RogueCommandersScene.java','RogueForgeAchievements.java'])
+                       'forge/screens/match/MatchScreen$FieldScroller.class','forge/screens/match/views/VAvatar.class']], extra_sources=['RogueCommandersScene.java','RogueForgeAchievements.java','FantasyButtonArt.java','BattleUiSettings.java'])
     install_java_mod('remove dangerous attack engines before attackers', 'AttackTriggerRemovalMod.java', [],
                      [('forge/ai/ComputerUtilCard.class', 'PatchAttackTriggerRemoval.java')])
+    install_java_mod('no order prompt for replacement effects whose order cannot matter', 'ReplacementAutoMod.java', [],
+                     [('forge/player/PlayerControllerHuman.class', 'PatchReplacementAuto.java')])
+    patch_graphics_voice_assets()
+
+
+def patch_graphics_voice_assets():
+    print('31b) Dungeon art adapter and validated incremental commander voices/backgrounds')
+    if running_now:
+        say('--', 'close Forge before installing graphics/voice assets'); return
+    install_java_mod('animated dungeon art adapter', 'DungeonMapArt.java', [], [])
+    from apply_graphics_voice_20261016 import apply
+    say('->' if CHECK_ONLY else 'OK', apply(FORGE, CHECK_ONLY))
 
 
 def patch_map_light():
@@ -983,6 +996,16 @@ def patch_enemy_intro():
 def patch_rogue_commanders():
     print('38) Rogue Commanders: endless roguelite mode in the Adventure main menu (content: _mods/rogue-commanders)')
     folder = os.path.join(FORGE, '_mods', 'rogue-commanders')
+    # Validate data even for --check; apply only with Forge closed, through this step.
+    if os.path.exists(os.path.join(folder, 'consolidated_packages.json')):
+        if running_now and not CHECK_ONLY:
+            say('!!', 'Close Forge before applying consolidated packages'); return
+        args = [sys.executable, os.path.join(folder, 'consolidated_packages.py')]
+        if CHECK_ONLY: args.append('--check')
+        r = subprocess.run(args, capture_output=True, text=True)
+        if r.returncode != 0:
+            say('!!', 'Consolidated package validation failed: ' + (r.stdout + r.stderr)[-1200:]); return
+        say('ok', r.stdout.strip())
     if not os.path.exists(os.path.join(folder, 'content.json')):
         say('!!', 'rogue-commanders/content.json missing - run build_content.py'); return
     adv = os.path.join(FORGE, 'res', 'adventure')
@@ -1026,9 +1049,9 @@ def patch_rogue_commanders():
             json.dump(layout, open(path, 'w', encoding='utf-8'), indent=2)
             say('ok', f'common/ui/{fname} written')
     install_java_mod('Rogue Commanders', 'RogueCommandersScene.java', [],
-                     [('forge/adventure/scene/StartScene.class', 'PatchRogueCommanders.java')], extra_sources=['RogueForgeAchievements.java'])
+                     [('forge/adventure/scene/StartScene.class', 'PatchRogueCommanders.java')], extra_sources=['RogueForgeAchievements.java','FantasyButtonArt.java','BattleUiSettings.java'])
     install_java_mod('Rogue commander achievement life-loss observer', 'RogueCommandersScene.java', [],
-                     [('forge/game/player/Player.class', 'PatchRogueLifeLoss.java')], extra_sources=['RogueForgeAchievements.java'])
+                     [('forge/game/player/Player.class', 'PatchRogueLifeLoss.java')], extra_sources=['RogueForgeAchievements.java','FantasyButtonArt.java','BattleUiSettings.java'])
 
 
 def patch_commander_rating():
@@ -1046,7 +1069,9 @@ def patch_commander_rating():
 
 def patch_dev_mode():
     print('40) Developer mode hook (inactive unless Forge is started with -Dforge.devmode=PORT, see _mods/devmode/forge_dev.py)')
-    install_java_mod('developer mode', 'DevModeMod.java', [], [('forge/Forge.class', 'PatchDevMode.java')])
+    install_java_mod('developer mode', 'DevModeMod.java', [], [('forge/Forge.class', 'PatchDevMode.java'),
+                     # Forge bug: parallel world generation corrupts Config's shared path builder -> new game freezes
+                     ('forge/adventure/util/Config.class', 'PatchConfigThreadSafe.java')])
     # "Rogue Commanders" launcher: same JVM options as forge-adventure.cmd plus -Dforge.autocontinue=rogue,
     # which skips the start menus and opens Rogue Commanders with the running run (DevModeMod.autoContinue)
     java_line = None
@@ -1104,16 +1129,36 @@ def patch_zone_tabs():
         say('!!', 'zone-icons missing - run _mods/zone-icons/build_zone_icons.py'); return
     install_java_mod('zone tab style', 'ZoneTabStyleMod.java', [],
                      [('forge/screens/match/views/VPlayerPanel$InfoTab.class', 'PatchZoneTabStyle.java')])
+    # match menu "Players" view in the same modern style (Claude 2026-10-16)
+    # semi-transparent stack popup (user 2026-10-17)
+    install_java_mod('stack style', 'StackStyleMod.java', [],
+                     [('forge/screens/match/views/VStack.class', 'PatchStackStyle.java'),
+                      ('forge/screens/match/views/VStack$StackInstanceDisplay.class', 'PatchStackStyle.java')])
+    install_java_mod('game log style', 'LogStyleMod.java', [],
+                     [('forge/screens/match/views/VLog.class', 'PatchLogStyle.java'),
+                      ('forge/screens/match/views/VLog$LogEntryDisplay.class', 'PatchLogStyle.java')])   # turn bands (2026-10-18)
+    install_java_mod('players view style', 'PlayersStyleMod.java', [],
+                     [('forge/screens/match/views/VPlayers$PlayerInfoPanel.class', 'PatchPlayersStyle.java')])
+    # card yes/no dialogs: only the card, no opaque panel/swipe strip (user 2026-10-17)
+    install_java_mod('card dialog style', 'CardDialogMod.java', [],
+                     [('forge/toolbox/FDialog.class', 'PatchCardDialog.java'),
+                      ('forge/toolbox/FChoiceList.class', 'PatchCardDialog.java'),   # + translucent match choice lists
+                      ('forge/toolbox/DualListBox.class', 'PatchCardDialog.java'),   # Enter takes a single candidate (2026-10-18)
+                      ('forge/toolbox/FOptionPane.class', 'PatchCardDialog.java')])
 
 
 def patch_match_menu():
     print('45) Battle HUD: one round menu button instead of the top menu bar; modern transparent prompt bar')
     install_java_mod('match menu button', 'MatchMenuMod.java', [],
-                     [('forge/screens/match/MatchScreen.class', 'PatchMatchMenu.java'), ('forge/menu/FDropDown.class', 'PatchMatchMenu.java')])
+                     [('forge/screens/match/MatchScreen.class', 'PatchMatchMenu.java'), ('forge/menu/FDropDown.class', 'PatchMatchMenu.java')],
+                     extra_sources=['DeckPeekMod.java','BattleUiSettings.java'])
     install_java_mod('prompt bar style', 'PromptStyleMod.java', [],
                      [('forge/screens/match/views/VPrompt.class', 'PatchPromptStyle.java'),
                       ('forge/screens/match/views/VPrompt$MessageLabel.class', 'PatchPromptStyle.java'),
-                      ('forge/toolbox/FButton.class', 'PatchPromptStyle.java')])
+                      ('forge/toolbox/FButton.class', 'PatchPromptStyle.java')], extra_sources=['FantasyButtonArt.java'])
+    # popup menus in a duel (stack item menu: Auto-Yield / Yield to stack / Resolve entire stack) - user 2026-10-18
+    install_java_mod('popup menu style', 'MenuStyleMod.java', [],
+                     [('forge/menu/FMenuItem.class', 'PatchMenuStyle.java'), ('forge/menu/FPopupMenu.class', 'PatchMenuStyle.java')])
 
 
 def patch_transition_style():
@@ -1141,6 +1186,162 @@ def patch_digital_sets():
         raw = re.sub(rb'\nType=[^\r\n]*', b'\nType=Online', raw, count=1)
         open(path, 'wb').write(raw)
         say('OK', f'{fname}: Type=Online')
+
+
+# AI hints in Forge card scripts: entry in res/cardsfolder/cardsfolder.zip -> [(old, new)]
+CARD_SCRIPT_FIXES = {
+    # Jace's combat tax: the AI only pays {2} when it would actually attack this turn (Forge's UnlessAI$ WillAttack)
+    'j/jace_multiverse_architect.txt': [('UnlessPayer$ TriggeredPlayer | RememberObjects$ TriggeredPlayer',
+                                         'UnlessPayer$ TriggeredPlayer | UnlessAI$ WillAttack | RememberObjects$ TriggeredPlayer')],
+}
+
+
+def patch_upstream_fixes():
+    """Rule / AI / card-script fixes of upstream Forge made after our base snapshot 10.09 (user 2026-10-18: "apply die
+    Game-Engine-Fixes von normal Forge" / "patch meine Engine mit der neuesten Version"). Only engine and card fixes -
+    no GUI/netplay/undo/layout commits, those broke the battle HUD in 10.14. Sources: _mods/upstream-fixes
+    (fetch_upstream.py from the local checkout _mods/forge-src-1009, manifest.json). A card script is replaced only while
+    ours is still an upstream version (base or an older fix); Java fixes are compiled against our JAR, and classes that
+    our own bytecode patchers change get that patch applied before the comparison (POST_PATCH)."""
+    print('47d) Upstream Forge fixes after 10.09: rules engine, AI, card scripts (see _mods/upstream-fixes/manifest.json)')
+    if running_now:
+        print('   skipped - close Forge and run again'); return
+    mods = os.path.dirname(os.path.abspath(__file__))
+    up = os.path.join(mods, 'upstream-fixes')
+    man = json.load(open(os.path.join(up, 'manifest.json'), encoding='utf-8'))
+    norm = lambda b: b.replace(b'\r\n', b'\n').strip()
+    digest = lambda b: hashlib.sha256(norm(b)).hexdigest()
+    # 1. card scripts (cardsfolder.zip) and token scripts (files)
+    zpath = os.path.join(FORGE, 'res', 'cardsfolder', 'cardsfolder.zip')
+    texts = {}
+    with zipfile.ZipFile(zpath) as z:
+        names = set(z.namelist())
+        for card in man['cards']:
+            rel = card['file']; fixed = open(os.path.join(up, rel), 'rb').read(); accept = set(card.get('accept', []))
+            if rel.startswith('tokenscripts/'):
+                dst = os.path.join(FORGE, 'res', rel.replace('/', os.sep)); cur = open(dst, 'rb').read() if os.path.exists(dst) else b''
+                if norm(cur) == norm(fixed): continue
+                if digest(cur) not in accept: say('!!', f'{rel}: not an upstream version - not replaced'); continue
+                if not CHECK_ONLY: open(dst, 'wb').write(fixed)
+                say('OK' if not CHECK_ONLY else '->', f'{rel} ({card["why"][:80]})'); continue
+            entry = rel[len('cardsfolder/'):]
+            if entry not in names: say('--', f'{entry} not in cardsfolder.zip'); continue
+            cur = z.read(entry)
+            if norm(cur) == norm(fixed): continue
+            if digest(cur) not in accept: say('!!', f'{entry}: not an upstream version - not replaced'); continue
+            texts[entry] = fixed
+    if texts:
+        if CHECK_ONLY:
+            say('->', f'would update {len(texts)} card script(s): ' + ', '.join(sorted(os.path.basename(t)[:-4] for t in texts)))
+        else:
+            with open(zpath, 'rb') as f:
+                backup_once(zpath, f.read(), os.path.join(FORGE, '_backup_original_jars'))
+            tmp = zpath + '.tmp'
+            with zipfile.ZipFile(zpath) as src, zipfile.ZipFile(tmp, 'w', zipfile.ZIP_DEFLATED) as dst:
+                for info in src.infolist():
+                    dst.writestr(info, texts.get(info.filename, src.read(info.filename)))
+            os.replace(tmp, zpath)
+            say('OK', f'{len(texts)} card script(s): ' + ', '.join(sorted(os.path.basename(t)[:-4] for t in texts)))
+    else:
+        say('ok', 'card scripts up to date')
+    # 2. engine / AI classes compiled from the fixed upstream sources against our JAR
+    POST_PATCH = {'forge/player/PlayerControllerHuman.class': 'PatchReplacementAuto.java'}   # our own ASM patch on that class
+    java = find_jdk_java(); javac = os.path.join(os.path.dirname(java), 'javac.exe')
+    srcs = [os.path.join(up, 'java', j['file']) for j in man['java']]
+    for jar in adventure_jars():
+        name = os.path.basename(jar); tmp = tempfile.mkdtemp()
+        try:
+            r = subprocess.run([javac, '--release', '17', '-encoding', 'UTF-8', '-nowarn', '-proc:none', '-implicit:none', '-cp', jar, '-d', tmp] + srcs,
+                               capture_output=True, text=True)
+            if r.returncode != 0:
+                say('!!', f'{name}: upstream fixes do not compile against this JAR: {(r.stdout + r.stderr).strip()[:400]}'); return
+            for entry, patcher in POST_PATCH.items():
+                cls = os.path.join(tmp, entry.replace('/', os.sep))
+                if os.path.exists(cls):
+                    out = cls + '.patched'
+                    pr = subprocess.run([java] + ASM_EXPORTS + [os.path.join(mods, patcher), cls, out], capture_output=True, text=True)
+                    if pr.returncode == 0 and os.path.exists(out): os.replace(out, cls)
+                    elif pr.returncode != 2: say('!!', f'{patcher} failed on the upstream {entry}: {(pr.stdout + pr.stderr).strip()[:200]}'); return
+            repl = {}
+            with zipfile.ZipFile(jar) as z:
+                entries = set(z.namelist())
+                for root, _, files in os.walk(tmp):
+                    for f in files:
+                        if f.endswith('.patched'): continue
+                        entry = os.path.relpath(os.path.join(root, f), tmp).replace(os.sep, '/')
+                        data = open(os.path.join(root, f), 'rb').read()
+                        if entry not in entries or z.read(entry) != data: repl[entry] = data
+            if not repl:
+                say('ok', f'{name}: upstream engine fixes already installed'); continue
+            if CHECK_ONLY:
+                say('->', f'{name}: would install upstream fixes (' + ', '.join(sorted({os.path.basename(k).split('$')[0] for k in repl})) + ')'); continue
+            with open(jar, 'rb') as f:
+                backup_once(jar, f.read(), os.path.join(FORGE, '_backup_original_jars'))
+            rewrite_jar(jar, repl)
+            say('OK', f'{name}: upstream engine fixes (' + ', '.join(sorted({os.path.basename(k).split('$')[0] for k in repl})) + ')')
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+
+
+def patch_card_scripts():
+    print('47c) Card scripts: AI hints (Jace, Multiverse Architect: pay the attack tax only when attacking)')
+    path = os.path.join(FORGE, 'res', 'cardsfolder', 'cardsfolder.zip')
+    if not os.path.exists(path):
+        say('--', 'cardsfolder.zip not found'); return
+    with zipfile.ZipFile(path) as z:
+        texts = {}
+        for entry, subs in CARD_SCRIPT_FIXES.items():
+            if entry not in z.namelist():
+                say('--', f'{entry} not in cardsfolder.zip'); continue
+            text = z.read(entry).decode('utf-8')
+            changed = text
+            for old, new in subs:
+                if new in changed:
+                    continue
+                if old not in changed:
+                    say('!!', f'{entry}: script changed upstream, hint not applied'); break
+                changed = changed.replace(old, new)
+            if changed != text:
+                texts[entry] = changed.encode('utf-8')
+            else:
+                say('ok', f'{entry}: already patched')
+    if not texts:
+        return
+    if CHECK_ONLY:
+        say('->', 'would patch ' + ', '.join(texts)); return
+    with open(path, 'rb') as f:
+        backup_once(path, f.read(), os.path.join(FORGE, '_backup_original_jars'))
+    tmp = path + '.tmp'
+    with zipfile.ZipFile(path) as src, zipfile.ZipFile(tmp, 'w', zipfile.ZIP_DEFLATED) as dst:
+        for info in src.infolist():
+            dst.writestr(info, texts.get(info.filename, src.read(info.filename)))
+    os.replace(tmp, path)
+    say('OK', 'card scripts: ' + ', '.join(texts))
+
+
+# Forge's Default AI almost never attacks into a trade (0 %), so it sits still even when two attackers would kill a
+# planeswalker or force a chump block (user 2026-10-16). Moderate values, not the all-in "Reckless" profile.
+AI_AGGRESSION = {'CHANCE_TO_ATTACK_INTO_TRADE': '60', 'ATTACK_INTO_TRADE_WHEN_TAPPED_OUT': 'true',
+                 'RANDOMLY_ATKTRADE_ONLY_ON_LOWER_LIFE_PRESSURE': 'false', 'CHANCE_TO_ATKTRADE_WHEN_OPP_HAS_MANA': '50'}
+
+
+def patch_ai_aggression():
+    print('47d) AI profile Default: attacks into favourable trades and planeswalkers more often')
+    path = os.path.join(FORGE, 'res', 'ai', 'Default.ai')
+    if not os.path.exists(path):
+        say('--', 'Default.ai not found'); return
+    raw = open(path, 'rb').read(); updated = raw
+    for key, value in AI_AGGRESSION.items():
+        pattern = rb'(?m)^' + key.encode() + rb'=[^\r\n]*'
+        line = (key + '=' + value).encode()
+        updated = re.sub(pattern, line, updated) if re.search(pattern, updated) else updated + b'\n' + line + b'\n'
+    if updated == raw:
+        say('ok', 'Default.ai already aggressive'); return
+    if CHECK_ONLY:
+        say('->', 'would update Default.ai'); return
+    backup_once(path, raw, os.path.join(FORGE, '_backup_original_jars'))
+    open(path, 'wb').write(updated)
+    say('OK', 'Default.ai: ' + ', '.join(f'{k}={v}' for k, v in AI_AGGRESSION.items()))
 
 
 def patch_card_art_pref():
@@ -1225,7 +1426,7 @@ def patch_battle_layout_fixes():
                        'forge/screens/match/views/VCardDisplayArea.class',
                        'forge/screens/match/views/VZoneDisplay.class',
                        'forge/screens/match/MatchScreen.class',
-                       'forge/toolbox/FButton.class','forge/toolbox/FList.class']])
+                       'forge/toolbox/FButton.class','forge/toolbox/FList.class']], extra_sources=['FantasyButtonArt.java'])
 
 
 if __name__ == '__main__':
@@ -1235,8 +1436,8 @@ if __name__ == '__main__':
     if running:
         print('\nForge is running: JARs and preferences are skipped (Forge has them open/would overwrite them).')
         print('Data files are patched now and take effect after the next Forge start.\n')
-    for step in (patch_jars, patch_enemies, patch_config, patch_prefs, patch_quest_reputation, patch_shops, patch_rotation, patch_arenas, patch_avatars, patch_autowin, patch_shop_hour, patch_portraits, patch_art_avatars, patch_world_sprites, patch_highres_downloads, patch_token_images, patch_map_zoom, patch_shop_signs, patch_upscaled_shop_signs, patch_witcher_music, patch_modern_hud, patch_draft_rating, patch_floating_mage, patch_achievement_rewards, patch_enemy_sprite_detail, patch_librarium_enemies, patch_combat_style, patch_modern_atmosphere, patch_combat_preferences, patch_arena_motion, patch_map_style, patch_map_light, patch_dungeon_run, patch_world_content, patch_starter_decks, patch_commander_rating, patch_rogue_commanders, patch_dev_mode, patch_modern_skin, patch_modern_results, patch_stack_clearance, patch_mana_pool_layout, patch_zone_tabs, patch_match_menu, patch_transition_style, patch_card_art_pref, patch_digital_sets):
-        if running and step in (patch_jars, patch_prefs, patch_rotation, patch_card_art_pref):
+    for step in (patch_jars, patch_enemies, patch_config, patch_prefs, patch_quest_reputation, patch_shops, patch_rotation, patch_arenas, patch_avatars, patch_autowin, patch_shop_hour, patch_portraits, patch_art_avatars, patch_world_sprites, patch_highres_downloads, patch_token_images, patch_map_zoom, patch_shop_signs, patch_upscaled_shop_signs, patch_witcher_music, patch_modern_hud, patch_draft_rating, patch_floating_mage, patch_achievement_rewards, patch_enemy_sprite_detail, patch_librarium_enemies, patch_combat_style, patch_modern_atmosphere, patch_combat_preferences, patch_arena_motion, patch_map_style, patch_map_light, patch_dungeon_run, patch_world_content, patch_starter_decks, patch_commander_rating, patch_rogue_commanders, patch_dev_mode, patch_modern_skin, patch_modern_results, patch_stack_clearance, patch_mana_pool_layout, patch_zone_tabs, patch_match_menu, patch_transition_style, patch_card_art_pref, patch_digital_sets, patch_card_scripts, patch_upstream_fixes, patch_ai_aggression):
+        if running and step in (patch_jars, patch_prefs, patch_rotation, patch_card_art_pref, patch_card_scripts):
             print(f'{step.__name__}: skipped - close Forge and run again to apply'); continue
         try:
             step()

@@ -1,0 +1,3594 @@
+{
+ "version": 3,
+ "notes": "Hand-picked custom Rogue decks; format labels indicate power. Finale deliberately exceeds format restrictions.",
+ "pools": {
+  "modern-solid": [
+   "m-vamp",
+   "m-elves",
+   "m-burn",
+   "m-control",
+   "m-affinity",
+   "m-fish",
+   "m-zombies",
+   "m-wizards",
+   "m-dinos",
+   "m-landfall",
+   "m-demons",
+   "m-eldrazi",
+   "m-angels",
+   "m-sphinx",
+   "m-gods"
+  ],
+  "modern-strong": [
+   "s-vamp",
+   "s-control",
+   "s-affinity",
+   "s-fish",
+   "s-tron",
+   "s-energy-fixed",
+   "s-angels",
+   "s-aristocrats",
+   "s-goblins",
+   "s-spirits",
+   "s-demons",
+   "s-eldrazi",
+   "s-horror",
+   "s-sphinx"
+  ],
+  "legacy-low": [
+   "l-vamp",
+   "l-elves",
+   "l-burn",
+   "l-control",
+   "l-affinity",
+   "l-fish",
+   "l-aristocrats",
+   "l-dragons",
+   "l-landfall",
+   "l-angels",
+   "l-eldrazi",
+   "l-heliod",
+   "l-sphinx"
+  ],
+  "legacy-top": [
+   "t-show",
+   "t-tempo",
+   "t-elves",
+   "t-goblins",
+   "t-taxes",
+   "t-reanimate",
+   "t-zombies",
+   "t-dinos",
+   "t-wolves",
+   "t-wizards",
+   "t-eldrazi",
+   "t-miracles"
+  ],
+  "early": [
+   "e-vamp",
+   "e-elves",
+   "e-burn",
+   "e-control",
+   "e-affinity",
+   "e-fish",
+   "e-angels",
+   "e-zombies",
+   "e-wolves",
+   "e-skies",
+   "e-dinos",
+   "e-dragons",
+   "e-demons",
+   "e-ghosts"
+  ],
+  "boss5": [
+   "b5-dino",
+   "b5-gishath",
+   "b5-dragon-fixed"
+  ],
+  "boss10": [
+   "b10-vamp",
+   "b10-zombie",
+   "b10-demon"
+  ],
+  "boss15": [
+   "final-kozilek",
+   "final-atraxa",
+   "final-iroas"
+  ],
+  "boss15-curse": [
+   "b15-emrakul",
+   "final-kozilek-curse",
+   "final-atraxa-curse"
+  ],
+  "intro": [
+   "i-dog",
+   "i-bear",
+   "i-fish",
+   "i-burn",
+   "i-vamp",
+   "i-elves",
+   "i-raptor"
+  ],
+  "starter": [
+   "v-dog",
+   "v-bear",
+   "v-bird",
+   "v-goblin",
+   "v-skeleton",
+   "v-elf",
+   "v-raptor"
+  ]
+ },
+ "decks": [
+  {
+   "id": "m-vamp",
+   "enemy": "Ancient Vampire",
+   "label": "Solid Modern · Vampires",
+   "cards": {
+    "Vampire of the Dire Moon": 4,
+    "Knight of the Ebon Legion": 4,
+    "Gifted Aetherborn": 4,
+    "Vampire Nighthawk": 4,
+    "Captivating Vampire": 4,
+    "Vito, Thorn of the Dusk Rose": 2,
+    "Champion of Dusk": 2,
+    "Fatal Push": 4,
+    "Thoughtseize": 4,
+    "Sign in Blood": 4,
+    "Swamp": 20,
+    "Castle Locthwain": 4
+   },
+   "boons": [
+    "Bontu's Monument"
+   ],
+   "tags": [
+    "Vampire Tribal",
+    "Lifegain",
+    "Aggro"
+   ],
+   "room": "castle",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "m-elves",
+   "enemy": "High Elf",
+   "label": "Solid Modern · Elves",
+   "cards": {
+    "Elvish Visionary": 4,
+    "Llanowar Elves": 4,
+    "Elvish Mystic": 4,
+    "Elvish Warmaster": 4,
+    "Dwynen's Elite": 4,
+    "Elvish Archdruid": 4,
+    "Elvish Clancaller": 4,
+    "Shaman of the Pack": 4,
+    "Ezuri, Renegade Leader": 2,
+    "Collected Company": 4,
+    "Blooming Marsh": 4,
+    "Overgrown Tomb": 4,
+    "Llanowar Wastes": 4,
+    "Forest": 8,
+    "Swamp": 2
+   },
+   "boons": [
+    "Lifecrafter's Bestiary"
+   ],
+   "tags": [
+    "Elf Tribal",
+    "Ramp"
+   ],
+   "room": "mystic-forest",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "m-burn",
+   "enemy": "Pyromancer",
+   "label": "Solid Modern · Boros Burn",
+   "cards": {
+    "Goblin Guide": 4,
+    "Monastery Swiftspear": 4,
+    "Eidolon of the Great Revel": 4,
+    "Lightning Bolt": 4,
+    "Lava Spike": 4,
+    "Rift Bolt": 4,
+    "Boros Charm": 4,
+    "Lightning Helix": 4,
+    "Searing Blaze": 4,
+    "Inspiring Vantage": 4,
+    "Sacred Foundry": 4,
+    "Arid Mesa": 4,
+    "Mountain": 8,
+    "Skewer the Critics": 4
+   },
+   "boons": [
+    "Shrine of Burning Rage"
+   ],
+   "tags": [
+    "Burn",
+    "Aggro"
+   ],
+   "room": "fire-temple",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "m-control",
+   "enemy": "Master Blue Wizard",
+   "label": "Solid Modern · Azorius Control",
+   "cards": {
+    "Counterspell": 4,
+    "Prismatic Ending": 4,
+    "Opt": 4,
+    "Supreme Verdict": 4,
+    "Teferi, Time Raveler": 3,
+    "Teferi, Hero of Dominaria": 3,
+    "The Wandering Emperor": 2,
+    "Shark Typhoon": 2,
+    "Snapcaster Mage": 4,
+    "Path to Exile": 4,
+    "Flooded Strand": 4,
+    "Hallowed Fountain": 4,
+    "Glacial Fortress": 4,
+    "Celestial Colonnade": 2,
+    "Island": 6,
+    "Plains": 4,
+    "Memory Deluge": 2
+   },
+   "boons": [
+    "Mind Stone"
+   ],
+   "tags": [
+    "Control",
+    "Planeswalkers"
+   ],
+   "room": "library",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "m-affinity",
+   "enemy": "Esper Artificer",
+   "label": "Solid Modern · Affinity",
+   "cards": {
+    "Ornithopter": 4,
+    "Memnite": 4,
+    "Vault Skirge": 4,
+    "Frogmite": 4,
+    "Myr Enforcer": 4,
+    "Thought Monitor": 4,
+    "Thoughtcast": 4,
+    "Cranial Plating": 4,
+    "Springleaf Drum": 4,
+    "Darksteel Citadel": 4,
+    "Razortide Bridge": 4,
+    "Mistvault Bridge": 4,
+    "Silverbluff Bridge": 4,
+    "Island": 4,
+    "Nettlecyst": 4
+   },
+   "boons": [
+    "Chief of the Foundry"
+   ],
+   "tags": [
+    "Artifacts",
+    "Aggro"
+   ],
+   "room": "workshop",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "m-fish",
+   "enemy": "Merfolk Lord",
+   "label": "Solid Modern · Merfolk",
+   "cards": {
+    "Aether Vial": 4,
+    "Lord of Atlantis": 4,
+    "Master of the Pearl Trident": 4,
+    "Silvergill Adept": 4,
+    "Merfolk Trickster": 4,
+    "Tide Shaper": 4,
+    "Svyelun of Sea and Sky": 4,
+    "Spreading Seas": 4,
+    "Dismember": 4,
+    "Mutavault": 4,
+    "Island": 16,
+    "Cavern of Souls": 4
+   },
+   "boons": [
+    "Herald's Horn"
+   ],
+   "tags": [
+    "Merfolk Tribal",
+    "Tempo"
+   ],
+   "room": "grotto",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "s-vamp",
+   "enemy": "Ancient Vampire",
+   "label": "Strong Modern · Vampire Midrange",
+   "cards": {
+    "Knight of the Ebon Legion": 4,
+    "Gifted Aetherborn": 4,
+    "Captivating Vampire": 4,
+    "Vito, Thorn of the Dusk Rose": 2,
+    "Champion of Dusk": 2,
+    "Fatal Push": 4,
+    "Thoughtseize": 4,
+    "Swamp": 20,
+    "Castle Locthwain": 4,
+    "Bloodghast": 4,
+    "Cordial Vampire": 4,
+    "Sorin, Imperious Bloodlord": 4
+   },
+   "boons": [
+    "Bontu's Monument"
+   ],
+   "tags": [
+    "Vampire Tribal",
+    "Midrange",
+    "Graveyard"
+   ],
+   "room": "castle",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "s-elves",
+   "enemy": "High Elf",
+   "label": "Strong Modern · Elves",
+   "cards": {
+    "Elvish Visionary": 4,
+    "Llanowar Elves": 4,
+    "Elvish Mystic": 4,
+    "Elvish Warmaster": 4,
+    "Dwynen's Elite": 4,
+    "Elvish Archdruid": 4,
+    "Shaman of the Pack": 4,
+    "Ezuri, Renegade Leader": 2,
+    "Collected Company": 4,
+    "Blooming Marsh": 4,
+    "Overgrown Tomb": 4,
+    "Llanowar Wastes": 2,
+    "Forest": 8,
+    "Chord of Calling": 4,
+    "Cavern of Souls": 2,
+    "Boseiju, Who Endures": 2
+   },
+   "boons": [
+    "Lifecrafter's Bestiary"
+   ],
+   "tags": [
+    "Elf Tribal",
+    "Ramp"
+   ],
+   "room": "mystic-forest"
+  },
+  {
+   "id": "s-burn",
+   "enemy": "Pyromancer",
+   "label": "Strong Modern · Boros Burn",
+   "cards": {
+    "Goblin Guide": 4,
+    "Monastery Swiftspear": 4,
+    "Eidolon of the Great Revel": 4,
+    "Lightning Bolt": 4,
+    "Lava Spike": 4,
+    "Rift Bolt": 4,
+    "Boros Charm": 4,
+    "Searing Blaze": 4,
+    "Inspiring Vantage": 4,
+    "Sacred Foundry": 4,
+    "Arid Mesa": 4,
+    "Mountain": 4,
+    "Skewer the Critics": 4,
+    "Roiling Vortex": 4,
+    "Sunbaked Canyon": 4
+   },
+   "boons": [
+    "Shrine of Burning Rage"
+   ],
+   "tags": [
+    "Burn",
+    "Aggro",
+    "Enchantments"
+   ],
+   "room": "fire-temple"
+  },
+  {
+   "id": "s-control",
+   "enemy": "Master Blue Wizard",
+   "label": "Strong Modern · Azorius Control",
+   "cards": {
+    "Counterspell": 4,
+    "Prismatic Ending": 4,
+    "Supreme Verdict": 2,
+    "Teferi, Time Raveler": 3,
+    "Teferi, Hero of Dominaria": 3,
+    "The Wandering Emperor": 2,
+    "Shark Typhoon": 2,
+    "Snapcaster Mage": 4,
+    "Flooded Strand": 4,
+    "Hallowed Fountain": 4,
+    "Glacial Fortress": 2,
+    "Celestial Colonnade": 2,
+    "Island": 6,
+    "Plains": 4,
+    "Memory Deluge": 2,
+    "Solitude": 4,
+    "Force of Negation": 4,
+    "Mystic Gate": 2,
+    "Subtlety": 2
+   },
+   "boons": [
+    "Mind Stone"
+   ],
+   "tags": [
+    "Control",
+    "Planeswalkers"
+   ],
+   "room": "library",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "s-affinity",
+   "enemy": "Esper Artificer",
+   "label": "Strong Modern · Hardened Scales",
+   "cards": {
+    "Ornithopter": 4,
+    "Memnite": 4,
+    "Vault Skirge": 4,
+    "Springleaf Drum": 4,
+    "Darksteel Citadel": 4,
+    "Arcbound Ravager": 4,
+    "Walking Ballista": 4,
+    "Hangarback Walker": 4,
+    "Arcbound Worker": 4,
+    "Hardened Scales": 4,
+    "Ancient Stirrings": 4,
+    "Urza's Saga": 4,
+    "Inkmoth Nexus": 4,
+    "Forest": 4,
+    "Grove of the Burnwillows": 4
+   },
+   "boons": [
+    "Animation Module"
+   ],
+   "tags": [
+    "Artifacts",
+    "+1/+1 Counters"
+   ],
+   "room": "workshop",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "s-fish",
+   "enemy": "Merfolk Lord",
+   "label": "Strong Modern · Merfolk",
+   "cards": {
+    "Aether Vial": 4,
+    "Lord of Atlantis": 4,
+    "Master of the Pearl Trident": 4,
+    "Silvergill Adept": 4,
+    "Tide Shaper": 4,
+    "Svyelun of Sea and Sky": 4,
+    "Dismember": 4,
+    "Mutavault": 4,
+    "Island": 16,
+    "Cavern of Souls": 4,
+    "Force of Negation": 4,
+    "Vodalian Hexcatcher": 4
+   },
+   "boons": [
+    "Herald's Horn"
+   ],
+   "tags": [
+    "Merfolk Tribal",
+    "Tempo"
+   ],
+   "room": "grotto",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "s-tron",
+   "enemy": "Master Green Wizard",
+   "label": "Strong Modern · Green Tron",
+   "cards": {
+    "Urza's Mine": 4,
+    "Urza's Power Plant": 4,
+    "Urza's Tower": 4,
+    "Forest": 4,
+    "Boseiju, Who Endures": 2,
+    "Sanctum of Ugin": 2,
+    "Expedition Map": 4,
+    "Chromatic Star": 4,
+    "Chromatic Sphere": 4,
+    "Ancient Stirrings": 4,
+    "Sylvan Scrying": 4,
+    "Karn Liberated": 4,
+    "Walking Ballista": 4,
+    "Oblivion Stone": 4,
+    "Wurmcoil Engine": 4,
+    "Ugin, the Spirit Dragon": 2,
+    "Ulamog, the Ceaseless Hunger": 2
+   },
+   "boons": [
+    "Mind Stone"
+   ],
+   "tags": [
+    "Ramp",
+    "Big Creatures",
+    "Planeswalkers",
+    "Artifacts"
+   ],
+   "room": "mystic-forest",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "s-energy-fixed",
+   "enemy": "Chandra's Pyromancer",
+   "label": "Strong Modern · Boros Energy",
+   "cards": {
+    "Guide of Souls": 4,
+    "Ocelot Pride": 4,
+    "Ajani, Nacatl Pariah": 4,
+    "Galvanic Discharge": 4,
+    "Static Prison": 4,
+    "Ephemerate": 4,
+    "Ranger-Captain of Eos": 4,
+    "Lightning Bolt": 4,
+    "Arid Mesa": 4,
+    "Sacred Foundry": 4,
+    "Inspiring Vantage": 4,
+    "Flooded Strand": 4,
+    "Plains": 4,
+    "Aether Hub": 4,
+    "Seasoned Pyromancer": 4
+   },
+   "boons": [
+    "Goblin Bombardment"
+   ],
+   "tags": [
+    "Aggro",
+    "Blink",
+    "Burn"
+   ],
+   "room": "fire-temple",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "l-vamp",
+   "enemy": "Ancient Vampire",
+   "label": "Lower Legacy · Rakdos Vampires",
+   "cards": {
+    "Knight of the Ebon Legion": 4,
+    "Gifted Aetherborn": 4,
+    "Captivating Vampire": 4,
+    "Vito, Thorn of the Dusk Rose": 2,
+    "Champion of Dusk": 2,
+    "Swamp": 8,
+    "Bloodghast": 4,
+    "Cordial Vampire": 4,
+    "Sorin, Imperious Bloodlord": 4,
+    "Badlands": 4,
+    "Bloodstained Mire": 4,
+    "Marsh Flats": 4,
+    "Dark Ritual": 4,
+    "Hymn to Tourach": 4,
+    "Lightning Bolt": 4
+   },
+   "boons": [
+    "Phyrexian Arena"
+   ],
+   "tags": [
+    "Vampire Tribal",
+    "Aggro",
+    "Discard"
+   ],
+   "room": "castle",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "l-elves",
+   "enemy": "High Elf",
+   "label": "Lower Legacy · Golgari Elves",
+   "cards": {
+    "Elvish Visionary": 4,
+    "Llanowar Elves": 4,
+    "Elvish Mystic": 4,
+    "Elvish Warmaster": 4,
+    "Dwynen's Elite": 4,
+    "Elvish Archdruid": 4,
+    "Shaman of the Pack": 4,
+    "Ezuri, Renegade Leader": 2,
+    "Collected Company": 4,
+    "Blooming Marsh": 2,
+    "Forest": 8,
+    "Cavern of Souls": 2,
+    "Boseiju, Who Endures": 2,
+    "Bayou": 4,
+    "Verdant Catacombs": 4,
+    "Green Sun's Zenith": 4
+   },
+   "boons": [
+    "Sylvan Library"
+   ],
+   "tags": [
+    "Elf Tribal",
+    "Ramp"
+   ],
+   "room": "mystic-forest",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "l-burn",
+   "enemy": "Pyromancer",
+   "label": "Lower Legacy · Burn",
+   "cards": {
+    "Goblin Guide": 4,
+    "Monastery Swiftspear": 4,
+    "Eidolon of the Great Revel": 4,
+    "Lightning Bolt": 4,
+    "Lava Spike": 4,
+    "Rift Bolt": 4,
+    "Searing Blaze": 4,
+    "Arid Mesa": 4,
+    "Mountain": 8,
+    "Chain Lightning": 4,
+    "Price of Progress": 4,
+    "Plateau": 4,
+    "Wooded Foothills": 4,
+    "Fireblast": 4
+   },
+   "boons": [
+    "Sulfuric Vortex"
+   ],
+   "tags": [
+    "Burn",
+    "Aggro"
+   ],
+   "room": "fire-temple",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "l-control",
+   "enemy": "Master Blue Wizard",
+   "label": "Lower Legacy · Stoneblade",
+   "cards": {
+    "Counterspell": 4,
+    "Prismatic Ending": 4,
+    "Supreme Verdict": 4,
+    "Teferi, Time Raveler": 3,
+    "Teferi, Hero of Dominaria": 3,
+    "The Wandering Emperor": 2,
+    "Flooded Strand": 4,
+    "Island": 6,
+    "Plains": 4,
+    "Brainstorm": 4,
+    "Stoneforge Mystic": 4,
+    "Tundra": 4,
+    "Polluted Delta": 4,
+    "Wasteland": 2,
+    "Batterskull": 1,
+    "Kaldra Compleat": 1,
+    "Jace, the Mind Sculptor": 2,
+    "Swords to Plowshares": 4
+   },
+   "boons": [
+    "Search for Azcanta"
+   ],
+   "tags": [
+    "Control",
+    "Equipment",
+    "Planeswalkers"
+   ],
+   "room": "library",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "l-affinity",
+   "enemy": "Esper Artificer",
+   "label": "Lower Legacy · Artifact Aggro",
+   "cards": {
+    "Ornithopter": 4,
+    "Memnite": 4,
+    "Vault Skirge": 4,
+    "Frogmite": 4,
+    "Myr Enforcer": 4,
+    "Thought Monitor": 4,
+    "Thoughtcast": 4,
+    "Cranial Plating": 4,
+    "Springleaf Drum": 4,
+    "Darksteel Citadel": 4,
+    "Island": 4,
+    "Seat of the Synod": 4,
+    "Vault of Whispers": 4,
+    "Underground Sea": 4,
+    "Arcbound Ravager": 4
+   },
+   "boons": [
+    "Steel Overseer"
+   ],
+   "tags": [
+    "Artifacts",
+    "Aggro",
+    "+1/+1 Counters"
+   ],
+   "room": "workshop",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "l-fish",
+   "enemy": "Merfolk Lord",
+   "label": "Lower Legacy · Merfolk",
+   "cards": {
+    "Aether Vial": 4,
+    "Lord of Atlantis": 4,
+    "Master of the Pearl Trident": 4,
+    "Silvergill Adept": 4,
+    "Tide Shaper": 4,
+    "Svyelun of Sea and Sky": 4,
+    "Mutavault": 4,
+    "Island": 12,
+    "Cavern of Souls": 4,
+    "Force of Negation": 4,
+    "Vodalian Hexcatcher": 4,
+    "Force of Will": 4,
+    "Wasteland": 4
+   },
+   "boons": [
+    "Thassa, God of the Sea"
+   ],
+   "tags": [
+    "Merfolk Tribal",
+    "Tempo"
+   ],
+   "room": "grotto",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "t-show",
+   "enemy": "Cosmic Horror",
+   "label": "Upper Legacy · Sneak and Show",
+   "cards": {
+    "Show and Tell": 4,
+    "Sneak Attack": 4,
+    "Emrakul, the Aeons Torn": 4,
+    "Griselbrand": 4,
+    "Brainstorm": 4,
+    "Ponder": 4,
+    "Force of Will": 4,
+    "Spell Pierce": 3,
+    "Lotus Petal": 4,
+    "Scalding Tarn": 4,
+    "Volcanic Island": 4,
+    "Ancient Tomb": 3,
+    "City of Traitors": 3,
+    "Misty Rainforest": 2,
+    "Island": 5,
+    "Mountain": 1,
+    "Daze": 3
+   },
+   "boons": [
+    "Search for Azcanta"
+   ],
+   "tags": [
+    "Combo",
+    "Big Creatures",
+    "Counterspells"
+   ],
+   "room": "void",
+   "acts": [
+    3
+   ]
+  },
+  {
+   "id": "t-tempo",
+   "enemy": "Pyromancer",
+   "label": "Upper Legacy · Izzet Tempo",
+   "cards": {
+    "Delver of Secrets": 4,
+    "Dragon's Rage Channeler": 4,
+    "Murktide Regent": 4,
+    "Brainstorm": 4,
+    "Ponder": 4,
+    "Lightning Bolt": 4,
+    "Force of Will": 4,
+    "Daze": 4,
+    "Mishra's Bauble": 4,
+    "Unholy Heat": 2,
+    "Volcanic Island": 4,
+    "Scalding Tarn": 4,
+    "Polluted Delta": 4,
+    "Wasteland": 4,
+    "Island": 4,
+    "Brazen Borrower": 2
+   },
+   "boons": [
+    "Search for Azcanta"
+   ],
+   "tags": [
+    "Tempo",
+    "Spellslinger",
+    "Burn"
+   ],
+   "room": "fire-temple",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "t-elves",
+   "enemy": "High Elf",
+   "label": "Upper Legacy · Natural Order Elves",
+   "cards": {
+    "Allosaurus Shepherd": 4,
+    "Elvish Visionary": 4,
+    "Wirewood Symbiote": 4,
+    "Quirion Ranger": 4,
+    "Heritage Druid": 4,
+    "Nettle Sentinel": 4,
+    "Green Sun's Zenith": 4,
+    "Glimpse of Nature": 4,
+    "Natural Order": 3,
+    "Craterhoof Behemoth": 2,
+    "Dryad Arbor": 1,
+    "Gaea's Cradle": 4,
+    "Bayou": 4,
+    "Verdant Catacombs": 4,
+    "Windswept Heath": 4,
+    "Forest": 2,
+    "Elvish Reclaimer": 4
+   },
+   "boons": [
+    "Sylvan Library"
+   ],
+   "tags": [
+    "Elf Tribal",
+    "Combo",
+    "Ramp"
+   ],
+   "room": "mystic-forest",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "t-goblins",
+   "enemy": "Goblin Chief",
+   "label": "Upper Legacy · Goblins",
+   "cards": {
+    "Goblin Lackey": 4,
+    "Aether Vial": 4,
+    "Goblin Matron": 4,
+    "Goblin Ringleader": 4,
+    "Goblin Warchief": 4,
+    "Muxus, Goblin Grandee": 4,
+    "Broadside Bombardiers": 4,
+    "Goblin Cratermaker": 2,
+    "Sling-Gang Lieutenant": 2,
+    "Cavern of Souls": 4,
+    "Ancient Tomb": 4,
+    "Wasteland": 4,
+    "Badlands": 4,
+    "Bloodstained Mire": 4,
+    "Mountain": 4,
+    "Skirk Prospector": 4
+   },
+   "boons": [
+    "Goblin Bombardment"
+   ],
+   "tags": [
+    "Goblin Tribal",
+    "Aggro",
+    "Toolbox"
+   ],
+   "room": "warren",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "t-taxes",
+   "enemy": "Master White Wizard",
+   "label": "Upper Legacy · Death and Taxes",
+   "cards": {
+    "Aether Vial": 4,
+    "Swords to Plowshares": 4,
+    "Mother of Runes": 4,
+    "Thalia, Guardian of Thraben": 4,
+    "Stoneforge Mystic": 4,
+    "Recruiter of the Guard": 4,
+    "Skyclave Apparition": 4,
+    "Flickerwisp": 4,
+    "Solitude": 4,
+    "Batterskull": 1,
+    "Kaldra Compleat": 1,
+    "Karakas": 4,
+    "Wasteland": 4,
+    "Rishadan Port": 4,
+    "Plains": 10
+   },
+   "boons": [
+    "Tocasia's Welcome"
+   ],
+   "tags": [
+    "Stax",
+    "Equipment",
+    "Blink"
+   ],
+   "room": "cathedral",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "t-reanimate",
+   "enemy": "Fallen Angel",
+   "label": "Upper Legacy · Reanimator",
+   "cards": {
+    "Reanimate": 4,
+    "Exhume": 4,
+    "Animate Dead": 4,
+    "Careful Study": 4,
+    "Putrid Imp": 4,
+    "Force of Will": 4,
+    "Brainstorm": 4,
+    "Ponder": 4,
+    "Atraxa, Grand Unifier": 3,
+    "Archon of Cruelty": 2,
+    "Griselbrand": 1,
+    "Underground Sea": 4,
+    "Polluted Delta": 4,
+    "Marsh Flats": 4,
+    "Dark Ritual": 4,
+    "Swamp": 3,
+    "Island": 3
+   },
+   "boons": [
+    "Search for Azcanta"
+   ],
+   "tags": [
+    "Reanimator",
+    "Graveyard",
+    "Big Creatures"
+   ],
+   "room": "cathedral",
+   "acts": [
+    3
+   ]
+  },
+  {
+   "id": "e-vamp",
+   "enemy": "Vampire",
+   "label": "Vampire Tribal",
+   "cards": {
+    "Vampire of the Dire Moon": 4,
+    "Knight of the Ebon Legion": 4,
+    "Gifted Aetherborn": 4,
+    "Vampire Nighthawk": 4,
+    "Captivating Vampire": 4,
+    "Vito, Thorn of the Dusk Rose": 2,
+    "Sign in Blood": 4,
+    "Swamp": 24,
+    "Duress": 4,
+    "Go for the Throat": 4,
+    "Bloodline Keeper": 2
+   },
+   "boons": [],
+   "tags": [
+    "Vampire Tribal",
+    "Lifegain",
+    "Aggro"
+   ],
+   "room": "castle",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "e-elves",
+   "enemy": "Elf",
+   "label": "Elf Tribal",
+   "cards": {
+    "Elvish Visionary": 4,
+    "Llanowar Elves": 4,
+    "Elvish Mystic": 4,
+    "Elvish Warmaster": 2,
+    "Dwynen's Elite": 3,
+    "Elvish Archdruid": 2,
+    "Elvish Clancaller": 2,
+    "Shaman of the Pack": 2,
+    "Llanowar Wastes": 4,
+    "Forest": 15,
+    "Swamp": 2,
+    "Lead the Stampede": 4,
+    "Jungle Hollow": 4,
+    "Imperious Perfect": 1,
+    "Elvish Warrior": 4,
+    "Norwood Ranger": 3
+   },
+   "boons": [],
+   "tags": [
+    "Elf Tribal",
+    "Ramp"
+   ],
+   "room": "mystic-forest",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "e-burn",
+   "enemy": "Chandra's Pyromancer",
+   "label": "Red Aggro",
+   "cards": {
+    "Monastery Swiftspear": 4,
+    "Lightning Bolt": 4,
+    "Lava Spike": 4,
+    "Rift Bolt": 4,
+    "Searing Blaze": 4,
+    "Mountain": 20,
+    "Skewer the Critics": 4,
+    "Incinerate": 4,
+    "Lightning Strike": 4,
+    "Soul-Scar Mage": 4,
+    "Viashino Pyromancer": 4
+   },
+   "boons": [],
+   "tags": [
+    "Burn",
+    "Aggro"
+   ],
+   "room": "fire-temple",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "e-control",
+   "enemy": "Adept Blue Wizard",
+   "label": "Azorius Control",
+   "cards": {
+    "Counterspell": 4,
+    "Prismatic Ending": 4,
+    "Opt": 4,
+    "Supreme Verdict": 4,
+    "Shark Typhoon": 2,
+    "Path to Exile": 4,
+    "Glacial Fortress": 4,
+    "Celestial Colonnade": 2,
+    "Island": 10,
+    "Plains": 4,
+    "Memory Deluge": 2,
+    "Wall of Omens": 4,
+    "Restoration Angel": 4,
+    "Mana Leak": 4,
+    "Tranquil Cove": 4
+   },
+   "boons": [],
+   "tags": [
+    "Control",
+    "Counterspells"
+   ],
+   "room": "library",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "e-affinity",
+   "enemy": "Goblin Artificer",
+   "label": "Artifact Aggro",
+   "cards": {
+    "Ornithopter": 4,
+    "Memnite": 4,
+    "Vault Skirge": 4,
+    "Frogmite": 4,
+    "Myr Enforcer": 4,
+    "Thoughtcast": 4,
+    "Springleaf Drum": 4,
+    "Darksteel Citadel": 4,
+    "Razortide Bridge": 4,
+    "Mistvault Bridge": 4,
+    "Silverbluff Bridge": 4,
+    "Island": 4,
+    "Steel Overseer": 4,
+    "Signal Pest": 4,
+    "Master of Etherium": 4
+   },
+   "boons": [],
+   "tags": [
+    "Artifacts",
+    "Aggro"
+   ],
+   "room": "workshop",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "e-fish",
+   "enemy": "Merfolk",
+   "label": "Merfolk Tribal",
+   "cards": {
+    "Island": 24,
+    "Master of the Pearl Trident": 4,
+    "Silvergill Adept": 4,
+    "Merfolk Trickster": 4,
+    "Tide Shaper": 4,
+    "Spreading Seas": 4,
+    "Mist-Cloaked Herald": 4,
+    "Vapor Snag": 4,
+    "Merfolk of the Pearl Trident": 4,
+    "Streambed Aquitects": 4
+   },
+   "boons": [],
+   "tags": [
+    "Merfolk Tribal",
+    "Tempo"
+   ],
+   "room": "grotto",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "b5-dino",
+   "enemy": "Ghalta",
+   "label": "Boss · Dinosaur Ramp",
+   "cards": {
+    "Llanowar Elves": 4,
+    "Drover of the Mighty": 4,
+    "Marauding Raptor": 4,
+    "Otepec Huntmaster": 4,
+    "Ripjaw Raptor": 4,
+    "Regisaur Alpha": 4,
+    "Ghalta, Primal Hunger": 2,
+    "Carnage Tyrant": 2,
+    "Commune with Dinosaurs": 4,
+    "Lightning Bolt": 4,
+    "Stomping Ground": 4,
+    "Rootbound Crag": 4,
+    "Karplusan Forest": 4,
+    "Forest": 8,
+    "Mountain": 4
+   },
+   "boons": [
+    "Concordant Crossroads",
+    "Gruul Signet"
+   ],
+   "tags": [
+    "Dinosaur Tribal",
+    "Ramp",
+    "Big Creatures"
+   ],
+   "room": "jungle",
+   "commander": "Ghalta, Primal Hunger"
+  },
+  {
+   "id": "b5-equip",
+   "enemy": "Nahiri",
+   "label": "Boss · Boros Equipment",
+   "cards": {
+    "Stoneforge Mystic": 4,
+    "Puresteel Paladin": 4,
+    "Sigarda's Aid": 4,
+    "Kor Outfitter": 4,
+    "Colossus Hammer": 4,
+    "Esper Sentinel": 4,
+    "Swords to Plowshares": 4,
+    "Fervent Champion": 4,
+    "Kaldra Compleat": 2,
+    "Batterskull": 2,
+    "Arid Mesa": 4,
+    "Sacred Foundry": 4,
+    "Inspiring Vantage": 4,
+    "Plains": 6,
+    "Mountain": 2,
+    "Inkmoth Nexus": 4
+   },
+   "boons": [
+    "Fighter Class"
+   ],
+   "tags": [
+    "Equipment",
+    "Voltron",
+    "Aggro",
+    "Artifacts"
+   ],
+   "room": "ruins",
+   "commander": "Nahiri, Forged in Fury"
+  },
+  {
+   "id": "b5-dragon-fixed",
+   "enemy": "Niv-Mizzet",
+   "label": "Boss · Izzet Dragons",
+   "cards": {
+    "Dragonlord's Servant": 4,
+    "Orb of Dragonkind": 4,
+    "Thunderbreak Regent": 4,
+    "Glorybringer": 4,
+    "Goldspan Dragon": 2,
+    "Ancient Silver Dragon": 2,
+    "Silumgar's Scorn": 4,
+    "Lightning Bolt": 4,
+    "Sarkhan, Fireblood": 4,
+    "Steam Vents": 4,
+    "Spirebluff Canal": 4,
+    "Shivan Reef": 4,
+    "Island": 4,
+    "Mountain": 8,
+    "Dragon's Hoard": 2,
+    "Niv-Mizzet, Parun": 2
+   },
+   "boons": [
+    "Herald's Horn"
+   ],
+   "tags": [
+    "Dragon Tribal",
+    "Flyers",
+    "Spellslinger"
+   ],
+   "room": "dragon-lair",
+   "commander": "Niv-Mizzet, Parun"
+  },
+  {
+   "id": "b10-vamp",
+   "enemy": "Sorin",
+   "label": "Boss · Vampire Aristocracy",
+   "cards": {
+    "Captivating Vampire": 4,
+    "Vito, Thorn of the Dusk Rose": 2,
+    "Champion of Dusk": 2,
+    "Swamp": 8,
+    "Bloodghast": 4,
+    "Cordial Vampire": 4,
+    "Sorin, Imperious Bloodlord": 4,
+    "Badlands": 4,
+    "Bloodstained Mire": 4,
+    "Marsh Flats": 4,
+    "Dark Ritual": 4,
+    "Hymn to Tourach": 4,
+    "Lightning Bolt": 4,
+    "Kalitas, Traitor of Ghet": 4,
+    "Vampire Nocturnus": 4
+   },
+   "boons": [
+    "Phyrexian Arena"
+   ],
+   "tags": [
+    "Vampire Tribal",
+    "Aristocrats"
+   ],
+   "room": "castle",
+   "commander": "Sorin, Imperious Bloodlord"
+  },
+  {
+   "id": "b10-control",
+   "enemy": "Teferi",
+   "label": "Boss · Azorius Control",
+   "cards": {
+    "Prismatic Ending": 4,
+    "Supreme Verdict": 2,
+    "Teferi, Time Raveler": 3,
+    "Teferi, Hero of Dominaria": 3,
+    "The Wandering Emperor": 2,
+    "Flooded Strand": 4,
+    "Island": 6,
+    "Plains": 4,
+    "Brainstorm": 4,
+    "Stoneforge Mystic": 4,
+    "Tundra": 4,
+    "Polluted Delta": 4,
+    "Wasteland": 2,
+    "Batterskull": 1,
+    "Kaldra Compleat": 1,
+    "Jace, the Mind Sculptor": 2,
+    "Swords to Plowshares": 4,
+    "Terminus": 2,
+    "Force of Will": 4
+   },
+   "boons": [
+    "Search for Azcanta"
+   ],
+   "tags": [
+    "Control",
+    "Planeswalkers",
+    "Equipment"
+   ],
+   "room": "library",
+   "commander": "Teferi, Temporal Archmage"
+  },
+  {
+   "id": "b10-dragon",
+   "enemy": "Lathliss",
+   "label": "Boss · Dragon Storm",
+   "cards": {
+    "Ancient Tomb": 4,
+    "Cavern of Souls": 4,
+    "City of Traitors": 4,
+    "Mountain": 12,
+    "Chrome Mox": 4,
+    "Seething Song": 4,
+    "Sneak Attack": 4,
+    "Terror of the Peaks": 4,
+    "Goldspan Dragon": 4,
+    "Ancient Copper Dragon": 4,
+    "Glorybringer": 4,
+    "Lathliss, Dragon Queen": 2,
+    "Inferno of the Star Mounts": 2,
+    "Lightning Bolt": 4
+   },
+   "boons": [
+    "Dragon Tempest"
+   ],
+   "tags": [
+    "Dragon Tribal",
+    "Flyers",
+    "Combo"
+   ],
+   "room": "dragon-lair",
+   "commander": "Lathliss, Dragon Queen"
+  },
+  {
+   "id": "b15-emrakul",
+   "enemy": "Emrakul",
+   "label": "Curse Finale · Sneak and Show",
+   "cards": {
+    "Show and Tell": 4,
+    "Sneak Attack": 4,
+    "Emrakul, the Aeons Torn": 4,
+    "Griselbrand": 4,
+    "Brainstorm": 4,
+    "Ponder": 4,
+    "Force of Will": 4,
+    "Lotus Petal": 4,
+    "Scalding Tarn": 4,
+    "Volcanic Island": 4,
+    "Ancient Tomb": 3,
+    "City of Traitors": 3,
+    "Misty Rainforest": 2,
+    "Island": 3,
+    "Mountain": 1,
+    "Mana Drain": 4,
+    "Sol Ring": 2,
+    "Mana Crypt": 2
+   },
+   "boons": [
+    "Search for Azcanta"
+   ],
+   "tags": [
+    "Combo",
+    "Big Creatures",
+    "Counterspells"
+   ],
+   "room": "void",
+   "commander": "Emrakul, the Aeons Torn"
+  },
+  {
+   "id": "b15-sliver",
+   "enemy": "Sliver Queen",
+   "label": "Curse Finale · Sliver Legion",
+   "cards": {
+    "Aether Vial": 4,
+    "Crystalline Sliver": 4,
+    "Galerider Sliver": 4,
+    "Predatory Sliver": 4,
+    "Sinew Sliver": 4,
+    "Muscle Sliver": 4,
+    "Hibernation Sliver": 4,
+    "Sliver Legion": 2,
+    "Sliver Hivelord": 2,
+    "Force of Will": 4,
+    "Cavern of Souls": 4,
+    "Sliver Hive": 4,
+    "Mana Confluence": 4,
+    "Unclaimed Territory": 4,
+    "Ancient Ziggurat": 4,
+    "City of Brass": 2,
+    "Sliver Queen": 2
+   },
+   "boons": [
+    "Herald's Horn"
+   ],
+   "tags": [
+    "Sliver Tribal",
+    "Five Colours",
+    "Aggro"
+   ],
+   "room": "hive",
+   "commander": "Sliver Queen"
+  },
+  {
+   "id": "b15-chandra",
+   "enemy": "Chandra",
+   "label": "Curse Finale · Red Prison",
+   "cards": {
+    "Ancient Tomb": 4,
+    "City of Traitors": 4,
+    "Mountain": 12,
+    "Chrome Mox": 4,
+    "Simian Spirit Guide": 4,
+    "Chalice of the Void": 4,
+    "Blood Moon": 4,
+    "Trinisphere": 4,
+    "Fable of the Mirror-Breaker": 4,
+    "Chandra, Torch of Defiance": 4,
+    "Goblin Rabblemaster": 4,
+    "Legion Warboss": 4,
+    "Fury": 4
+   },
+   "boons": [
+    "Ruby Medallion"
+   ],
+   "tags": [
+    "Stax",
+    "Tokens",
+    "Planeswalkers",
+    "Artifacts",
+    "Enchantments"
+   ],
+   "room": "fire-temple",
+   "commander": "Chandra, Fire of Kaladesh"
+  },
+  {
+   "id": "final-emrakul",
+   "enemy": "Emrakul",
+   "label": "Final Boss · Sneak and Show",
+   "cards": {
+    "Show and Tell": 4,
+    "Sneak Attack": 4,
+    "Emrakul, the Aeons Torn": 4,
+    "Griselbrand": 4,
+    "Brainstorm": 4,
+    "Ponder": 4,
+    "Force of Will": 4,
+    "Spell Pierce": 3,
+    "Lotus Petal": 4,
+    "Scalding Tarn": 4,
+    "Volcanic Island": 4,
+    "Ancient Tomb": 3,
+    "City of Traitors": 3,
+    "Misty Rainforest": 2,
+    "Island": 5,
+    "Mountain": 1,
+    "Daze": 3
+   },
+   "boons": [
+    "Search for Azcanta"
+   ],
+   "tags": [
+    "Combo",
+    "Big Creatures",
+    "Counterspells"
+   ],
+   "room": "void",
+   "commander": "Emrakul, the Aeons Torn"
+  },
+  {
+   "id": "final-sliver",
+   "enemy": "Sliver Queen",
+   "label": "Final Boss · Sliver Legion",
+   "cards": {
+    "Aether Vial": 4,
+    "Crystalline Sliver": 4,
+    "Galerider Sliver": 4,
+    "Predatory Sliver": 4,
+    "Sinew Sliver": 4,
+    "Muscle Sliver": 4,
+    "Hibernation Sliver": 4,
+    "Sliver Legion": 2,
+    "Sliver Hivelord": 2,
+    "Force of Will": 4,
+    "Cavern of Souls": 4,
+    "Sliver Hive": 4,
+    "Mana Confluence": 4,
+    "Unclaimed Territory": 4,
+    "Ancient Ziggurat": 4,
+    "City of Brass": 2,
+    "Sliver Queen": 2
+   },
+   "boons": [
+    "Herald's Horn"
+   ],
+   "tags": [
+    "Sliver Tribal",
+    "Five Colours",
+    "Aggro"
+   ],
+   "room": "hive",
+   "commander": "Sliver Queen"
+  },
+  {
+   "id": "final-chandra",
+   "enemy": "Chandra",
+   "label": "Final Boss · Red Prison",
+   "cards": {
+    "Ancient Tomb": 4,
+    "City of Traitors": 4,
+    "Mountain": 12,
+    "Chrome Mox": 4,
+    "Simian Spirit Guide": 4,
+    "Chalice of the Void": 4,
+    "Blood Moon": 4,
+    "Trinisphere": 4,
+    "Fable of the Mirror-Breaker": 4,
+    "Chandra, Torch of Defiance": 4,
+    "Goblin Rabblemaster": 4,
+    "Legion Warboss": 4,
+    "Fury": 4
+   },
+   "boons": [
+    "Ruby Medallion"
+   ],
+   "tags": [
+    "Stax",
+    "Tokens",
+    "Planeswalkers",
+    "Artifacts",
+    "Enchantments"
+   ],
+   "room": "fire-temple",
+   "commander": "Chandra, Fire of Kaladesh"
+  },
+  {
+   "id": "i-fish",
+   "enemy": "Bird",
+   "label": "Sky Scouts",
+   "boons": [],
+   "cards": {
+    "Island": 24,
+    "Zephyr Gull": 4,
+    "Storm Crow": 4,
+    "Augury Owl": 4,
+    "Sea Eagle": 4,
+    "Wind Drake": 4,
+    "Moon Heron": 4,
+    "Opt": 4,
+    "Unsummon": 4,
+    "Divination": 4
+   },
+   "tags": [
+    "Bird Tribal",
+    "Flyers"
+   ],
+   "room": "aerie",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "i-elves",
+   "enemy": "Elf",
+   "label": "Elf Hunters",
+   "boons": [],
+   "cards": {
+    "Forest": 24,
+    "Llanowar Elves": 4,
+    "Grizzly Bears": 4,
+    "Elvish Warrior": 4,
+    "Trained Armodon": 4,
+    "Elvish Visionary": 4,
+    "Craw Wurm": 4,
+    "Spined Wurm": 4,
+    "Giant Growth": 4,
+    "Rampant Growth": 4
+   },
+   "tags": [
+    "Elf Tribal",
+    "Ramp"
+   ],
+   "room": "mystic-forest",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "i-burn",
+   "enemy": "Goblin",
+   "label": "Goblin Rabble",
+   "boons": [],
+   "cards": {
+    "Mountain": 24,
+    "Raging Goblin": 4,
+    "Goblin Piker": 4,
+    "Gray Ogre": 4,
+    "Hill Giant": 4,
+    "Fire Elemental": 4,
+    "Earth Elemental": 4,
+    "Shock": 4,
+    "Volcanic Hammer": 4,
+    "Lightning Strike": 4
+   },
+   "tags": [
+    "Goblin Tribal",
+    "Burn"
+   ],
+   "room": "warren",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "i-vamp",
+   "enemy": "Skeleton",
+   "label": "Graveyard Ghouls",
+   "boons": [],
+   "cards": {
+    "Swamp": 24,
+    "Walking Corpse": 4,
+    "Bog Imp": 4,
+    "Typhoid Rats": 4,
+    "Scathe Zombies": 4,
+    "Vampire Interloper": 4,
+    "Gravedigger": 4,
+    "Sengir Vampire": 4,
+    "Mind Rot": 4,
+    "Cast Down": 4
+   },
+   "tags": [
+    "Zombie Tribal",
+    "Graveyard"
+   ],
+   "room": "graveyard",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "i-dog",
+   "enemy": "Dog",
+   "label": "Stray Dogs",
+   "boons": [],
+   "cards": {
+    "Plains": 24,
+    "Warclamp Mastiff": 4,
+    "Patrol Hound": 4,
+    "Alpine Watchdog": 4,
+    "Spirited Companion": 4,
+    "Loyal Warhound": 4,
+    "Akroan Mastiff": 4,
+    "Pacifism": 4,
+    "Healing Salve": 4,
+    "Glorious Anthem": 4
+   },
+   "tags": [
+    "Dog Tribal",
+    "Aggro",
+    "Enchantments"
+   ],
+   "room": "backyard",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "i-bear",
+   "enemy": "Bear",
+   "label": "Forest Bears",
+   "boons": [],
+   "cards": {
+    "Forest": 24,
+    "Grizzly Bears": 4,
+    "Balduvian Bears": 4,
+    "Runeclaw Bear": 4,
+    "Bear Cub": 4,
+    "Ashcoat Bear": 4,
+    "Spined Wurm": 4,
+    "Giant Growth": 4,
+    "Titanic Growth": 4,
+    "Rampant Growth": 4
+   },
+   "tags": [
+    "Bear Tribal",
+    "Aggro"
+   ],
+   "room": "den",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "e-angels",
+   "enemy": "Guardian Angel",
+   "label": "Angel Host",
+   "room": "cathedral",
+   "cards": {
+    "Plains": 23,
+    "Healer's Hawk": 4,
+    "Giada, Font of Hope": 2,
+    "Youthful Valkyrie": 3,
+    "Bishop of Wings": 3,
+    "Ajani's Pridemate": 4,
+    "Righteous Valkyrie": 3,
+    "Inspiring Overseer": 4,
+    "Resplendent Angel": 2,
+    "Angel of Vitality": 2,
+    "Serra Angel": 4,
+    "Lyra Dawnbringer": 1,
+    "Banishing Light": 3,
+    "Fateful Absence": 2
+   },
+   "boons": [],
+   "tags": [
+    "Angel Tribal",
+    "Flyers",
+    "Lifegain"
+   ],
+   "acts": [
+    3
+   ]
+  },
+  {
+   "id": "e-zombies",
+   "enemy": "Zombie Lord",
+   "label": "Zombie Horde",
+   "room": "graveyard",
+   "cards": {
+    "Swamp": 23,
+    "Champion of the Perished": 4,
+    "Diregraf Ghoul": 3,
+    "Cryptbreaker": 3,
+    "Relentless Dead": 2,
+    "Undead Augur": 3,
+    "Death Baron": 3,
+    "Lord of the Accursed": 3,
+    "Cemetery Reaper": 2,
+    "Diregraf Colossus": 2,
+    "Plague Belcher": 3,
+    "Geralf's Messenger": 2,
+    "Undead Warchief": 2,
+    "Cast Down": 4,
+    "Murder": 1
+   },
+   "boons": [],
+   "tags": [
+    "Zombie Tribal",
+    "Graveyard",
+    "Aggro"
+   ],
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "e-wolves",
+   "enemy": "Werewolf",
+   "label": "Werewolf Pack",
+   "room": "den",
+   "cards": {
+    "Forest": 10,
+    "Mountain": 5,
+    "Rootbound Crag": 4,
+    "Game Trail": 4,
+    "Kessig Prowler": 4,
+    "Mayor of Avabruck": 4,
+    "Kessig Naturalist": 3,
+    "Packsong Pup": 2,
+    "Reckless Stormseeker": 4,
+    "Tovolar, Dire Overlord": 2,
+    "Ferocious Pup": 2,
+    "Huntmaster of the Fells": 2,
+    "Wicked Wolf": 3,
+    "Nightpack Ambusher": 2,
+    "Wolfir Silverheart": 2,
+    "Tovolar's Huntmaster": 2,
+    "Rabid Bite": 2,
+    "Lightning Bolt": 3
+   },
+   "boons": [],
+   "tags": [
+    "Werewolf Tribal",
+    "Aggro"
+   ],
+   "acts": [
+    1,
+    2
+   ]
+  },
+  {
+   "id": "e-skies",
+   "enemy": "Griffin",
+   "label": "Azorius Skies",
+   "room": "aerie",
+   "cards": {
+    "Island": 8,
+    "Plains": 6,
+    "Glacial Fortress": 4,
+    "Port Town": 2,
+    "Tranquil Cove": 2,
+    "Mausoleum Wanderer": 4,
+    "Spectral Sailor": 4,
+    "Supreme Phantom": 4,
+    "Watcher of the Spheres": 3,
+    "Selfless Spirit": 3,
+    "Drogskol Captain": 3,
+    "Empyrean Eagle": 4,
+    "Nebelgast Herald": 2,
+    "Thieving Magpie": 2,
+    "Wingmate Roc": 2,
+    "Spectral Procession": 2,
+    "Journey to Nowhere": 3,
+    "Essence Scatter": 2
+   },
+   "boons": [],
+   "tags": [
+    "Flyers",
+    "Spirit Tribal",
+    "Tempo"
+   ],
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "l-aristocrats",
+   "enemy": "Necromancer",
+   "label": "Lower Legacy · Rakdos Aristocrats",
+   "room": "crypt",
+   "cards": {
+    "Carrion Feeder": 4,
+    "Viscera Seer": 4,
+    "Gravecrawler": 4,
+    "Bloodghast": 4,
+    "Blood Artist": 4,
+    "Zulaport Cutthroat": 2,
+    "Mayhem Devil": 4,
+    "Woe Strider": 3,
+    "Lightning Bolt": 4,
+    "Fatal Push": 4,
+    "Kolaghan's Command": 2,
+    "Badlands": 4,
+    "Bloodstained Mire": 4,
+    "Marsh Flats": 2,
+    "Swamp": 9,
+    "Mountain": 2
+   },
+   "boons": [
+    "Bastion of Remembrance"
+   ],
+   "tags": [
+    "Aristocrats",
+    "Graveyard"
+   ],
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "l-dragons",
+   "enemy": "Volcano Dragon",
+   "label": "Lower Legacy · Red Dragons",
+   "room": "dragon-lair",
+   "cards": {
+    "Dragonlord's Servant": 4,
+    "Bonecrusher Giant": 4,
+    "Fable of the Mirror-Breaker": 3,
+    "Thunderbreak Regent": 4,
+    "Glorybringer": 4,
+    "Stormbreath Dragon": 3,
+    "Thundermaw Hellkite": 3,
+    "Goldspan Dragon": 2,
+    "Sarkhan, Fireblood": 2,
+    "Lightning Bolt": 4,
+    "Chain Lightning": 4,
+    "Ancient Tomb": 4,
+    "Den of the Bugbear": 2,
+    "Mountain": 17
+   },
+   "boons": [
+    "Dragon's Hoard"
+   ],
+   "tags": [
+    "Dragon Tribal",
+    "Flyers",
+    "Burn"
+   ],
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "l-landfall",
+   "enemy": "Kor Warrior",
+   "label": "Lower Legacy · Selesnya Landfall",
+   "room": "ruins",
+   "cards": {
+    "Steppe Lynx": 4,
+    "Lotus Cobra": 4,
+    "Knight of the Reliquary": 4,
+    "Tireless Tracker": 4,
+    "Courser of Kruphix": 4,
+    "Scute Swarm": 2,
+    "Ramunap Excavator": 2,
+    "Felidar Retreat": 3,
+    "Titania, Protector of Argoth": 2,
+    "Rampaging Baloths": 2,
+    "Swords to Plowshares": 4,
+    "Dryad Arbor": 1,
+    "Savannah": 4,
+    "Windswept Heath": 4,
+    "Wooded Foothills": 3,
+    "Arid Mesa": 2,
+    "Horizon Canopy": 2,
+    "Forest": 6,
+    "Plains": 3
+   },
+   "boons": [
+    "Exploration"
+   ],
+   "tags": [
+    "Landfall",
+    "Tokens",
+    "Lifegain",
+    "Enchantments"
+   ],
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "l-angels",
+   "enemy": "Guardian Angel",
+   "label": "Lower Legacy · Angels & Humans",
+   "room": "cathedral",
+   "cards": {
+    "Champion of the Parish": 4,
+    "Thraben Inspector": 3,
+    "Thalia's Lieutenant": 4,
+    "Thalia, Guardian of Thraben": 2,
+    "Luminarch Aspirant": 3,
+    "Bishop of Wings": 2,
+    "Giada, Font of Hope": 2,
+    "Adeline, Resplendent Cathar": 3,
+    "Resplendent Angel": 3,
+    "Righteous Valkyrie": 2,
+    "Restoration Angel": 4,
+    "Lyra Dawnbringer": 2,
+    "Swords to Plowshares": 4,
+    "Plains": 16,
+    "Castle Ardenvale": 2,
+    "Cavern of Souls": 2,
+    "Karakas": 2
+   },
+   "boons": [
+    "Cathars' Crusade"
+   ],
+   "tags": [
+    "Human Tribal",
+    "Flyers",
+    "Lifegain",
+    "Stax"
+   ],
+   "acts": [
+    3
+   ]
+  },
+  {
+   "id": "t-zombies",
+   "enemy": "Zombie Lord",
+   "label": "Upper Legacy · Dimir Zombies",
+   "room": "graveyard",
+   "cards": {
+    "Champion of the Perished": 4,
+    "Stitcher's Supplier": 4,
+    "Gravecrawler": 4,
+    "Cryptbreaker": 4,
+    "Relentless Dead": 2,
+    "Rotting Regisaur": 4,
+    "Prized Amalgam": 4,
+    "Diregraf Captain": 4,
+    "Death Baron": 2,
+    "The Scarab God": 2,
+    "Fatal Push": 4,
+    "Underground Sea": 4,
+    "Polluted Delta": 4,
+    "Cavern of Souls": 4,
+    "Watery Grave": 1,
+    "Swamp": 7,
+    "Wasteland": 2
+   },
+   "boons": [
+    "Liliana's Mastery"
+   ],
+   "tags": [
+    "Zombie Tribal",
+    "Graveyard",
+    "Aggro"
+   ],
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "t-dinos",
+   "enemy": "Dinosaur Elite",
+   "label": "Upper Legacy · Naya Zoo",
+   "room": "jungle",
+   "cards": {
+    "Wild Nacatl": 4,
+    "Kird Ape": 4,
+    "Ragavan, Nimble Pilferer": 2,
+    "Tarmogoyf": 4,
+    "Thrashing Brontodon": 3,
+    "Ripjaw Raptor": 4,
+    "Bloodbraid Elf": 4,
+    "Polukranos, World Eater": 2,
+    "Regisaur Alpha": 3,
+    "Lightning Bolt": 4,
+    "Chain Lightning": 2,
+    "Swords to Plowshares": 4,
+    "Taiga": 4,
+    "Savannah": 2,
+    "Plateau": 2,
+    "Stomping Ground": 1,
+    "Temple Garden": 1,
+    "Wooded Foothills": 4,
+    "Windswept Heath": 3,
+    "Arid Mesa": 1,
+    "Forest": 1,
+    "Mountain": 1
+   },
+   "boons": [
+    "Garruk's Uprising"
+   ],
+   "tags": [
+    "Dinosaur Tribal",
+    "Aggro"
+   ],
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "t-wolves",
+   "enemy": "Werewolf",
+   "label": "Upper Legacy · Gruul Werewolves",
+   "room": "den",
+   "cards": {
+    "Kird Ape": 4,
+    "Werewolf Pack Leader": 4,
+    "Kessig Naturalist": 4,
+    "Reckless Stormseeker": 4,
+    "Tovolar, Dire Overlord": 2,
+    "Immerwolf": 2,
+    "Huntmaster of the Fells": 4,
+    "Nightpack Ambusher": 2,
+    "Arlinn, the Pack's Hope": 2,
+    "Lightning Bolt": 4,
+    "Chain Lightning": 4,
+    "Primal Might": 2,
+    "Taiga": 4,
+    "Stomping Ground": 2,
+    "Wooded Foothills": 4,
+    "Windswept Heath": 2,
+    "Bloodstained Mire": 2,
+    "Forest": 4,
+    "Mountain": 3,
+    "Kessig Wolf Run": 1
+   },
+   "boons": [
+    "Fires of Yavimaya"
+   ],
+   "tags": [
+    "Werewolf Tribal",
+    "Aggro",
+    "Burn"
+   ],
+   "acts": [
+    1,
+    2
+   ]
+  },
+  {
+   "id": "t-wizards",
+   "enemy": "Master Red Wizard",
+   "label": "Upper Legacy · Izzet Wizards",
+   "room": "library",
+   "cards": {
+    "Delver of Secrets": 4,
+    "Stormchaser Mage": 4,
+    "Magmatic Channeler": 2,
+    "Snapcaster Mage": 3,
+    "Vendilion Clique": 2,
+    "Adeliz, the Cinder Wind": 2,
+    "Brainstorm": 4,
+    "Ponder": 4,
+    "Lightning Bolt": 4,
+    "Wizard's Lightning": 4,
+    "Force of Will": 4,
+    "Daze": 3,
+    "Volcanic Island": 4,
+    "Scalding Tarn": 4,
+    "Misty Rainforest": 3,
+    "Polluted Delta": 2,
+    "Island": 5,
+    "Mountain": 1,
+    "Wasteland": 1
+   },
+   "boons": [
+    "Primal Amulet"
+   ],
+   "tags": [
+    "Wizard Tribal",
+    "Spellslinger",
+    "Tempo"
+   ],
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "m-zombies",
+   "enemy": "Zombie Master",
+   "label": "Solid Modern · Zombies",
+   "room": "graveyard",
+   "cards": {
+    "Champion of the Perished": 4,
+    "Cryptbreaker": 4,
+    "Gravecrawler": 4,
+    "Undead Augur": 3,
+    "Diregraf Colossus": 4,
+    "Plague Belcher": 4,
+    "Death Baron": 4,
+    "Geralf's Messenger": 4,
+    "Liliana, Untouched by Death": 1,
+    "Fatal Push": 4,
+    "Heartless Act": 2,
+    "Swamp": 20,
+    "Cavern of Souls": 2
+   },
+   "boons": [
+    "Graf Harvest"
+   ],
+   "tags": [
+    "Zombie Tribal",
+    "Graveyard",
+    "Aristocrats"
+   ],
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "m-wizards",
+   "enemy": "Adept Red Wizard",
+   "label": "Solid Modern · Izzet Wizards",
+   "room": "library",
+   "cards": {
+    "Delver of Secrets": 4,
+    "Soul-Scar Mage": 4,
+    "Stormchaser Mage": 4,
+    "Third Path Iconoclast": 4,
+    "Sprite Dragon": 2,
+    "Adeliz, the Cinder Wind": 2,
+    "Lightning Bolt": 4,
+    "Wizard's Lightning": 4,
+    "Consider": 4,
+    "Opt": 2,
+    "Fire // Ice": 2,
+    "Wizard's Retort": 2,
+    "Play with Fire": 2,
+    "Steam Vents": 4,
+    "Spirebluff Canal": 4,
+    "Sulfur Falls": 2,
+    "Island": 5,
+    "Mountain": 5
+   },
+   "boons": [
+    "Sentinel Tower"
+   ],
+   "tags": [
+    "Wizard Tribal",
+    "Spellslinger",
+    "Burn"
+   ],
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "m-dinos",
+   "enemy": "Dinosaur",
+   "label": "Solid Modern · Gruul Dinosaurs",
+   "room": "jungle",
+   "cards": {
+    "Ixalli's Lorekeeper": 4,
+    "Belligerent Yearling": 4,
+    "Itzquinth, Firstborn of Gishath": 2,
+    "Regal Imperiosaur": 4,
+    "Ripjaw Raptor": 4,
+    "Raging Regisaur": 3,
+    "Regisaur Alpha": 3,
+    "Bonehoard Dracosaur": 2,
+    "Trumpeting Carnosaur": 2,
+    "Domri's Ambush": 4,
+    "Savage Stomp": 2,
+    "Lightning Bolt": 3,
+    "Stomping Ground": 4,
+    "Rockfall Vale": 4,
+    "Copperline Gorge": 2,
+    "Forest": 7,
+    "Mountain": 6
+   },
+   "boons": [
+    "Elemental Bond"
+   ],
+   "tags": [
+    "Dinosaur Tribal",
+    "Big Creatures"
+   ],
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "m-landfall",
+   "enemy": "Kor Warrior",
+   "label": "Solid Modern · Boros Landfall",
+   "room": "ruins",
+   "cards": {
+    "Steppe Lynx": 4,
+    "Akoum Hellhound": 4,
+    "Plated Geopede": 4,
+    "Kor Skyfisher": 4,
+    "Fearless Fledgling": 4,
+    "Skyclave Apparition": 4,
+    "Adventuring Gear": 3,
+    "Lightning Bolt": 4,
+    "Lightning Helix": 3,
+    "Path to Exile": 2,
+    "Arid Mesa": 4,
+    "Windswept Heath": 2,
+    "Wooded Foothills": 2,
+    "Sacred Foundry": 3,
+    "Inspiring Vantage": 2,
+    "Plains": 6,
+    "Mountain": 5
+   },
+   "boons": [
+    "Retreat to Emeria"
+   ],
+   "tags": [
+    "Landfall",
+    "Aggro"
+   ],
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "s-angels",
+   "enemy": "Orthodoxy Angel",
+   "label": "Strong Modern · Orzhov Angels",
+   "room": "cathedral",
+   "cards": {
+    "Giada, Font of Hope": 3,
+    "Youthful Valkyrie": 4,
+    "Bishop of Wings": 4,
+    "Righteous Valkyrie": 4,
+    "Resplendent Angel": 2,
+    "Seraph of the Scales": 3,
+    "Restoration Angel": 2,
+    "Archangel of Thune": 3,
+    "Lyra Dawnbringer": 2,
+    "Liesa, Forgotten Archangel": 1,
+    "Solitude": 2,
+    "Fatal Push": 2,
+    "Vanishing Verse": 2,
+    "Path to Exile": 3,
+    "Godless Shrine": 4,
+    "Concealed Courtyard": 4,
+    "Shattered Sanctum": 2,
+    "Caves of Koilos": 2,
+    "Cavern of Souls": 2,
+    "Plains": 9
+   },
+   "boons": [
+    "Oketra's Monument"
+   ],
+   "tags": [
+    "Angel Tribal",
+    "Flyers",
+    "Lifegain"
+   ],
+   "acts": [
+    3
+   ]
+  },
+  {
+   "id": "s-aristocrats",
+   "enemy": "Necromancer",
+   "label": "Strong Modern · Orzhov Aristocrats",
+   "room": "crypt",
+   "cards": {
+    "Carrion Feeder": 4,
+    "Blood Artist": 4,
+    "Cruel Celebrant": 4,
+    "Bloodghast": 4,
+    "Zulaport Cutthroat": 2,
+    "Elas il-Kor, Sadistic Pilgrim": 2,
+    "Woe Strider": 3,
+    "Yawgmoth, Thran Physician": 2,
+    "Teysa Karlov": 1,
+    "Sorin, Vengeful Bloodlord": 1,
+    "Lingering Souls": 4,
+    "Deadly Dispute": 2,
+    "Fatal Push": 4,
+    "Vanishing Verse": 2,
+    "Godless Shrine": 4,
+    "Concealed Courtyard": 4,
+    "Shattered Sanctum": 2,
+    "Caves of Koilos": 2,
+    "Marsh Flats": 2,
+    "Swamp": 5,
+    "Plains": 2
+   },
+   "boons": [
+    "Bastion of Remembrance"
+   ],
+   "tags": [
+    "Aristocrats",
+    "Tokens",
+    "Graveyard"
+   ],
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "s-goblins",
+   "enemy": "Goblin King",
+   "label": "Strong Modern · Mono-Red Goblins",
+   "room": "warren",
+   "cards": {
+    "Goblin Guide": 4,
+    "Goblin Bushwhacker": 4,
+    "Goblin Instigator": 4,
+    "Goblin Cratermaker": 2,
+    "Goblin Warchief": 4,
+    "Goblin Rabblemaster": 4,
+    "Legion Warboss": 2,
+    "Goblin Chieftain": 3,
+    "Goblin Matron": 2,
+    "Krenko, Mob Boss": 2,
+    "Goblin Ringleader": 2,
+    "Siege-Gang Commander": 2,
+    "Lightning Bolt": 4,
+    "Cavern of Souls": 4,
+    "Den of the Bugbear": 2,
+    "Mountain": 15
+   },
+   "boons": [
+    "Impact Tremors"
+   ],
+   "tags": [
+    "Goblin Tribal",
+    "Tokens",
+    "Aggro"
+   ],
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "s-spirits",
+   "enemy": "Spirit",
+   "label": "Strong Modern · Bant Spirits",
+   "room": "aerie",
+   "cards": {
+    "Noble Hierarch": 4,
+    "Mausoleum Wanderer": 4,
+    "Spectral Sailor": 4,
+    "Supreme Phantom": 4,
+    "Rattlechains": 3,
+    "Selfless Spirit": 1,
+    "Spell Queller": 4,
+    "Drogskol Captain": 4,
+    "Skyclave Apparition": 3,
+    "Brazen Borrower": 2,
+    "Collected Company": 4,
+    "Path to Exile": 2,
+    "Cavern of Souls": 4,
+    "Hallowed Fountain": 4,
+    "Breeding Pool": 2,
+    "Temple Garden": 2,
+    "Flooded Strand": 3,
+    "Windswept Heath": 2,
+    "Moorland Haunt": 1,
+    "Island": 1,
+    "Plains": 1,
+    "Forest": 1
+   },
+   "boons": [
+    "Favorable Winds"
+   ],
+   "tags": [
+    "Spirit Tribal",
+    "Flyers",
+    "Tempo"
+   ],
+   "acts": [
+    2,
+    3
+   ]
+  },
+  {
+   "id": "v-dog",
+   "enemy": "Dog",
+   "label": "Stray Pups",
+   "boons": [],
+   "cards": {
+    "Plains": 24,
+    "Eager Cadet": 4,
+    "Savannah Lions": 4,
+    "Volunteer Militia": 4,
+    "Glory Seeker": 4,
+    "Silvercoat Lion": 4,
+    "Squire": 4,
+    "Alaborn Trooper": 4,
+    "Pearled Unicorn": 4,
+    "Thraben Purebloods": 4
+   },
+   "tags": [
+    "Vanilla",
+    "Starter"
+   ],
+   "room": "backyard",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "v-bear",
+   "enemy": "Bear",
+   "label": "Sleepy Bears",
+   "boons": [],
+   "cards": {
+    "Forest": 24,
+    "Grizzly Bears": 4,
+    "Balduvian Bears": 4,
+    "Bear Cub": 4,
+    "Forest Bear": 4,
+    "Runeclaw Bear": 4,
+    "Alpine Grizzly": 4,
+    "Golden Bear": 4,
+    "Trained Armodon": 4,
+    "Ordinary Bear": 4
+   },
+   "tags": [
+    "Vanilla",
+    "Starter"
+   ],
+   "room": "den",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "v-bird",
+   "enemy": "Bird",
+   "label": "Shore Wanderers",
+   "boons": [],
+   "cards": {
+    "Island": 24,
+    "Fugitive Wizard": 4,
+    "Merfolk of the Pearl Trident": 4,
+    "Coral Merfolk": 4,
+    "Wetland Sambar": 4,
+    "Vodalian Soldiers": 4,
+    "Lumengrid Warden": 4,
+    "Horned Turtle": 4,
+    "Tolarian Scholar": 4,
+    "Giant Octopus": 4
+   },
+   "tags": [
+    "Vanilla",
+    "Starter"
+   ],
+   "room": "aerie",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "v-goblin",
+   "enemy": "Goblin",
+   "label": "Goblin Rabble",
+   "boons": [],
+   "cards": {
+    "Mountain": 24,
+    "Mons's Goblin Raiders": 4,
+    "Goblin Bully": 4,
+    "Swab Goblin": 4,
+    "Goblin Assailant": 4,
+    "Goblin Hero": 4,
+    "Goblin Cavaliers": 4,
+    "Goblin Roughrider": 4,
+    "Gray Ogre": 4,
+    "Hill Giant": 4
+   },
+   "tags": [
+    "Vanilla",
+    "Starter"
+   ],
+   "room": "warren",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "v-skeleton",
+   "enemy": "Skeleton",
+   "label": "Restless Bones",
+   "boons": [],
+   "cards": {
+    "Swamp": 24,
+    "Muck Rats": 4,
+    "Skeletal Snake": 4,
+    "Walking Corpse": 4,
+    "Gutter Skulk": 4,
+    "Scathe Zombies": 4,
+    "Headless Horseman": 4,
+    "Python": 4,
+    "Warpath Ghoul": 4,
+    "Skeletal Crocodile": 4
+   },
+   "tags": [
+    "Vanilla",
+    "Starter"
+   ],
+   "room": "graveyard",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "v-elf",
+   "enemy": "Elf",
+   "label": "Elf Scouts",
+   "boons": [],
+   "cards": {
+    "Forest": 24,
+    "Willow Elf": 4,
+    "Norwood Ranger": 4,
+    "Cylian Elf": 4,
+    "Elvish Warrior": 4,
+    "Treetop Warden": 4,
+    "Elvish Ranger": 4,
+    "Centaur Courser": 4,
+    "Nettle Swine": 4,
+    "Grizzled Outrider": 4
+   },
+   "tags": [
+    "Vanilla",
+    "Starter"
+   ],
+   "room": "mystic-forest",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "b10-zombie",
+   "enemy": "Wilhelt",
+   "label": "Boss · Zombie Horde",
+   "cards": {
+    "Wilhelt, the Rotcleaver": 3,
+    "Gravecrawler": 4,
+    "Diregraf Ghoul": 4,
+    "Cryptbreaker": 4,
+    "Champion of the Perished": 4,
+    "Undead Augur": 4,
+    "Death Baron": 4,
+    "Diregraf Colossus": 3,
+    "Rotting Regisaur": 2,
+    "Gisa and Geralf": 2,
+    "Fatal Push": 4,
+    "Underground Sea": 4,
+    "Polluted Delta": 4,
+    "Watery Grave": 2,
+    "Swamp": 10,
+    "Island": 2
+   },
+   "boons": [
+    "Bad Moon"
+   ],
+   "tags": [
+    "Zombie Tribal",
+    "Graveyard"
+   ],
+   "room": "graveyard",
+   "commander": "Wilhelt, the Rotcleaver"
+  },
+  {
+   "id": "b10-demon",
+   "enemy": "Ob Nixilis",
+   "label": "Boss · Demonic Pact",
+   "cards": {
+    "Ob Nixilis, Captive Kingpin": 3,
+    "Fanatical Firebrand": 4,
+    "Blood Artist": 4,
+    "Mayhem Devil": 3,
+    "Bloodgift Demon": 3,
+    "Archfiend of Depravity": 2,
+    "Rune-Scarred Demon": 2,
+    "Demonlord Belzenlok": 1,
+    "Dark Ritual": 4,
+    "Lightning Bolt": 4,
+    "Terminate": 3,
+    "Kolaghan's Command": 3,
+    "Village Rites": 2,
+    "Badlands": 4,
+    "Bloodstained Mire": 4,
+    "Blood Crypt": 2,
+    "Swamp": 8,
+    "Mountain": 4
+   },
+   "boons": [
+    "Sulfuric Vortex"
+   ],
+   "tags": [
+    "Demons",
+    "Burn"
+   ],
+   "room": "crypt",
+   "commander": "Ob Nixilis, Captive Kingpin"
+  },
+  {
+   "id": "b5-gishath",
+   "enemy": "Gishath",
+   "label": "Boss · Sun Temple Stampede",
+   "cards": {
+    "Gishath, Sun's Avatar": 2,
+    "Llanowar Elves": 4,
+    "Birds of Paradise": 4,
+    "Kinjalli's Caller": 4,
+    "Raging Swordtooth": 3,
+    "Thrashing Brontodon": 4,
+    "Wakening Sun's Avatar": 2,
+    "Kinjalli's Sunwing": 3,
+    "Siegehorn Ceratops": 3,
+    "Path to Exile": 4,
+    "Lightning Helix": 4,
+    "Sacred Foundry": 3,
+    "Temple Garden": 3,
+    "Stomping Ground": 3,
+    "Wooded Foothills": 4,
+    "Windswept Heath": 4,
+    "Forest": 4,
+    "Plains": 2
+   },
+   "boons": [
+    "Urza's Incubator"
+   ],
+   "tags": [
+    "Dinosaur Tribal",
+    "Naya",
+    "Big Creatures"
+   ],
+   "room": "ruins",
+   "commander": "Gishath, Sun's Avatar"
+  },
+  {
+   "id": "final-heliod",
+   "enemy": "Heliod",
+   "label": "Final Boss · Sun God",
+   "cards": {
+    "Heliod, Sun-Crowned": 4,
+    "Walking Ballista": 4,
+    "Soul Warden": 4,
+    "Soul's Attendant": 4,
+    "Ajani's Pridemate": 4,
+    "Archangel of Thune": 3,
+    "Serra Ascendant": 4,
+    "Righteous Valkyrie": 3,
+    "Linvala, Keeper of Silence": 2,
+    "Swords to Plowshares": 4,
+    "Path to Exile": 2,
+    "Plains": 18,
+    "Ancient Tomb": 2,
+    "Karakas": 2
+   },
+   "boons": [
+    "Ajani's Welcome"
+   ],
+   "tags": [
+    "Lifegain",
+    "God",
+    "Combo",
+    "Stax"
+   ],
+   "room": "fire-temple",
+   "commander": "Heliod, Sun-Crowned"
+  },
+  {
+   "id": "final-iroas",
+   "enemy": "Iroas",
+   "label": "Final Boss · God of Victory",
+   "cards": {
+    "Iroas, God of Victory": 4,
+    "Monastery Swiftspear": 4,
+    "Goblin Guide": 4,
+    "Adanto Vanguard": 4,
+    "Goblin Rabblemaster": 4,
+    "Brimaz, King of Oreskos": 3,
+    "Hero of Oxid Ridge": 3,
+    "Hellrider": 3,
+    "Aurelia, the Warleader": 2,
+    "Lightning Bolt": 4,
+    "Lightning Helix": 4,
+    "Boros Charm": 2,
+    "Sacred Foundry": 4,
+    "Inspiring Vantage": 4,
+    "Arid Mesa": 3,
+    "Plains": 4,
+    "Mountain": 4
+   },
+   "boons": [
+    "Hammer of Purphoros"
+   ],
+   "tags": [
+    "Aggro",
+    "God",
+    "Boros"
+   ],
+   "room": "fire-temple",
+   "commander": "Iroas, God of Victory"
+  },
+  {
+   "id": "final-kozilek-curse",
+   "enemy": "Kozilek",
+   "label": "Curse Finale · Eldrazi Distortion",
+   "cards": {
+    "Kozilek, the Great Distortion": 3,
+    "Ulamog, the Ceaseless Hunger": 2,
+    "Thought-Knot Seer": 4,
+    "Reality Smasher": 4,
+    "Matter Reshaper": 4,
+    "Eldrazi Mimic": 4,
+    "Endbringer": 2,
+    "Chalice of the Void": 4,
+    "Trinisphere": 2,
+    "Mana Crypt": 2,
+    "Sol Ring": 2,
+    "Dismember": 3,
+    "Ancient Tomb": 4,
+    "Eldrazi Temple": 4,
+    "Cavern of Souls": 4,
+    "City of Traitors": 4,
+    "Wastes": 8
+   },
+   "boons": [
+    "Eldrazi Monument"
+   ],
+   "tags": [
+    "Eldrazi",
+    "Colorless",
+    "Stompy",
+    "Stax",
+    "Artifacts"
+   ],
+   "room": "void",
+   "commander": "Kozilek, the Great Distortion"
+  },
+  {
+   "id": "final-kozilek",
+   "enemy": "Kozilek",
+   "label": "Final Boss · Eldrazi Distortion",
+   "cards": {
+    "Kozilek, the Great Distortion": 3,
+    "Ulamog, the Ceaseless Hunger": 2,
+    "Thought-Knot Seer": 4,
+    "Reality Smasher": 4,
+    "Matter Reshaper": 4,
+    "Eldrazi Mimic": 4,
+    "Endbringer": 2,
+    "Hangarback Walker": 3,
+    "Walking Ballista": 3,
+    "Mind Stone": 2,
+    "Sol Ring": 2,
+    "Dismember": 3,
+    "Ancient Tomb": 4,
+    "Eldrazi Temple": 4,
+    "Cavern of Souls": 4,
+    "City of Traitors": 4,
+    "Wastes": 8
+   },
+   "boons": [
+    "Eldrazi Monument"
+   ],
+   "tags": [
+    "Eldrazi",
+    "Colorless",
+    "Stompy",
+    "Artifacts"
+   ],
+   "room": "void",
+   "commander": "Kozilek, the Great Distortion"
+  },
+  {
+   "id": "final-atraxa",
+   "enemy": "Atraxa",
+   "label": "Final Boss · Celestial Host",
+   "cards": {
+    "Atraxa, Grand Unifier": 3,
+    "Baneslayer Angel": 2,
+    "Lyra Dawnbringer": 2,
+    "Sublime Archangel": 2,
+    "Resplendent Angel": 2,
+    "Archangel Avacyn": 1,
+    "Birds of Paradise": 4,
+    "Noble Hierarch": 4,
+    "Deathrite Shaman": 2,
+    "Three Visits": 2,
+    "Collected Company": 2,
+    "Animate Dead": 1,
+    "Swords to Plowshares": 3,
+    "Thoughtseize": 2,
+    "Brainstorm": 2,
+    "Abzan Charm": 2,
+    "Tundra": 2,
+    "Underground Sea": 2,
+    "Bayou": 2,
+    "Savannah": 2,
+    "Scrubland": 2,
+    "Tropical Island": 2,
+    "Polluted Delta": 2,
+    "Marsh Flats": 2,
+    "Windswept Heath": 2,
+    "Verdant Catacombs": 2,
+    "Misty Rainforest": 2,
+    "Forest": 1,
+    "Plains": 1
+   },
+   "boons": [
+    "Glorious Anthem"
+   ],
+   "tags": [
+    "Angels",
+    "Four Colours",
+    "Ramp"
+   ],
+   "room": "cathedral",
+   "commander": "Atraxa, Grand Unifier"
+  },
+  {
+   "id": "final-atraxa-curse",
+   "enemy": "Atraxa",
+   "label": "Curse Finale · Celestial Reanimation",
+   "cards": {
+    "Atraxa, Grand Unifier": 4,
+    "Archangel Avacyn": 2,
+    "Lyra Dawnbringer": 2,
+    "Sublime Archangel": 2,
+    "Resplendent Angel": 2,
+    "Entomb": 4,
+    "Reanimate": 4,
+    "Animate Dead": 4,
+    "Thoughtseize": 4,
+    "Swords to Plowshares": 4,
+    "Brainstorm": 4,
+    "Dark Ritual": 2,
+    "Scrubland": 4,
+    "Marsh Flats": 4,
+    "Underground Sea": 2,
+    "Polluted Delta": 2,
+    "Plains": 4,
+    "Swamp": 4,
+    "Island": 2
+   },
+   "boons": [
+    "Glorious Anthem"
+   ],
+   "tags": [
+    "Angels",
+    "Reanimator"
+   ],
+   "room": "cathedral",
+   "commander": "Atraxa, Grand Unifier"
+  },
+  {
+   "id": "v-raptor",
+   "enemy": "Raptor",
+   "label": "Raptor Hatchlings",
+   "cards": {
+    "Forest": 12,
+    "Mountain": 12,
+    "Sun-Collared Raptor": 4,
+    "Nest Robber": 4,
+    "Frenzied Raptor": 4,
+    "Ravenous Daggertooth": 4,
+    "Grazing Whiptail": 4,
+    "Thrashing Brontodon": 4,
+    "Craw Wurm": 4,
+    "Colossal Dreadmaw": 4,
+    "Ancient Brontodon": 4
+   },
+   "boons": [],
+   "tags": [
+    "Vanilla",
+    "Starter"
+   ],
+   "room": "jungle",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "i-raptor",
+   "enemy": "Raptor",
+   "label": "Raptor Pack",
+   "cards": {
+    "Forest": 12,
+    "Mountain": 12,
+    "Nest Robber": 4,
+    "Sun-Collared Raptor": 4,
+    "Frenzied Raptor": 4,
+    "Ravenous Daggertooth": 4,
+    "Grazing Whiptail": 4,
+    "Thrashing Brontodon": 4,
+    "Colossal Dreadmaw": 4,
+    "Shock": 4,
+    "Savage Stomp": 4
+   },
+   "boons": [],
+   "tags": [
+    "Dinosaur Tribal",
+    "Aggro"
+   ],
+   "room": "jungle",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "e-dinos",
+   "enemy": "Dinosaur",
+   "label": "Jungle Stampede",
+   "cards": {
+    "Llanowar Elves": 4,
+    "Ravenous Daggertooth": 4,
+    "Ripjaw Raptor": 4,
+    "Thrashing Brontodon": 4,
+    "Rampaging Ferocidon": 4,
+    "Raging Swordtooth": 3,
+    "Regisaur Alpha": 3,
+    "Charging Monstrosaur": 2,
+    "Savage Stomp": 4,
+    "Lightning Strike": 4,
+    "Forest": 11,
+    "Mountain": 9,
+    "Rugged Highlands": 4
+   },
+   "boons": [],
+   "tags": [
+    "Dinosaur Tribal",
+    "Big Creatures"
+   ],
+   "room": "jungle",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "e-dragons",
+   "enemy": "Dragon",
+   "label": "Dragon Brood",
+   "cards": {
+    "Dragon Egg": 4,
+    "Dragonlord's Servant": 4,
+    "Furnace Whelp": 4,
+    "Sarkhan's Whelp": 4,
+    "Thunderbreak Regent": 3,
+    "Demanding Dragon": 3,
+    "Volcanic Dragon": 3,
+    "Shivan Dragon": 2,
+    "Draconic Roar": 4,
+    "Shock": 4,
+    "Mountain": 25
+   },
+   "boons": [],
+   "tags": [
+    "Dragon Tribal",
+    "Flyers",
+    "Burn"
+   ],
+   "room": "dragon-lair",
+   "acts": [
+    1
+   ]
+  },
+  {
+   "id": "e-demons",
+   "enemy": "Minor Demon",
+   "label": "Demon Pact",
+   "cards": {
+    "Gutterbones": 4,
+    "Carrion Feeder": 4,
+    "Bloodghast": 4,
+    "Demon of Catastrophes": 4,
+    "Spawn of Mayhem": 3,
+    "Bloodgift Demon": 3,
+    "Rakdos, Lord of Riots": 2,
+    "Village Rites": 4,
+    "Terminate": 4,
+    "Lightning Bolt": 4,
+    "Dragonskull Summit": 4,
+    "Swamp": 12,
+    "Mountain": 8
+   },
+   "boons": [],
+   "tags": [
+    "Demon Tribal",
+    "Sacrifice",
+    "Flyers"
+   ],
+   "room": "crypt",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "e-ghosts",
+   "enemy": "Ghost",
+   "label": "Haunted Halls",
+   "cards": {
+    "Mausoleum Wanderer": 4,
+    "Spectral Sailor": 4,
+    "Supreme Phantom": 4,
+    "Nebelgast Herald": 4,
+    "Rattlechains": 4,
+    "Drogskol Captain": 3,
+    "Battleground Geist": 3,
+    "Selfless Spirit": 2,
+    "Fading Hope": 4,
+    "Essence Scatter": 4,
+    "Glacial Fortress": 4,
+    "Moorland Haunt": 1,
+    "Island": 12,
+    "Plains": 7
+   },
+   "boons": [],
+   "tags": [
+    "Spirit Tribal",
+    "Flyers",
+    "Tempo"
+   ],
+   "room": "castle",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "m-demons",
+   "enemy": "Demon",
+   "label": "Solid Modern · Rakdos Demons",
+   "cards": {
+    "Gutterbones": 4,
+    "Bloodghast": 4,
+    "Bloodsoaked Champion": 4,
+    "Demon of Catastrophes": 4,
+    "Spawn of Mayhem": 4,
+    "Archfiend of Sorrows": 3,
+    "Demonlord Belzenlok": 1,
+    "Fatal Push": 4,
+    "Terminate": 4,
+    "Village Rites": 4,
+    "Blood Crypt": 4,
+    "Dragonskull Summit": 4,
+    "Bloodstained Mire": 2,
+    "Swamp": 10,
+    "Mountain": 4
+   },
+   "boons": [
+    "Bontu's Monument"
+   ],
+   "tags": [
+    "Demon Tribal",
+    "Sacrifice",
+    "Flyers"
+   ],
+   "room": "crypt",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "s-demons",
+   "enemy": "Bloodgift Demon",
+   "label": "Strong Modern · Demon Lords",
+   "cards": {
+    "Bloodtithe Harvester": 4,
+    "Bloodghast": 4,
+    "Spawn of Mayhem": 4,
+    "Demon of Catastrophes": 4,
+    "Archfiend of Sorrows": 3,
+    "Archfiend of Despair": 2,
+    "Thoughtseize": 4,
+    "Fatal Push": 4,
+    "Terminate": 4,
+    "Liliana of the Veil": 2,
+    "Kolaghan's Command": 1,
+    "Blood Crypt": 4,
+    "Bloodstained Mire": 4,
+    "Blackcleave Cliffs": 2,
+    "Castle Locthwain": 2,
+    "Swamp": 10,
+    "Mountain": 2
+   },
+   "boons": [
+    "Bontu's Monument"
+   ],
+   "tags": [
+    "Demon Tribal",
+    "Midrange",
+    "Discard"
+   ],
+   "room": "crypt",
+   "acts": [
+    2
+   ]
+  },
+  {
+   "id": "m-eldrazi",
+   "enemy": "Eldrazi",
+   "label": "Solid Modern · Eldrazi Ramp",
+   "cards": {
+    "Llanowar Elves": 4,
+    "Elvish Mystic": 4,
+    "Matter Reshaper": 4,
+    "Thought-Knot Seer": 4,
+    "Reality Smasher": 4,
+    "Endbringer": 3,
+    "Ulamog's Crusher": 2,
+    "Rampant Growth": 4,
+    "Dismember": 3,
+    "Explore": 4,
+    "Eldrazi Temple": 4,
+    "Wastes": 6,
+    "Forest": 14
+   },
+   "boons": [
+    "Mind Stone"
+   ],
+   "tags": [
+    "Eldrazi",
+    "Ramp",
+    "Big Creatures"
+   ],
+   "room": "void",
+   "acts": [
+    3
+   ]
+  },
+  {
+   "id": "m-angels",
+   "enemy": "Angel Warrior",
+   "label": "Solid Modern · Angel Host",
+   "cards": {
+    "Youthful Valkyrie": 4,
+    "Bishop of Wings": 4,
+    "Giada, Font of Hope": 3,
+    "Righteous Valkyrie": 4,
+    "Resplendent Angel": 3,
+    "Restoration Angel": 4,
+    "Lyra Dawnbringer": 2,
+    "Angel of Sanctions": 2,
+    "Path to Exile": 4,
+    "Valorous Stance": 4,
+    "Glorious Anthem": 3,
+    "Plains": 19,
+    "Castle Ardenvale": 4
+   },
+   "boons": [
+    "Oketra's Monument"
+   ],
+   "tags": [
+    "Angel Tribal",
+    "Flyers",
+    "Lifegain"
+   ],
+   "room": "cathedral",
+   "acts": [
+    3
+   ]
+  },
+  {
+   "id": "m-sphinx",
+   "enemy": "Sphinx",
+   "label": "Solid Modern · Sphinx Council",
+   "cards": {
+    "Sphinx of Foresight": 4,
+    "Sphinx of New Prahv": 3,
+    "Sphinx of Clear Skies": 2,
+    "Sphinx of the Final Word": 2,
+    "Restoration Angel": 3,
+    "Opt": 4,
+    "Absorb": 4,
+    "Supreme Verdict": 4,
+    "Detention Sphere": 4,
+    "Sphinx's Revelation": 3,
+    "Memory Lapse": 4,
+    "Hallowed Fountain": 4,
+    "Glacial Fortress": 4,
+    "Celestial Colonnade": 2,
+    "Island": 7,
+    "Plains": 6
+   },
+   "boons": [
+    "Mind Stone"
+   ],
+   "tags": [
+    "Control",
+    "Flyers",
+    "Counterspells"
+   ],
+   "room": "library",
+   "acts": [
+    3
+   ]
+  },
+  {
+   "id": "m-gods",
+   "enemy": "Sunmare",
+   "label": "Solid Modern · Theros Pantheon",
+   "cards": {
+    "Setessan Champion": 4,
+    "Eidolon of Blossoms": 4,
+    "Courser of Kruphix": 4,
+    "Archon of Sun's Grace": 3,
+    "Nylea, Keen-Eyed": 2,
+    "Heliod, God of the Sun": 2,
+    "Karametra, God of Harvests": 2,
+    "Sythis, Harvest's Hand": 4,
+    "Banishing Light": 4,
+    "Rampant Growth": 4,
+    "Sentinel's Eyes": 4,
+    "Temple Garden": 4,
+    "Temple of Plenty": 4,
+    "Brushland": 2,
+    "Forest": 8,
+    "Plains": 5
+   },
+   "boons": [
+    "Ajani's Welcome"
+   ],
+   "tags": [
+    "Gods",
+    "Enchantments",
+    "Constellation"
+   ],
+   "room": "fire-temple",
+   "acts": [
+    3
+   ]
+  },
+  {
+   "id": "s-eldrazi",
+   "enemy": "Eldrazi Floater",
+   "label": "Strong Modern · Eldrazi Stompy",
+   "cards": {
+    "Eldrazi Mimic": 4,
+    "Matter Reshaper": 4,
+    "Thought-Knot Seer": 4,
+    "Reality Smasher": 4,
+    "Endbringer": 3,
+    "Walking Ballista": 2,
+    "Hangarback Walker": 3,
+    "Dismember": 4,
+    "Mind Stone": 4,
+    "All Is Dust": 2,
+    "Eldrazi Temple": 4,
+    "Cavern of Souls": 4,
+    "Mutavault": 4,
+    "Sea Gate Wreckage": 2,
+    "Wastes": 12
+   },
+   "boons": [
+    "Mind Stone"
+   ],
+   "tags": [
+    "Eldrazi",
+    "Colorless",
+    "Stompy",
+    "Artifacts"
+   ],
+   "room": "void",
+   "acts": [
+    3
+   ]
+  },
+  {
+   "id": "s-horror",
+   "enemy": "Cosmic Horror",
+   "label": "Strong Modern · Titans of the Void",
+   "cards": {
+    "Llanowar Elves": 4,
+    "Elvish Mystic": 4,
+    "Sakura-Tribe Elder": 4,
+    "Primeval Titan": 3,
+    "Ulamog's Crusher": 3,
+    "Artisan of Kozilek": 2,
+    "Oblivion Sower": 3,
+    "Explore": 4,
+    "Cultivate": 4,
+    "Dismember": 3,
+    "Eldrazi Temple": 4,
+    "Forest": 22
+   },
+   "boons": [
+    "Mind Stone"
+   ],
+   "tags": [
+    "Eldrazi",
+    "Ramp",
+    "Big Creatures"
+   ],
+   "room": "void",
+   "acts": [
+    3
+   ]
+  },
+  {
+   "id": "s-sphinx",
+   "enemy": "Criosphinx",
+   "label": "Strong Modern · Azorius Sky Court",
+   "cards": {
+    "Sphinx of Foresight": 3,
+    "Sphinx of the Final Word": 2,
+    "Sphinx of Clear Skies": 2,
+    "Restoration Angel": 3,
+    "Brazen Borrower": 2,
+    "Opt": 4,
+    "Counterspell": 4,
+    "Supreme Verdict": 4,
+    "Teferi, Hero of Dominaria": 2,
+    "Teferi, Time Raveler": 2,
+    "Path to Exile": 3,
+    "Memory Lapse": 2,
+    "Sphinx's Revelation": 2,
+    "Shark Typhoon": 2,
+    "Hallowed Fountain": 4,
+    "Flooded Strand": 4,
+    "Glacial Fortress": 4,
+    "Celestial Colonnade": 2,
+    "Field of Ruin": 1,
+    "Island": 5,
+    "Plains": 3
+   },
+   "boons": [
+    "Mind Stone"
+   ],
+   "tags": [
+    "Control",
+    "Flyers",
+    "Planeswalkers"
+   ],
+   "room": "library",
+   "acts": [
+    3
+   ]
+  },
+  {
+   "id": "l-eldrazi",
+   "enemy": "Eldrazi Devastator",
+   "label": "Lower Legacy · Eldrazi Aggro",
+   "cards": {
+    "Eldrazi Mimic": 4,
+    "Matter Reshaper": 4,
+    "Thought-Knot Seer": 4,
+    "Reality Smasher": 4,
+    "Endbringer": 3,
+    "Walking Ballista": 3,
+    "Stonecoil Serpent": 2,
+    "Dismember": 4,
+    "Mind Stone": 4,
+    "Karn Liberated": 2,
+    "Ancient Tomb": 4,
+    "Eldrazi Temple": 4,
+    "Cavern of Souls": 4,
+    "Mutavault": 2,
+    "Wastes": 12
+   },
+   "boons": [
+    "Thran Dynamo"
+   ],
+   "tags": [
+    "Eldrazi",
+    "Colorless",
+    "Stompy",
+    "Artifacts"
+   ],
+   "room": "void",
+   "acts": [
+    3
+   ]
+  },
+  {
+   "id": "l-heliod",
+   "enemy": "Sunmare",
+   "label": "Lower Legacy · Heliod's Chosen",
+   "cards": {
+    "Heliod, Sun-Crowned": 4,
+    "Walking Ballista": 4,
+    "Soul Warden": 4,
+    "Soul's Attendant": 4,
+    "Ajani's Pridemate": 4,
+    "Archangel of Thune": 3,
+    "Serra Ascendant": 4,
+    "Righteous Valkyrie": 3,
+    "Linvala, Keeper of Silence": 2,
+    "Swords to Plowshares": 4,
+    "Path to Exile": 2,
+    "Plains": 18,
+    "Ancient Tomb": 2,
+    "Karakas": 2
+   },
+   "boons": [
+    "Ajani's Welcome"
+   ],
+   "tags": [
+    "Gods",
+    "Lifegain",
+    "Combo",
+    "Stax"
+   ],
+   "room": "fire-temple",
+   "acts": [
+    3
+   ]
+  },
+  {
+   "id": "l-sphinx",
+   "enemy": "Sphinx",
+   "label": "Lower Legacy · Sphinx Tempo",
+   "cards": {
+    "Spell Queller": 4,
+    "Brazen Borrower": 3,
+    "Sphinx of Foresight": 3,
+    "Sphinx of the Final Word": 2,
+    "Sphinx of Clear Skies": 2,
+    "Restoration Angel": 4,
+    "Brainstorm": 4,
+    "Ponder": 4,
+    "Swords to Plowshares": 4,
+    "Force of Will": 3,
+    "Counterspell": 3,
+    "Jace, the Mind Sculptor": 2,
+    "Tundra": 4,
+    "Flooded Strand": 4,
+    "Hallowed Fountain": 2,
+    "Glacial Fortress": 2,
+    "Celestial Colonnade": 2,
+    "Island": 6,
+    "Plains": 2
+   },
+   "boons": [
+    "Search for Azcanta"
+   ],
+   "tags": [
+    "Tempo",
+    "Flyers",
+    "Counterspells"
+   ],
+   "room": "library",
+   "acts": [
+    3
+   ]
+  },
+  {
+   "id": "t-eldrazi",
+   "enemy": "Eldrazi Devastator",
+   "label": "Upper Legacy · Eldrazi Stompy",
+   "cards": {
+    "Chalice of the Void": 4,
+    "Eldrazi Mimic": 4,
+    "Matter Reshaper": 4,
+    "Thought-Knot Seer": 4,
+    "Reality Smasher": 4,
+    "Endbringer": 3,
+    "Walking Ballista": 3,
+    "Stonecoil Serpent": 2,
+    "Dismember": 3,
+    "Trinisphere": 2,
+    "Karn, the Great Creator": 2,
+    "Ancient Tomb": 4,
+    "Mutavault": 4,
+    "Eldrazi Temple": 4,
+    "Cavern of Souls": 4,
+    "Wasteland": 2,
+    "Wastes": 5,
+    "Mind Stone": 2
+   },
+   "boons": [
+    "Thran Dynamo"
+   ],
+   "tags": [
+    "Eldrazi",
+    "Colorless",
+    "Stax",
+    "Artifacts"
+   ],
+   "room": "void",
+   "acts": [
+    3
+   ]
+  },
+  {
+   "id": "t-miracles",
+   "enemy": "Criosphinx",
+   "label": "Upper Legacy · Miracles",
+   "cards": {
+    "Brainstorm": 4,
+    "Ponder": 4,
+    "Swords to Plowshares": 4,
+    "Force of Will": 4,
+    "Terminus": 3,
+    "Entreat the Angels": 3,
+    "Jace, the Mind Sculptor": 2,
+    "Teferi, Time Raveler": 2,
+    "Snapcaster Mage": 2,
+    "Brazen Borrower": 2,
+    "Counterspell": 3,
+    "Spell Pierce": 2,
+    "Sphinx of the Final Word": 1,
+    "Supreme Verdict": 2,
+    "Tundra": 4,
+    "Flooded Strand": 4,
+    "Scalding Tarn": 2,
+    "Arid Mesa": 2,
+    "Karakas": 1,
+    "Island": 7,
+    "Plains": 2
+   },
+   "boons": [
+    "Search for Azcanta"
+   ],
+   "tags": [
+    "Control",
+    "Counterspells",
+    "Planeswalkers"
+   ],
+   "room": "library",
+   "acts": [
+    3
+   ]
+  }
+ ]
+}

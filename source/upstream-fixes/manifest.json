@@ -1,0 +1,322 @@
+{
+ "base": "c26a2e938f",
+ "head": "c263787525",
+ "cards": [
+  {
+   "file": "cardsfolder/a/agonizing_remorse.txt",
+   "commits": [
+    "9a0a6e04cf"
+   ],
+   "why": "Fix Agonizing Remorse excluding graveyard lands (#12282)",
+   "accept": [
+    "f6ef3f2bd46d7da1b0a58030cb8c794a91537db6c2cef7a2f65de0e968133e9b"
+   ]
+  },
+  {
+   "file": "cardsfolder/b/bilbo_thief_in_the_night.txt",
+   "commits": [
+    "bd0264af83"
+   ],
+   "why": "Bilbo, Thief in the Night and nine more: offer Adventure spells (#12248)",
+   "accept": [
+    "f10676bb94b13e4685ecd2a59263a9b020912d859ee7b9958c875ff5578f075a"
+   ]
+  },
+  {
+   "file": "cardsfolder/c/cavalier_of_gales.txt",
+   "commits": [
+    "190cff7163"
+   ],
+   "why": "Let the player order the two cards put back by \"draw three, then put two on top in any order\" (#12262)",
+   "accept": [
+    "49177dcd3b8d41c9042204519586dade4910acce3b2fa361c2ab7eef4084892e"
+   ]
+  },
+  {
+   "file": "cardsfolder/c/collected_conjuring.txt",
+   "commits": [
+    "bd0264af83"
+   ],
+   "why": "Bilbo, Thief in the Night and nine more: offer Adventure spells (#12248)",
+   "accept": [
+    "2cd661f4ddccb9f84861bdb81b2607f23004d58641446ffda9b49529016d9453"
+   ]
+  },
+  {
+   "file": "cardsfolder/c/counterpoint.txt",
+   "commits": [
+    "bd0264af83"
+   ],
+   "why": "Bilbo, Thief in the Night and nine more: offer Adventure spells (#12248)",
+   "accept": [
+    "a46610a8f36941b10a5edadc826ade53d2c43d5ae3799a61a0940256a05860aa"
+   ]
+  },
+  {
+   "file": "cardsfolder/d/diviner_of_mist.txt",
+   "commits": [
+    "bd0264af83"
+   ],
+   "why": "Bilbo, Thief in the Night and nine more: offer Adventure spells (#12248)",
+   "accept": [
+    "1becbf24300208f830f72c105676c29df169fb8f71137e40ccecb7c219d521bb"
+   ]
+  },
+  {
+   "file": "cardsfolder/e/eureka.txt",
+   "commits": [
+    "ca64cc928e",
+    "a69da2b834"
+   ],
+   "why": "Eureka, Hypergenesis: end the process when no card was actually put onto the battlefield (#12204); Some cleanup (#12213)",
+   "accept": [
+    "ee77a670b07aadd90a08d73f8f05b964d00968394dbded3c7f4c2bf62642a56c",
+    "f0364e3ea5706c01453d2a987ffe1a23a37589e91264d9141c42827424abd828"
+   ]
+  },
+  {
+   "file": "cardsfolder/h/hidetsugu_and_kairi.txt",
+   "commits": [
+    "190cff7163"
+   ],
+   "why": "Let the player order the two cards put back by \"draw three, then put two on top in any order\" (#12262)",
+   "accept": [
+    "ed979375dc01bc8ae2ed18bab5b79efb39b82a7ad90f2945e0c46bdec3c76de4"
+   ]
+  },
+  {
+   "file": "cardsfolder/h/hypergenesis.txt",
+   "commits": [
+    "ca64cc928e",
+    "a69da2b834"
+   ],
+   "why": "Eureka, Hypergenesis: end the process when no card was actually put onto the battlefield (#12204); Some cleanup (#12213)",
+   "accept": [
+    "173084820063afd3ea698644011665d37b4952175f306f33dab1a60c87b37437",
+    "48aa7a9df0b23badb53796480955bbe548eb6adc819a47d8bba7b7764e063c6e"
+   ]
+  },
+  {
+   "file": "cardsfolder/j/jace_the_mind_sculptor.txt",
+   "commits": [
+    "190cff7163"
+   ],
+   "why": "Let the player order the two cards put back by \"draw three, then put two on top in any order\" (#12262)",
+   "accept": [
+    "0bc7b2618bf9ed18be3aaf0d8d1ea356a788c2c540301e91963d86c4fee590cf"
+   ]
+  },
+  {
+   "file": "cardsfolder/j/jaces_mindseeker.txt",
+   "commits": [
+    "bd0264af83"
+   ],
+   "why": "Bilbo, Thief in the Night and nine more: offer Adventure spells (#12248)",
+   "accept": [
+    "de95ff473bf7666ce5f5de436c7f8c19c6eff8601adc8b6d46b4c685612b6395"
+   ]
+  },
+  {
+   "file": "cardsfolder/j/jeleva_nephalias_scourge.txt",
+   "commits": [
+    "bd0264af83"
+   ],
+   "why": "Bilbo, Thief in the Night and nine more: offer Adventure spells (#12248)",
+   "accept": [
+    "3783598a53cef37c34eac087543878616a4719948916bc34f63cf03e887efcbc"
+   ]
+  },
+  {
+   "file": "cardsfolder/k/ken_burning_brawler.txt",
+   "commits": [
+    "bd0264af83"
+   ],
+   "why": "Bilbo, Thief in the Night and nine more: offer Adventure spells (#12248)",
+   "accept": [
+    "173085653dc24465ff407b923b149f5ed6e221bf2a735d9db3573b3843f82ce9"
+   ]
+  },
+  {
+   "file": "cardsfolder/m/metamorphose.txt",
+   "commits": [
+    "0b0f7ecc51"
+   ],
+   "why": "Some cleanup (#12268)",
+   "accept": [
+    "e73f4bedf624c38f7a248c8060cfbfb2c537a3f1cc3078425be9dd84d0775e0f"
+   ]
+  },
+  {
+   "file": "cardsfolder/n/nashi_illusion_gadgeteer.txt",
+   "commits": [
+    "1286708ea3"
+   ],
+   "why": "Nashi, Illusion Gadgeteer is rebalanced",
+   "accept": [
+    "a46039f3115d8826479220e6d2d2e8e7abc1d67c3ee09c44a42f8db85e5f66c8"
+   ]
+  },
+  {
+   "file": "cardsfolder/p/phyrexian_adapter.txt",
+   "commits": [
+    "c2ba0f0593"
+   ],
+   "why": "fix(cards): AddType$ comma lists and the g_1_1_elf token type (#12212)",
+   "accept": [
+    "34d197fe8d02443609d0339df7711770ab355dff3fbe20f2269bd0d1f935a674"
+   ]
+  },
+  {
+   "file": "cardsfolder/r/reckless_detective.txt",
+   "commits": [
+    "a2fe312846"
+   ],
+   "why": "Reckless Detective: only pump when the cost was paid (UnlessResolveSubs$ WhenPaid) (#12245)",
+   "accept": [
+    "d177300fa8910616667afd69be14861d75c287c2453535e10330110e8a114f88"
+   ]
+  },
+  {
+   "file": "cardsfolder/r/riverwise_augur.txt",
+   "commits": [
+    "190cff7163"
+   ],
+   "why": "Let the player order the two cards put back by \"draw three, then put two on top in any order\" (#12262)",
+   "accept": [
+    "f01bd898fb79d7cddea5663987b8fa0f70fb1fae701977de1bea19a83b5a3a2e"
+   ]
+  },
+  {
+   "file": "cardsfolder/s/skyway_robber.txt",
+   "commits": [
+    "bd0264af83"
+   ],
+   "why": "Bilbo, Thief in the Night and nine more: offer Adventure spells (#12248)",
+   "accept": [
+    "37760ea0d775b63a8c68458d56916582d8a573a2f6dcdbf737d87fa45bb8a86f"
+   ]
+  },
+  {
+   "file": "cardsfolder/s/sorcerous_squall.txt",
+   "commits": [
+    "bd0264af83"
+   ],
+   "why": "Bilbo, Thief in the Night and nine more: offer Adventure spells (#12248)",
+   "accept": [
+    "4d1c52b461637dc77240f4b18cb848327a8837523debce477c59cdb45f229e0c"
+   ]
+  },
+  {
+   "file": "cardsfolder/s/super_soldier_serum.txt",
+   "commits": [
+    "c2ba0f0593"
+   ],
+   "why": "fix(cards): AddType$ comma lists and the g_1_1_elf token type (#12212)",
+   "accept": [
+    "a749c2345e2b2882103b4827055d308fab3fb41c68783da45156935375685622"
+   ]
+  },
+  {
+   "file": "cardsfolder/t/tetsuo_imperial_champion.txt",
+   "commits": [
+    "bd0264af83"
+   ],
+   "why": "Bilbo, Thief in the Night and nine more: offer Adventure spells (#12248)",
+   "accept": [
+    "205d0762cdb7f3665a1e72f081beb025eab6706d41bd25f16ad0ce5ca337b493"
+   ]
+  },
+  {
+   "file": "cardsfolder/t/the_earth_crystal.txt",
+   "commits": [
+    "1f87337bea",
+    "0bbfdaa918"
+   ],
+   "why": "The Earth Crystal: target only creatures you control (#12256); Clarify target description for PutCounter action",
+   "accept": [
+    "32af2967bb6eca63296604024a4be4f12078d35d7c69d27a11778b0f25f9b337",
+    "65bac54a6770a8ba78427976912426d7d7afc025d226f5ad3f6e5f6878e723be"
+   ]
+  },
+  {
+   "file": "cardsfolder/w/whispersteel_dagger.txt",
+   "commits": [
+    "f9135eed44"
+   ],
+   "why": "Xanathar, Guild Kingpin; Whispersteel Dagger: match the other player's cards by owner (#12247)",
+   "accept": [
+    "35d5fd28aec7c452c300cb05a5e64d07f777ec73a9fa9ef91519ed75e4128ed9"
+   ]
+  },
+  {
+   "file": "cardsfolder/x/xanathar_guild_kingpin.txt",
+   "commits": [
+    "f9135eed44"
+   ],
+   "why": "Xanathar, Guild Kingpin; Whispersteel Dagger: match the other player's cards by owner (#12247)",
+   "accept": [
+    "82e39547c0660d3d918e2d90e76902bedca1d498af04a73101b4300411aa26c7"
+   ]
+  },
+  {
+   "file": "tokenscripts/g_1_1_elf.txt",
+   "commits": [
+    "c2ba0f0593"
+   ],
+   "why": "fix(cards): AddType$ comma lists and the g_1_1_elf token type (#12212)",
+   "accept": [
+    "f55d180ea435b69f4b151e8c6ce0d05d1515bc29921170726a938d2e25534b73"
+   ]
+  }
+ ],
+ "java": [
+  {
+   "file": "VentureAi.java",
+   "commit": "d7b211dc9b",
+   "upstream": "forge-ai/src/main/java/forge/ai/ability/VentureAi.java",
+   "mode": "file"
+  },
+  {
+   "file": "GoadAi.java",
+   "commit": "f73f382084",
+   "upstream": "forge-ai/src/main/java/forge/ai/ability/GoadAi.java",
+   "mode": "file"
+  },
+  {
+   "file": "ChangeZoneAi.java",
+   "commit": "ca64cc928e",
+   "upstream": "forge-ai/src/main/java/forge/ai/ability/ChangeZoneAi.java",
+   "mode": "file"
+  },
+  {
+   "file": "AbilityUtils.java",
+   "commit": "55685587d3",
+   "upstream": "forge-game/src/main/java/forge/game/ability/AbilityUtils.java",
+   "mode": "file"
+  },
+  {
+   "file": "TriggerHandler.java",
+   "commit": "55685587d3",
+   "upstream": "forge-game/src/main/java/forge/game/trigger/TriggerHandler.java",
+   "mode": "file"
+  },
+  {
+   "file": "ComputerUtilMana.java",
+   "commit": "53b59838c7",
+   "upstream": "forge-ai/src/main/java/forge/ai/ComputerUtilMana.java",
+   "mode": "hunks"
+  },
+  {
+   "file": "PlayerControllerHuman.java",
+   "commit": "c263787525",
+   "upstream": "forge-gui/src/main/java/forge/player/PlayerControllerHuman.java",
+   "mode": "hunks"
+  },
+  {
+   "file": "MagicStack.java",
+   "commit": "7901b6648b",
+   "upstream": "forge-game/src/main/java/forge/game/zone/MagicStack.java",
+   "mode": "hunks"
+  }
+ ]
+}

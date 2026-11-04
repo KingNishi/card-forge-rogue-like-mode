@@ -11,7 +11,10 @@ import forge.menu.FMenuBar;
 import forge.menu.FMenuItem;
 import forge.menu.FMenuTab;
 import forge.menu.FPopupMenu;
+import forge.adventure.util.BattleUiSettings;
+import forge.toolbox.FDialog;
 import forge.toolbox.FDisplayObject;
+import forge.toolbox.FOverlay;
 import forge.toolbox.FScrollPane.ScrollBounds;
 import forge.util.Utils;
 import java.lang.reflect.Field;
@@ -54,6 +57,14 @@ public final class MatchMenuMod {
                 && screen.getHeader().getHeight() == 0f;
     }
 
+    /** rounded box with a rim, drawn as two opaque fills (Forge's drawRoundRect draws cross lines, see forge-src-1009
+     *  Graphics.drawRoundRectShapes; translucent fillRoundRect shows seams where its parts overlap) */
+    static void rimBox(Graphics g, Color rim, Color fill, float x, float y, float w, float h, float r, float line) {
+        g.fillRoundRect(opaque(rim), x, y, w, h, r);
+        g.fillRoundRect(opaque(fill), x + line, y + line, Math.max(0f, w - 2 * line), Math.max(0f, h - 2 * line), Math.max(0f, r - line));
+    }
+    private static Color opaque(Color c) { return c.a >= 1f ? c : new Color(c.r * c.a, c.g * c.a, c.b * c.a, 1f); }
+
     private static MenuButton button(MatchScreen screen) {
         for (FDisplayObject child : screen.getChildren()) {
             if (child instanceof MenuButton b) return b;
@@ -63,6 +74,7 @@ public final class MatchMenuMod {
 
     /** Injected after MatchScreen.doLayout(FFF), after the native HUD layout. */
     public static void layout(MatchScreen screen) {
+        layoutChoiceButton(screen);
         MenuButton b = button(screen);
         if (!active(screen)) {
             if (b != null) {
@@ -84,7 +96,7 @@ public final class MatchMenuMod {
         // The original bar retains height zero and all its tab visibility/action state.
         // Hiding its drawing also removes the native one-pixel selection/separator edges.
         screen.getHeader().setVisible(false);
-        float size = Math.max(Utils.scale(38f), Math.min(Utils.scale(46f), screen.getHeight() * .062f));
+        float size = Math.max(Utils.scale(38f), Math.min(Utils.scale(46f), screen.getHeight() * .062f)) * sideSize();
         Rectangle boundary = screen.getDropDownBoundary();
         float gap = Math.max(4f, size * .16f);
         b.setBounds(boundary.x + gap, boundary.y + gap, size, size);
@@ -93,6 +105,216 @@ public final class MatchMenuMod {
         b.setVisible(true);
         if (b.popup.isVisible()) b.popup.update();
     }
+
+    // ---------------------------------------------------------------- "Back to the choice" (user 2026-10-18)
+    // A choice dialog can be swiped down to look at the battlefield; only a thin bar at the bottom brought it back.
+    // While a dialog is swiped away, a big button in the middle of the screen restores it.
+    private static void layoutChoiceButton(MatchScreen screen) {
+        ChoiceButton c = null;
+        for (FDisplayObject child : screen.getChildren()) if (child instanceof ChoiceButton x) c = x;
+        if (c == null) c = screen.add(new ChoiceButton());
+        TaxBadges tax = null;
+        for (FDisplayObject child : screen.getChildren()) if (child instanceof TaxBadges x) tax = x;
+        if (tax == null) tax = screen.add(new TaxBadges(screen));
+        tax.setBounds(0, 0, screen.getWidth(), screen.getHeight());
+        float w = screen.getWidth(), h = screen.getHeight();
+        float bw = Math.max(Utils.scale(150f), w * .17f), bh = Math.max(Utils.scale(30f), h * .052f);
+        c.setBounds((w - bw) / 2f, h * .625f - bh, bw, bh);
+    }
+
+    // ---------------------------------------------------------------- commander tax (user 2026-10-18)
+    /** "TAX +n" on every commander in a command zone (both players): n = 2 x casts from the command zone so far */
+    private static final class TaxBadges extends FDisplayObject {
+        private final MatchScreen screen;
+        private TaxBadges(MatchScreen screen) { this.screen = screen; }
+        @Override public void buildTouchListeners(float x, float y, java.util.List<FDisplayObject> listeners) { }   // display only
+        @Override public void draw(Graphics g) {
+            try {
+                for (forge.screens.match.views.VPlayerPanel p : screen.getPlayerPanelsList()) {
+                    forge.game.player.PlayerView pv = p.getPlayer();
+                    var zone = p.getCommandZone();
+                    if (pv == null || zone == null || !zone.isVisible()) continue;
+                    for (FDisplayObject child : zone.getChildren()) {
+                        if (!(child instanceof forge.toolbox.FCardPanel cp) || !cp.isVisible() || cp.getCard() == null || !cp.getCard().isCommander()) continue;
+                        Rectangle r = cp.screenPos;
+                        if (r.width < 20f || r.height < 20f) continue;
+                        int tax = 2 * pv.getCommanderCast(cp.getCard());
+                        String label = "TAX +" + tax;
+                        float h = Math.max(Utils.scale(18f), Math.min(r.height * .17f, Utils.scale(32f)));
+                        FSkinFont f = FSkinFont.forHeight(h * .66f);
+                        float w = Math.min(r.width, f.getBounds(label).width + h * 1.2f);
+                        boolean topPlayer = p == screen.getTopPlayerPanel();
+                        float x = r.x - screenPos.x + (r.width - w) / 2f, y = topPlayer ? r.y - screenPos.y + r.height + Utils.scale(2f)   // opponent: below the card (above it sits the menu button)
+                                : Math.max(0f, r.y - screenPos.y - h - Utils.scale(2f));   // you: just above the card, title stays readable
+                        rimBox(g, tax > 0 ? GOLD : new Color(0x8a93a7ff), new Color(0x0b0f17ff), x, y, w, h, h / 2f, Math.max(1f, h * .08f));
+                        g.drawText(label, f, tax > 0 ? GOLD : new Color(0xb8c2d1ff), x, y, w, h, false, 1, true);
+                    }
+                }
+            } catch (Throwable ignored) { }
+        }
+    }
+
+    /** the open choice dialog when it is swiped away (not revealed), else null */
+    private static FDialog collapsedDialog() {
+        FOverlay top = FOverlay.getTopOverlay();
+        return top instanceof FDialog d && d.isVisible() && !d.preventInputBehindOverlay() ? d : null;
+    }
+
+    /** drawn by the match screen above the overlays; the clicks go to a ChoiceTap inside the dialog, because a
+     *  (swiped-away) dialog still takes every touch before the screen gets it */
+    private static final class ChoiceButton extends FDisplayObject {
+        @Override protected boolean drawAboveOverlay() { return true; }
+        @Override public void draw(Graphics g) {
+            FDialog d = collapsedDialog();
+            if (d == null) return;
+            ChoiceTap t = null;
+            for (FDisplayObject child : d.getChildren()) if (child instanceof ChoiceTap x) t = x;
+            if (t == null) t = d.add(new ChoiceTap(d));
+            t.setBounds(screenPos.x - d.screenPos.x, screenPos.y - d.screenPos.y, getWidth(), getHeight());
+            t.screenPos.set(screenPos);   // hit test right away, even before the dialog draws it
+            float w = getWidth(), h = getHeight(), r = h * .3f;
+            float pulse = .5f + .5f * (float) Math.sin(System.currentTimeMillis() / 260.0);
+            g.fillRoundRect(new Color(0x00000066), w * .01f, h * .08f, w, h, r);
+            rimBox(g, GOLD, t.pressed ? PRESSED : t.isHovered() ? HOVER : GLASS, 0, 0, w, h, r, Math.max(1.5f, h * (.05f + .03f * pulse)));
+            g.drawText("Back to the choice", FSkinFont.forHeight(h * .42f), GOLD, 0, 0, w, h, false, 1, true);
+            requestRendering();   // keep the pulse running
+        }
+    }
+
+    /** invisible click area inside the dialog; only active while the dialog is swiped away */
+    private static final class ChoiceTap extends FDisplayObject {
+        private final FDialog dialog;
+        private boolean pressed;
+        private ChoiceTap(FDialog dialog) { this.dialog = dialog; }
+        @Override public void buildTouchListeners(float x, float y, java.util.List<FDisplayObject> listeners) {
+            if (collapsedDialog() == dialog) super.buildTouchListeners(x, y, listeners);
+        }
+        @Override public boolean press(float x, float y) { pressed = true; requestRendering(); return true; }
+        @Override public boolean release(float x, float y) { pressed = false; requestRendering(); return true; }
+        @Override public boolean tap(float x, float y, int count) {
+            pressed = false;
+            if (collapsedDialog() == dialog) dialog.fling(0f, -Utils.scale(2400f));   // the dialog's own upward swipe: reveal animation
+            requestRendering();
+            return true;
+        }
+        @Override public void draw(Graphics g) { }   // ChoiceButton draws it above the overlay
+    }
+
+    // ---------------------------------------------------------------- battle settings in the duel (user 2026-10-18)
+    // Same sizes and keys as Rogue Commanders Settings > Battle UI / Keys; applied right away, saved on close.
+    private static void openBattleSettings(MatchScreen screen) { new BattleSettings(screen).show(); }
+
+    private static final class BattleSettings extends FOverlay {
+        private static final Color BACK = new Color(0x05070cb4), PANEL = new Color(0x121823f5), CELL = new Color(0x1c2434ff),
+                BORDER = new Color(0x5b6378ff), MUTED = new Color(0xaab2c4ff), LISTEN = new Color(0x4a3a12ff);
+        private final MatchScreen screen;
+        private final java.util.List<Cell> minus = new java.util.ArrayList<>(), plus = new java.util.ArrayList<>(), keys = new java.util.ArrayList<>();
+        private final Cell resetSizes, resetKeys, close;
+        private int listening = -1;
+        private float scale = 1f, px, py, pw, ph, row, pad, colW, top;
+
+        BattleSettings(MatchScreen screen) {
+            this.screen = screen;
+            for (int i = 0; i < BattleUiSettings.SIZE_IDS.length; i++) {
+                final int k = i;
+                minus.add(add(new Cell(() -> "-", () -> step(k, -.05f), -1)));
+                plus.add(add(new Cell(() -> "+", () -> step(k, .05f), -1)));
+            }
+            for (int i = 0; i < BattleUiSettings.ACTIONS.length; i++) {
+                final int k = i;
+                keys.add(add(new Cell(() -> listening == k ? "Press a key ..." : BattleUiSettings.keyName(k),
+                        () -> { listening = listening == k ? -1 : k; requestRendering(); }, k)));
+            }
+            resetSizes = add(new Cell(() -> "Reset sizes", () -> { BattleUiSettings.resetSizes(); applied(); }, -1));
+            resetKeys = add(new Cell(() -> "Reset keys", () -> { BattleUiSettings.resetKeys(); listening = -1; requestRendering(); }, -1));
+            close = add(new Cell(() -> "Close", this::close, -1));
+            close.gold = true;
+        }
+
+        private void step(int group, float d) { BattleUiSettings.setSize(group, BattleUiSettings.size(group) + d); applied(); }
+        private void applied() { screen.revalidate(); requestRendering(); }
+        private void close() { BattleUiSettings.save(); hide(); screen.revalidate(); }
+
+        @Override protected void doLayout(float w, float h) {
+            scale = Math.max(.65f, Math.min(2.5f, Math.min(w / 1600f, h / 900f)));
+            pad = 22f * scale; row = 34f * scale;
+            float gap = 7f * scale;
+            int rows = BattleUiSettings.ACTIONS.length + 2;   // heading + keys + reset
+            pw = Math.min(w - 2 * pad, 1180f * scale);
+            ph = pad + 46f * scale + 30f * scale + rows * (row + gap) + row * 1.3f + pad * 1.6f;
+            ph = Math.min(ph, h - pad);
+            px = (w - pw) / 2f; py = Math.max(pad * .5f, (h - ph) / 2f);
+            colW = (pw - 3 * pad) / 2f;
+            top = py + pad + 46f * scale + 30f * scale;
+            float lx = px + pad, y = top + row + gap, cb = row * 1.25f, vw = 70f * scale;
+            for (int i = 0; i < minus.size(); i++) {
+                float right = lx + colW;
+                plus.get(i).setBounds(right - cb, y, cb, row);
+                minus.get(i).setBounds(right - cb - vw - cb, y, cb, row);
+                y += row + gap;
+            }
+            resetSizes.setBounds(lx + colW - 200f * scale, y + gap, 200f * scale, row);
+            float rx = px + 2 * pad + colW;
+            y = top + row + gap;
+            for (Cell k : keys) { k.setBounds(rx + colW * .6f, y, colW * .4f, row); y += row + gap; }
+            resetKeys.setBounds(rx + colW * .6f, y + gap * .5f, colW * .4f, row);
+            close.setBounds(px + (pw - 240f * scale) / 2f, py + ph - pad - row * 1.3f, 240f * scale, row * 1.3f);
+        }
+
+        @Override protected void drawBackground(Graphics g) {
+            g.fillRect(BACK, 0, 0, getWidth(), getHeight());
+            float r = 14f * scale;
+            rimBox(g, GOLD, PANEL, px, py, pw, ph, r, Math.max(1.5f, 2f * scale));
+            g.drawText("Battle settings", font(26), GOLD, px + pad, py + pad * .5f, pw - 2 * pad, 46f * scale, false, 8, true);
+            String hint = listening >= 0
+                    ? "Press the new key for \"" + BattleUiSettings.ACTION_LABELS[listening] + "\"  -  Backspace clears it, Esc cancels."
+                    : "Changes apply right away and are saved when you close. Click a key to change it.";
+            g.drawText(hint, font(14), listening >= 0 ? GOLD : MUTED, px + pad, py + pad * .5f + 46f * scale, pw - 2 * pad, 30f * scale, false, 8, true);
+            float lx = px + pad, rx = px + 2 * pad + colW;
+            g.drawText("Sizes", font(19), GOLD, lx, top, colW, row, false, 8, true);
+            g.drawText("Keys", font(19), GOLD, rx, top, colW, row, false, 8, true);
+            for (int i = 0; i < minus.size(); i++) {
+                Cell m = minus.get(i), p = plus.get(i);
+                g.drawText(BattleUiSettings.SIZE_LABELS[i], font(15), TEXT, lx, m.getTop(), m.getLeft() - lx - pad * .5f, row, false, 8, true);
+                g.drawText(Math.round(BattleUiSettings.size(i) * 100) + "%", font(16), TEXT, m.getRight(), m.getTop(), p.getLeft() - m.getRight(), row, false, 1, true);
+            }
+            for (int i = 0; i < keys.size(); i++) {
+                Cell k = keys.get(i);
+                g.drawText(BattleUiSettings.ACTION_LABELS[i], font(15), TEXT, rx, k.getTop(), colW * .58f, row, false, 8, true);
+            }
+        }
+
+        @Override public boolean keyDown(int key) {
+            if (listening >= 0) {
+                if (key == com.badlogic.gdx.Input.Keys.DEL || key == com.badlogic.gdx.Input.Keys.FORWARD_DEL) BattleUiSettings.clearKey(listening);
+                else if (key != com.badlogic.gdx.Input.Keys.ESCAPE && key != com.badlogic.gdx.Input.Keys.BACK) BattleUiSettings.setKey(listening, key);
+                listening = -1;
+            } else if (key == com.badlogic.gdx.Input.Keys.ESCAPE || key == com.badlogic.gdx.Input.Keys.BACK) close();
+            requestRendering();
+            return true;   // no key reaches the duel while this is open
+        }
+
+        // layout already scales in screen pixels (as in DeckPeekMod)
+        private FSkinFont font(int size) { return FSkinFont._get(Math.max(10, Math.round(size * scale))); }
+
+        private final class Cell extends FDisplayObject {
+            private final java.util.function.Supplier<String> label;
+            private final Runnable action;
+            private final int key;
+            private boolean gold;
+            Cell(java.util.function.Supplier<String> label, Runnable action, int key) { this.label = label; this.action = action; this.key = key; }
+            @Override public boolean tap(float x, float y, int count) { action.run(); return true; }
+            @Override public void draw(Graphics g) {
+                boolean hot = key >= 0 && listening == key;
+                float w = getWidth(), h = getHeight(), r = 8f * scale;
+                rimBox(g, hot || gold ? GOLD : BORDER, hot ? LISTEN : isHovered() ? HOVER : CELL, 0, 0, w, h, r, Math.max(1f, 1.5f * scale));
+                g.drawText(label.get(), font(16), hot || gold ? GOLD : TEXT, 4f * scale, 0, w - 8f * scale, h, false, 1, true);
+            }
+        }
+    }
+
+    /** Settings > Battle UI: side buttons size (user 2026-10-17) */
+    private static float sideSize() { return forge.adventure.util.BattleUiSettings.size(2); }
 
     /** Injected after the virtual owner query in FDropDown.updateSizeAndPosition.
      *  This also covers VLog's owner override. Keep the real tab as owner so native
@@ -199,6 +421,8 @@ public final class MatchMenuMod {
             addItem(new ActionEntry("Zoom in", () -> battleZoom("in"), this));
             addItem(new ActionEntry("Zoom out", () -> battleZoom("out"), this));
             addItem(new ActionEntry("Auto zoom", () -> battleZoom("reset"), this));
+            addItem(new ActionEntry("Battle settings", () -> openBattleSettings(button.screen), this));   // sizes + keys in the duel (user 2026-10-18)
+            // "View deck" moved to the Deck button above the mana tile (user 2026-10-16)
             // concede (Forge's own game menu action), with a confirmation because it ends the duel as a loss
             addItem(new ActionEntry("Concede", MenuPopup::confirmConcede, this));
         }
@@ -232,10 +456,10 @@ public final class MatchMenuMod {
         }
 
         @Override protected void drawBackground(Graphics g) {
-            g.fillRoundRect(GLASS, 0, 0, getWidth(), getHeight(), button.getWidth() * .15f);
+            rimBox(g, GOLD, GLASS, 0, 0, getWidth(), getHeight(), button.getWidth() * .15f, Math.max(1f, button.getWidth() * .02f));
         }
         @Override protected void drawOverlay(Graphics g) {
-            g.drawRoundRect(Math.max(1f, button.getWidth() * .02f), GOLD, 0, 0, getWidth(), getHeight(), button.getWidth() * .15f);
+            // rim drawn with the background (rimBox)
         }
     }
 

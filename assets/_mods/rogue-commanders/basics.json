@@ -1,0 +1,368 @@
+{
+ "yshtola-nights-blessed": {
+  "set": "FIC",
+  "name": "Final Fantasy Commander",
+  "own": true,
+  "cards": {
+   "Plains": [
+    "478"
+   ],
+   "Island": [
+    "479"
+   ],
+   "Swamp": [
+    "480"
+   ],
+   "Mountain": [
+    "481"
+   ],
+   "Forest": [
+    "482"
+   ]
+  }
+ },
+ "teval-the-balanced-scale": {
+  "set": "TDM",
+  "name": "Tarkir: Dragonstorm",
+  "own": true,
+  "cards": {
+   "Plains": [
+    "272",
+    "287"
+   ],
+   "Island": [
+    "273",
+    "288"
+   ],
+   "Swamp": [
+    "274",
+    "289"
+   ],
+   "Mountain": [
+    "275",
+    "290"
+   ],
+   "Forest": [
+    "276",
+    "291"
+   ]
+  }
+ },
+ "fire-lord-azula": {
+  "set": "NEO",
+  "name": "Kamigawa: Neon Dynasty (full-art ukiyo-e basics, user 2026-10-17)",
+  "own": false,
+  "cards": {
+   "Plains": [
+    "293",
+    "294"
+   ],
+   "Island": [
+    "295",
+    "296"
+   ],
+   "Swamp": [
+    "297",
+    "298"
+   ],
+   "Mountain": [
+    "299",
+    "300"
+   ],
+   "Forest": [
+    "301",
+    "302"
+   ]
+  }
+ },
+ "cloud-ex-soldier": {
+  "set": "FIC",
+  "name": "Final Fantasy Commander",
+  "own": true,
+  "cards": {
+   "Plains": [
+    "478"
+   ],
+   "Island": [
+    "479"
+   ],
+   "Swamp": [
+    "480"
+   ],
+   "Mountain": [
+    "481"
+   ],
+   "Forest": [
+    "482"
+   ]
+  }
+ },
+ "ureni-of-the-unwritten": {
+  "set": "TDM",
+  "name": "Tarkir: Dragonstorm",
+  "own": true,
+  "cards": {
+   "Plains": [
+    "272",
+    "287"
+   ],
+   "Island": [
+    "273",
+    "288"
+   ],
+   "Swamp": [
+    "274",
+    "289"
+   ],
+   "Mountain": [
+    "275",
+    "290"
+   ],
+   "Forest": [
+    "276",
+    "291"
+   ]
+  }
+ },
+ "karolina-dean-runaway": {
+  "set": "MSH",
+  "name": "Marvel Super Heroes",
+  "own": true,
+  "cards": {
+   "Plains": [
+    "277",
+    "278",
+    "433",
+    "434"
+   ],
+   "Island": [
+    "279",
+    "280",
+    "435",
+    "436"
+   ],
+   "Swamp": [
+    "281",
+    "282",
+    "437",
+    "438"
+   ],
+   "Mountain": [
+    "283",
+    "284",
+    "439",
+    "440"
+   ],
+   "Forest": [
+    "285",
+    "286",
+    "441",
+    "442"
+   ]
+  }
+ },
+ "pantlaza-sun-favored": {
+  "set": "LCI",
+  "name": "The Lost Caverns of Ixalan",
+  "own": true,
+  "cards": {
+   "Plains": [
+    "287"
+   ],
+   "Island": [
+    "288"
+   ],
+   "Swamp": [
+    "289"
+   ],
+   "Mountain": [
+    "290"
+   ],
+   "Forest": [
+    "291"
+   ]
+  }
+ },
+ "jace-multiverse-architect": {
+  "set": "FRA",
+  "name": "Reality Fracture",
+  "own": true,
+  "cards": {
+   "Plains": [
+    "382",
+    "383",
+    "384"
+   ],
+   "Island": [
+    "385",
+    "386",
+    "387"
+   ],
+   "Swamp": [
+    "388",
+    "389",
+    "390"
+   ],
+   "Mountain": [
+    "391",
+    "392",
+    "393"
+   ],
+   "Forest": [
+    "394",
+    "395",
+    "396"
+   ]
+  }
+ },
+ "the-wise-mothman": {
+  "set": "PIP",
+  "name": "Fallout",
+  "own": true,
+  "cards": {
+   "Plains": [
+    "317",
+    "318",
+    "845",
+    "846"
+   ],
+   "Island": [
+    "319",
+    "320",
+    "847",
+    "848"
+   ],
+   "Swamp": [
+    "321",
+    "322",
+    "849",
+    "850"
+   ],
+   "Mountain": [
+    "323",
+    "324",
+    "851",
+    "852"
+   ],
+   "Forest": [
+    "325",
+    "326",
+    "853",
+    "854"
+   ]
+  }
+ },
+ "shang-chi-master-of-kung-fu": {
+  "set": "MSH",
+  "name": "Marvel Super Heroes",
+  "own": true,
+  "cards": {
+   "Plains": [
+    "277",
+    "278",
+    "433",
+    "434"
+   ],
+   "Island": [
+    "279",
+    "280",
+    "435",
+    "436"
+   ],
+   "Swamp": [
+    "281",
+    "282",
+    "437",
+    "438"
+   ],
+   "Mountain": [
+    "283",
+    "284",
+    "439",
+    "440"
+   ],
+   "Forest": [
+    "285",
+    "286",
+    "441",
+    "442"
+   ]
+  }
+ },
+ "teysa-karlov": {
+  "set": "EOE",
+  "name": "Edge of Eternities",
+  "own": false,
+  "cards": {
+   "Plains": [
+    "262",
+    "367"
+   ],
+   "Island": [
+    "263",
+    "368"
+   ],
+   "Swamp": [
+    "264",
+    "369"
+   ],
+   "Mountain": [
+    "265",
+    "370"
+   ],
+   "Forest": [
+    "266",
+    "371"
+   ]
+  }
+ },
+ "breya-etherium-shaper": {
+  "set": "EOE",
+  "name": "Edge of Eternities",
+  "own": false,
+  "cards": {
+   "Plains": [
+    "262",
+    "367"
+   ],
+   "Island": [
+    "263",
+    "368"
+   ],
+   "Swamp": [
+    "264",
+    "369"
+   ],
+   "Mountain": [
+    "265",
+    "370"
+   ],
+   "Forest": [
+    "266",
+    "371"
+   ]
+  }
+ },
+ "eriette-of-the-charmed-apple": {
+  "set": "WOE",
+  "name": "Wilds of Eldraine",
+  "own": true,
+  "cards": {
+   "Plains": [
+    "262"
+   ],
+   "Island": [
+    "263"
+   ],
+   "Swamp": [
+    "264"
+   ],
+   "Mountain": [
+    "265"
+   ],
+   "Forest": [
+    "266"
+   ]
+  }
+ }
+}

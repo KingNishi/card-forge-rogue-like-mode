@@ -54,7 +54,7 @@ public final class RogueForgeAchievements extends AchievementCollection {
    boolean improved=higher.getBoolean(a)?value>best:value<best;
    if(improved){e.setAttribute("best",Integer.toString(value));e.setAttribute("time",Long.toString(System.currentTimeMillis()));}
    a.loadFromXml(e);state.put(key,attributes(e));
-   boolean special=a.isSpecial()&&a.getBest()>0;
+   boolean special=a.isSpecial()&&improved&&value>0;   // only when this game really did it (a fresh record starts at a non-zero default and handed out every special at once)
    if(special&&!completed.contains("forge:"+key+":special"))completed.add("forge:"+key+":special");
    boolean[] earned={a.earnedCommon(),a.earnedUncommon(),a.earnedRare(),a.earnedMythic()};
    for(int i=0;i<earned.length;i++){String id="forge:"+key+":"+i;if(earned[i]&&!completed.contains(id))completed.add(id);}

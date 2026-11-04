@@ -41,8 +41,9 @@ public final class ModernBattlefieldMod {
  private static final long START=com.badlogic.gdx.utils.TimeUtils.nanoTime();
  private static final Map<FImage,FImage> controls=new IdentityHashMap<>();
  public static void drawControl(Graphics g,FImage image,float x,float y,float w,float h){
-  if(active() && image instanceof FSkinImage skin && skin.name().contains("BTN_"))control(image).draw(g,x,y,w,h);
-  else g.drawImage(image,x,y,w,h);
+  if(active() && image instanceof FSkinImage skin && skin.name().startsWith("BTN_")){
+   if(!FantasyButtonArt.drawSegment(g,image,x,y,w,h))control(image).draw(g,x,y,w,h);
+  }else g.drawImage(image,x,y,w,h);
  }
  public static Color phaseInk(Color original){return active()&&original==Color.BLACK?Color.valueOf("e5edf4"):literal(original);}
  public static void roundPanel(Graphics g,FSkinColor color,float x,float y,float w,float h){
@@ -81,6 +82,7 @@ public final class ModernBattlefieldMod {
    float t=(com.badlogic.gdx.utils.TimeUtils.nanoTime()-START)/1_000_000_000f;
    LivingBoard.draw(g,board,boardFile,x,y,w,h,t);
    BoardFx.particles(g,LivingBoard.particleBiome(boardFile),x,y,w,h,t);
+   RoamingCritters.draw(g,boardFile,x,y,w,h,t);
    Gdx.graphics.requestRendering();
    return;
   }
@@ -150,6 +152,71 @@ public final class ModernBattlefieldMod {
     float p=(r(i+70)+t*(.012f+.012f*r(i+71)))%1,cx=x+w*((r(i+72)+p*.06f)%1)+(float)Math.sin(t*.5+i)*w*.01f,cy=y+h*(1-p);
     float a=(.35f+.25f*(float)Math.sin(t*1.3+i))*edge(p),s=(1.5f+2*r(i+73))*k;
     g.fillCircle(new Color(c.r,c.g,c.b,.18f*a),cx,cy,s*3);g.fillCircle(new Color(c.r,c.g,c.b,.75f*a),cx,cy,s);
+   }
+  }
+ }
+
+ /** Independently moving animals, confined to scenery margins, below every card and UI control.
+  * Vector joints keep these small silhouettes crisp at 4K without loading another texture atlas. */
+ static final class RoamingCritters {
+  record Actor(float x,float y,float size,float heading,float flap,int kind,float alpha){}
+  static Actor actor(String file,int index,float t){
+   String id=LivingBoard.id(file);float phase=index*2.39996f,period=22+index*7;
+   float p=(t/period+index*.31f)%1,fade=Math.min(1,Math.min(p,1-p)*10);
+   boolean desert=Set.of("OTJ","AKH_Mobile","AKR_Mobile","XLN_Mobile","AFR_Mobile").contains(id);
+   int kind=desert?(id.equals("XLN_Mobile")?3:2):id.equals("KHM_Mobile")?1:0;
+   // Two side corridors and a top border. No path crosses the readable centre of the play surface.
+   float x=index==0?.055f+.026f*(float)Math.sin(p*Math.PI*2):index==1?.948f+.020f*(float)Math.sin(p*Math.PI*2):.20f+.60f*p;
+   float y=index<2?.20f+.56f*p:.065f+.016f*(float)Math.sin(p*Math.PI*4+phase);
+   float heading=index<2?(float)Math.PI/2:(float)Math.atan2(.016f*4*Math.PI*Math.cos(p*Math.PI*4+phase),.60);
+   float size=kind==1?.0065f:kind==0?.005f:.006f;
+   return new Actor(x,y,size,heading,(float)Math.sin(t*(kind==0?13:kind==1?5:7)+phase),kind,fade*.78f);
+  }
+  static Color ink(float a){return new Color(.10f,.15f,.18f,a);}
+  static void draw(Graphics g,String file,float x,float y,float w,float h,float t){
+   if(file==null)return;
+   for(int i=0;i<3;i++){
+    Actor a=actor(file,i,t);float cx=x+w*a.x,cy=y+h*a.y,s=w*a.size,alpha=a.alpha;
+    if(alpha<=0)continue;
+    g.startRotateTransform(cx,cy,(float)Math.toDegrees(a.heading));
+    try{
+     if(a.kind==0){ // butterfly: four separately hinged wings, narrow thorax, antennae
+      float spread=.24f+.76f*Math.abs(a.flap),tip=s*spread;
+      for(int side:new int[]{-1,1}){
+       Color fill=new Color(.49f,.73f,.75f,alpha*.85f);
+       g.fillTriangle(ink(alpha),cx-s*.5f,cy,cx-s*1.05f,cy+side*tip*1.65f,cx+s*.7f,cy+side*tip*1.2f);
+       g.fillTriangle(fill,cx-s*.4f,cy+side*tip*.14f,cx-s*.85f,cy+side*tip*1.35f,cx+s*.35f,cy+side*tip*.9f);
+       g.fillTriangle(new Color(.55f,.43f,.25f,alpha),cx+s*.15f,cy,cx+s*.9f,cy+side*tip*.85f,cx+s*1.1f,cy+side*tip*.15f);
+      }
+      g.drawLine(Math.max(.7f,s*.20f),ink(alpha),cx-s*.65f,cy,cx+s*.9f,cy);
+      g.fillCircle(new Color(.9f,.83f,.58f,alpha),cx-s*.5f,cy,Math.max(.6f,s*.15f));
+     }else if(a.kind==1){ // gliding bird with a wing downstroke and a quieter return stroke
+      float tip=s*(.45f+.65f*a.flap);
+      g.fillTriangle(ink(alpha),cx-s,cy,cx+s*.55f,cy-s*1.7f,cx+tip,cy-s*.55f);
+      g.fillTriangle(ink(alpha),cx-s,cy,cx+s*.55f,cy+s*1.7f,cx+tip,cy+s*.55f);
+      g.drawLine(Math.max(1,s*.24f),ink(alpha),cx-s,cy,cx+s,cy);
+     }else{ // crab/scorpion: alternating leg pairs, flexing claws, articulated tail
+      g.fillCircle(new Color(.035f,.025f,.015f,.15f*alpha),cx+s*.3f,cy+s*.3f,s*.9f);
+      for(int n=0;n<4;n++)for(int side:new int[]{-1,1}){
+       float bx=cx+(n-1.5f)*s*.35f,reach=(float)Math.sin(t*7+n*Math.PI+side)*s*.16f;
+       float ex=bx+s*.38f+reach,ey=cy+side*s*(.65f+.11f*n);
+       g.drawLine(Math.max(.7f,s*.12f),ink(alpha),bx,cy,ex,ey);
+       g.drawLine(Math.max(.7f,s*.10f),ink(alpha),ex,ey,ex-s*.33f,ey+side*s*.18f);
+      }
+      g.fillCircle(new Color(.33f,.25f,.15f,alpha),cx,cy,s*.49f);
+      for(int side:new int[]{-1,1}){
+       float claw=side*s*(.65f+.12f*(float)Math.sin(t*1.7f+i));
+       g.drawLine(Math.max(1,s*.17f),ink(alpha),cx-s*.25f,cy,cx-s,cy+claw);
+       g.fillTriangle(new Color(.48f,.37f,.22f,alpha),cx-s,cy+claw,cx-s*1.4f,cy+claw-s*.22f,cx-s*1.3f,cy+claw+s*.24f);
+      }
+      if(a.kind==2){
+       float px=cx+s*.35f,py=cy;for(int n=1;n<5;n++){
+        float nx=cx+s*(.35f+n*.22f),ny=cy-(float)Math.sin(n*.42f+t*.28f)*s*n*.16f;
+        g.drawLine(Math.max(.7f,s*(.19f-n*.025f)),ink(alpha),px,py,nx,ny);px=nx;py=ny;
+       }
+      }
+     }
+    }finally{g.endTransform();}
    }
   }
  }

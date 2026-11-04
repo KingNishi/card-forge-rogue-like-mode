@@ -17,9 +17,17 @@ public final class ArenaBattleHudMod {
  private static boolean enabled(VPlayerPanel p,float w,float h){return ArenaMotionMod.active()&&forge.Forge.isLandscapeMode()&&w>=900&&h>=240&&forge.screens.match.MatchScreen.getPlayerPanels().size()==2;}
  public record Layout(float avatarX,float avatarY,float avatarSize,float lifeY,float fieldY,float fieldHeight,float displayY,float displayHeight,float bandY,float bandHeight){}
  /** portrait size in units of the layout scale (it used to be 54, centred in a tall strip) */
- public static final float AVATAR=84,BAND=46,LIFE=24;
+ public static final float AVATAR=84,BAND=46,LIFE=24,BIG=2.5f;   // BIG: portrait size factor (user 2026-10-16)
+ /** the layout scale of the last plan() (labels, plaque, buttons); the portrait itself may be smaller */
+ static float uiScale=1;
  public static Layout plan(float w,float h,boolean bottom,boolean selected){
-  float scale=Math.max(.6f,Math.min(1.6f,Math.min(w/1600,forge.Forge.getScreenHeight()/900f))),avatar=AVATAR*scale,band=BAND*scale,life=LIFE*scale;
+  float sh=forge.Forge.getScreenHeight();
+  // smaller screens (1080p): zone tabs and portraits down to 80 % so the board keeps room; 1440+ unchanged (user 2026-10-16)
+  float res=Math.max(.8f,Math.min(1,.8f+.2f*(sh-1080)/360));
+  float scale=res*Math.max(.6f,Math.min(1.6f,Math.min(w/1600,sh/900f))),band=BAND*scale,life=LIFE*scale;
+  // portraits at most 15 % of the screen height: at 1080p they were 19 % (user 2026-10-18 "zu gross in 1900er Aufloesung");
+  // 4K stays as it was (~15.5 %). Everything else keeps the layout scale (uiScale), only the portrait shrinks.
+  float avatar=Math.min(AVATAR*BIG*scale,Math.max(sh*.15f,AVATAR*BIG*scale*.7f));uiScale=scale;
   float gap=bottom?promptGap():0;   // the transparent prompt bar lies over the bottom of the board
   // The hand gets the room of the old menu bar and phase strips: about a quarter of the screen height, bigger cards.
   float display=selected?Math.min(h*.5f,Math.max(70,w*.123f*handScale())):0;
@@ -33,35 +41,46 @@ public final class ArenaBattleHudMod {
  public static void layout(VPlayerPanel p,float w,float h){
   if(!enabled(p,w,h))return;
   boolean bottom=(Boolean)member(p,"isBottomPlayer");boolean selected=p.getSelectedTab()!=null;
-  Layout l=plan(w,h,bottom,selected);float scale=l.avatarSize()/AVATAR;
+  Layout l=plan(w,h,bottom,selected);float scale=uiScale;
   p.getAvatar().setBounds(l.avatarX(),l.avatarY(),l.avatarSize(),l.avatarSize());
   ((FDisplayObject)member(p,"lblLife")).setBounds(l.avatarX()+l.avatarSize()/2-50*scale,l.lifeY(),100*scale,LIFE*scale-2*scale);
   float manaW=65*scale,manaX=l.avatarX()-manaW-18*scale,phaseW=Math.max(120,Math.min(w*.32f,manaX-12*scale-w*.45f));
   // the per-player phase strips (UP DR M1 ...) are gone: the turn plaque in the middle shows every step
   p.getPhaseIndicator().setBounds(manaX-12*scale-phaseW,l.bandY(),0,0);p.getPhaseIndicator().setVisible(false);
-  int count=0;for(var tab:p.getTabs())if(tab!=p.getManaPoolTab())count++;
+  int count=0;for(var tab:p.getTabs())if(tab!=p.getManaPoolTab()&&!(tab instanceof VPlayerPanel.InfoTabExtra))count++;
   float tw=Math.min(78*scale,w*.40f/Math.max(1,count)),th=Math.min(l.bandHeight()-4*scale,42*scale);int index=0;   // bigger zone tiles
   // bottom: the hand button keeps a fixed spot in the bottom-left corner, the tabs follow it;
   // top: the round match menu button sits in the top-left corner
-  float toggleSize=Math.min(l.bandHeight()-6*scale,40*scale);
+  float side=BattleUiSettings.size(2);   // Settings > Battle UI: side buttons (user 2026-10-17)
+  float toggleSize=Math.min(l.bandHeight()-6*scale,40*scale)*side;
   float zoomW=toggleSize*2.9f;
   float tabsX=12*scale+(bottom&&bars()?toggleSize+8*scale+zoomW+14*scale:!bottom&&bars()?92*scale:0);
   for(var tab:p.getTabs()){
    if(tab==p.getManaPoolTab())tab.setBounds(manaX,l.bandY()+(l.bandHeight()-38*scale)/2,manaW,38*scale);
+   else if(tab instanceof VPlayerPanel.InfoTabExtra){tab.setVisible(false);tab.setBounds(0,0,0,0);continue;}   // star = sideboard/extra zones: not needed in Rogue (user 2026-10-17)
    else tab.setBounds(tabsX+(index++)*(tw+6*scale),l.bandY()+(l.bandHeight()-th)/2,tw,th);
    tab.setDisplayBounds(w*.12f,l.displayY(),w*.76f,Math.max(1,l.displayHeight()));
+  }
+  if(!bottom){   // game log behind a scroll icon right under the opponent's portrait + life (user 2026-10-16)
+   LogButton lb=logButtons.get(p);if(lb==null){lb=p.add(new LogButton());logButtons.put(p,lb);}
+   float lbw=Math.min(l.avatarSize()*.62f,120*scale)*side,lbh=30*scale*side;
+   lb.setBounds(l.avatarX()+(l.avatarSize()-lbw)/2,l.lifeY()+LIFE*scale+4*scale,lbw,lbh);
   }
   if(bottom){   // Arena-style: fold the (big) hand away to see the whole battlefield, and back
    HandToggle t=toggles.get(p);if(t==null){t=p.add(new HandToggle(p));toggles.put(p,t);}
    // same place whether the hand is shown or folded away: centre of the bottom row above the prompt bar
    float cy=h-promptGap()-l.bandHeight()/2;
    t.setBounds(12*scale,cy-toggleSize/2,toggleSize,toggleSize);
+   BoardZoom bz=boardZooms.get(p);if(bz==null){bz=p.add(new BoardZoom());boardZooms.put(p,bz);}
+   bz.setBounds(12*scale+toggleSize+8*scale,cy-toggleSize/2,zoomW,toggleSize);   // board zoom: battlefield + commander
    HandZoom z=zooms.get(p);if(z==null){z=p.add(new HandZoom());zooms.put(p,z);}
-   z.setBounds(12*scale+toggleSize+8*scale,cy-toggleSize/2,zoomW,toggleSize);
+   boolean handShown=t.handOpen();z.setVisible(handShown);   // hand zoom only while the hand is open, right of it
+   if(handShown)z.setBounds(w*.88f+8*scale,l.displayY()+Math.max(0,(l.displayHeight()-toggleSize)/2),Math.min(zoomW,w*.12f-16*scale),toggleSize);
   }
   // Command zone (commander, item cards like Slobad's Iron Boots / Cursed Treasure) on the left as a grid of
   // separate cards; the same margin on both sides keeps the battlefield rows centred under the hand.
-  int cards=p.getCommandZone().getCount();float czh=l.fieldHeight()*.92f,gap=gap(scale);
+  int cards=p.getCommandZone().getCount();float fieldRef=Math.min(l.fieldHeight(),plan(w,h,true,true).fieldHeight());uiScale=scale;   /* both commanders the same size: the smaller (own) half decides (user 2026-10-18) */
+  float czh=fieldRef*.92f*Math.max(.45f,Math.min(1f,forge.adventure.util.BattleZoomMod.scale())),gap=gap(scale);   // board zoom shrinks the commander too
   TopCardSlot top=topCards.get(p);if(top==null){top=p.add(new TopCardSlot(p));topCards.put(p,top);}
   boolean showTop=visibleTopCard(p)!=null;
   top.setVisible(showTop);
@@ -121,6 +140,37 @@ public final class ArenaBattleHudMod {
  private static final Map<VPlayerPanel,HandToggle> toggles=new WeakHashMap<>();
  private static final Map<VPlayerPanel,HandZoom> zooms=new WeakHashMap<>();
  /** hand size right next to the hand: [-] magnifier 100 % [+]; tapping the magnifier resets to 100 % */
+ private static final Map<VPlayerPanel,BoardZoom> boardZooms=new WeakHashMap<>();
+ /** board zoom (user 2026-10-16): battlefield cards + commander; - / + at the ends, tap the middle to reset */
+ static final class BoardZoom extends FDisplayObject{
+  @Override public boolean tap(float x,float y,int count){
+   float w=getWidth(),sc=forge.adventure.util.BattleZoomMod.scale();
+   if(x<w*.28f)forge.adventure.util.BattleZoomMod.setScale(sc/1.1f);else if(x>w*.72f)forge.adventure.util.BattleZoomMod.setScale(sc*1.1f);else forge.adventure.util.BattleZoomMod.reset();
+   try{var view=forge.screens.match.MatchController.getView();if(view!=null)view.revalidate();}catch(Exception ignored){}
+   return true;
+  }
+  @Override public void draw(Graphics g){
+   float w=getWidth(),h=getHeight(),r=h/2,lw=Math.max(1.5f,h*.06f);
+   Color gold=Color.valueOf("e0b24f"),text=Color.valueOf("ece6d8"),dark=Color.valueOf("111722");
+   g.fillRoundRect(Color.valueOf("8a7346"),0,0,w,h,r);g.fillRoundRect(isHovered()?Color.valueOf("17202e"):dark,lw,lw,w-2*lw,h-2*lw,r-lw);
+   float s=h*.18f,cy=h/2;
+   g.drawLine(Math.max(1.5f,h*.07f),text,w*.13f-s,cy,w*.13f+s,cy);
+   g.drawLine(Math.max(1.5f,h*.07f),text,w*.87f-s,cy,w*.87f+s,cy);g.drawLine(Math.max(1.5f,h*.07f),text,w*.87f,cy-s,w*.87f,cy+s);
+   float ix=w*.27f,iy=cy-h*.17f,cw=h*.13f,ch=h*.17f;   // board icon: four small cards
+   for(int i=0;i<2;i++)for(int j=0;j<2;j++)g.drawRect(Math.max(1.2f,h*.045f),gold,ix+i*(cw+h*.04f),iy+j*(ch+h*.03f),cw,ch);
+   g.drawText(Math.round(forge.adventure.util.BattleZoomMod.scale()*100)+"%",forge.assets.FSkinFont.forHeight(h*.5f),text,w*.42f,0,w*.34f,h,false,com.badlogic.gdx.utils.Align.center,true);
+  }
+ }
+ // stack: semi-transparent dark grey with light text instead of Forge's light grey/black (user 2026-10-16)
+ private static Field stackBack,stackFore;private static final Set<Object> styledStack=java.util.Collections.newSetFromMap(new WeakHashMap<>());
+ static void styleStack(){
+  try{var view=forge.screens.match.MatchController.getView();if(view==null||view.getStack()==null)return;
+   if(stackBack==null){stackBack=VStack.StackInstanceDisplay.class.getDeclaredField("backColor");stackBack.setAccessible(true);
+    stackFore=VStack.StackInstanceDisplay.class.getDeclaredField("foreColor");stackFore.setAccessible(true);}
+   for(var child:view.getStack().getChildren())if(child instanceof VStack.StackInstanceDisplay d&&styledStack.add(d)){
+    stackBack.set(d,new Color(.085f,.095f,.125f,.84f));stackFore.set(d,new Color(.95f,.93f,.88f,1f));}   // own Color objects, never shared skin colours
+  }catch(Throwable ignored){}
+ }
  static final class HandZoom extends FDisplayObject{
   @Override public boolean tap(float x,float y,int count){
    float w=getWidth();scaleHand(x<w*.28f?1/1.1f:x>w*.72f?1.1f:0f);return true;
@@ -158,10 +208,13 @@ public final class ArenaBattleHudMod {
  /** VAvatar.draw reads its image through this: in the Arena layout a human commander player shows the commander's art */
  public static forge.assets.FImage avatarImage(forge.assets.FImage original,VAvatar avatar){
   try{
-   if(!bars())return original;
    if(avatarPlayer==null){avatarPlayer=VAvatar.class.getDeclaredField("player");avatarPlayer.setAccessible(true);}
    forge.game.player.PlayerView player=(forge.game.player.PlayerView)avatarPlayer.get(avatar);
-   if(player==null||player.isAI())return original;                       // opponents keep their portraits
+   if(player!=null&&player.isAI()){   // the portrait registered for this opponent (Rogue: our own enemy art, never Forge's avatar)
+    Object own=((Map<?,?>)forge.Forge.getAssets().avatarImages()).get(player.getLobbyPlayerName());
+    return own instanceof forge.assets.FImage f?f:original;}
+   if(!bars())return original;
+   if(player==null)return original;
    List<CardView> commanders=player.getCommanders();if(commanders==null||commanders.isEmpty())return original;
    forge.assets.FImageComplex art=forge.card.CardRenderer.getCardArt(commanders.get(0));
    if(art==null||art.getTexture()==null)return original;
@@ -326,13 +379,113 @@ public final class ArenaBattleHudMod {
  public static float boardLeft(float x){return bars()?0:x;}
  /** FieldScroller.drawBackground's board image: from the very top (Forge started it below the opponent's tab row) */
  public static void boardImage(Graphics g,forge.assets.FImage image,float x,float y,float w,float h){
-  if(bars()&&y>0&&h>0){float nh=h+y,nw=w*nh/h;x-=(nw-w)/2;w=nw;h=nh;y=0;}
+  // ... and down to the screen edge: the prompt bar floats over the board, no bare backdrop strip under it (user 2026-10-17)
+  if(bars()&&h>0){float ny=Math.min(y,0),nh=Math.max(y+h,forge.Forge.getScreenHeight())-ny;if(nh>h){float nw=w*nh/h;x-=(nw-w)/2;w=nw;h=nh;y=ny;}}
   g.drawImage(image,x,y,w,h);
  }
  /** top menu bar (Game / Players / Log / Dev) */
  public static float headerHeight(float original){return bars()?0:original;}
  /** bottom prompt bar (message, OK / End Turn) */
- public static float promptHeight(float original){return bars()?Math.round(original*.52f):original;}
+ // from the CURRENT screen height: VPrompt.HEIGHT is fixed at startup and went tiny after a monitor/DPI switch (user 2026-10-17)
+ public static float promptHeight(float original){return bars()?Math.round(Math.max(30,Math.min(110,forge.Forge.getScreenHeight()*.045f))*BattleUiSettings.size(1)):original;}   // x Settings > Battle UI: OK / End Turn
+ // ------------------------------------------------------------------ keyboard shortcuts (Settings > Keys, user 2026-10-17)
+ /** BattleZoomMod.key calls this first (reflection); true = the key was a bound battle action */
+ public static boolean battleKey(int key){
+  if(!enabled0()||Gdx.input==null)return false;
+  if(Tour.current!=null){Tour.current.key(key);return true;}   // the controls tour takes every key while it is open
+  if(Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.CONTROL_LEFT)||Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.CONTROL_RIGHT)
+   ||Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.ALT_LEFT)||Gdx.input.isKeyPressed(com.badlogic.gdx.Input.Keys.ALT_RIGHT))return false;
+  int action=BattleUiSettings.actionFor(key);if(action<0)return false;
+  var view=forge.screens.match.MatchController.getView();if(view==null)return false;
+  VPlayerPanel bottom=null;for(VPlayerPanel p:forge.screens.match.MatchScreen.getPlayerPanels().values())if((Boolean)member(p,"isBottomPlayer"))bottom=p;
+  switch(BattleUiSettings.ACTIONS[action]){
+   case "ok"->{var pr=view.getActivePrompt();if(pr!=null&&pr.getBtnOk().isEnabled()&&pr.getBtnOk().isVisible())pr.getBtnOk().trigger();}
+   case "cancel"->{var pr=view.getActivePrompt();if(pr!=null&&pr.getBtnCancel().isEnabled()&&pr.getBtnCancel().isVisible())pr.getBtnCancel().trigger();}
+   case "skip"->{SkipButton sk=bottom==null?null:skips.get(bottom);if(sk!=null)sk.tap(0,0,1);}
+   case "log"->{try{var log=view.getLog();if(log.isVisible())log.hide();else log.show();}catch(Throwable ignored){}}
+   case "deck"->forge.screens.match.DeckPeekMod.showDeck();
+   case "hand"->{HandToggle t=bottom==null?null:toggles.get(bottom);if(t!=null)t.tap(0,0,1);}
+   case "zoomIn"->BattleZoomMod.setScale(BattleZoomMod.scale()*1.1f);
+   case "zoomOut"->BattleZoomMod.setScale(BattleZoomMod.scale()/1.1f);
+   case "zoomReset"->BattleZoomMod.reset();
+   default->{return false;}
+  }
+  try{view.revalidate();}catch(Exception ignored){}
+  Gdx.graphics.requestRendering();
+  return true;
+ }
+ private static boolean enabled0(){return ArenaMotionMod.active()&&forge.Forge.isLandscapeMode();}
+ // ------------------------------------------------------------------ controls tour in the first battle (user 2026-10-17)
+ // Shows once (Rogue profile flag), step by step: what each button / area does and how to use it - no rules lessons.
+ static com.badlogic.gdx.math.Rectangle lastPlaque;
+ static com.badlogic.gdx.math.Rectangle rectOf(FDisplayObject o){
+  if(o==null||!o.isVisible()||o.getWidth()<=0||o.screenPos==null||o.screenPos.width<=0)return null;return new com.badlogic.gdx.math.Rectangle(o.screenPos);
+ }
+ static com.badlogic.gdx.math.Rectangle union(com.badlogic.gdx.math.Rectangle a,com.badlogic.gdx.math.Rectangle b){if(a==null)return b;if(b==null)return a;return new com.badlogic.gdx.math.Rectangle(a).merge(b);}
+ static final class Tour extends FDisplayObject{
+  static Tour current;
+  record Step(String title,String text,java.util.function.Supplier<com.badlogic.gdx.math.Rectangle> target){}
+  final List<Step> steps=new ArrayList<>();int index;final long start=System.currentTimeMillis();
+  Tour(VPlayerPanel me,VPlayerPanel foe){
+   var view=forge.screens.match.MatchController.getView();
+   steps.add(new Step("Battle controls","A quick tour of the battle screen. Tap anywhere (or press a key) for the next tip - Escape skips the tour.",()->null));
+   steps.add(new Step("Your hand","Tap a card to play it. Hover a card or right-click it to see it big.",()->{var t=me.getSelectedTab();return t==null?null:rectOf(t.getDisplayArea());}));
+   steps.add(new Step("Show / hide the hand","Folds your hand away to see the whole battlefield - tap again to bring it back. Key: H.",()->rectOf(toggles.get(me))));
+   steps.add(new Step("Board zoom","- and + make the cards on the battlefield smaller or bigger, the middle resets. Keys: Page Up / Page Down / Home.",()->rectOf(boardZooms.get(me))));
+   steps.add(new Step("OK and End Turn","OK confirms what the message on the left asks for (keep the hand, attack, pass...). End Turn passes until your turn ends. Keys: Space / E.",()->{var p=view.getActivePrompt();return p==null?null:union(rectOf(p.getBtnOk()),rectOf(p.getBtnCancel()));}));
+   steps.add(new Step("The message line","Bottom left: what the game is waiting for right now. Tap it to read a long message in full.",()->{var p=view.getActivePrompt();if(p==null)return null;var r=rectOf(p);if(r==null)return null;r.width*=.55f;return r;}));
+   steps.add(new Step("Turn panel","Whose turn it is and which step you are in. The blue steps are the main phases.",()->lastPlaque==null?null:new com.badlogic.gdx.math.Rectangle(lastPlaque)));
+   steps.add(new Step("Skip","Passes everything until the main phase of your next turn - for when you don't want to respond. Tap again to stop. Key: S.",()->rectOf(skips.get(me))));
+   steps.add(new Step("Your portrait and life","Your commander and your life total. The glowing frame shows whose turn it is.",()->rectOf(me.getAvatar())));
+   steps.add(new Step("Mana and deck","Mana you have floating appears in this tile. Deck shows your deck list. Key: D.",()->union(rectOf(me.getManaPoolTab()),rectOf(deckButtons.get(me)))));
+   steps.add(new Step("Zones","Library, graveyard, exile and more - tap a tab to look inside, tap it again to close it.",()->{com.badlogic.gdx.math.Rectangle r=null;for(var t:me.getTabs())if(t!=me.getManaPoolTab()&&!(t instanceof VPlayerPanel.InfoTabExtra))r=union(r,rectOf(t));return r;}));
+   steps.add(new Step("Command zone","Your commander waits here. Tap it to cast it - also again after it died.",()->rectOf(me.getCommandZone())));
+   steps.add(new Step("The enemy","Their portrait and life. Log (the scroll) lists everything that happened. Key: L.",()->union(rectOf(foe.getAvatar()),rectOf(logButtons.get(foe)))));
+   steps.add(new Step("The stack","Spells and abilities waiting to resolve show up in a list in the middle of the board. While it is open you can still answer with instants before they resolve.",()->rectOf(view.getStack())));
+   steps.add(new Step("Battle menu","Top left: concede, zoom, hand size and more.",()->{for(FDisplayObject c:view.getChildren())if(c.getClass().getSimpleName().equals("MenuButton"))return rectOf(c);return null;}));
+   steps.add(new Step("Make it yours","Button sizes and keyboard shortcuts: Rogue Commanders > Settings > Battle UI / Keys. Good luck!",()->null));
+  }
+  void next(){index++;if(index>=steps.size())finish();Gdx.graphics.requestRendering();}
+  void finish(){current=null;setVisible(false);try{forge.adventure.scene.RogueCommandersScene.setBattleTourDone();}catch(Throwable ignored){}}
+  void key(int k){if(k==com.badlogic.gdx.Input.Keys.ESCAPE)finish();else if(k==com.badlogic.gdx.Input.Keys.LEFT){index=Math.max(0,index-1);Gdx.graphics.requestRendering();}else next();}   // Left = back
+  @Override public boolean tap(float x,float y,int count){if(System.currentTimeMillis()-start>400)next();return true;}
+  @Override public boolean press(float x,float y){return true;}
+  @Override public boolean release(float x,float y){return true;}
+  @Override public boolean pan(float x,float y,float dx,float dy,boolean moving){return true;}
+  @Override public boolean fling(float vx,float vy){return true;}
+  @Override public boolean zoom(float x,float y,float amount){return true;}
+  @Override public boolean longPress(float x,float y){return true;}
+  @Override public void draw(Graphics g){
+   if(index>=steps.size())return;
+   float w=getWidth(),h=getHeight(),s=Math.max(.8f,Math.min(2.2f,h/900f));Step st=steps.get(index);
+   com.badlogic.gdx.math.Rectangle r;try{r=st.target().get();}catch(Throwable e){r=null;}
+   Color shade=new Color(0,0,0,.62f);
+   if(r==null)g.fillRect(shade,0,0,w,h);
+   else{float pad=6*s,x0=Math.max(0,r.x-pad),y0=Math.max(0,r.y-pad),x1=Math.min(w,r.x+r.width+pad),y1=Math.min(h,r.y+r.height+pad);
+    g.fillRect(shade,0,0,w,y0);g.fillRect(shade,0,y1,w,h-y1);g.fillRect(shade,0,y0,x0,y1-y0);g.fillRect(shade,x1,y0,w-x1,y1-y0);
+    float pulse=.6f+.4f*(float)Math.sin(System.currentTimeMillis()/250.0);
+    g.drawRect(Math.max(2,3*s),new Color(MINE.r,MINE.g,MINE.b,pulse),x0,y0,x1-x0,y1-y0);}
+   // text box next to the target (below it if there is room, else above; centred without a target)
+   float bw=Math.min(w*.42f,560*s),pad=16*s;FSkinFont tf=FSkinFont.forHeight(26*s),bf=FSkinFont.forHeight(19*s),hf=FSkinFont.forHeight(14*s);
+   float th=bf.getWrappedBounds(st.text(),bw-2*pad).height+bf.getLineHeight()*.6f,bh=pad*2+30*s+th+36*s,bx,by;   // room between the text and the footer
+   if(r==null){bx=(w-bw)/2;by=(h-bh)/2;}
+   else{bx=Math.max(10*s,Math.min(w-bw-10*s,r.x+r.width/2-bw/2));by=r.y+r.height+14*s+bh<h-10*s?r.y+r.height+14*s:Math.max(10*s,r.y-14*s-bh);
+    if(by<r.y+r.height&&by+bh>r.y){bx=r.x>w/2?Math.max(10*s,r.x-bw-14*s):Math.min(w-bw-10*s,r.x+r.width+14*s);by=Math.max(10*s,Math.min(h-bh-10*s,r.y));}}
+   frame(g,MINE,new Color(.05f,.06f,.10f,1f),bx,by,bw,bh,12*s,Math.max(1.5f,2*s));   // nested fills: no drawRoundRect cross lines
+   g.drawText(st.title(),tf,MINE,bx+pad,by+pad,bw-2*pad,30*s,false,com.badlogic.gdx.utils.Align.left,true);
+   g.drawText(st.text(),bf,TEXT,bx+pad,by+pad+30*s,bw-2*pad,th+4,true,com.badlogic.gdx.utils.Align.left,false);
+   g.drawText((index+1)+" / "+steps.size()+"   -   tap / any key: next   -   Left: back   -   Escape: skip",hf,MUTED,bx+pad,by+bh-pad-14*s,bw-2*pad,16*s,false,com.badlogic.gdx.utils.Align.right,true);
+   Gdx.graphics.requestRendering();
+  }
+ }
+ /** start the tour once, in the first Rogue battle, as soon as the hand is on screen */
+ static void maybeTour(VPlayerPanel me){
+  if(Tour.current!=null)return;
+  try{if(!forge.adventure.scene.RogueCommandersScene.battleTourDue())return;}catch(Throwable e){return;}
+  var view=forge.screens.match.MatchController.getView();if(view==null)return;
+  VPlayerPanel foe=null;for(VPlayerPanel p:forge.screens.match.MatchScreen.getPlayerPanels().values())if(p!=me)foe=p;if(foe==null)return;
+  Tour t=new Tour(me,foe);t.setBounds(0,0,view.getWidth(),view.getHeight());view.add(t);Tour.current=t;
+ }
  /** the idle status (Priority / Turn / Phase / Stack) is four lines - one line fits the slim bar */
  public static String promptText(String message){
   if(!bars()||message==null||message.indexOf(10)<0)return message;
@@ -389,6 +542,12 @@ public final class ArenaBattleHudMod {
  }
  private static final Map<String,FSkinFont> fitted=new HashMap<>();
  /** largest skin font whose text fits maxW x maxH (cached per text and box) */
+ private static final Color MAIN_PHASE=Color.valueOf("6fb7ff");
+ private static int fitSize(String text,float maxW,float maxH){
+  int size=Math.max(6,Math.min(80,Math.round(maxH)));FSkinFont f=FSkinFont.get(size);
+  while(size>6&&(f.getLineHeight()>maxH||f.getBounds(text).width>maxW))f=FSkinFont.get(--size);
+  return size;
+ }
  private static FSkinFont fit(String text,float maxW,float maxH){
   return fitted.computeIfAbsent(text+"|"+Math.round(maxW)+"|"+Math.round(maxH),k->{
    int size=Math.max(6,Math.min(80,Math.round(maxH)));FSkinFont f=FSkinFont.get(size);
@@ -419,16 +578,104 @@ public final class ArenaBattleHudMod {
   String sub="Turn "+Math.max(1,turn)+"  -  "+phaseName(phase);
   g.drawText(sub,fit(sub,pw-24*s,20*s),TEXT,x+12*s,y+44*s,pw-24*s,20*s,false,1,true);
   int active=stepIndex(phase),index=0;float gap=4*s,bh=26*s,rowGap=5*s,top=y+72*s,inner=pw-24*s;
-  FSkinFont small=null;   // one size that fits every label in the narrowest row
-  for(String[] row:STEPS){float bw=(inner-(row.length-1)*gap)/row.length;for(String label:row){FSkinFont f=fit(label,bw-8*s,bh-7*s);if(small==null||f.getLineHeight()<small.getLineHeight())small=f;}}
+  // one size that fits every label: compare font SIZES - on 1080p several sizes share one line height (user 2026-10-17)
+  int minSize=99;
+  for(String[] row:STEPS){float bw=(inner-(row.length-1)*gap)/row.length;for(String label:row)minSize=Math.min(minSize,fitSize(label,bw-8*s,bh-7*s));}
+  FSkinFont small=FSkinFont.get(minSize);
   for(int r=0;r<STEPS.length;r++){
    String[] row=STEPS[r];float bw=(inner-(row.length-1)*gap)/row.length,by=top+r*(bh+rowGap);
    for(int i=0;i<row.length;i++,index++){
     float bx=x+12*s+i*(bw+gap);
-    if(index==active){g.fillRoundRect(accent,bx,by,bw,bh,5*s);g.drawText(row[i],small,INK,bx,by,bw,bh,false,1,true);}
-    else if(index<active){g.fillRoundRect(mix(accent,.22f),bx,by,bw,bh,5*s);g.drawText(row[i],small,MUTED,bx,by,bw,bh,false,1,true);}
+    boolean main=row[i].startsWith("Main");   // main phases (where you cast your cards) in their own colour (user 2026-10-17)
+    if(index==active){g.fillRoundRect(main?MAIN_PHASE:accent,bx,by,bw,bh,5*s);g.drawText(row[i],small,INK,bx,by,bw,bh,false,1,true);}
+    else if(index<active){g.fillRoundRect(mix(main?MAIN_PHASE:accent,.22f),bx,by,bw,bh,5*s);g.drawText(row[i],small,MUTED,bx,by,bw,bh,false,1,true);}
+    else if(main){frame(g,MAIN_PHASE,BG,bx,by,bw,bh,5*s,Math.max(1,s*1.2f));g.drawText(row[i],small,MAIN_PHASE,bx,by,bw,bh,false,1,true);}
     else{frame(g,mix(MUTED,.45f),BG,bx,by,bw,bh,5*s,Math.max(1,s*.8f));g.drawText(row[i],small,alpha(MUTED,.85f),bx,by,bw,bh,false,1,true);}
    }
+  }
+ }
+ private static final Map<VPlayerPanel,SkipButton> skips=new WeakHashMap<>();
+ private static final Map<VPlayerPanel,DeckButton> deckButtons=new WeakHashMap<>();
+ private static final Map<VPlayerPanel,LogButton> logButtons=new WeakHashMap<>();
+ /** opens / closes the game log; a small parchment scroll as icon (user 2026-10-16: "Log Button mit einer Schriftrolle") */
+ static final class LogButton extends FDisplayObject{
+  @Override public boolean tap(float x,float y,int count){
+   try{var log=forge.screens.match.MatchController.getView().getLog();if(log.isVisible())log.hide();else log.show();}catch(Throwable t){}   // its own anchor: full width, not squeezed at the right edge
+   return true;}
+  @Override public void draw(Graphics g){
+   float w=getWidth(),h=getHeight(),r=h/2,lw=Math.max(1.5f,h*.07f);
+   g.fillRoundRect(Color.valueOf("8a7346"),0,0,w,h,r);
+   g.fillRoundRect(isHovered()?Color.valueOf("17202e"):Color.valueOf("111722"),lw,lw,w-2*lw,h-2*lw,r-lw);
+   float ih=h*.64f,iw=ih*.86f,ix=h*.42f,iy=(h-ih)/2;   // scroll: parchment between two wooden rolls, three ink lines
+   Color paper=Color.valueOf("efe0b4"),roll=Color.valueOf("b98a4c"),ink=Color.valueOf("6e5130");
+   g.fillRect(paper,ix+iw*.1f,iy+ih*.1f,iw*.8f,ih*.8f);
+   g.fillRoundRect(roll,ix,iy,iw,ih*.2f,ih*.1f);g.fillRoundRect(roll,ix,iy+ih*.8f,iw,ih*.2f,ih*.1f);
+   for(int i=0;i<3;i++){float ly=iy+ih*(.36f+i*.15f);g.drawLine(Math.max(1,ih*.05f),ink,ix+iw*.24f,ly,ix+iw*(i==2?.56f:.76f),ly);}
+   float tx=ix+iw+h*.22f,tw=w-tx-h*.35f;
+   g.drawText("Log",fit("Log",tw,h*.6f),Color.valueOf("ece6d8"),tx,0,tw,h,false,com.badlogic.gdx.utils.Align.center,true);
+  }
+ }
+ /** visible shortcut to Codex' in-match deck viewer (also in the match menu as "View deck") */
+ static final class DeckButton extends FDisplayObject{
+  @Override public boolean tap(float x,float y,int count){forge.screens.match.DeckPeekMod.showDeck();return true;}
+  @Override public void draw(Graphics g){
+   float w=getWidth(),h=getHeight(),r=h/2,lw=Math.max(1.5f,h*.07f);
+   g.fillRoundRect(Color.valueOf("8a7346"),0,0,w,h,r);
+   g.fillRoundRect(isHovered()?Color.valueOf("17202e"):Color.valueOf("111722"),lw,lw,w-2*lw,h-2*lw,r-lw);
+   g.drawText("Deck",fit("Deck",w-12,h*.62f),Color.valueOf("ece6d8"),0,0,w,h,false,com.badlogic.gdx.utils.Align.center,true);
+  }
+ }
+ /** "Skip": passes priority until the start of the local player's next precombat main phase (user 2026-10-16).
+  *  For players who don't respond anyway: it passes through everything on the stack, the opponent's spells included
+  *  ("der ist fuer ungeduldige Leute ... man kann im Log eh sehen was passiert ist"). The player's own optional triggers
+  *  are accepted automatically; real decisions (targets, choices, blockers) wait for the player and the skip continues
+  *  afterwards. Tap again to cancel. */
+ static final class SkipButton extends FDisplayObject{
+  static volatile boolean active;private static long lastPass;private static Field confirmSa;
+  // Skip from inside your own main phase runs to the NEXT main phase; after arriving in a main phase the button
+  // is locked for one second so a late click does not skip it right away (user 2026-10-17)
+  private static String startKey,mainKey;private static long mainSince;
+  static String myMainKey(){GameView g=game();var ui=forge.screens.match.MatchController.instance;if(g==null||ui==null)return null;
+   forge.game.player.PlayerView t=g.getPlayerTurn();boolean mine=t!=null&&ui.getLocalPlayers().contains(t);
+   return mine&&g.getPhase()==PhaseType.MAIN1?g.getTurn()+"/"+g.getPhase():null;}   // Skip runs to your NEXT turn's main phase 1, not to main 2 (user 2026-10-17)
+  static boolean locked(){String k=myMainKey();if(k==null)return false;if(!k.equals(mainKey)){mainKey=k;mainSince=System.currentTimeMillis();}return System.currentTimeMillis()-mainSince<1000;}
+  /** a yes/no prompt that only asks whether one of the player's triggered abilities should be used */
+  static boolean isTriggerConfirm(forge.gamemodes.match.input.InputConfirm ic){
+   try{if(confirmSa==null){confirmSa=forge.gamemodes.match.input.InputConfirm.class.getDeclaredField("sa");confirmSa.setAccessible(true);}
+    Object sa=confirmSa.get(ic);
+    return sa instanceof forge.game.trigger.WrappedAbility||sa instanceof forge.game.spellability.SpellAbility a&&a.isTrigger();
+   }catch(ReflectiveOperationException e){return false;}
+  }
+  @Override public boolean tap(float x,float y,int count){
+   if(!active&&locked())return true;
+   active=!active;lastPass=0;startKey=active?myMainKey():null;
+   tick();return true;}
+  @Override public void draw(Graphics g){
+   float w=getWidth(),h=getHeight(),r=h/2,lw=Math.max(1.5f,h*.07f);
+   Color gold=Color.valueOf("e0b24f"),dark=Color.valueOf("111722");
+   g.fillRoundRect(active?gold:Color.valueOf("6a5a34"),0,0,w,h,r);
+   g.fillRoundRect(active?Color.valueOf("3a2c10"):isHovered()?Color.valueOf("17202e"):dark,lw,lw,w-2*lw,h-2*lw,r-lw);
+   boolean lock=!active&&locked();if(lock)Gdx.graphics.requestRendering();
+   if(lock)g.fillRoundRect(new Color(0,0,0,.45f),0,0,w,h,r);
+   String label=active?"Skipping...":"Skip";
+   g.drawText(label,fit(label,w-12,h*.62f),active?gold:Color.valueOf("ece6d8"),0,0,w,h,false,com.badlogic.gdx.utils.Align.center,true);
+   if(active)Gdx.graphics.requestRendering();
+  }
+  static void tick(){
+   if(!active)return;
+   GameView game=game();if(game==null||game.isGameOver()){active=false;return;}
+   var ui=forge.screens.match.MatchController.instance;
+   forge.game.player.PlayerView turn=game.getPlayerTurn();
+   boolean myTurn=turn!=null&&ui.getLocalPlayers().contains(turn);
+   String key=myMainKey();
+   if(key!=null&&!key.equals(startKey)){active=false;locked();return;}   // arrived: the next main phase of yours
+   if(!(ui.getGameController() instanceof forge.player.PlayerControllerHuman h))return;
+   Object input=h.getInputProxy().getInput();
+   boolean trigger=input instanceof forge.gamemodes.match.input.InputConfirm ic&&isTriggerConfirm(ic);   // "use this trigger?" -> Yes
+   boolean attack=input instanceof forge.gamemodes.match.input.InputAttack;   // declare attackers: Skip confirms the current choice (none = no attack) (user 2026-10-17)
+   if(!trigger&&!attack&&!(input instanceof forge.gamemodes.match.input.InputPassPriority))return;   // targets, choices, blockers: the player decides
+   long now=System.currentTimeMillis();if(now-lastPass<150)return;lastPass=now;
+   forge.util.ThreadUtil.invokeInGameThread(h::selectButtonOk);
   }
  }
  /** big banner across the middle of the board when a new turn starts; a = 0..1 */
@@ -459,19 +706,31 @@ public final class ArenaBattleHudMod {
    if(top.isVisible()!=visible){top.setVisible(visible);p.revalidate();}}
   if(!enabled(p,p.getWidth(),p.getHeight())||!(Boolean)member(p,"isBottomPlayer"))return;
   GameView game=game();if(game==null||game.getPlayerTurn()==null)return;
-  float w=p.getWidth(),s=p.getAvatar().getWidth()/AVATAR;boolean mine=isTurnOf(game,p);
-  drawTurnPlaque(g,w-(PLAQUE_W+18)*s,-PLAQUE_H*.28f*s,s,mine,game.getTurn(),game.getPhase());   // lower than centred on the border
+  float w=p.getWidth(),s=uiScale;boolean mine=isTurnOf(game,p);
+  float ps=s*BattleUiSettings.size(0);   // Settings > Battle UI: turn panel + Skip (user 2026-10-17)
+  float plaqueX=Math.min(w-(PLAQUE_W+18)*ps,p.getAvatar().getLeft()-(PLAQUE_W+14)*ps);
+  drawTurnPlaque(g,plaqueX,-PLAQUE_H*.28f*ps,ps,mine,game.getTurn(),game.getPhase());   // lower than centred on the border
+  lastPlaque=new com.badlogic.gdx.math.Rectangle(p.screenPos.x+plaqueX,p.screenPos.y-PLAQUE_H*.28f*ps,PLAQUE_W*ps,PLAQUE_H*ps);   // for the controls tour
+  if(game.getTurn()>=1)maybeTour(p);
+  SkipButton sk=skips.get(p);if(sk==null){sk=p.add(new SkipButton());skips.put(p,sk);}
+  sk.setBounds(plaqueX+PLAQUE_W*ps*.25f,PLAQUE_H*.72f*ps+16*ps,PLAQUE_W*ps*.5f,30*ps);
+  // Deck button right ABOVE the mana tile next to the portrait (user 2026-10-16: visible, not in the match menu)
+  DeckButton db=deckButtons.get(p);if(db==null){db=p.add(new DeckButton());deckButtons.put(p,db);}
+  var mana=p.getManaPoolTab();
+  float side=BattleUiSettings.size(2),dbw=mana==null?0:mana.getWidth()*side,dbh=26*s*side;
+  if(mana!=null&&mana.getWidth()>0&&mine){db.setVisible(true);db.setBounds(mana.getLeft()+(mana.getWidth()-dbw)/2,mana.getTop()-dbh-4*s,dbw,dbh);}else db.setVisible(false);
+  SkipButton.tick();styleStack();
   drawTurnBanner(g,w,0,s,mine,game.getTurn(),bannerAlpha(game));
  }
  public static void background(VPlayerPanel p,Graphics g){
   if(!enabled(p,p.getWidth(),p.getHeight())){try{Method m=VPlayerPanel.class.getDeclaredMethod("arenaOriginalBackground",Graphics.class);m.setAccessible(true);m.invoke(p,g);}catch(ReflectiveOperationException e){throw new IllegalStateException(e);}return;}
-  var a=p.getAvatar();float s=a.getWidth()/AVATAR,bx=a.getLeft()-8*s,by=a.getTop()-6*s,bw=a.getWidth()+16*s,bh=a.getHeight()+(LIFE+12)*s;
+  var a=p.getAvatar();float s=a.getWidth()/(AVATAR*BIG),bx=a.getLeft()-8*s,by=a.getTop()-6*s,bw=a.getWidth()+16*s,bh=a.getHeight()+(LIFE+12)*s;
   boolean active=isTurnOf(game(),p);Color accent=(Boolean)member(p,"isBottomPlayer")?MINE:ENEMY;
   if(active){   // glowing frame around the portrait of the player whose turn it is
    float pulse=.6f+.4f*(float)Math.sin(System.currentTimeMillis()/350.0);
    for(int i=4;i>=1;i--)g.fillRoundRect(alpha(accent,.10f*pulse),bx-i*3*s,by-i*3*s,bw+i*6*s,bh+i*6*s,(12+i*3)*s);
   }
-  g.fillRoundRect(new Color(.055f,.072f,.098f,.78f),bx,by,bw,bh,12*s);
-  g.drawRoundRect(active?2*s:1.2f,active?accent:Color.valueOf("8a7650"),bx+3*s,by+2*s,bw-6*s,bh-4*s,10*s);
+  g.fillRoundRect(new Color(.055f,.072f,.098f,1f),bx,by,bw,bh,12*s);
+  frame(g,active?accent:Color.valueOf("8a7650"),new Color(.055f,.072f,.098f,1f),bx+3*s,by+2*s,bw-6*s,bh-4*s,10*s,active?2*s:1.2f);   // no drawRoundRect cross lines
  }
 }

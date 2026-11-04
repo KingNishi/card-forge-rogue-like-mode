@@ -7,6 +7,12 @@ import forge.card.CardTypeView;
 import forge.game.zone.ZoneType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Rectangle;
+import forge.screens.match.CardFlightOverlay;
+import forge.screens.match.MatchScreen;
+import forge.screens.match.views.VCardDisplayArea.CardAreaPanel;
+import forge.screens.match.views.VZoneDisplay;
+import forge.screens.match.views.VPlayerPanel;
 import java.lang.reflect.*;
 import java.util.*;
 /** Cosmetic motion only; Forge retains flight scheduling, visibility and completion. */
@@ -55,15 +61,68 @@ public final class ArenaMotionMod {
   if(!active()){original("arenaOriginalDrawLeave",g,flight,progress);return;}draw(g,flight,progress,true);
  }
  private static final Map<Object,Boolean> landed=new WeakHashMap<>(),extended=new WeakHashMap<>();
+ // Hand arrivals use Forge's own flight lifecycle: no duplicate panel or private opponent card is rendered.
+ private static final Map<VZoneDisplay,Set<Integer>> hands=new WeakHashMap<>();
+ private static final Map<Integer,Long> arrivals=new HashMap<>();
+ private static final Set<Object> draws=Collections.newSetFromMap(new WeakHashMap<>());
+ private static Object motionGame;
+ private static synchronized void session(){
+  var ui=forge.screens.match.MatchController.instance;Object game=ui==null?null:ui.getGameView();
+  if(!active()||game!=motionGame){hands.clear();arrivals.clear();draws.clear();landed.clear();extended.clear();impacts.clear();BasicCardEffectsMod.cues.clear();motionGame=game;}
+ }
+ /** Called after a hand's actual card list changes, including while that tab is folded away. */
+ public static synchronized void handUpdated(VZoneDisplay hand){
+  session();if(!active()||hand.getZoneType()!=ZoneType.Hand)return;
+  Set<Integer> current=new HashSet<>();for(CardView card:hand.getOrderedCards())current.add(card.getId());
+  Set<Integer> previous=hands.put(hand,current);long now=System.nanoTime();
+  arrivals.entrySet().removeIf(e->now-e.getValue()>850_000_000L);
+  // The initial hand and tab layout are snapshots, not seven false draw events.
+  if(previous==null)return;
+  for(Integer id:current)if(!previous.contains(id)&&arrivals.size()<32)arrivals.put(id,now);
+ }
+ /** Called before native panel drawing. Native bookkeeping, flight hiding and cleanup stay in charge. */
+ public static synchronized void handPanel(CardAreaPanel panel){
+  if(!active())return;CardView card=panel.getCard();
+  if(card==null||card.getZone()!=ZoneType.Hand||!(panel.getDisplayArea() instanceof VZoneDisplay hand)||hand.getZoneType()!=ZoneType.Hand)return;
+  Long arrival=arrivals.remove(card.getId());if(arrival==null||System.nanoTime()-arrival>850_000_000L)return;
+  var ui=forge.screens.match.MatchController.instance;
+  if(ui==null||card.getController()==null||!ui.getLocalPlayers().contains(card.getController())||!visible(card)||panel.screenPos.width<=0)return;
+  VPlayerPanel owner=MatchScreen.getPlayerPanel(card.getController());if(owner==null||owner.getSelectedTab()==null||owner.getSelectedTab().getDisplayArea()!=hand)return;
+  if(!CardFlightOverlay.isEnabled()||field(panel,"flight")!=null)return;
+  Rectangle source=null;
+  for(var tab:owner.getTabs())if(tab.getDisplayArea() instanceof VZoneDisplay zone&&zone.getZoneType()==ZoneType.Library){
+   float h=Math.max(24,panel.screenPos.height*.35f);source=new Rectangle(tab.screenPos.x+tab.screenPos.width/2-h/2.8f,tab.screenPos.y-h/2,h/1.4f,h);break;
+  }
+  if(source==null)return;
+  var flight=CardFlightOverlay.start(card,source,new Rectangle(panel.screenPos),0,false,true);
+  if(flight!=null)try{fieldOf(panel,"flight").set(panel,flight);draws.add(flight);setFloat(flight,"durationNanos",420_000_000f);}
+  catch(ReflectiveOperationException e){throw new IllegalStateException("Hand flight",e);}
+ }
+ public static Pose drawPose(float x0,float y0,float h0,float x1,float y1,float h1,float progress){
+  float t=Math.max(0,Math.min(1,progress)),s=smooth(t),lift=(float)Math.sin(Math.PI*t);
+  return new Pose(x0+(x1-x0)*s,y0+(y1-y0)*s-Math.min(55,h1*.30f)*lift,h0+(h1-h0)*s,-7*lift,1,lift*.6f);
+ }
  private static void draw(Graphics g,Object f,float p,boolean leave){
   CardView card=(CardView)field(f,"card");Object style=field(f,"style");
   boolean popup=!leave&&style!=null&&style.toString().equalsIgnoreCase("POPUP");
-  boolean toField=!leave&&card!=null&&card.getZone()==ZoneType.Battlefield;
+  // "moved" = a card already on the battlefield slides to a new slot (row reflow): no entrance, voice or impact
+  boolean moved=Boolean.TRUE.equals(field(f,"moved"));
+  boolean toField=!leave&&!moved&&card!=null&&card.getZone()==ZoneType.Battlefield;
   float x0=number(f,"fromCx"),y0=number(f,"fromCy"),h0=number(f,"fromH"),x1=number(f,"toCx"),y1=number(f,"toCy"),h1=number(f,"toH"),angle=number(f,"tappedAngle");
+  if(!leave&&draws.contains(f)){
+   Pose v=drawPose(x0,y0,h0,x1,y1,h1,p);
+   float a=(float)Math.sin(Math.PI*Math.max(0,Math.min(1,p)));
+   for(int n=3;n>=1;n--){float q=Math.max(0,p-n*.025f);Pose tail=drawPose(x0,y0,h0,x1,y1,h1,q);
+    g.drawLine(Math.max(1,h1*.008f*n),new Color(.56f,.76f,1,.10f*a),tail.cx,tail.cy,v.cx,v.cy);}
+   drawCard(g,card,v,false);return;
+  }
   if(toField&&card.isCommander()){commander(g,f,card,p,x0,y0,h0,x1,y1,h1,angle);return;}
   Pose v=toField&&!popup?place(x0,y0,h0,x1,y1,h1,angle,p):pose(x0,y0,h0,x1,y1,h1,angle,p,leave,popup);
   drawCard(g,card,v,leave);
   if(toField&&p>=(popup?1f:LAND)&&landed.put(f,Boolean.TRUE)==null&&!BasicCardEffectsMod.add(card,x1,y1,h1,angle))impacts.add(new Impact(x1,y1,h1,angle,System.nanoTime(),false));
+ }
+ private static boolean visible(CardView card){
+  try{var ui=forge.screens.match.MatchController.instance;return card!=null&&ui!=null&&ui.mayView(card);}catch(RuntimeException e){return false;}
  }
  private static void drawCard(Graphics g,CardView card,Pose v,boolean leave){
   float w=v.height/1.4f,oldAlpha=g.getfloatAlphaComposite();
@@ -72,7 +131,7 @@ public final class ArenaMotionMod {
   try{CardRenderer.drawCard(g,card,v.cx-w/2,v.cy-v.height/2,w,v.height,CardRenderer.CardStackPosition.Top,false,false,false,true);}
   catch(RuntimeException e){   // no card face available (e.g. image still loading): plain card instead of a broken frame
    g.fillRoundRect(Color.valueOf("d9c8a0"),v.cx-w/2,v.cy-v.height/2,w,v.height,6);g.drawRoundRect(2,Color.valueOf("3a2a14"),v.cx-w/2,v.cy-v.height/2,w,v.height,6);
-   if(card!=null&&card.getName()!=null)g.drawText(card.getName(),fit(card.getName(),w-8,v.height*.08f),INK,v.cx-w/2+4,v.cy-v.height/2+6,w-8,v.height*.1f,false,1,true);
+   if(visible(card)&&card.getName()!=null)g.drawText(card.getName(),fit(card.getName(),w-8,v.height*.08f),INK,v.cx-w/2+4,v.cy-v.height/2+6,w-8,v.height*.1f,false,1,true);
   }
   finally{g.endTransform();g.setAlphaComposite(oldAlpha);}
  }
@@ -133,7 +192,8 @@ public final class ArenaMotionMod {
  public static void addImpact(Impact i){impacts.add(i);}
  private static float hash(int n){n=n*374761393+668265263;n=(n^(n>>>13))*1274126177;return ((n^(n>>>16))&0xffff)/65535f;}
  /** called at the start of CardFlightOverlay.draw, every frame of a match */
- public static void effects(Graphics g){
+ public static synchronized void effects(Graphics g){
+  session();if(!active())return;
   BasicCardEffectsMod.effects(g);
   if(impacts.isEmpty())return;
   long now=System.nanoTime();
@@ -142,7 +202,7 @@ public final class ArenaMotionMod {
    if(e>=1){it.remove();continue;}
    try{impact(g,i,Math.max(0,e));}catch(RuntimeException ex){it.remove();}
   }
-  Gdx.graphics.requestRendering();
+  if(Gdx.graphics!=null)Gdx.graphics.requestRendering();
  }
  public static void impact(Graphics g,Impact i,float e){
   boolean sideways=Math.abs(i.angle%180)>45;float k=i.h/260f;
@@ -254,4 +314,38 @@ public static final class BasicCardEffectsMod {
   }
  }
 }
+
+ // ---- planeswalker ready glow (user 2026-10-16): light blue frame while one of your planeswalkers can still use a loyalty ability now
+ private static final Color PW_READY=Color.valueOf("8fd3ff");
+ private static final Map<Integer,long[]> pwReady=new HashMap<>();   // card id -> {checked at, 1/0}
+ /** called after every battlefield card panel is drawn (PatchArenaMotion, before each return of CardAreaPanel.draw) */
+ public static void panelDrawn(CardAreaPanel panel,Graphics g){
+  try{
+   CardView card=panel.getCard();
+   if(card==null||card.getZone()!=ZoneType.Battlefield||!card.getCurrentState().isPlaneswalker()||!pwCanActivate(card))return;
+   float pad=pwPadding(panel),x=pad,y=pad,w=panel.getWidth()-2*pad,h=panel.getHeight()-2*pad,r=Math.max(3,w*.05f);
+   float pulse=.65f+.35f*(float)Math.sin(System.currentTimeMillis()/420.0);
+   for(int i=3;i>=1;i--)g.drawRoundRect(i*2f,new Color(PW_READY.r,PW_READY.g,PW_READY.b,.10f*pulse),x-i,y-i,w+2*i,h+2*i,r+i);
+   g.drawRoundRect(1.6f,new Color(PW_READY.r,PW_READY.g,PW_READY.b,.75f*pulse),x,y,w,h,r);
+   Gdx.graphics.requestRendering();
+  }catch(Throwable t){/* never break card drawing */}
+ }
+ private static Method paddingGetter;
+ private static float pwPadding(CardAreaPanel panel)throws ReflectiveOperationException{
+  if(paddingGetter==null){paddingGetter=forge.toolbox.FCardPanel.class.getDeclaredMethod("getPadding");paddingGetter.setAccessible(true);}
+  return (Float)paddingGetter.invoke(panel);
+ }
+ private static boolean pwCanActivate(CardView view){
+  long now=System.currentTimeMillis();long[] c=pwReady.get(view.getId());
+  if(c!=null&&now-c[0]<250)return c[1]==1;
+  boolean ready=false;
+  var ui=forge.screens.match.MatchController.instance;
+  if(ui!=null&&ui.getGameController() instanceof forge.player.PlayerControllerHuman h&&h.getPlayer()!=null){
+   var me=h.getPlayer();var card=me.getGame().findById(view.getId());
+   if(card!=null&&card.getController()==me&&!card.planeswalkerActivationLimitUsed())
+    for(var sa:card.getSpellAbilities())if(sa.isPwAbility()&&sa.canPlay()){ready=true;break;}
+  }
+  pwReady.put(view.getId(),new long[]{now,ready?1:0});
+  return ready;
+ }
 }

@@ -63,11 +63,29 @@ public final class EnemyIntroMod {
    return new FTextureRegionImage(region);
   }catch(Exception e){System.err.println("[Enemy intro] original artwork: "+e);return fallback;}
  }
+ /** Rogue Commanders duel label ("ROGUE COMMANDERS · ROUND 3/15[ · BOSS]") or null outside a Rogue run (read-only, reflection) */
+ static String rogueLabel(){
+  try{return (String)Class.forName("forge.adventure.scene.RogueCommandersScene").getMethod("duelLabel").invoke(null);}catch(Throwable t){return null;}
+ }
+ /** the 512px original portrait painted for Rogue Commanders (RogueCommandersScene.enemyPortrait), null if none */
+ static Texture roguePortrait(String... names){
+  try{var m=Class.forName("forge.adventure.scene.RogueCommandersScene").getDeclaredMethod("enemyPortrait",String.class);m.setAccessible(true);
+   for(String n:names)if(n!=null){Object t=m.invoke(null,n);if(t instanceof Texture tex)return tex;}}catch(Throwable t){}
+  return null;
+ }
  public static FOptionPane create(DuelScene scene,String message,String title,FBufferedImage oldImage,Runnable next){
   EnemySprite enemy=scene.enemy;
+  if(FONTS.size()>12){FONTS.values().forEach(com.badlogic.gdx.graphics.g2d.BitmapFont::dispose);FONTS.clear();}   // not while drawing
   String body=introText(title,message,enemy==null?null:enemy.getBossIntro(),enemy!=null&&enemy.getData().flying);
-  String traits=enemy==null?"ENCOUNTER":(enemy.getData().boss?"BOSS ENCOUNTER":"ENCOUNTER")+(enemy.getData().flying?"  ·  FLYING":"");
-  return new IntroPane(new IntroBody(title,body,traits,image(enemy,oldImage)),next);
+  if(body!=null)body=body.replaceAll("</?[A-Za-z]{1,6}>","").trim();   // Forge marks italics as <i>..<i> - never show raw tags (user 2026-10-17)
+  String rogue=rogueLabel(),dot="  \u00b7  ";boolean boss;String traits;
+  if(rogue!=null){   // Rogue Commanders: only every fifth round is a boss (user 2026-10-17: "der Boss sollte erst bei 5 kommen")
+   boss=rogue.endsWith("BOSS");java.util.regex.Matcher r=java.util.regex.Pattern.compile("ROUND \\d+/\\d+").matcher(rogue);
+   traits=(boss?"BOSS ENCOUNTER":"NEXT OPPONENT")+(r.find()?dot+r.group():"");
+  }else{boss=enemy!=null&&enemy.getData().boss;traits=boss?"BOSS ENCOUNTER":"ENCOUNTER";}
+  if(enemy!=null&&enemy.getData().flying)traits+=dot+"FLYING";
+  Texture own=rogue==null?null:roguePortrait(title,enemy==null?null:enemy.getData().getName(),enemy==null?null:enemy.getData().name);
+  return new IntroPane(new IntroBody(title,body,traits,boss,own,image(enemy,oldImage)),next);
  }
  static class IntroPane extends FOptionPane {
   IntroPane(IntroBody body,Runnable next){
@@ -76,41 +94,68 @@ public final class EnemyIntroMod {
   }
   @Override protected boolean padAboveAndBelow(){return false;}
   @Override protected float layoutAndGetHeight(float width,float maxHeight){
-   displayObj.setHeight(Math.max(80,Math.min(maxHeight-PADDING*2,Math.max(160,Math.min(width*.30f,Forge.getScreenHeight()*.38f)))));
+   displayObj.setHeight(Math.max(80,Math.min(maxHeight-PADDING*2,Math.max(160,Math.min(width*.30f,Forge.getScreenHeight()*.40f)))));
    return super.layoutAndGetHeight(width,maxHeight);
   }
-  @Override protected void drawBackground(Graphics g){
-   g.fillRect(new Color(0,0,0,.55f),0,0,getWidth(),getHeight());
-  }
+  @Override protected void drawBackground(Graphics g){g.fillRect(new Color(0,0,0,.22f),0,0,getWidth(),getHeight());}   // faint shade, board stays visible
   @Override public void drawOverlay(Graphics g){} // no legacy swipe-bar dots
  }
+ /** crisp text (user 2026-10-17: "low res Schrift, falsche Schriftart"): the mod fonts (fantasy.ttf = Cinzel Decorative
+  *  for titles, ui.ttf = Cinzel for text) rendered by FreeType at the exact pixel size, never upscaled */
+ private static final Map<Integer,com.badlogic.gdx.graphics.g2d.BitmapFont> FONTS=new HashMap<>();
+ static com.badlogic.gdx.graphics.g2d.BitmapFont font(boolean title,int px){
+  px=Math.max(8,Math.min(160,px));int key=(title?1000:0)+px;var f=FONTS.get(key);if(f!=null)return f;
+  String path="D:/forge/_mods/modern-hud/"+(title?"fantasy.ttf":"ui.ttf");if(!Files.exists(Path.of(path)))path="D:/forge/_mods/modern-hud/ui.ttf";
+  if(!Files.exists(Path.of(path)))return null;
+  try{var g=new com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator(Gdx.files.absolute(path));
+   var p=new com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter();
+   p.size=px;p.minFilter=Texture.TextureFilter.Linear;p.magFilter=Texture.TextureFilter.Linear;
+   p.characters=com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.DEFAULT_CHARS+"\u00e4\u00f6\u00fc\u00c4\u00d6\u00dc\u00df\u2013\u2014\u00b7\u2026\u2019\u2018\u201c\u201d";
+   f=g.generateFont(p);g.dispose();f.setUseIntegerPositions(false);
+   FONTS.put(key,f);return f;
+  }catch(Throwable t){System.err.println("[Enemy intro] font: "+t);return null;}
+ }
+ static final com.badlogic.gdx.graphics.g2d.GlyphLayout LAYOUT=new com.badlogic.gdx.graphics.g2d.GlyphLayout();
+ static float measure(com.badlogic.gdx.graphics.g2d.BitmapFont f,String s,float wrap){
+  LAYOUT.setText(f,s,Color.WHITE,wrap,Align.left,wrap>0);return wrap>0?LAYOUT.height:LAYOUT.width;
+ }
+ /** largest font <= px whose single line fits width w (h<=0) or whose text wrapped at w fits height h */
+ static com.badlogic.gdx.graphics.g2d.BitmapFont fit(boolean title,int px,String s,float w,float h){
+  var f=font(title,px);
+  for(int i=0;f!=null&&i<4;i++){float m=h>0?measure(f,s,w):measure(f,s,0),lim=h>0?h:w;if(m<=lim||px<=9)break;
+   px=Math.max(9,(int)(px*(h>0?(float)Math.sqrt(lim/m):lim/m)*.97f));f=font(title,px);}
+  return f;
+ }
+ static void text(Graphics g,com.badlogic.gdx.graphics.g2d.BitmapFont f,String s,Color c,float x,float y,float w,boolean wrap){
+  f.setColor(c.r,c.g,c.b,c.a*g.getfloatAlphaComposite());f.draw(g.getBatch(),s,g.adjustX(x),g.adjustY(y,0),w,Align.left,wrap);
+ }
  static class IntroBody extends FDisplayObject {
-  final String title,message,traits;final FImage image;
-  IntroBody(String title,String message,String traits,FImage image){this.title=title;this.message=message;this.traits=traits;this.image=image;}
+  final String title,message,traits;final boolean boss;final Texture own;final FImage image;
+  IntroBody(String title,String message,String traits,boolean boss,Texture own,FImage image){this.title=title;this.message=message;this.traits=traits;this.boss=boss;this.own=own;this.image=image;}
   @Override public void draw(Graphics g){
-   float w=getWidth(),h=getHeight(),scale=Math.max(.8f,Math.min(2,Math.min(Forge.getScreenWidth()/1920f,Forge.getScreenHeight()/1080f)));
-   float pad=Math.max(12,Math.min(w,h)*.055f),pw=Math.min(w-2*pad,1100*scale),ph=h-2*pad,x=(w-pw)/2,y=pad;
-   g.fillRoundRect(Color.valueOf("0d1016"),x+3,y+5,pw,ph,10);
-   g.fillGradientRect(Color.valueOf("1c2935"),Color.valueOf("101720"),true,x,y,pw,ph);
-   g.drawRect(1.2f,GOLD,x,y,pw,ph);g.drawRect(.6f,Color.valueOf("43515f"),x+4,y+4,pw-8,ph-8);
-   float inner=pad*.8f,iw=Math.min(ph-2*inner,pw*.33f),ix=x+inner,iy=y+inner;
-   if(image!=null){
-    // Fit original art without a tiny intermediate framebuffer or forced square crop.
-    float imageScale=Math.min(1,Math.min(iw/image.getWidth(),(ph-2*inner)/image.getHeight())),aw=image.getWidth()*imageScale,ah=image.getHeight()*imageScale;
-    g.drawImage(image,ix+(iw-aw)/2,iy+(ph-2*inner-ah)/2,aw,ah);
+   // semi-transparent panel like the battle choice dialogs (user 2026-10-17), sized from the real screen: 720p .. 4K
+   float w=getWidth(),h=getHeight(),scale=Math.max(.6f,Math.min(2.2f,Math.min(Forge.getScreenWidth()/1920f,Forge.getScreenHeight()/1080f)));
+   float pad=Math.max(8,Math.min(w,h)*.05f),pw=Math.min(w-2*pad,1200*scale),ph=h-2*pad,x=(w-pw)/2,y=pad,rad=Math.max(6,10*scale);
+   g.fillRoundRect(new Color(.03f,.04f,.07f,.62f),x,y,pw,ph,rad);
+   g.drawRoundRect(Math.max(1,1.5f*scale),new Color(GOLD.r,GOLD.g,GOLD.b,boss?.85f:.5f),x,y,pw,ph,rad);
+   float inner=Math.max(8,ph*.08f),is=Math.min(ph*.84f,pw*.36f),ix=x+inner,iy=y+(ph-is)/2;   // portrait ~84% of the box height
+   if(own!=null){g.drawImage(own,ix,iy,is,is);g.drawRect(Math.max(1,scale),new Color(GOLD.r,GOLD.g,GOLD.b,.7f),ix,iy,is,is);}
+   else if(image!=null){
+    float s=Math.min(is/image.getWidth(),is/image.getHeight()),aw=image.getWidth()*s,ah=image.getHeight()*s;
+    g.drawImage(image,ix+(is-aw)/2,iy+(is-ah)/2,aw,ah);
+   }else is=0;
+   float tx=ix+is+inner*1.2f,tw=x+pw-inner-tx,ty=y+inner;
+   var small=fit(false,Math.round(Math.min(26*scale,ph*.075f)),traits,tw,0);var heading=fit(true,Math.round(Math.min(64*scale,ph*.19f)),title,tw,0);
+   if(small==null||heading==null){   // mod fonts missing: Forge skin fonts
+    g.drawText(traits,FSkinFont.get(14),DIM,tx,ty,tw,ph*.1f,false,Align.left,false);
+    g.drawText(title,FSkinFont.get(28),GOLD,tx,ty+ph*.14f,tw,ph*.2f,false,Align.left,false);
+    g.drawText(message,FSkinFont.get(18),TEXT,tx,ty+ph*.4f,tw,ph*.5f,true,Align.left,false);return;
    }
-   float tx=ix+iw+inner,tw=x+pw-inner-tx,ty=y+inner;
-   int hs=Math.max(18,Math.min((int)(32*scale),(int)(h*.08f))),bs=Math.max(14,Math.min((int)(23*scale),(int)(h*.06f))),ss=Math.max(12,Math.min((int)(16*scale),(int)(h*.045f)));
-   FSkinFont heading=FSkinFont.get(hs),body=FSkinFont.get(bs),small=FSkinFont.get(ss);
-   // fit to the panel (Claude, 2026-10-15): the name stays on one line, traits on one line, the text inside the panel
-   while(hs>10&&heading.getBounds(title).width>tw)heading=FSkinFont.get(--hs);
-   while(ss>8&&small.getBounds(traits).width>tw)small=FSkinFont.get(--ss);
-   float sh=small.getLineHeight(),hh=heading.getLineHeight()*(heading.getBounds(title).width>tw?2:1);
-   float room=Math.max(1,y+ph-inner-(ty+sh+inner*.4f+hh+inner*.5f));
-   while(bs>9&&body.getWrappedBounds(message,tw).height>room)body=FSkinFont.get(--bs);
-   g.drawText(traits,small,DIM,tx,ty,tw,sh,false,Align.left,false);ty+=sh+inner*.4f;
-   g.drawText(title,heading,GOLD,tx,ty,tw,hh,true,Align.left,false);ty+=hh+inner*.5f;
-   g.drawText(message,body,TEXT,tx,ty,tw,Math.max(1,y+ph-inner-ty),true,Align.left,false);
+   text(g,small,traits,boss?GOLD:DIM,tx,ty,tw,false);ty+=small.getLineHeight()*1.25f;
+   text(g,heading,title,GOLD,tx,ty,tw,false);ty+=heading.getLineHeight()*1.1f;
+   g.fillRect(new Color(GOLD.r,GOLD.g,GOLD.b,.45f),tx,ty,tw*.6f,Math.max(1,scale));ty+=inner*.6f;
+   var body=fit(false,Math.round(Math.min(34*scale,ph*.11f)),message,tw,Math.max(1,y+ph-inner-ty));
+   text(g,body,message,TEXT,tx,ty,tw,true);
   }
  }
 }

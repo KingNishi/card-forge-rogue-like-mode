@@ -1,0 +1,261 @@
+{
+ "_about": "Loading-screen tips: paraphrased advice from real players; source kept for attribution.",
+ "tips": [
+  {
+   "tip": "In Limited, keep most hands that actually function. A mulligan costs more than a slightly clunky seven.",
+   "name": "Reid Duke",
+   "title": "Hall of Fame",
+   "topic": "mulligan",
+   "source": "Level One: Mulligans Part II: Limited",
+   "url": "https://magic.wizards.com/en/articles/archive/level-one/mulligans-part-ii-limited-2015-06-15"
+  },
+  {
+   "tip": "Ship hands that only work if you draw exactly the right land and spell soon, and slow hands when your deck must be fast.",
+   "name": "Reid Duke",
+   "title": "Hall of Fame",
+   "topic": "mulligan",
+   "source": "Level One: Mulligans Part II: Limited",
+   "url": "https://magic.wizards.com/en/articles/archive/level-one/mulligans-part-ii-limited-2015-06-15"
+  },
+  {
+   "tip": "Don't lock in as attacker or defender too early. Reassess your role whenever the board or the matchup changes.",
+   "name": "Reid Duke",
+   "title": "Hall of Fame",
+   "topic": "strategy",
+   "source": "Level One: Role Assignment",
+   "url": "https://magic.wizards.com/en/articles/archive/level-one/role-assignment-2015-01-05"
+  },
+  {
+   "tip": "Find the stage of the game where your deck is strongest and steer toward it. The player with the better late game need not race.",
+   "name": "Reid Duke",
+   "title": "Hall of Fame",
+   "topic": "strategy",
+   "source": "Level One: Role Assignment",
+   "url": "https://magic.wizards.com/en/articles/archive/level-one/role-assignment-2015-01-05"
+  },
+  {
+   "tip": "Count cards, not just mana: paying two cards for an effect is a worse deal than getting the same effect for one.",
+   "name": "Reid Duke",
+   "title": "Hall of Fame",
+   "topic": "card advantage",
+   "source": "Level One: The Basics of Card Advantage",
+   "url": "https://magic.wizards.com/en/articles/archive/level-one/basics-card-advantage-2015-07-13"
+  },
+  {
+   "tip": "One good blocker can turn several of the enemy's small attackers into dead cards. That is card advantage too.",
+   "name": "Reid Duke",
+   "title": "Hall of Fame",
+   "topic": "card advantage",
+   "source": "Level One: The Basics of Card Advantage",
+   "url": "https://magic.wizards.com/en/articles/archive/level-one/basics-card-advantage-2015-07-13"
+  },
+  {
+   "tip": "Take a clearly stronger card over an on-color one. When power is close, take the card that fits your colors.",
+   "name": "Reid Duke",
+   "title": "Hall of Fame",
+   "topic": "drafting",
+   "source": "Level One: Signals in Booster Draft",
+   "url": "https://magic.wizards.com/en/articles/archive/level-one/signals-booster-draft-2015-01-19"
+  },
+  {
+   "tip": "Signals are evidence, never proof. One late card means little; a steady stream of one color means a lot.",
+   "name": "Reid Duke",
+   "title": "Hall of Fame",
+   "topic": "drafting",
+   "source": "Level One: Signals in Booster Draft",
+   "url": "https://magic.wizards.com/en/articles/archive/level-one/signals-booster-draft-2015-01-19"
+  },
+  {
+   "tip": "Creatures only earn value when they attack or block. Playing too passively loses just like playing recklessly.",
+   "name": "Reid Duke",
+   "title": "Hall of Fame",
+   "topic": "combat",
+   "source": "Level One: Attacking and Blocking",
+   "url": "https://magic.wizards.com/en/articles/archive/level-one/attacking-and-blocking-2015-07-27"
+  },
+  {
+   "tip": "Don't cast combat tricks into lots of open mana, and don't count on tricks when blocking: the attacker acts last.",
+   "name": "Reid Duke",
+   "title": "Hall of Fame",
+   "topic": "combat",
+   "source": "Level One: Attacking and Blocking",
+   "url": "https://magic.wizards.com/en/articles/archive/level-one/attacking-and-blocking-2015-07-27"
+  },
+  {
+   "tip": "Ending a turn with unused mana is a warning sign. Check your mana curve and the order you play your spells.",
+   "name": "Reid Duke",
+   "title": "Hall of Fame",
+   "topic": "tempo",
+   "source": "Level One: Tempo",
+   "url": "https://magic.wizards.com/en/articles/archive/level-one/tempo-2015-07-20"
+  },
+  {
+   "tip": "Save removal for threats that matter: attackers that endanger your life or blockers that shut down your plan.",
+   "name": "Reid Duke",
+   "title": "Hall of Fame",
+   "topic": "removal",
+   "source": "Level One: Threats and Answers",
+   "url": "https://magic.wizards.com/en/articles/archive/lo/threats-and-answers-2014-09-08"
+  },
+  {
+   "tip": "Threats win games, answers buy time. A deck with no answers struggles to come back from behind.",
+   "name": "Reid Duke",
+   "title": "Hall of Fame",
+   "topic": "threat assessment",
+   "source": "Level One: Threats and Answers",
+   "url": "https://magic.wizards.com/en/articles/archive/lo/threats-and-answers-2014-09-08"
+  },
+  {
+   "tip": "Playing around everything can backfire: every extra turn you allow is another draw for your opponent to find an answer.",
+   "name": "Reid Duke",
+   "title": "Hall of Fame",
+   "topic": "strategy",
+   "source": "Level One: Playing Safe and Playing Scared",
+   "url": "https://magic.wizards.com/en/articles/archive/level-one/playing-safe-and-playing-scared-2015-08-24"
+  },
+  {
+   "tip": "Who's the Beatdown? Every game, work out who must attack and who must defend. Playing the wrong role loses games.",
+   "name": "Mike Flores",
+   "title": "Magic theory writer",
+   "topic": "strategy",
+   "source": "Who's the Beatdown? (1999), as discussed in Reid Duke's Level One: Role Assignment",
+   "url": "https://magic.wizards.com/en/articles/archive/level-one/role-assignment-2015-01-05"
+  },
+  {
+   "tip": "The number one deckbuilding rule: have a powerful, proactive game plan and know exactly what your deck wants to do.",
+   "name": "Brian Kibler",
+   "title": "Hall of Fame",
+   "topic": "deck building",
+   "source": "The Number One Rule (StarCityGames, 2013)",
+   "url": "https://articles.starcitygames.com/articles/the-number-one-rule/"
+  },
+  {
+   "tip": "Before adding any card or color, ask how it changes your deck's game plan. Every card should serve the plan.",
+   "name": "Brian Kibler",
+   "title": "Hall of Fame",
+   "topic": "deck building",
+   "source": "The Number One Rule (StarCityGames, 2013)",
+   "url": "https://articles.starcitygames.com/articles/the-number-one-rule/"
+  },
+  {
+   "tip": "Card quality beats card count: three weak cards from one spell are not automatically better than one strong card.",
+   "name": "Patrick Chapin",
+   "title": "Hall of Fame",
+   "topic": "card advantage",
+   "source": "Innovations - The Theory of Everything (StarCityGames, 2010)",
+   "url": "https://articles.starcitygames.com/articles/innovations-the-theory-of-everything/"
+  },
+  {
+   "tip": "Before trading a card for life or tempo, check that what you gain is worth more than what you give up.",
+   "name": "Patrick Chapin",
+   "title": "Hall of Fame",
+   "topic": "strategy",
+   "source": "Innovations - The Theory of Everything (StarCityGames, 2010)",
+   "url": "https://articles.starcitygames.com/articles/innovations-the-theory-of-everything/"
+  },
+  {
+   "tip": "Tempo is only worth buying if you have something to do with the time you gain.",
+   "name": "Patrick Chapin",
+   "title": "Hall of Fame",
+   "topic": "tempo",
+   "source": "Innovations - The Theory of Everything (StarCityGames, 2010)",
+   "url": "https://articles.starcitygames.com/articles/innovations-the-theory-of-everything/"
+  },
+  {
+   "tip": "'Draft the good cards' - but good means good for your deck: its colors, curve and synergies, not raw power alone.",
+   "name": "Sam Black",
+   "title": "Pro Tour Top 4 (Philadelphia 2011)",
+   "topic": "drafting",
+   "source": "Draft The Good Cards (StarCityGames, 2012)",
+   "url": "https://articles.starcitygames.com/articles/draft-the-good-cards/"
+  },
+  {
+   "tip": "Count your playables as you draft. The count tells you how many risky, high-upside picks you can still afford.",
+   "name": "Sam Black",
+   "title": "Pro Tour Top 4 (Philadelphia 2011)",
+   "topic": "drafting",
+   "source": "Draft The Good Cards (StarCityGames, 2012)",
+   "url": "https://articles.starcitygames.com/articles/draft-the-good-cards/"
+  },
+  {
+   "tip": "Draft cards you actually want to play, and keep a clear picture of how your finished deck will win.",
+   "name": "Sam Black",
+   "title": "Pro Tour Top 4 (Philadelphia 2011)",
+   "topic": "drafting",
+   "source": "Draft The Cards You Want To Play (StarCityGames, 2012)",
+   "url": "https://articles.starcitygames.com/articles/draft-the-cards-you-want-to-play/"
+  },
+  {
+   "tip": "The higher your curve, the more lands you need. Cheap card draw and mana creatures let you shave a land or two.",
+   "name": "Frank Karsten",
+   "title": "Hall of Fame",
+   "topic": "mana base",
+   "source": "How Many Lands Do You Need to Consistently Hit Your Land Drops? (ChannelFireball, 2017)",
+   "url": "https://strategy.channelfireball.com/all-strategy/mtg/channelmagic-articles/how-many-lands-do-you-need-to-consistently-hit-your-land-drops/"
+  },
+  {
+   "tip": "A normal 60-card land count scales to about 41 lands in a 99-card Commander deck; ramp and cheap draw can trim that.",
+   "name": "Frank Karsten",
+   "title": "Hall of Fame",
+   "topic": "commander",
+   "source": "How Many Lands Do You Need to Consistently Hit Your Land Drops? (ChannelFireball, 2017)",
+   "url": "https://strategy.channelfireball.com/all-strategy/mtg/channelmagic-articles/how-many-lands-do-you-need-to-consistently-hit-your-land-drops/"
+  },
+  {
+   "tip": "On the draw you see an extra card, so slightly fewer lands can work - but cutting too many means more mulligans.",
+   "name": "Frank Karsten",
+   "title": "Hall of Fame",
+   "topic": "mana base",
+   "source": "How Many Lands Do You Need to Consistently Hit Your Land Drops? (ChannelFireball, 2017)",
+   "url": "https://strategy.channelfireball.com/all-strategy/mtg/channelmagic-articles/how-many-lands-do-you-need-to-consistently-hit-your-land-drops/"
+  },
+  {
+   "tip": "Play enough lands in Commander, around 39-40: long games demand land drops and the mana to recast your commander.",
+   "name": "Gavin Verhey",
+   "title": "Wizards of the Coast designer, Good Morning Magic host",
+   "topic": "commander",
+   "source": "Good Morning Magic Offers Three Commander Tips (StarCityGames, 2020)",
+   "url": "https://articles.starcitygames.com/news/good-morning-magic-offers-three-commander-tips/"
+  },
+  {
+   "tip": "Don't rely only on big bombs. Plenty of cheap spells let you interact early and cast two spells a turn later.",
+   "name": "Gavin Verhey",
+   "title": "Wizards of the Coast designer, Good Morning Magic host",
+   "topic": "commander",
+   "source": "Good Morning Magic Offers Three Commander Tips (StarCityGames, 2020)",
+   "url": "https://articles.starcitygames.com/news/good-morning-magic-offers-three-commander-tips/"
+  },
+  {
+   "tip": "Pack a few answers to artifacts, enchantments and graveyards. In two-player games one such answer can decide it.",
+   "name": "Gavin Verhey",
+   "title": "Wizards of the Coast designer, Good Morning Magic host",
+   "topic": "commander",
+   "source": "Good Morning Magic Offers Three Commander Tips (StarCityGames, 2020)",
+   "url": "https://articles.starcitygames.com/news/good-morning-magic-offers-three-commander-tips/"
+  },
+  {
+   "tip": "Build order: commander first, then synergy cards, then fill gaps in card draw, ramp, removal, sweepers and threats.",
+   "name": "Gavin Verhey",
+   "title": "Wizards of the Coast designer, Good Morning Magic host",
+   "topic": "commander",
+   "source": "Good Morning Magic Teaches How To Build A Commander Deck (StarCityGames)",
+   "url": "https://articles.starcitygames.com/news/good-morning-magic-teaches-how-to-build-a-commander-deck/"
+  },
+  {
+   "tip": "Ramp means extra lands early, so your big spells arrive on time. Cultivate-style spells are among the best.",
+   "name": "Sheldon Menery",
+   "title": "Commander Rules Committee founding member",
+   "topic": "commander",
+   "source": "Commander Fundamentals: Ramp (StarCityGames, 2018)",
+   "url": "https://articles.starcitygames.com/articles/commander-fundamentals-ramp/"
+  },
+  {
+   "tip": "Fixing a color or fetching a land to hand is not ramp. Only effects that put extra lands into play truly ramp.",
+   "name": "Sheldon Menery",
+   "title": "Commander Rules Committee founding member",
+   "topic": "commander",
+   "source": "Commander Fundamentals: Ramp (StarCityGames, 2018)",
+   "url": "https://articles.starcitygames.com/articles/commander-fundamentals-ramp/"
+  }
+ ]
+}

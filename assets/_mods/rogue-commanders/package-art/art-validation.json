@@ -1,0 +1,536 @@
+{
+  "sheets": 6,
+  "original_images": 48,
+  "mapped_packages": 784,
+  "missing": [],
+  "checks": [
+    {
+      "image": "planeswalkers.png",
+      "sheet": 1,
+      "source_box": [
+        0,
+        0,
+        444,
+        444
+      ],
+      "sha256": "014ef3e0219e91f28f61072513c82da396aed2b0780c77e631cb30d155447887"
+    },
+    {
+      "image": "polymorph.png",
+      "sheet": 1,
+      "source_box": [
+        444,
+        0,
+        887,
+        444
+      ],
+      "sha256": "378f38638fa2f3a759fbb267890e562e5370f9ab61678680f3a0420371046c1f"
+    },
+    {
+      "image": "reanimation.png",
+      "sheet": 1,
+      "source_box": [
+        887,
+        0,
+        1330,
+        444
+      ],
+      "sha256": "872655460887da5a771cfe7a4e6a07f5fd3a80fdd31ef9ae579ee1c01945c694"
+    },
+    {
+      "image": "spells.png",
+      "sheet": 1,
+      "source_box": [
+        1330,
+        0,
+        1774,
+        444
+      ],
+      "sha256": "f65ba52309a2052726942085b0c6431ffa732e270bb7f40ccdb99a1aa0436aa2"
+    },
+    {
+      "image": "artifacts.png",
+      "sheet": 1,
+      "source_box": [
+        0,
+        444,
+        444,
+        887
+      ],
+      "sha256": "3d47959cb31b5cef56a5d7e5ae96da28b23958be9990f776e8c5826ce1051d9b"
+    },
+    {
+      "image": "mana.png",
+      "sheet": 1,
+      "source_box": [
+        444,
+        444,
+        887,
+        887
+      ],
+      "sha256": "cfa3cd61f105d8db3f5c3d72d37b7adeb9e994093e08e1a24e46b0e10b3bc74c"
+    },
+    {
+      "image": "tokens.png",
+      "sheet": 1,
+      "source_box": [
+        887,
+        444,
+        1330,
+        887
+      ],
+      "sha256": "1c0bf6884fdd08b902c17cc1eb7be9a64d935bb73839d1e54c621b3ae32047d5"
+    },
+    {
+      "image": "equipment.png",
+      "sheet": 1,
+      "source_box": [
+        1330,
+        444,
+        1774,
+        887
+      ],
+      "sha256": "01b9ad475ba3166e1e7848149be5eea582dd0d6048d507684f1e2810a68ec7a6"
+    },
+    {
+      "image": "dragons.png",
+      "sheet": 2,
+      "source_box": [
+        0,
+        0,
+        444,
+        444
+      ],
+      "sha256": "436a3dcaaf34f7ada49be63d8d8d4b1b12c61f8ef2d38e2b6a9d700505abff54"
+    },
+    {
+      "image": "angels.png",
+      "sheet": 2,
+      "source_box": [
+        444,
+        0,
+        887,
+        444
+      ],
+      "sha256": "f1066a5f270999e7c62f915fbaf84ec761fcc01cba53d43f827548286956153e"
+    },
+    {
+      "image": "demons.png",
+      "sheet": 2,
+      "source_box": [
+        887,
+        0,
+        1330,
+        444
+      ],
+      "sha256": "bddd8506dea0f3c19d326d5941c33fe5dd76bb965443b12587736a5d753de8b2"
+    },
+    {
+      "image": "vampires.png",
+      "sheet": 2,
+      "source_box": [
+        1330,
+        0,
+        1774,
+        444
+      ],
+      "sha256": "49fa1b1927e1db697d8aef0ac98912d5dd4f8ff0ccc8e303ecd553c6de4e771d"
+    },
+    {
+      "image": "zombies.png",
+      "sheet": 2,
+      "source_box": [
+        0,
+        444,
+        444,
+        887
+      ],
+      "sha256": "e663063178dd9d28fa1fbf634501b2ea4cb6439ac8c70baf53da1c52ac5e8149"
+    },
+    {
+      "image": "elves.png",
+      "sheet": 2,
+      "source_box": [
+        444,
+        444,
+        887,
+        887
+      ],
+      "sha256": "df5e8ee7900770e44d422edeab15b248f55a06d6cb154da271d66cb0fcff34a6"
+    },
+    {
+      "image": "goblins.png",
+      "sheet": 2,
+      "source_box": [
+        887,
+        444,
+        1330,
+        887
+      ],
+      "sha256": "975c63dc298122c36b68644120f0f7c68a9935465613fa0f7e3467a50b3590ea"
+    },
+    {
+      "image": "humans.png",
+      "sheet": 2,
+      "source_box": [
+        1330,
+        444,
+        1774,
+        887
+      ],
+      "sha256": "c6ae35ac9a19e09eb52373ad31f10fbc5a962c10a439b0fddad03d33962475ec"
+    },
+    {
+      "image": "control.png",
+      "sheet": 3,
+      "source_box": [
+        0,
+        0,
+        444,
+        444
+      ],
+      "sha256": "e00edb6d0adf308ab8297c5d63abf0ee880ae7d7a3fe923c0248a01beb58c317"
+    },
+    {
+      "image": "removal.png",
+      "sheet": 3,
+      "source_box": [
+        444,
+        0,
+        887,
+        444
+      ],
+      "sha256": "0435cfee791a30e234fe0c3e485586b5c00f6d8cb9db6941fa12664586a264ee"
+    },
+    {
+      "image": "burn.png",
+      "sheet": 3,
+      "source_box": [
+        887,
+        0,
+        1330,
+        444
+      ],
+      "sha256": "14cd853dda10da85ecddcfbcb08e817828ff5dbc5047b5a43faba7a0373f7caa"
+    },
+    {
+      "image": "lifegain.png",
+      "sheet": 3,
+      "source_box": [
+        1330,
+        0,
+        1774,
+        444
+      ],
+      "sha256": "acb690e6d27f52206dbc7878fcc2381dfa2442fbbbd36e685872fc6872fd0cc0"
+    },
+    {
+      "image": "sacrifice.png",
+      "sheet": 3,
+      "source_box": [
+        0,
+        444,
+        444,
+        887
+      ],
+      "sha256": "63d4737fb5426e435a1219de6a76cde305abb2e0e4e519dd44bc4834d5a6c53e"
+    },
+    {
+      "image": "graveyard.png",
+      "sheet": 3,
+      "source_box": [
+        444,
+        444,
+        887,
+        887
+      ],
+      "sha256": "5a31550d02dfd94ede486306020f36bef1af124feda4daa8510235dd3e9cc35d"
+    },
+    {
+      "image": "mill.png",
+      "sheet": 3,
+      "source_box": [
+        887,
+        444,
+        1330,
+        887
+      ],
+      "sha256": "6fbe3f492c86ec43abc6929bd0b759c9ba81aa689f50b5fc6fcf7341f380b540"
+    },
+    {
+      "image": "lands.png",
+      "sheet": 3,
+      "source_box": [
+        1330,
+        444,
+        1774,
+        887
+      ],
+      "sha256": "d5133194835a285137808a639bee540c56a7ca96a629e2efac8a56845e73da00"
+    },
+    {
+      "image": "landfall.png",
+      "sheet": 4,
+      "source_box": [
+        0,
+        0,
+        444,
+        444
+      ],
+      "sha256": "12caf3ce2a28acf3803bb305dd12ddc86943bea14746daf9c1a701de3bb66204"
+    },
+    {
+      "image": "counters.png",
+      "sheet": 4,
+      "source_box": [
+        444,
+        0,
+        887,
+        444
+      ],
+      "sha256": "d4f3f78d08dad9be47fa5c1c1c764c938d2f7766072a82d393b2a77612ce69d1"
+    },
+    {
+      "image": "poison.png",
+      "sheet": 4,
+      "source_box": [
+        887,
+        0,
+        1330,
+        444
+      ],
+      "sha256": "1e1a1688c27dd59b7f77d81500465e131a49928021a69ef7dcaf2cf7523676f7"
+    },
+    {
+      "image": "proliferate.png",
+      "sheet": 4,
+      "source_box": [
+        1330,
+        0,
+        1774,
+        444
+      ],
+      "sha256": "4dd18dfc8204c3b64f55cb1eec585d1b93a3e2f676a288ea6e4c8b7748f68601"
+    },
+    {
+      "image": "blink.png",
+      "sheet": 4,
+      "source_box": [
+        0,
+        444,
+        444,
+        887
+      ],
+      "sha256": "d61c0b8389e46c2ecb661f4672107dc3d37471240256d57676c83f2c43b4c788"
+    },
+    {
+      "image": "flash.png",
+      "sheet": 4,
+      "source_box": [
+        444,
+        444,
+        887,
+        887
+      ],
+      "sha256": "47fb9ea615590b62f17b8a789bc7de6e1e56758df0f6a161fd6982e218dbe619"
+    },
+    {
+      "image": "copy.png",
+      "sheet": 4,
+      "source_box": [
+        887,
+        444,
+        1330,
+        887
+      ],
+      "sha256": "e122bf230156db196c6ba819108639186a0a5b1a3412c187575d79dfcf6141a2"
+    },
+    {
+      "image": "storm.png",
+      "sheet": 4,
+      "source_box": [
+        1330,
+        444,
+        1774,
+        887
+      ],
+      "sha256": "2e38238bddd442d2b5b307cd10cdefc3178fead072cce0a464ffb48e7f01d185"
+    },
+    {
+      "image": "combat.png",
+      "sheet": 5,
+      "source_box": [
+        0,
+        0,
+        444,
+        444
+      ],
+      "sha256": "b5f5c25ad037f0c7508fac6d45bf58c59f22047798fa1579b33c0265f34a577b"
+    },
+    {
+      "image": "voltron.png",
+      "sheet": 5,
+      "source_box": [
+        444,
+        0,
+        887,
+        444
+      ],
+      "sha256": "e14641321a7d32e76b8b7e120a947070f475698d068d24ba416cb480a6650f71"
+    },
+    {
+      "image": "flying.png",
+      "sheet": 5,
+      "source_box": [
+        887,
+        0,
+        1330,
+        444
+      ],
+      "sha256": "973830aa258fc9ddb9398a80b30692742edca450a91fff8034fd2a229746b72a"
+    },
+    {
+      "image": "vehicles.png",
+      "sheet": 5,
+      "source_box": [
+        1330,
+        0,
+        1774,
+        444
+      ],
+      "sha256": "4f3de16029c58a4575ea00136ac7723961fa0a9422fb0ec0c8e043fff41e1b25"
+    },
+    {
+      "image": "treasure.png",
+      "sheet": 5,
+      "source_box": [
+        0,
+        444,
+        444,
+        887
+      ],
+      "sha256": "a071c5560c94f297fe4a0f98e83ae9fceea98b8c59bedc2180716e7405ae327a"
+    },
+    {
+      "image": "enchantments.png",
+      "sheet": 5,
+      "source_box": [
+        444,
+        444,
+        887,
+        887
+      ],
+      "sha256": "331b3d1c5f1677a003f74021f1e6401692fca47f3a59ad2b2d0726832e331f5c"
+    },
+    {
+      "image": "auras.png",
+      "sheet": 5,
+      "source_box": [
+        887,
+        444,
+        1330,
+        887
+      ],
+      "sha256": "780208170049315edfe5eee16f8724aef5506da47fcf565421f7228d8d7957a4"
+    },
+    {
+      "image": "theft.png",
+      "sheet": 5,
+      "source_box": [
+        1330,
+        444,
+        1774,
+        887
+      ],
+      "sha256": "159ff41324e5c3b7f0fcc0fa6f236fc5eb7d5ca0b7f698be782776ca515d245e"
+    },
+    {
+      "image": "stax.png",
+      "sheet": 6,
+      "source_box": [
+        0,
+        0,
+        444,
+        444
+      ],
+      "sha256": "6dbe8e42a6e739142494fd0baae715cfbd28d84098d0c71773d99528416d5df8"
+    },
+    {
+      "image": "toolbox.png",
+      "sheet": 6,
+      "source_box": [
+        444,
+        0,
+        887,
+        444
+      ],
+      "sha256": "cf2875215108aed840ed98fa21484c4e78920d3f08892f0c52744f4f6a3099a8"
+    },
+    {
+      "image": "legends.png",
+      "sheet": 6,
+      "source_box": [
+        887,
+        0,
+        1330,
+        444
+      ],
+      "sha256": "736c4cfb63f24a2fd5d552a960c636f3638974b7b5ea202820c167d8d77eab8c"
+    },
+    {
+      "image": "big-creatures.png",
+      "sheet": 6,
+      "source_box": [
+        1330,
+        0,
+        1774,
+        444
+      ],
+      "sha256": "f6e3926543fd0bfec677f42c65295e7a8371a46e7c246a3a0755f1222e770ef9"
+    },
+    {
+      "image": "draw.png",
+      "sheet": 6,
+      "source_box": [
+        0,
+        444,
+        444,
+        887
+      ],
+      "sha256": "0f0643fc7218b604b3e93759dda242569634a7db6eb557ed53cc23f4101b8365"
+    },
+    {
+      "image": "recursion.png",
+      "sheet": 6,
+      "source_box": [
+        444,
+        444,
+        887,
+        887
+      ],
+      "sha256": "bca10f5e9b11e9201c7e5389ad7a81ed203f3a8d4c3d6f0b1c1bab2f701f6cca"
+    },
+    {
+      "image": "protection.png",
+      "sheet": 6,
+      "source_box": [
+        887,
+        444,
+        1330,
+        887
+      ],
+      "sha256": "d9beb9a3ff0b9cd50353ca3258ae485f0cc61f2c9fe4f3b0686266ceea9a2f63"
+    },
+    {
+      "image": "rituals.png",
+      "sheet": 6,
+      "source_box": [
+        1330,
+        444,
+        1774,
+        887
+      ],
+      "sha256": "ac819486c98452a80c0094dfe4c7d7a84fb1f439be693b93fbe677bde50b4421"
+    }
+  ]
+}

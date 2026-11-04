@@ -100,8 +100,27 @@ public final class DevModeMod {
 
  /** called at the end of every Forge.render() */
  private static long lastRestore;
+ /** Forge keeps the window size it had at start (Forge.screenWidth/Height and Forge.camera) and never updates them:
+  *  after the window changed size (maximize, other monitor, Windows shrinking a too-big window) the match and every
+  *  dialog were drawn in the old size, stretched over the new window, while clicks arrived in the real window size -
+  *  the bottom buttons (OK, Play/Draw) sat a bit above their click area (player reports 0.2.0, 2026-10-16).
+  *  Runs at the end of every frame: bring size and camera in line with the real window. */
+ static void followWindowSize(){
+  try{
+   int w=Gdx.graphics.getWidth(),h=Gdx.graphics.getHeight();
+   if(w<=0||h<=0||(w==Forge.getScreenWidth()&&h==Forge.getScreenHeight()))return;   // minimized or unchanged
+   for(String name:new String[]{"screenWidth","screenHeight"}){Field f=Forge.class.getDeclaredField(name);f.setAccessible(true);f.setInt(null,name.endsWith("Width")?w:h);}
+   if(Forge.camera!=null){
+    Forge.camera.viewportWidth=w;Forge.camera.viewportHeight=h;
+    Forge.camera.position.set(w/2f,h/2f,0);Forge.camera.update();
+   }
+   FScreen screen=Forge.getCurrentScreen();if(screen!=null)screen.setSize(w,h);
+  }catch(Throwable t){System.err.println("[window size] "+t);}
+ }
  public static void frame(){
+  followWindowSize();                           // keep Forge's drawing size in step with the real window
   RogueCommandersScene.drawSubtitle();          // voice line subtitles on top of every screen
+  RogueCommandersScene.drawStandaloneCover();   // standalone shortcut: own loading/closing screen over Forge's
   if(port==-2){
    String mode=System.getProperty("forge.autocontinue");
    auto=mode!=null&&!mode.isBlank()&&!mode.equalsIgnoreCase("false");autoRogue="rogue".equalsIgnoreCase(mode);autoStart=System.currentTimeMillis();
@@ -211,6 +230,8 @@ public final class DevModeMod {
      if(mode.equals("show"))win.setPosition(Integer.parseInt(q.getOrDefault("x","120")),Integer.parseInt(q.getOrDefault("y","80")));
      else win.setPosition(-6000,-6000);return "ok";}));}
     case "/rogue"->text(ex,200,onGl(()->rogue(q.getOrDefault("action",""))));
+   case "/scene"->text(ex,200,onGl(()->sceneDev(q.getOrDefault("action",""),q.getOrDefault("arg",""))));
+   case "/match"->text(ex,200,match(q));
     case "/quit"->{text(ex,200,"bye");later(100,()->Gdx.app.exit());
      Thread killer=new Thread(()->{try{Thread.sleep(8000);}catch(InterruptedException ignored){}Runtime.getRuntime().halt(0);});killer.setDaemon(true);killer.start();}
     default->text(ex,404,"endpoints: /state /shot?w= /tap?x=&y= /drag?x1=&y1=&x2=&y2= /click?name=|text= /key?k= /type?text= /scroll?x=&y=&amount= /log?n= /window?mode=hide|show /rogue?action=open|win|lose|state /quit");
@@ -330,6 +351,70 @@ public final class DevModeMod {
    case "win"->{RogueCommandersScene.instance().setWinner(true,false);return "win";}
    case "lose"->{RogueCommandersScene.instance().setWinner(false,false);return "lose";}
    default->{return "actions: open, win, lose";}
+  }
+ }
+ // ------------------------------------------------------------------ test tools (user 2026-10-17: "fuege mehr dev tools ein")
+ /** /scene?action=..&arg=.. -> RogueCommandersScene.dev (reflection: the scene is installed by another step) */
+ static String sceneDev(String action,String arg){
+  try{return String.valueOf(RogueCommandersScene.class.getMethod("dev",String.class,String.class).invoke(null,action,arg));}
+  catch(java.lang.reflect.InvocationTargetException e){return "error: "+e.getCause();}catch(Exception e){return "error: "+e;}
+ }
+ /** /match?action=info|win|lose|mana|lands|life|hand|battlefield|graveyard&who=me|ai&card=NAME&value=N - direct engine
+  *  changes in the running duel, no chooser dialogs (dev instance only) */
+ static String match(Map<String,String> q){
+  var ui=forge.screens.match.MatchController.instance;
+  if(ui==null||ui.getGameView()==null)return "no match running";
+  if(!(ui.getGameController() instanceof forge.player.PlayerControllerHuman h))return "no human controller";
+  forge.game.Game game=h.getGame();forge.game.player.Player me=h.getPlayer(),ai=null;
+  for(forge.game.player.Player pl:game.getPlayers())if(pl!=me)ai=pl;
+  final forge.game.player.Player who="ai".equals(q.get("who"))?ai:me;final forge.game.player.Player foe=ai;
+  String action=q.getOrDefault("action","info");
+  switch(action){
+   case "info"->{
+    StringBuilder sb=new StringBuilder();var gv=ui.getGameView();
+    sb.append("turn ").append(gv.getTurn()).append(" ").append(gv.getPhase()).append(" active ").append(gv.getPlayerTurn()==null?"-":gv.getPlayerTurn().getName()).append('\n');
+    for(forge.game.player.Player pl:game.getPlayers()){
+     sb.append(pl==me?"ME ":"AI ").append(pl.getName()).append(" life ").append(pl.getLife()).append('\n');
+     for(forge.game.zone.ZoneType z:new forge.game.zone.ZoneType[]{forge.game.zone.ZoneType.Hand,forge.game.zone.ZoneType.Battlefield,forge.game.zone.ZoneType.Command}){
+      List<String> names=new ArrayList<>();for(var c:pl.getCardsIn(z))names.add(c.getName()+(c.isTapped()?"(T)":""));
+      sb.append("  ").append(z).append(" ").append(names.size()).append(": ").append(String.join(", ",names)).append('\n');}}
+    sb.append("stack ").append(game.getStack().size()).append('\n');
+    return sb.toString();}
+   case "win","lose"->{final forge.game.player.Player loser="win".equals(action)?foe:me;
+    forge.util.ThreadUtil.invokeInGameThread(()->{loser.setLife(0,null);game.getAction().checkStateEffects(true);});return action+" (life of "+loser.getName()+" set to 0)";}
+   case "dialog"->{   // swipe the open choice dialog away (down) or back (up) - tests "Back to the choice" (2026-10-18)
+    if(!(forge.toolbox.FOverlay.getTopOverlay() instanceof forge.toolbox.FDialog d))return "no dialog";
+    boolean down=!"up".equals(q.get("dir"));com.badlogic.gdx.Gdx.app.postRunnable(()->d.fling(0f,down?3000f:-3000f));return "dialog "+(down?"down":"up");}
+   case "prompt"->{   // a long trigger text in the prompt bar, with my commander as the prompt's card (2026-10-18)
+    String t=q.getOrDefault("text","Ureni of the Unwritten - Whenever Ureni enters or attacks, look at the top eight cards of your library. You may put a Dragon creature card from among them onto the battlefield. Put the rest on the bottom of your library in a random order. Deal 3 damage to any target.");
+    forge.game.card.CardView cv=null;for(var c:me.getCardsIn(forge.game.zone.ZoneType.Command))if(c.isCommander()){cv=c.getView();break;}
+    final forge.game.card.CardView card=cv;
+    com.badlogic.gdx.Gdx.app.postRunnable(()->{if(forge.Forge.getCurrentScreen() instanceof forge.screens.match.MatchScreen ms)ms.getActivePrompt().setMessage(t,card);});return "prompt set";}
+   case "menu"->{   // a popup menu like the stack item menu (Auto-Yield / Yield to stack / ...) to check its look (2026-10-18)
+    com.badlogic.gdx.Gdx.app.postRunnable(()->{
+     forge.assets.FImage warn=null;try{warn=forge.assets.FSkinImage.valueOf("WARNING");}catch(Throwable ignored){}
+     final forge.assets.FImage w=warn;
+     forge.menu.FPopupMenu m=new forge.menu.FPopupMenu(){@Override protected void buildMenu(){
+      addItem(new forge.menu.FCheckBoxMenuItem("Auto-Yield",true,e->{}));addItem(new forge.menu.FMenuItem("Yield to stack",w,e->{}));
+      addItem(new forge.menu.FMenuItem("Resolve entire stack",w,e->{}));addItem(new forge.menu.FMenuItem("Zoom/Details",e->{}));}};
+     if(forge.Forge.getCurrentScreen() instanceof forge.screens.match.MatchScreen ms)m.show(ms.getActivePrompt(),ms.getActivePrompt().getWidth()*.45f,-forge.Forge.getScreenHeight()*.35f);});
+    return "menu";}
+   case "order"->{   // opens a "Select Order" dialog (trigger order) to check its look (2026-10-18)
+    List<String> items=List.of("Old Gnawbone - trigger","Wrathful Red Dragon - trigger","Dragon Tempest - trigger");
+    com.badlogic.gdx.Gdx.app.postRunnable(()->new forge.toolbox.DualListBox<String>("Select Order",items.size(),new ArrayList<>(items),null,x->{}).show());return "order dialog";}
+   case "mana"->{forge.util.ThreadUtil.invokeInGameThread(()->h.cheat().generateMana());return "mana";}
+   case "lands"->{h.cheat().setCanPlayUnlimitedLands(true);return "unlimited lands";}
+   case "life"->{int v=Integer.parseInt(q.getOrDefault("value","20"));forge.util.ThreadUtil.invokeInGameThread(()->{who.setLife(v,null);game.getAction().checkStateEffects(true);});return who.getName()+" life "+v;}
+   case "hand","battlefield","graveyard"->{
+    String name=q.get("card");forge.item.PaperCard pc=name==null?null:forge.model.FModel.getMagicDb().getCommonCards().getCard(name);
+    if(pc==null)return "unknown card: "+name;
+    forge.util.ThreadUtil.invokeInGameThread(()->{forge.game.card.Card c=forge.game.card.Card.fromPaperCard(pc,who);
+     if("hand".equals(action))game.getAction().moveToHand(c,null);
+     else if("graveyard".equals(action))game.getAction().moveToGraveyard(c,null);
+     else game.getAction().moveToPlay(c,who,null,null);
+     game.getAction().checkStateEffects(true);});
+    return pc.getName()+" -> "+action+" of "+who.getName();}
+   default->{return "actions: info, win, lose, mana, lands, life (who, value), hand|battlefield|graveyard (who, card)";}
   }
  }
 

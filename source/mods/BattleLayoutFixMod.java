@@ -109,8 +109,8 @@ public final class BattleLayoutFixMod {
   // and can preserve a scroll offset that moves centered lands off the visible battlefield.
   return new FScrollPane.ScrollBounds(Math.max(w,right+offset+8),h);
  }
- public static void field(VField field,float w,float h){
-  if(!ArenaMotionMod.active()||w<600)return;
+ /** front (creature) row height a field gets on its own: {front, rear, gap, usable} */
+ private static float[] split(VField field,float w,float h){
   try{Field f=VField.class.getDeclaredField("commandZoneWidth");f.setAccessible(true);float reserve=f.getFloat(field);
    float usable=Math.max(200,w-reserve),card=ArenaBattleHudMod.fieldCardHeight(field);
    float rearRatio=ArenaBattleHudMod.LAND_SCALE;for(var p:field.getRow2().getCardPanels())if(!plainLand(p.getCard())){rearRatio=1;break;}
@@ -127,10 +127,25 @@ public final class BattleLayoutFixMod {
     float lanes=(float)Math.ceil((rearWidth+Math.max(0,roots-1)*6)/(usable-16));
     rear=Math.min(h*.48f,Math.max(rear,lanes*rearCard*.80f+(lanes-1)*6+2*gap));
    }
-   float front=h-rear-gap;
-   field.getRow1().setBounds(0,field.isFlipped()?rear+gap:0,usable,front);
-   field.getRow2().setBounds(0,field.isFlipped()?0:front+gap,usable,rear);
+   return new float[]{h-rear-gap,rear,gap,usable};
   }catch(ReflectiveOperationException e){throw new IllegalStateException(e);}
+ }
+ private static final java.util.Map<VField,Float> APPLIED_FRONT=new java.util.WeakHashMap<>();
+ private static boolean evening;
+ public static void field(VField field,float w,float h){
+  if(!ArenaMotionMod.active()||w<600)return;
+  float[] own=split(field,w,h);float front=own[0],rear=own[1],gap=own[2],usable=own[3];
+  // both players' creatures at the same size (user 2026-10-18: "wieso sind beim Zoom die Karten vom Gegner groesser als meine"):
+  // a field whose rear row holds only lands left its creature row taller - every field takes the smaller creature row
+  VField other=null;
+  for(VPlayerPanel p:MatchScreen.getPlayerPanels().values())if(p.getField()!=field)other=p.getField();
+  if(other!=null&&other.getWidth()>=600&&other.getHeight()>0&&MatchScreen.getPlayerPanels().size()==2)front=Math.min(front,split(other,other.getWidth(),other.getHeight())[0]);
+  front=Math.max(24,front);
+  // the creature row stays next to the centre line, the rear row at the outer edge; the spare height lies between them
+  field.getRow1().setBounds(0,field.isFlipped()?h-front:0,usable,front);
+  field.getRow2().setBounds(0,field.isFlipped()?0:h-rear,usable,rear);
+  APPLIED_FRONT.put(field,front);
+  if(other!=null&&!evening){Float was=APPLIED_FRONT.get(other);if(was==null||Math.abs(was-front)>.5f){evening=true;try{other.revalidate();}finally{evening=false;}}}
  }
  public static float previewX(float x,float width,float screenWidth){return Math.max(12,Math.min(x,Math.max(12,screenWidth-width-12)));}
  public static void preview(Graphics g,CardView card,float x,float y,float w,float h,CardRenderer.CardStackPosition stack,boolean rotated,boolean a,boolean b,boolean c,MatchScreen screen){
@@ -145,6 +160,14 @@ public final class BattleLayoutFixMod {
  public static void button(FButton button,Graphics g){
   String text=button.getText();if(!ArenaMotionMod.active()||text==null||text.isBlank()){original(button,FButton.class,"layoutOriginalDraw",g);return;}
   float w=button.getWidth(),h=button.getHeight();boolean disabled=!button.isEnabled();
+  int art=disabled?3:button.isToggled()?2:button.isHovered()?1:0;   // painted fantasy button sheet (user concept 2026-10-17)
+  if(FantasyButtonArt.drawGraphics(g,art,false,2,2,Math.max(0,w-4),Math.max(0,h-4))){
+   float pad=FantasyButtonArt.textInset(Math.max(0,w-4),Math.max(0,h-4));
+   int size=Math.max(9,Math.min(26,Math.round(h*.36f)));FSkinFont font=FSkinFont.get(size);
+   while(size>9&&(font.getBounds(text).width>w-4-2*pad||font.getLineHeight()>h-10))font=FSkinFont.get(--size);
+   g.drawText(text,font,disabled?Color.valueOf("82919e"):Color.valueOf("f0e8d8"),2+pad,4,Math.max(0,w-4-2*pad),Math.max(0,h-8),false,1,true);
+   return;
+  }
   g.fillRoundRect(Color.valueOf(disabled?"202b35":button.isHovered()?"345b6b":"1b303e"),2,2,Math.max(0,w-4),Math.max(0,h-4),6);
   g.drawRoundRect(1,Color.valueOf(disabled?"46525b":"a38b61"),2,2,Math.max(0,w-4),Math.max(0,h-4),6);
   int size=Math.max(9,Math.min(26,Math.round(h*.36f)));FSkinFont font=FSkinFont.get(size);

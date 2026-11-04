@@ -1,0 +1,523 @@
+{
+ "status": "DESIGN_PROPOSAL_NOT_APPLIED",
+ "language": "en",
+ "note": "Custom story roles; not a statement of canonical character alignment. Creature actions/narration must not be sent to character TTS.",
+ "enemies": {
+  "Adept Blue Wizard": {
+   "story_role": "caution",
+   "presentation": "spoken",
+   "spoken_text": "The last climber cracked a ward. I won't let the next one finish the job.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "The last climber cracked a ward. I won't let the next one finish the job."
+  },
+  "Adept Red Wizard": {
+   "story_role": "ambition",
+   "presentation": "spoken",
+   "spoken_text": "My master needs the Heart Shard. I need my master's favour. You understand.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "My master needs the Heart Shard. I need my master's favour. You understand."
+  },
+  "Ancient Vampire": {
+   "story_role": "bargain",
+   "presentation": "spoken",
+   "spoken_text": "My freedom lies beyond one final bargain: no climber passes. You understand my difficulty.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "My freedom lies beyond one final bargain: no climber passes. You understand my difficulty."
+  },
+  "Bear": {
+   "story_role": "territorial",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "A deep growl; it blocks the narrow approach to its den.",
+   "narrator_caption": "The path runs too close to its cubs.",
+   "choice_text": "A deep growl; it blocks the narrow approach to its den."
+  },
+  "Bird": {
+   "story_role": "territorial",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "Sharp alarm calls from the nest above the passage.",
+   "narrator_caption": "A frightened parent guarding its eggs.",
+   "choice_text": "Sharp alarm calls from the nest above the passage."
+  },
+  "Chandra": {
+   "story_role": "radical_rescuer",
+   "presentation": "spoken",
+   "spoken_text": "I tried waiting for the tower to let us go. It won't. Stand aside before I burn a way out.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "I tried waiting for the tower to let us go. It won't. Stand aside before I burn a way out."
+  },
+  "Chandra's Pyromancer": {
+   "story_role": "ambition",
+   "presentation": "spoken",
+   "spoken_text": "My mistress burned her way up these stairs. Nobody else gets to follow her!",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "My mistress burned her way up these stairs. Nobody else gets to follow her!"
+  },
+  "Dinosaur": {
+   "story_role": "territorial",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "Heavy stamping, followed by a short defensive roar.",
+   "narrator_caption": "You have entered its nesting grounds.",
+   "choice_text": "Heavy stamping, followed by a short defensive roar."
+  },
+  "Dinosaur Elite": {
+   "story_role": "territorial",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "A powerful challenge roar; the herd gathers behind it.",
+   "narrator_caption": "The herd cannot retreat from this stolen jungle.",
+   "choice_text": "A powerful challenge roar; the herd gathers behind it."
+  },
+  "Dog": {
+   "story_role": "territorial",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "A low warning growl; it steps between you and its shelter.",
+   "narrator_caption": "It is protecting the only home it has left.",
+   "choice_text": "A low warning growl; it steps between you and its shelter."
+  },
+  "Elf": {
+   "story_role": "territorial",
+   "presentation": "spoken",
+   "spoken_text": "Our forest was torn from its world, but it is still our forest. Walk around it, climber.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Our forest was torn from its world, but it is still our forest. Walk around it, climber."
+  },
+  "Emrakul": {
+   "story_role": "devourer",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "The air fractures into an impossible sub-bass groan and whisperless spectral tearing.",
+   "narrator_caption": "The devourer has sensed the shard you carry.",
+   "choice_text": "The air fractures into an impossible sub-bass groan and whisperless spectral tearing."
+  },
+  "Esper Artificer": {
+   "story_role": "ambition",
+   "presentation": "spoken",
+   "spoken_text": "Perfection needs a power source. Your shard will run my workshop for a thousand years.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Perfection needs a power source. Your shard will run my workshop for a thousand years."
+  },
+  "Ghalta": {
+   "story_role": "territorial",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "An immense chest-deep roar; trees shake along the jungle passage.",
+   "narrator_caption": "The jungle ruler sees an intruder approaching its herd.",
+   "choice_text": "An immense chest-deep roar; trees shake along the jungle passage."
+  },
+  "Goblin": {
+   "story_role": "ambition",
+   "presentation": "spoken",
+   "spoken_text": "Shiny shard? Mine now! Finders keepers - the tower said so!",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Shiny shard? Mine now! Finders keepers - the tower said so!"
+  },
+  "Goblin Artificer": {
+   "story_role": "ambition",
+   "presentation": "spoken",
+   "spoken_text": "Your shard would make a lovely power core. Hold still while I take it apart.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Your shard would make a lovely power core. Hold still while I take it apart."
+  },
+  "Goblin Chief": {
+   "story_role": "ambition",
+   "presentation": "spoken",
+   "spoken_text": "Big boss of all the goblins wants the big shiny shard. Big boss gets what big boss wants!",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Big boss of all the goblins wants the big shiny shard. Big boss gets what big boss wants!"
+  },
+  "Goblin King": {
+   "story_role": "ambition",
+   "presentation": "spoken",
+   "spoken_text": "A king needs a crown! That shard would look great on mine. Get 'em, lads!",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "A king needs a crown! That shard would look great on mine. Get 'em, lads!"
+  },
+  "Griffin": {
+   "story_role": "territorial",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "A shrill territorial cry; broad wings close over the ledge.",
+   "narrator_caption": "Its nesting ledge is the only way forward.",
+   "choice_text": "A shrill territorial cry; broad wings close over the ledge."
+  },
+  "Guardian Angel": {
+   "story_role": "guardian",
+   "presentation": "spoken",
+   "spoken_text": "I will not risk the worlds below for one world above. Turn back, and I will let you leave.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "I will not risk the worlds below for one world above. Turn back, and I will let you leave."
+  },
+  "High Elf": {
+   "story_role": "guardian",
+   "presentation": "spoken",
+   "spoken_text": "Our grove is held within these walls. I will not let you tear it apart to save your own.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Our grove is held within these walls. I will not let you tear it apart to save your own."
+  },
+  "Illusionist": {
+   "story_role": "ambition",
+   "presentation": "spoken",
+   "spoken_text": "Is this the stair you climbed? Is that your shard? Nothing up here is what it seems... least of all you.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Is this the stair you climbed? Is that your shard? Nothing up here is what it seems... least of all you."
+  },
+  "Kor Warrior": {
+   "story_role": "guardian",
+   "presentation": "spoken",
+   "spoken_text": "My people trusted us with this seal. I cannot gamble their lives on a stranger's promise.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "My people trusted us with this seal. I cannot gamble their lives on a stranger's promise."
+  },
+  "Lathliss": {
+   "story_role": "bargain",
+   "presentation": "spoken",
+   "spoken_text": "My brood cannot leave while the wards stand. The tower offered one bargain; I will see it kept.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "My brood cannot leave while the wards stand. The tower offered one bargain; I will see it kept."
+  },
+  "Master Black Wizard": {
+   "story_role": "ambition",
+   "presentation": "spoken",
+   "spoken_text": "Death is no obstacle in the Spire - only a delay. I will take your shard and your soul.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Death is no obstacle in the Spire - only a delay. I will take your shard and your soul."
+  },
+  "Master Blue Wizard": {
+   "story_role": "guardian",
+   "presentation": "spoken",
+   "spoken_text": "Your shard is tied to the wards. I cannot allow its removal until I know what it will undo.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Your shard is tied to the wards. I cannot allow its removal until I know what it will undo."
+  },
+  "Master Green Wizard": {
+   "story_role": "territorial",
+   "presentation": "spoken",
+   "spoken_text": "Nature mends what is broken. The Spire is wounded - and you are one more wound.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Nature mends what is broken. The Spire is wounded - and you are one more wound."
+  },
+  "Master Red Wizard": {
+   "story_role": "ambition",
+   "presentation": "spoken",
+   "spoken_text": "Power belongs to those bold enough to seize it. Today, that is not you.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Power belongs to those bold enough to seize it. Today, that is not you."
+  },
+  "Master White Wizard": {
+   "story_role": "guardian",
+   "presentation": "spoken",
+   "spoken_text": "Bring proof that the seal can survive your ascent. Until then, I must bar the way.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Bring proof that the seal can survive your ascent. Until then, I must bar the way."
+  },
+  "Merfolk": {
+   "story_role": "bargain",
+   "presentation": "spoken",
+   "spoken_text": "The tide in this grotto answers to the Spire. So do we - it promised to send our reef home.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "The tide in this grotto answers to the Spire. So do we - it promised to send our reef home."
+  },
+  "Merfolk Lord": {
+   "story_role": "bargain",
+   "presentation": "spoken",
+   "spoken_text": "The Spire swore our reef will flow home when the last climber falls. Forgive me - you are in the way.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "The Spire swore our reef will flow home when the last climber falls. Forgive me - you are in the way."
+  },
+  "Nahiri": {
+   "story_role": "guardian",
+   "presentation": "spoken",
+   "spoken_text": "These stones hold whole worlds in place. Show me you can free yours without shattering the rest.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "These stones hold whole worlds in place. Show me you can free yours without shattering the rest."
+  },
+  "Necromancer": {
+   "story_role": "ambition",
+   "presentation": "spoken",
+   "spoken_text": "Every fallen climber joins my collection. You would make an exquisite centrepiece.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Every fallen climber joins my collection. You would make an exquisite centrepiece."
+  },
+  "Niv-Mizzet": {
+   "story_role": "ambition",
+   "presentation": "spoken",
+   "spoken_text": "Fascinating. Your shard resonates with the Heart. I must study it - you are, regrettably, attached to it.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Fascinating. Your shard resonates with the Heart. I must study it - you are, regrettably, attached to it."
+  },
+  "Orthodoxy Angel": {
+   "story_role": "guardian",
+   "presentation": "spoken",
+   "spoken_text": "I swore to keep this threshold sealed. Your cause may be just; your passage is still forbidden.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "I swore to keep this threshold sealed. Your cause may be just; your passage is still forbidden."
+  },
+  "Pyromancer": {
+   "story_role": "ambition",
+   "presentation": "spoken",
+   "spoken_text": "The Heart Shard burns brighter than any fire. When I hold it, I will never need to bow again.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "The Heart Shard burns brighter than any fire. When I hold it, I will never need to bow again."
+  },
+  "Skeleton": {
+   "story_role": "territorial",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "Old armor scrapes; a spear lowers across the stair.",
+   "narrator_caption": "An ancient command still binds it to this threshold.",
+   "choice_text": "Old armor scrapes; a spear lowers across the stair."
+  },
+  "Sliver Queen": {
+   "story_role": "hive_defense",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "Layered chitin clicks answer a rising hive hiss.",
+   "narrator_caption": "The hive reads your ascent as a breach in its defenses.",
+   "choice_text": "Layered chitin clicks answer a rising hive hiss."
+  },
+  "Sorin": {
+   "story_role": "bargain",
+   "presentation": "spoken",
+   "spoken_text": "I was promised a path home if this threshold held. I will not lose it now.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "I was promised a path home if this threshold held. I will not lose it now."
+  },
+  "Spirit": {
+   "story_role": "caution",
+   "presentation": "spoken",
+   "spoken_text": "I followed that promise once. Please, turn back before the Spire takes your name too.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "I followed that promise once. Please, turn back before the Spire takes your name too."
+  },
+  "Teferi": {
+   "story_role": "guardian",
+   "presentation": "spoken",
+   "spoken_text": "I have seen the seal fail. Give me reason to believe your path ends differently.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "I have seen the seal fail. Give me reason to believe your path ends differently."
+  },
+  "Vampire": {
+   "story_role": "bargain",
+   "presentation": "spoken",
+   "spoken_text": "The Spire feeds me, and I feed on climbers. A fair arrangement - for one of us.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "The Spire feeds me, and I feed on climbers. A fair arrangement - for one of us."
+  },
+  "Volcano Dragon": {
+   "story_role": "ambition",
+   "presentation": "spoken",
+   "spoken_text": "The Heart Shard is the greatest treasure in any world. Dragons do not share treasure.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "The Heart Shard is the greatest treasure in any world. Dragons do not share treasure."
+  },
+  "Werewolf": {
+   "story_role": "territorial",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "A strained howl breaks into a warning snarl.",
+   "narrator_caption": "The tower has trapped it between fear and hunger.",
+   "choice_text": "A strained howl breaks into a warning snarl."
+  },
+  "Zombie Lord": {
+   "story_role": "ambition",
+   "presentation": "spoken",
+   "spoken_text": "Climb, fall, come back... the Spire forgets you. I don't. My army needs commanders.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Climb, fall, come back... the Spire forgets you. I don't. My army needs commanders."
+  },
+  "Zombie Master": {
+   "story_role": "ambition",
+   "presentation": "spoken",
+   "spoken_text": "The Spire is a graveyard of worlds. I simply keep it tidy. Lie down, commander.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "The Spire is a graveyard of worlds. I simply keep it tidy. Lie down, commander."
+  },
+  "Wilhelt": {
+   "choice_text": "Rise, my rotting kin. Another climber to join the horde.",
+   "presentation": "spoken"
+  },
+  "Ob Nixilis": {
+   "choice_text": "Every soul on this Spire is a debt. Yours is due.",
+   "presentation": "spoken"
+  },
+  "Gishath": {
+   "choice_text": "[A sun-bright roar shakes the temple steps; the whole herd answers.]",
+   "presentation": "nonverbal"
+  },
+  "Kozilek": {
+   "choice_text": "[Reality folds around you. The ground forgets which way is down.]",
+   "presentation": "nonverbal"
+  },
+  "Atraxa": {
+   "choice_text": "Every world bows to the unifier. Kneel, and be made whole.",
+   "presentation": "spoken"
+  },
+  "Heliod": {
+   "choice_text": "Mortals climb, gods judge. Show me you are worth the light.",
+   "presentation": "spoken"
+  },
+  "Iroas": {
+   "choice_text": "Victory belongs to those who charge. Come - the god of war is waiting.",
+   "presentation": "spoken"
+  },
+  "Raptor": {
+   "story_role": "territorial",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "Quick clicks in the ferns - then a whole pack of eyes.",
+   "narrator_caption": "The hatchlings hunt together.",
+   "choice_text": "Quick clicks in the ferns - then a whole pack of eyes."
+  },
+  "Dragon": {
+   "story_role": "territorial",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "A hot gust rolls out of the cave; something inside is counting its gold.",
+   "narrator_caption": "The brood guards its hoard.",
+   "choice_text": "A hot gust rolls out of the cave; something inside is counting its gold."
+  },
+  "Minor Demon": {
+   "story_role": "warning",
+   "presentation": "spoken",
+   "spoken_text": "Sign here, climber. Every step after this one is cheaper - for me.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Sign here, climber. Every step after this one is cheaper - for me."
+  },
+  "Ghost": {
+   "story_role": "warning",
+   "presentation": "spoken",
+   "spoken_text": "These halls were full of music once. Stay. You will learn to hear it.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "These halls were full of music once. Stay. You will learn to hear it."
+  },
+  "Demon": {
+   "story_role": "warning",
+   "presentation": "spoken",
+   "spoken_text": "The castle fell because someone made me a promise. You look like you keep yours.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "The castle fell because someone made me a promise. You look like you keep yours."
+  },
+  "Bloodgift Demon": {
+   "story_role": "warning",
+   "presentation": "spoken",
+   "spoken_text": "Power always has a price. I only ask for a little blood... to begin with.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Power always has a price. I only ask for a little blood... to begin with."
+  },
+  "Eldrazi": {
+   "story_role": "territorial",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "The ground ripples like water and grows white, chalky lines.",
+   "narrator_caption": "Reality is thin here.",
+   "choice_text": "The ground ripples like water and grows white, chalky lines."
+  },
+  "Angel Warrior": {
+   "story_role": "warning",
+   "presentation": "spoken",
+   "spoken_text": "The heavens sent us to judge who reaches the top. Show me your resolve.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "The heavens sent us to judge who reaches the top. Show me your resolve."
+  },
+  "Sphinx": {
+   "story_role": "warning",
+   "presentation": "spoken",
+   "spoken_text": "Answer one question, climber: what will you lose when you win?",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "Answer one question, climber: what will you lose when you win?"
+  },
+  "Sunmare": {
+   "story_role": "territorial",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "A blinding mare paws the shrine floor; the light itself seems to watch you.",
+   "narrator_caption": "A god's herald bars the way.",
+   "choice_text": "A blinding mare paws the shrine floor; the light itself seems to watch you."
+  },
+  "Eldrazi Floater": {
+   "story_role": "territorial",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "A drifting shape hums; the stones around it forget their colour.",
+   "narrator_caption": "Reality is thin here.",
+   "choice_text": "A drifting shape hums; the stones around it forget their colour."
+  },
+  "Cosmic Horror": {
+   "story_role": "territorial",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "The sky splits. Something vast leans through the crack.",
+   "narrator_caption": "Reality is torn open.",
+   "choice_text": "The sky splits. Something vast leans through the crack."
+  },
+  "Criosphinx": {
+   "story_role": "warning",
+   "presentation": "spoken",
+   "spoken_text": "The stars have already written how this ends. Shall I read it to you?",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "The stars have already written how this ends. Shall I read it to you?"
+  },
+  "Eldrazi Devastator": {
+   "story_role": "territorial",
+   "presentation": "nonverbal",
+   "spoken_text": null,
+   "sound_direction": "A towering hulk unfolds; the air bends around its limbs.",
+   "narrator_caption": "Reality is torn open.",
+   "choice_text": "A towering hulk unfolds; the air bends around its limbs."
+  },
+  "Fallen Angel": {
+   "story_role": "warning",
+   "presentation": "spoken",
+   "spoken_text": "I fell from the high court. I will not let you climb past me.",
+   "sound_direction": null,
+   "narrator_caption": null,
+   "choice_text": "I fell from the high court. I will not let you climb past me."
+  }
+ }
+}

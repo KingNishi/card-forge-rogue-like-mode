@@ -1,0 +1,831 @@
+{
+  "portrait_count": 72,
+  "sheet_count": 12,
+  "portal_count": 3,
+  "checks": [
+    {
+      "file": "ancient-vampire.png",
+      "sha256": "7bb082c252321f78a7ba8ef54b46b91e29c075f5286e4ac6571521003ff7a69e",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "vampire.png",
+      "sha256": "780327fad80d72274ba67bf3e6759e48c7fe330ef8c1398692d96459c9ac62a8",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "sorin.png",
+      "sha256": "de509b79ff5deb769ecf5973aedd488651d64c4333923334dc4027cd371e5a12",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "necromancer.png",
+      "sha256": "505133f6ff3200b04650794ce4987e1c91aee51f44d411977bbf83a72cfbb755",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "master-black-wizard.png",
+      "sha256": "5751e68592f5c45e2c016d6774ed9495c7a70331e089bb7726a8b2641f74ccd1",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "skeleton.png",
+      "sha256": "945ad4525b108f6367a4d23e88cdd177010465fe959a20dcb6762f3d0ff5f5be",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "zombie-lord.png",
+      "sha256": "59c1e4349bab5a90d29f55a747d8c6b4c8ad76bbcfbd2e3428541900976dfaaa",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "zombie-master.png",
+      "sha256": "0a20f068ae0d3eedf10da42a30fed9dc702cf8b3dad9b8d2c7dcba0e9b91d695",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "emrakul.png",
+      "sha256": "1ad5de842dba8e41ecdb2c3a937567914090b66fb2cbe0d169287f8cf65947b1",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "sliver-queen.png",
+      "sha256": "9a5015f4a5d3f2162ed965cda6b8c17a5d1bc44f6ddb7454b27b51a9472cb4da",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "illusionist.png",
+      "sha256": "03b7b351605524edf554ec9ebfe808c5f5b95f6f11d3822bf6099b8e70cae595",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "spirit.png",
+      "sha256": "a1c7087801f37c8d8e905f9a5269a68f58b1af52f381ccb419984097a59a291f",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "adept-blue-wizard.png",
+      "sha256": "f5b704025e70c7620103fbb634253b581f37ed5c80fa46059b8186067b402613",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "adept-red-wizard.png",
+      "sha256": "77bfc69e3a519729e15700d9d35e833ce0419f58ea8190ea5cc06e6f477ff463",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "master-blue-wizard.png",
+      "sha256": "351bdd826ec1e0d4980d760ec9b3e941dac8e7819c434336644918763e659d89",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "master-red-wizard.png",
+      "sha256": "e23a52bbf2d57d146083cdde0f4b179c9b68185295aea362bd12569ba17fc34d",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "teferi.png",
+      "sha256": "9c4f9e6b0bc99c6e76349433e0c96e168bfa6308da46310c046fdfe566867523",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "chandra-s-pyromancer.png",
+      "sha256": "f067a7c70bd06ac30ed836659dcb4cdb976a59028e4b8284a5880744adb15fb8",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "pyromancer.png",
+      "sha256": "b453191392f6136eed24ac4a1b00113736ba8e3c195996a0ab9bf7fa97302179",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "chandra.png",
+      "sha256": "d8ce22d3bf7b0fe013f7a1da3b8127ce44bd0719f44946932357fc000464a26d",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "niv-mizzet.png",
+      "sha256": "5cd0c4278c11e816cb7962d9e477674f815408ec3d27b7a66e325f7c5d198359",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "lathliss.png",
+      "sha256": "93141dc34939de489b74b6c24fb1a0e0b51631073df859abace7443d0ed3b19c",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "volcano-dragon.png",
+      "sha256": "47f619d90fda9fa4a7835bb9f36dc91f0abd4578e74d983d19e0df70108953f3",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "nahiri.png",
+      "sha256": "270cb88454363981d2dd39e31fad0208c355e6404aa89aeb179cd5ec0d3a9d3f",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "ghalta.png",
+      "sha256": "6286df5f8ae9fde12fe59307b052604e4fc571ff77aa4deb8006cfa966f2ea5a",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "dinosaur.png",
+      "sha256": "454db951be986de65536eaf93d53d1ed347b583ecd618664590a01bfe4017dd7",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "dinosaur-elite.png",
+      "sha256": "68818178057f034664d1222374752e1ce018b1263987c1755a2163557dda9e41",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "werewolf.png",
+      "sha256": "6ad2e29c6e5de6cb9ec8707045b614cb28b4281d67a4c7d7942eb4737a3851b3",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "bear.png",
+      "sha256": "1e06e6498405b74e49af37baebce9ed4db68565e213c47e6ebf4826e96deaca4",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "dog.png",
+      "sha256": "cd74d5e6a3f65fd1cf09e9e6cb12741b673fe8e80a4d34255bea475e67d99db1",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "elf.png",
+      "sha256": "3d95883f1113f9f6ee8d4bdca83df671a38279661ec519b0a675526578940697",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "high-elf.png",
+      "sha256": "c56faff416d45375f4d603bca417afe52be16b2cd85fa65bb142e0858a2af0eb",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "master-green-wizard.png",
+      "sha256": "35bdad888452df671100526588d351334d31120174d50226066e93cfd32f89b0",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "guardian-angel.png",
+      "sha256": "18ce35c4e4343c8a850f4f438e824798443da20406db4d237bb0cd53968f983d",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "orthodoxy-angel.png",
+      "sha256": "1345fe257f3828731b5800630ca44c726d1429b770e180790d4b10c10f722ce2",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "master-white-wizard.png",
+      "sha256": "5d061a65a84bf7fbfdb84e3a8ebdf4720e9e448d0a404e892308d2d24f072ed8",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "goblin.png",
+      "sha256": "c2aa8b97b0f35eb14df2628750cc4102c2bc89585b4e9aeb02bf48ec4433aed7",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "goblin-chief.png",
+      "sha256": "cdfa163ed7a4b3c0a9f5d0d1fcca600fc0729d0ddf1f6869106139d0adb0c8e2",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "goblin-king.png",
+      "sha256": "75303036bb00ebc156ad41de30b6f88a1b20bd7f22ece3bc9589555a89c4b558",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "goblin-artificer.png",
+      "sha256": "b4563beb09b46e4707f62040640586cde6e76a77310b3570ed5f68847a5bdddd",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "esper-artificer.png",
+      "sha256": "4bf72ec9b9556533dcd9bbc08b389cdd6645136865572bcd19cc3031f79c5941",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "kor-warrior.png",
+      "sha256": "8c0041d5970b91f13ee661be75c9f9b2cfa21752d35d1d7f53eb7d0080f3ab7c",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "merfolk.png",
+      "sha256": "2380a22c09c0da59d08b7cb410e892e3ec180a94bf23178882a2b42a146b1d19",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "merfolk-lord.png",
+      "sha256": "d6bdb38259e69cb2cab1353f4bb68c2329f8c3c824636be7b813f0c1c14ceb12",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "bird.png",
+      "sha256": "065918ead9418aea005c6390579de168278a84482e2e31d15cec8197933a0cd0",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "griffin.png",
+      "sha256": "09fcfaaef63c2c4255ca69882e867673fcf78e4cc42d8e3913840a971d996fce",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "cat.png",
+      "sha256": "77f3e71802bcc8a38d6822f45b139f3fc8a183d12e362f5602fb7e3334c1f5ea",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "knight.png",
+      "sha256": "2b40b3c47e411a8bbd343f6dfe7bf504c6ab530335a9347e6d6d7d0b77f62fab",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "file": "../portal/portal-frame.png",
+      "sha256": "4d181ab3c91f99ede4917d7f56a8e8cf544ecef44df369ba9c2ad82102c499c4",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        52,
+        58,
+        972,
+        966
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "../portal/portal-vortex.png",
+      "sha256": "386782d5e0d5ce4fd995b99584ebbaa749f4c3b6ad83fcaa6c3611a6b632e18e",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        187,
+        187,
+        837,
+        837
+      ],
+      "alpha_extrema": [
+        0,
+        253
+      ]
+    },
+    {
+      "file": "../portal/portal-glow.png",
+      "sha256": "8105ce00d866ef40b7e577eb747f24c81dcbde901b89b60319603f11104da1f9",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1024,
+        1024
+      ],
+      "alpha_extrema": [
+        0,
+        253
+      ]
+    },
+    {
+      "file": "raptor.png",
+      "sha256": "3ae1eea24dc955cf821ef22568296dc3558d99a2735b3721c884df6df83f0816",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_9.png",
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "dragon.png",
+      "sha256": "59a4ed8458feb57e9a02f59844c7e98cb8bd406cb6f31d9f1bfc59d92168f911",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_9.png",
+      "crop": [
+        512,
+        0,
+        1024,
+        512
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "minor-demon.png",
+      "sha256": "0ba2030c672631a5eb8bd7b993e516fd0fdd93a2a7347658c389a3f34e625e60",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_9.png",
+      "crop": [
+        1024,
+        0,
+        1536,
+        512
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "ghost.png",
+      "sha256": "b25e358081e14e863e67e9bb4b1002880857b4621a9e1e5ef9842444387e049d",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_9.png",
+      "crop": [
+        0,
+        512,
+        512,
+        1024
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "demon.png",
+      "sha256": "567f8b5871cb0002cd9d66bf8353825d81aa134dbab3fb321fa03649410e167f",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_9.png",
+      "crop": [
+        512,
+        512,
+        1024,
+        1024
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "bloodgift-demon.png",
+      "sha256": "60d45f60c63b11baa25ec6cd33bb2480f11ef0923e101ab08702a8777c39c5ae",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_9.png",
+      "crop": [
+        1024,
+        512,
+        1536,
+        1024
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "eldrazi.png",
+      "sha256": "a642132136256111fc8c5fc05c1b28132821b67f9159fcbeedceab74d56299dd",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_10.png",
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "angel-warrior.png",
+      "sha256": "033f73d9ead2bdd8e1e17cfae2f1b61b7cfcb3e05a63ebcbf1be0efccff44b94",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_10.png",
+      "crop": [
+        512,
+        0,
+        1024,
+        512
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "sphinx.png",
+      "sha256": "5111cacc672daae3edf6e93ec40d5de4db1c81421d87687669adf825a6d8d487",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_10.png",
+      "crop": [
+        1024,
+        0,
+        1536,
+        512
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "sunmare.png",
+      "sha256": "01c2ec20400cd59cd993696a1aa5bf1385f7fce58491b44c8c8f428a2f527449",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_10.png",
+      "crop": [
+        0,
+        512,
+        512,
+        1024
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "eldrazi-floater.png",
+      "sha256": "618832d8b5cdb74cf974e097941612e1f77af202d85f922c9ae50c7331127b45",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_10.png",
+      "crop": [
+        512,
+        512,
+        1024,
+        1024
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "cosmic-horror.png",
+      "sha256": "64b2bdfc09a5bcc03a47a693353aae14918927f038fcc27a3582f29e69277aaf",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_10.png",
+      "crop": [
+        1024,
+        512,
+        1536,
+        1024
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "criosphinx.png",
+      "sha256": "60dcb8ef475f295101ed34a026b488760dfcc9729ff2439bad9eb08ee91d022f",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_11.png",
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "eldrazi-devastator.png",
+      "sha256": "19c11b59a0af8d6e5bf2ea1ee0ad133f06c6711082092054255959addc2f67f6",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_11.png",
+      "crop": [
+        512,
+        0,
+        1024,
+        512
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "fallen-angel.png",
+      "sha256": "1327748ad4207659d71c810631d340dd4f38ac4451d28d383202d6021cf34eef",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_11.png",
+      "crop": [
+        1024,
+        0,
+        1536,
+        512
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "wilhelt.png",
+      "sha256": "9694dce4f5781600e4153eaab81b984f9ea975953a1da6c23c479457a9bee919",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_11.png",
+      "crop": [
+        0,
+        512,
+        512,
+        1024
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "ob-nixilis.png",
+      "sha256": "68edd54a4f76db6335a1d80c1d884a76770399ed4a9755c016ea4fe848e86d8f",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_11.png",
+      "crop": [
+        512,
+        512,
+        1024,
+        1024
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "gishath.png",
+      "sha256": "0ba1df69c22112d6a069265458e85f79ace7c78db4a4bf2ee49f982e34bd6da8",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_11.png",
+      "crop": [
+        1024,
+        512,
+        1536,
+        1024
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "kozilek.png",
+      "sha256": "97eaf057e9103f84868b66d7d7ef75817b6106f175ff0d48bea5487f12c3aeca",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_12.png",
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "atraxa.png",
+      "sha256": "39bcc81a45e5be0fc68f724dd3830580e6e6840119bd71ebe5e4dc446fba73dd",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_12.png",
+      "crop": [
+        512,
+        0,
+        1024,
+        512
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "iroas.png",
+      "sha256": "8f6429f94563b6a2eb61921ae4352168934c66dfd88ca76f59d92be7ea6e42ad",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_12.png",
+      "crop": [
+        1024,
+        0,
+        1536,
+        512
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "heliod.png",
+      "sha256": "1ceaf84530af39ffce32df1e87d4f6dbed72eab54dc91bc2b414b271dc7dafbc",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_12.png",
+      "crop": [
+        0,
+        512,
+        512,
+        1024
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "lich.png",
+      "sha256": "6877db143d46c5eff712eb314447cca52a5d51276fe7d5274e881346c86714ee",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_12.png",
+      "crop": [
+        512,
+        512,
+        1024,
+        1024
+      ],
+      "lossless_crop": true
+    },
+    {
+      "file": "ghoul.png",
+      "sha256": "44195a8bfedfa6dc8b3cdabe96377db7f0655383ef2bb82d5bad67dfb93cfad8",
+      "size": [
+        512,
+        512
+      ],
+      "sheet": "sheets/sheet_12.png",
+      "crop": [
+        1024,
+        512,
+        1536,
+        1024
+      ],
+      "lossless_crop": true
+    }
+  ],
+  "original_48_unchanged": true,
+  "new_portraits_lossless": true
+}

@@ -43,7 +43,11 @@ public final class BattleZoomMod {
   try{Method m=p.getClass().getDeclaredMethod("battleOriginalZoom",float.class,float.class,float.class);m.setAccessible(true);return (Boolean)m.invoke(p,x,y,a);}
   catch(InvocationTargetException e){throw new IllegalStateException(e.getCause());}catch(ReflectiveOperationException e){throw new IllegalStateException(e);}
  }
+ private static Method battleKey;
  public static boolean key(MatchScreen screen,int key){
+  // keyboard shortcuts from Settings > Keys (ArenaBattleHudMod, installed by a later step: reflection)
+  try{if(battleKey==null)battleKey=Class.forName("forge.adventure.util.ArenaBattleHudMod").getMethod("battleKey",int.class);
+   if((Boolean)battleKey.invoke(null,key))return true;}catch(Throwable ignored){}
   if(ArenaMotionMod.active()&&Gdx.input!=null&&(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)||Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT))){
    if(key==Input.Keys.PLUS||key==Input.Keys.EQUALS||key==Input.Keys.NUMPAD_ADD){setScale(scale*1.10f);return true;}
    if(key==Input.Keys.MINUS||key==Input.Keys.NUMPAD_SUBTRACT){setScale(scale/1.10f);return true;}

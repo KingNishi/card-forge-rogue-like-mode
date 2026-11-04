@@ -1,0 +1,155 @@
+{
+  "ghalta": {
+    "battle": [],
+    "commander": [],
+    "death": [],
+    "victory": [],
+    "defeat": []
+  },
+  "nahiri": {
+    "battle": [
+      "Stone remembers every wound. Shall we add yours?",
+      "You stand between me and my purpose. Move."
+    ],
+    "commander": [
+      "My blades answer to no one else.",
+      "The mountain moves at my command."
+    ],
+    "death": [
+      "Even stone can fracture.",
+      "My work is not yet finished."
+    ],
+    "victory": [
+      "Your defiance broke before my blades.",
+      "The stone stands. You do not."
+    ],
+    "defeat": [
+      "You have won this battle. Remember that distinction.",
+      "A broken blade can be forged again."
+    ]
+  },
+  "niv-mizzet": {
+    "battle": [
+      "Do try to present an interesting problem.",
+      "Your strategy has several obvious flaws. Proceed."
+    ],
+    "commander": [
+      "Allow me to demonstrate superior reasoning.",
+      "Intellect, fire, and absolute precision."
+    ],
+    "death": [
+      "An unexpected variable. How irritating.",
+      "This interruption is beneath me."
+    ],
+    "victory": [
+      "The conclusion was never in doubt.",
+      "Your failure has confirmed my hypothesis."
+    ],
+    "defeat": [
+      "An anomaly worth investigating. Nothing more.",
+      "I shall account for that variable next time."
+    ]
+  },
+  "sorin": {
+    "battle": [
+      "I have outlived far greater threats than you.",
+      "Even your courage has a short lifespan."
+    ],
+    "commander": [
+      "My patience has finally run dry.",
+      "Kneel, while you still have the strength."
+    ],
+    "death": [
+      "You mistake this wound for an ending.",
+      "I have endured far worse."
+    ],
+    "victory": [
+      "Another brief life, spent so carelessly.",
+      "In the end, even defiance falls silent."
+    ],
+    "defeat": [
+      "Savor this victory. It will not last.",
+      "You have earned my attention. Regrettably."
+    ]
+  },
+  "teferi": {
+    "battle": [
+      "Take your time. I have already borrowed some.",
+      "Let us see what you do with this moment."
+    ],
+    "commander": [
+      "I believe this is my moment.",
+      "A little patience changes everything."
+    ],
+    "death": [
+      "That was rather poorly timed.",
+      "I may need a moment to recover."
+    ],
+    "victory": [
+      "You rushed. That makes all the difference.",
+      "A little foresight goes a very long way."
+    ],
+    "defeat": [
+      "Well played. Even I cannot foresee everything.",
+      "That was your moment. You used it well."
+    ]
+  },
+  "lathliss": {
+    "battle": [
+      "You trespass beneath the wings of a queen.",
+      "My brood will darken your last sunrise."
+    ],
+    "commander": [
+      "Let every wing answer its queen!",
+      "The skies belong to my brood."
+    ],
+    "death": [
+      "My brood will remember this wound.",
+      "You have not silenced the sky."
+    ],
+    "victory": [
+      "Ashes are all that remain of your challenge.",
+      "No crown is won by challenging mine."
+    ],
+    "defeat": [
+      "My wings may falter. My brood endures.",
+      "You have wounded a queen. Remember the cost."
+    ]
+  },
+  "chandra": {
+    "battle": [
+      "Hope you brought a plan that survives fire!",
+      "Ready? Because I am done holding back!"
+    ],
+    "commander": [
+      "My turn to turn up the heat!",
+      "Nobody gets to put out my spark!"
+    ],
+    "death": [
+      "Okay, that one actually hurt!",
+      "Still got a little fire left."
+    ],
+    "victory": [
+      "Whew! That is what I call a warmup!",
+      "Next time, try something less flammable!"
+    ],
+    "defeat": [
+      "Okay, you got me. That was pretty good.",
+      "Fine, you win. I am still burning bright!"
+    ]
+  },
+  "sliver-queen": {
+    "battle": [],
+    "commander": [],
+    "death": [],
+    "victory": [],
+    "defeat": []
+  },
+  "emrakul": {
+    "battle": [],
+    "commander": [],
+    "death": [],
+    "victory": [],
+    "defeat": []
+  }
+}

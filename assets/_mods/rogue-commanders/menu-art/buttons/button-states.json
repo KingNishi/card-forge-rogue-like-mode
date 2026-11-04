@@ -1,0 +1,21 @@
+{
+  "file": "button-states.png",
+  "width": 1760,
+  "height": 832,
+  "states": [
+    "normal",
+    "hover",
+    "pressed",
+    "disabled"
+  ],
+  "cell": [
+    1760,
+    208
+  ],
+  "endcap": 310,
+  "top": 40,
+  "bottom": 40,
+  "source": "states-source.png",
+  "sha256": "feafe6572ffe848966746900287debacb8429ce0c0fd954a637cf72ed3c492b3",
+  "notes": "Direct crop/pad of approved generated state sheet; no artwork redrawn. Native alpha preserved."
+}

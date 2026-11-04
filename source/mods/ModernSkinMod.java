@@ -168,10 +168,26 @@ public final class ModernSkinMod {
     private static void replace(Skin skin, String name, Drawable old,
             IdentityHashMap<Drawable, Drawable> replacements) {
         String lower = name.toLowerCase(java.util.Locale.ROOT);
+        if (lower.equals("unpressedround") || lower.equals("pressedround")) return;
         int variant = lower.contains("disable") ? 3 : lower.contains("hover") ||
             lower.contains("focus") || lower.contains("selected") ? 1 :
-            lower.contains("pressed") && !lower.contains("unpressed") || lower.contains("down") ? 2 : 0;
+            lower.contains("pressed") && !lower.contains("unpressed") || lower.contains("down") ||
+            lower.equals("bkey_3_14") ? 2 : 0;
         if (lower.startsWith("scroll") || lower.equals("select")) variant = 1;
+        // Only rectangular button surfaces use the image atlas. Preserve round hints,
+        // dropdown arrows, check symbols, inventory slots and all window resources.
+        boolean rectangularButton = !lower.contains("sb") && !lower.contains("selectbox") &&
+            !lower.contains("round") && (lower.startsWith("unpressed") ||
+            lower.startsWith("pressed") || lower.startsWith("goldpressed") ||
+            lower.equals("bkey_3_9") || lower.equals("bkey_3_14") ||
+            lower.equals("button10patch") || lower.startsWith("button_down_") ||
+            lower.startsWith("button_hover_"));
+        if (rectangularButton && FantasyButtonArt.available()) {
+            Drawable replacement = FantasyButtonArt.drawable(old, variant, lower.contains("gold") || lower.startsWith("bkey_3_"));
+            replacements.put(old, replacement);
+            skin.add(name, replacement, Drawable.class);
+            return;
+        }
         TextureRegion symbol = null;
         if (lower.startsWith("left") || lower.startsWith("right") || lower.equals("check") || lower.equals("uncheck"))
             symbol = icon(skin, name, lower);

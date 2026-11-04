@@ -1,0 +1,290 @@
+﻿[
+    {
+        "id":  "castle",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  49819,
+        "alpha1to239Pixels":  939,
+        "alpha240to255Pixels":  14778,
+        "bounds":  [
+                       56,
+                       16,
+                       128,
+                       224
+                   ],
+        "bytes":  51154,
+        "sha256":  "ae9692327e4ce999c8e17951ed2d82154ae790194d01c9991052aab0baad9b73"
+    },
+    {
+        "id":  "graveyard",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  51142,
+        "alpha1to239Pixels":  761,
+        "alpha240to255Pixels":  13633,
+        "bounds":  [
+                       60,
+                       29,
+                       138,
+                       196
+                   ],
+        "bytes":  48469,
+        "sha256":  "af70607fb20b21d71d1c6401d0b66b83ebfce0357bea736b57041ac3e8f8c375"
+    },
+    {
+        "id":  "crypt",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  41993,
+        "alpha1to239Pixels":  814,
+        "alpha240to255Pixels":  22729,
+        "bounds":  [
+                       22,
+                       55,
+                       216,
+                       176
+                   ],
+        "bytes":  72426,
+        "sha256":  "233e91bcd94850967ca5a99107dbb7806da95a9dcb2839e0bc71618fe7f89ac2"
+    },
+    {
+        "id":  "backyard",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  43257,
+        "alpha1to239Pixels":  1162,
+        "alpha240to255Pixels":  21117,
+        "bounds":  [
+                       27,
+                       16,
+                       207,
+                       224
+                   ],
+        "bytes":  70932,
+        "sha256":  "05649f6d0e029bee434d3d9e38f342262ebe59f1dc6cf5e36c51b12ede554bf5"
+    },
+    {
+        "id":  "den",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  37124,
+        "alpha1to239Pixels":  894,
+        "alpha240to255Pixels":  27518,
+        "bounds":  [
+                       17,
+                       16,
+                       221,
+                       224
+                   ],
+        "bytes":  91106,
+        "sha256":  "2220e7ff88772368a9976f42d2235a4c6cd3d5380783f0e2f113bbf30509e1eb"
+    },
+    {
+        "id":  "mystic-forest",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  41128,
+        "alpha1to239Pixels":  2569,
+        "alpha240to255Pixels":  21839,
+        "bounds":  [
+                       21,
+                       21,
+                       214,
+                       217
+                   ],
+        "bytes":  83222,
+        "sha256":  "bea41928a66b5e2640d1143c6187a301666a9ecd1d0d5936b1bb88408958de67"
+    },
+    {
+        "id":  "aerie",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  43892,
+        "alpha1to239Pixels":  1488,
+        "alpha240to255Pixels":  20156,
+        "bounds":  [
+                       42,
+                       20,
+                       185,
+                       216
+                   ],
+        "bytes":  73744,
+        "sha256":  "f3a7a226d865d10ce27611a49345eff72ec8c0ad55e77e7673698337ef710eaf"
+    },
+    {
+        "id":  "grotto",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  37832,
+        "alpha1to239Pixels":  838,
+        "alpha240to255Pixels":  26866,
+        "bounds":  [
+                       16,
+                       34,
+                       223,
+                       200
+                   ],
+        "bytes":  93902,
+        "sha256":  "bb60799b8608a63570fd6b2b0d26119ccef44f60e82b9b7126b4f8d5518784be"
+    },
+    {
+        "id":  "jungle",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  39204,
+        "alpha1to239Pixels":  1925,
+        "alpha240to255Pixels":  24407,
+        "bounds":  [
+                       16,
+                       20,
+                       218,
+                       212
+                   ],
+        "bytes":  88790,
+        "sha256":  "31b84c44a39d69ae6a4d8495658d3289b7f5a3c5a50d9c220529fb00298e2db8"
+    },
+    {
+        "id":  "ruins",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  46498,
+        "alpha1to239Pixels":  933,
+        "alpha240to255Pixels":  18105,
+        "bounds":  [
+                       20,
+                       20,
+                       201,
+                       214
+                   ],
+        "bytes":  67249,
+        "sha256":  "ec466a623ce00782c0c7eaa9289b044b5271ec0c70a09d1aabeb359b99a95f0a"
+    },
+    {
+        "id":  "fire-temple",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  48554,
+        "alpha1to239Pixels":  1027,
+        "alpha240to255Pixels":  15955,
+        "bounds":  [
+                       23,
+                       19,
+                       174,
+                       213
+                   ],
+        "bytes":  56277,
+        "sha256":  "d8a3f11e0acbbf7abdabce6e04f9e1a4c26991e23deb95e8cdf27a259f262035"
+    },
+    {
+        "id":  "warren",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  41581,
+        "alpha1to239Pixels":  1393,
+        "alpha240to255Pixels":  22562,
+        "bounds":  [
+                       22,
+                       25,
+                       215,
+                       213
+                   ],
+        "bytes":  77640,
+        "sha256":  "bfb910f35db2ca7e3a1acb356ae90475fa77d18dbc55acf46c07bed5cfbbd77e"
+    },
+    {
+        "id":  "workshop",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  38839,
+        "alpha1to239Pixels":  1112,
+        "alpha240to255Pixels":  25585,
+        "bounds":  [
+                       27,
+                       18,
+                       210,
+                       215
+                   ],
+        "bytes":  84429,
+        "sha256":  "12b7373166437f981c088045c801ead982b3591a14e220b812315ba4e5bec86d"
+    },
+    {
+        "id":  "library",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  42251,
+        "alpha1to239Pixels":  1334,
+        "alpha240to255Pixels":  21951,
+        "bounds":  [
+                       34,
+                       17,
+                       197,
+                       216
+                   ],
+        "bytes":  77278,
+        "sha256":  "21e4b666d23664d2d746cf858c896ecea08484acd118d71c6e9f4ecee4b98d23"
+    },
+    {
+        "id":  "cathedral",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  41492,
+        "alpha1to239Pixels":  1065,
+        "alpha240to255Pixels":  22979,
+        "bounds":  [
+                       18,
+                       16,
+                       211,
+                       212
+                   ],
+        "bytes":  76353,
+        "sha256":  "0ff322284a68c9214fabb1289e6900a2a80ba5a9fb1c2f77dead436bdf0af4e2"
+    },
+    {
+        "id":  "dragon-lair",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  47246,
+        "alpha1to239Pixels":  1182,
+        "alpha240to255Pixels":  17108,
+        "bounds":  [
+                       25,
+                       39,
+                       209,
+                       192
+                   ],
+        "bytes":  65156,
+        "sha256":  "ed746a0b0f819c9f702847baad2c565598d99d2d1fa30b07405ba5e489636d9d"
+    },
+    {
+        "id":  "hive",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  44250,
+        "alpha1to239Pixels":  971,
+        "alpha240to255Pixels":  20315,
+        "bounds":  [
+                       39,
+                       24,
+                       182,
+                       206
+                   ],
+        "bytes":  70399,
+        "sha256":  "1f28ccf5fbc9a722b94dd7449e17764da78ccc77c8559a073afa2120338c43ba"
+    },
+    {
+        "id":  "void",
+        "width":  256,
+        "height":  256,
+        "transparentPixels":  54502,
+        "alpha1to239Pixels":  1052,
+        "alpha240to255Pixels":  9982,
+        "bounds":  [
+                       56,
+                       16,
+                       141,
+                       210
+                   ],
+        "bytes":  39153,
+        "sha256":  "ad43cd99201c6501b95248e2e42f6bc6ea720bfc99220da939e3d11afcbed86a"
+    }
+]

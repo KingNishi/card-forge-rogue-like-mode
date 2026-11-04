@@ -1,0 +1,86 @@
+[
+  {
+    "file": "road-act1.png",
+    "size": [
+      1024,
+      256
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 111884,
+    "partial_pixels": 150256,
+    "near_opaque_pixels": 132362,
+    "alpha_bounds": [
+      0,
+      45,
+      1024,
+      214
+    ],
+    "sha256": "305524348e68d72487f8e9f9cf77fb3b1837c19d906dc7a6b2a661c97fdd75c9",
+    "horizontal_edge_rgba_max_difference": 0,
+    "seam_neighbor_mae": 0.0,
+    "interior_neighbor_mae": 6.1597,
+    "top_bottom_alpha_zero": true
+  },
+  {
+    "file": "road-act2.png",
+    "size": [
+      1024,
+      256
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 117131,
+    "partial_pixels": 145002,
+    "near_opaque_pixels": 132275,
+    "alpha_bounds": [
+      0,
+      53,
+      1024,
+      209
+    ],
+    "sha256": "9dd43964aaab64351d628878ab5fa4553e4bcb891b090006fa0dba4c6fac56ac",
+    "horizontal_edge_rgba_max_difference": 0,
+    "seam_neighbor_mae": 0.0,
+    "interior_neighbor_mae": 5.9162,
+    "top_bottom_alpha_zero": true
+  },
+  {
+    "file": "road-act3.png",
+    "size": [
+      1024,
+      256
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 114693,
+    "partial_pixels": 147436,
+    "near_opaque_pixels": 130165,
+    "alpha_bounds": [
+      0,
+      42,
+      1024,
+      211
+    ],
+    "sha256": "2a4893ed5eac961d433cc226edef12cfb1b5e538f3c53e660adb21855d7afe3e",
+    "horizontal_edge_rgba_max_difference": 0,
+    "seam_neighbor_mae": 0.0,
+    "interior_neighbor_mae": 6.4657,
+    "top_bottom_alpha_zero": true
+  },
+  {
+    "file": "lantern.png",
+    "size": [
+      128,
+      256
+    ],
+    "mode": "RGBA",
+    "transparent_pixels": 18598,
+    "partial_pixels": 13801,
+    "near_opaque_pixels": 10101,
+    "alpha_bounds": [
+      14,
+      12,
+      114,
+      238
+    ],
+    "sha256": "d81449b3bae36c3f0dd6ba245f72e2fc7253919653142a14550d2c5367a5e4f9"
+  }
+]

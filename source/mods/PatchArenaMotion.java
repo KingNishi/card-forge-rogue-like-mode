@@ -5,6 +5,24 @@ public class PatchArenaMotion {
  static final String H="forge/adventure/util/ArenaMotionMod";
  public static void main(String[] args)throws Exception{
   ClassNode c=new ClassNode();new ClassReader(Files.readAllBytes(Paths.get(args[0]))).accept(c,0);int changes=0;
+  for(MethodNode m:c.methods){
+   String method=c.name.equals("forge/screens/match/views/VZoneDisplay")&&m.name.equals("update")&&m.desc.equals("()V")?"handUpdated":
+    c.name.equals("forge/screens/match/views/VCardDisplayArea$CardAreaPanel")&&m.name.equals("draw")&&m.desc.equals("(Lforge/Graphics;)V")?"handPanel":null;
+   if(method==null)continue;
+   boolean exists=false;for(AbstractInsnNode n:m.instructions.toArray())if(n instanceof MethodInsnNode call&&call.owner.equals(H)&&call.name.equals(method))exists=true;
+   if(exists)continue;
+   String desc=method.equals("handUpdated")?"(Lforge/screens/match/views/VZoneDisplay;)V":"(Lforge/screens/match/views/VCardDisplayArea$CardAreaPanel;)V";
+   if(method.equals("handPanel")){InsnList a=new InsnList();a.add(new VarInsnNode(Opcodes.ALOAD,0));a.add(new MethodInsnNode(Opcodes.INVOKESTATIC,H,method,desc,false));m.instructions.insert(a);changes++;}
+   else for(AbstractInsnNode n:m.instructions.toArray())if(n.getOpcode()==Opcodes.RETURN){InsnList a=new InsnList();a.add(new VarInsnNode(Opcodes.ALOAD,0));a.add(new MethodInsnNode(Opcodes.INVOKESTATIC,H,method,desc,false));m.instructions.insertBefore(n,a);changes++;}
+  }
+  if(c.name.equals("forge/screens/match/views/VCardDisplayArea$CardAreaPanel"))   // planeswalker ready glow after the card is drawn
+   for(MethodNode m:c.methods){
+    if(!m.name.equals("draw")||!m.desc.equals("(Lforge/Graphics;)V"))continue;
+    boolean has=false;for(AbstractInsnNode n:m.instructions.toArray())if(n instanceof MethodInsnNode call&&call.owner.equals(H)&&call.name.equals("panelDrawn"))has=true;
+    if(has)continue;
+    for(AbstractInsnNode n:m.instructions.toArray())if(n.getOpcode()==Opcodes.RETURN){InsnList a=new InsnList();a.add(new VarInsnNode(Opcodes.ALOAD,0));a.add(new VarInsnNode(Opcodes.ALOAD,1));
+     a.add(new MethodInsnNode(Opcodes.INVOKESTATIC,H,"panelDrawn","(Lforge/screens/match/views/VCardDisplayArea$CardAreaPanel;Lforge/Graphics;)V",false));m.instructions.insertBefore(n,a);changes++;}
+   }
   if(c.name.equals("forge/screens/match/CardFlightOverlay")){
    for(String name:new String[]{"drawEnter","drawLeave"}){
     String original="arenaOriginal"+Character.toUpperCase(name.charAt(0))+name.substring(1);

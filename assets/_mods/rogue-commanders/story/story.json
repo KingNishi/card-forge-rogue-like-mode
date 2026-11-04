@@ -1,0 +1,155 @@
+{
+  "status": "design_and_audio_only_not_applied",
+  "language": "en",
+  "speaker": "The Portal Mage",
+  "voice_direction": "Intimate, weary confidence. A former guardian hiding guilt; grounded speech, not booming villain narration.",
+  "chapters": [
+    {
+      "id": "act1",
+      "title": "A world out of place",
+      "trigger": "first run introduction",
+      "beats": [
+        {
+          "id": "act1_01",
+          "text": "That forest shouldn't be here."
+        },
+        {
+          "id": "act1_02",
+          "text": "The Spire took it. Just as it took a piece of your home."
+        },
+        {
+          "id": "act1_03_v2",
+          "text": "At its summit, the Heart can send one stolen shard home."
+        },
+        {
+          "id": "act1_04",
+          "text": "Reach it. Before there is nothing left to send you home to."
+        },
+        {
+          "id": "act1_05",
+          "text": "If you fall, the portal pulls you back. Your relics keep the memory."
+        }
+      ]
+    },
+    {
+      "id": "act2",
+      "title": "The price of passage",
+      "trigger": "act2 threshold",
+      "beats": [
+        {
+          "id": "act2_01",
+          "text": "Those wards are failing. The guardians know it."
+        },
+        {
+          "id": "act2_02",
+          "text": "They think taking your shard will break what still holds."
+        },
+        {
+          "id": "act2_03",
+          "text": "They're right. Tear it out, and other worlds fall with it."
+        },
+        {
+          "id": "act2_04",
+          "text": "But reach the Heart, and you can open the prison without breaking it."
+        }
+      ]
+    },
+    {
+      "id": "act3",
+      "title": "The Warden's confession",
+      "trigger": "act3 threshold, not immediate boss identity reveal",
+      "beats": [
+        {
+          "id": "act3_01",
+          "text": "I was a Warden once."
+        },
+        {
+          "id": "act3_02",
+          "text": "I kept the doors closed. I told myself the worlds inside were safe."
+        },
+        {
+          "id": "act3_03",
+          "text": "Then I heard them disappear, one by one."
+        },
+        {
+          "id": "act3_04",
+          "text": "Stop whoever holds the Heart. Bring your people home."
+        }
+      ]
+    },
+    {
+      "id": "ending",
+      "title": "A sky remembered",
+      "trigger": "successful normal ending; do not promise every world is permanently freed",
+      "beats": [
+        {
+          "id": "ending_01_v3",
+          "text": "A piece of your world is home again."
+        },
+        {
+          "id": "ending_02_v2",
+          "text": "One shard is safe. There are others still inside."
+        }
+      ]
+    },
+    {
+      "id": "curse",
+      "title": "Something beyond the walls",
+      "trigger": "curse-mode final confrontation reveal only",
+      "beats": [
+        {
+          "id": "curse_01",
+          "text": "That isn't the tower moving. Something outside is trying to get in."
+        },
+        {
+          "id": "curse_02",
+          "text": "Close the breach. Do not let it follow you home."
+        }
+      ]
+    },
+    {
+      "id": "failure",
+      "title": "The tether holds",
+      "trigger": "terminal failed run only, once on return",
+      "beats": [
+        {
+          "id": "failure_01",
+          "text": "I pulled you out when your tether broke."
+        },
+        {
+          "id": "failure_02",
+          "text": "You lost the path, not your chance. Rest. We can try again."
+        }
+      ]
+    },
+    {
+      "id": "retry",
+      "title": "Another attempt",
+      "trigger": "new run after failure; brief replacement for first-run exposition",
+      "beats": [
+        {
+          "id": "retry_01",
+          "text": "The Spire has shifted. The goal hasn't. This time, we go further."
+        }
+      ]
+    },
+    {
+      "id": "return",
+      "title": "Another world waits",
+      "trigger": "new run after completed run; brief replacement for first-run exposition",
+      "beats": [
+        {
+          "id": "return_01",
+          "text": "One shard returned. Another is still waiting. You know the way in."
+        }
+      ]
+    }
+  ],
+  "loop_rules": {
+    "success": "One run returns one captive shard, not every world. Other fragments remain.",
+    "failure": "The portal tether collapses under defeat and pulls the traveler back; this does not promise literal immortality.",
+    "retry": "The Spire rearranges its passageways. A fresh expedition is needed; permanent progress remains per actual game rules.",
+    "simple_branching": "Use only previous completed/failed run outcome, not floor-specific generated dialogues. Failed-run return is two short beats; next run one lightly changed greeting.",
+    "replay_policy": "Do not replay act1 explanation every run. First run gets act1; later runs get retry or return. Act2/3 can use existing story-skip setting."
+  }
+}

@@ -64,12 +64,32 @@ public final class ZoneTabStyleMod {
   return null;                                     // mana pool tab: Forge's own drawing
  }
 
+ /** mana pool tile in the same style: a small five-colour mana symbol instead of Forge's "M" (user 2026-10-16) */
+ static boolean drawMana(VPlayerPanel.InfoTab tab,Graphics g,float w,float h){
+  String value=tab.value==null?"":tab.value;boolean empty=value.isEmpty()||"0".equals(value),open=tab.isSelected();
+  Color base=open?BG_OPEN:tab.isHovered()?BG_HOVER:BG;float r=Math.min(h*.22f,9),lw=Math.max(1.5f,h*.05f);
+  // named, and glowing while mana floats in the pool (tester 2026-10-19: "Wo ist mana in pool??")
+  if(!empty){float pulse=.5f+.5f*(float)Math.sin(System.currentTimeMillis()/220.0);g.fillRoundRect(new Color(GOLD.r,GOLD.g,GOLD.b,.25f+.3f*pulse),-3*lw,-3*lw,w+6*lw,h+6*lw,r+3*lw);}
+  g.drawText("Mana pool",FSkinFont.forHeight(h*.44f),empty?Color.valueOf("c9c1b0"):GOLD,-w*1.7f,0,w*1.7f-h*.22f,h,false,Align.right,true);
+  g.fillRoundRect(mix(base,GOLD,open?.8f:.38f),0,0,w,h,r);g.fillRoundRect(base,lw,lw,w-2*lw,h-2*lw,Math.max(0,r-lw));
+  float bs=h-4*lw,cx=2*lw+bs/2,cy=h/2,rad=bs*.40f;
+  Color[] pips={Color.valueOf("f4efd2"),Color.valueOf("3d8fd6"),Color.valueOf("5a4d55"),Color.valueOf("e0483c"),Color.valueOf("2f9a5a")};
+  g.fillCircle(Color.valueOf("0b0d12"),cx,cy,rad+lw);
+  for(int k=0;k<5;k++){double a0=Math.toRadians(-90+k*72),a1=Math.toRadians(-90+(k+1)*72);
+   for(int i=0;i<6;i++){double t0=a0+(a1-a0)*i/6,t1=a0+(a1-a0)*(i+1)/6;
+    g.fillTriangle(empty?mix(base,pips[k],.55f):pips[k],cx,cy,cx+(float)Math.cos(t0)*rad,cy+(float)Math.sin(t0)*rad,cx+(float)Math.cos(t1)*rad,cy+(float)Math.sin(t1)*rad);}}
+  g.fillCircle(Color.valueOf("0b0d12"),cx,cy,rad*.30f);
+  float tx=2*lw+bs+h*.08f;
+  g.drawText(value,FSkinFont.forHeight(h*.66f),empty?DIM:TEXT,tx,0,w-tx-h*.08f,h,false,Align.center,true);
+  return true;
+ }
  public static boolean draw(VPlayerPanel.InfoTab tab,Graphics g){
   try{
    if(!Forge.isLandscapeMode())return false;
    float w=tab.getWidth(),h=tab.getHeight();
    if(h<8||w<h*1.15f)return false;
-   String key=key(tab);if(key==null)return false;
+   String key=key(tab);   // zone tabs first: InfoTabZone is itself an InfoTabSingleDisplay
+   if(key==null)return tab instanceof VPlayerPanel.InfoTabSingleDisplay&&drawMana(tab,g,w,h);   // only the mana pool: five-colour symbol
    Texture icon=icon(key);if(icon==null)return false;
    String value=tab.value==null?"":tab.value;
    boolean open=tab.isSelected(),empty=value.isEmpty()||"0".equals(value);

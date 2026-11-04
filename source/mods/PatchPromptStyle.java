@@ -20,6 +20,7 @@ public final class PatchPromptStyle implements Opcodes {
         int count = 0, targets = 0;
         for (MethodNode m : c.methods) {
             String hook = null, descriptor = null;
+            boolean bool = false;
             InsnList prefix = new InsnList();
             if (c.name.equals(PROMPT) && m.name.equals("doLayout") && m.desc.equals("(FF)V")) {
                 targets++;
@@ -42,6 +43,13 @@ public final class PatchPromptStyle implements Opcodes {
                 prefix.add(new FieldInsnNode(GETFIELD, c.name, outer.name, outer.desc));
                 prefix.add(new VarInsnNode(ALOAD, 0));
                 prefix.add(new VarInsnNode(ALOAD, 1));
+            } else if (c.name.equals(MESSAGE) && m.name.equals("tap") && m.desc.equals("(FFI)Z")) {
+                // small translucent popup instead of the full-width opaque FMagnifyView
+                hook = "tapMessage"; bool = true;
+                descriptor = "(L" + PROMPT + ";Lforge/toolbox/FDisplayObject;)Z";
+                prefix.add(new VarInsnNode(ALOAD, 0));
+                prefix.add(new FieldInsnNode(GETFIELD, c.name, "this$0", "L" + PROMPT + ";"));
+                prefix.add(new VarInsnNode(ALOAD, 0));
             } else if (c.name.equals(BUTTON) && m.name.equals("draw") && m.desc.equals("(Lforge/Graphics;)V")) {
                 hook = "drawButton";
                 descriptor = "(L" + BUTTON + ";Lforge/Graphics;Z)Z";
@@ -59,12 +67,13 @@ public final class PatchPromptStyle implements Opcodes {
             LabelNode original = new LabelNode();
             prefix.add(new MethodInsnNode(INVOKESTATIC, HOOK, hook, descriptor, false));
             prefix.add(new JumpInsnNode(IFEQ, original));
-            prefix.add(new InsnNode(RETURN));
+            if (bool) { prefix.add(new InsnNode(ICONST_1)); prefix.add(new InsnNode(IRETURN)); }
+            else prefix.add(new InsnNode(RETURN));
             prefix.add(original);
             prefix.add(new FrameNode(F_SAME, 0, null, 0, null));
             m.instructions.insert(prefix); count++;
         }
-        int expected = c.name.equals(PROMPT) ? 2 : (c.name.equals(MESSAGE) || c.name.equals(BUTTON)) ? 1 : 0;
+        int expected = c.name.equals(PROMPT) || c.name.equals(MESSAGE) ? 2 : c.name.equals(BUTTON) ? 1 : 0;
         if (expected == 0 || targets != expected) throw new IllegalArgumentException("Unexpected class/methods: " + c.name);
         if (count == 0) { System.exit(2); return; }
         ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);

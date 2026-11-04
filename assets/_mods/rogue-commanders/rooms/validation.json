@@ -1,0 +1,146 @@
+﻿[
+    {
+        "id":  "castle",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  303262,
+        "sha256":  "826c86c02611e87143554826246ea7f2390d11e18364bb19f9c525d24272fcdf",
+        "lowerThirdMeanLuma":  14.6
+    },
+    {
+        "id":  "graveyard",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  297205,
+        "sha256":  "b053fed843d4abca7c254433665c54f78a8e234b9ce996a19dd74f7c1438e212",
+        "lowerThirdMeanLuma":  13.2
+    },
+    {
+        "id":  "crypt",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  272851,
+        "sha256":  "9e2c77e337d95a5290cb71c05277766e165ebc65ec61fbc7dd0ed5ddc9e7938a",
+        "lowerThirdMeanLuma":  17.3
+    },
+    {
+        "id":  "backyard",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  317974,
+        "sha256":  "edea42af32c89c7a59cf464dc376167e6b6fd293f59fa6da25616016fd76e43b",
+        "lowerThirdMeanLuma":  9.6
+    },
+    {
+        "id":  "den",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  315756,
+        "sha256":  "30f1ff981b30a113993ce8d66a0c86a8dcf122cb95bbcfd6bd0ff0f4179ff1df",
+        "lowerThirdMeanLuma":  10.2
+    },
+    {
+        "id":  "mystic-forest",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  377068,
+        "sha256":  "5b067d2af8679d6bb482ee7b6dd021fc4071bab055b17a2f4a279c781982d6c1",
+        "lowerThirdMeanLuma":  12
+    },
+    {
+        "id":  "aerie",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  321037,
+        "sha256":  "0efef0a86ee764166bec022ef53ab0bc782985ea5d339a132196431456dc9203",
+        "lowerThirdMeanLuma":  24.5
+    },
+    {
+        "id":  "grotto",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  322740,
+        "sha256":  "45237f0d8a03eda3aa041609c51090eac3f791c0edb18c847846bcba22b7cd22",
+        "lowerThirdMeanLuma":  15.9
+    },
+    {
+        "id":  "jungle",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  338338,
+        "sha256":  "f2aba48df947ee92103cf5f0472f804e5c2e15c591dd08ad3af86aeb392d34c3",
+        "lowerThirdMeanLuma":  19
+    },
+    {
+        "id":  "ruins",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  299269,
+        "sha256":  "4703603404a0cda65718786a161bf36855663b763095b387f4a14e80563c38d6",
+        "lowerThirdMeanLuma":  17
+    },
+    {
+        "id":  "fire-temple",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  285916,
+        "sha256":  "9a789f9fc85314cd26cf724efe1d787076228adc0e0f1551774ef13c928e17ab",
+        "lowerThirdMeanLuma":  10.5
+    },
+    {
+        "id":  "warren",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  306360,
+        "sha256":  "c2354d8e6289a26964457c0cbe5da767b31d791beafb6f22038e2979f647ed1b",
+        "lowerThirdMeanLuma":  16.8
+    },
+    {
+        "id":  "workshop",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  337835,
+        "sha256":  "21b9ae693f9b3c063ba7dfb75bfa6e5c268d15e01ab8f3c02a9f19d02b8f6054",
+        "lowerThirdMeanLuma":  26.5
+    },
+    {
+        "id":  "library",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  289376,
+        "sha256":  "7262cf1ab5971069a89b4d2f04b25ff0fea289ecc4fc70f1af64ab015417ed81",
+        "lowerThirdMeanLuma":  21.8
+    },
+    {
+        "id":  "cathedral",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  275836,
+        "sha256":  "977d4199365a40c4518e3dc90cd45f05170186a60d748c68c73327ec9dda6046",
+        "lowerThirdMeanLuma":  19.9
+    },
+    {
+        "id":  "dragon-lair",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  307627,
+        "sha256":  "aea6e8f47c87e82808609acd5b75ac6f202fce3d202e9a38f9e605924502d7ae",
+        "lowerThirdMeanLuma":  12.3
+    },
+    {
+        "id":  "hive",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  265071,
+        "sha256":  "5a8ec2d69b1233f895204ba13c3717f71865eb36628c53be96aa2203d855af5a",
+        "lowerThirdMeanLuma":  15.7
+    },
+    {
+        "id":  "void",
+        "width":  1024,
+        "height":  1280,
+        "bytes":  275886,
+        "sha256":  "38b4cf73adc4f3b2e821daca53459bdb0a585687ff53fe47b55afebd745eeb24",
+        "lowerThirdMeanLuma":  14.7
+    }
+]

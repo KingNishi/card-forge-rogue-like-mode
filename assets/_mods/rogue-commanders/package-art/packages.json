@@ -1,0 +1,1262 @@
+{
+ "yshtola-nights-blessed/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Esper Control",
+  "tags": [
+   "Esper Control"
+  ]
+ },
+ "yshtola-nights-blessed/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Spell Drain / Spellslinger",
+  "tags": [
+   "Spell Drain / Spellslinger"
+  ]
+ },
+ "yshtola-nights-blessed/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Lifegain & Lifedrain",
+  "tags": [
+   "Lifegain & Lifedrain"
+  ]
+ },
+ "yshtola-nights-blessed/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "yshtola-nights-blessed/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "yshtola-nights-blessed/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "yshtola-nights-blessed/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "yshtola-nights-blessed/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "yshtola-nights-blessed/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "teval-the-balanced-scale/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Reanimator",
+  "tags": [
+   "Reanimator"
+  ]
+ },
+ "teval-the-balanced-scale/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Lands & Recursion",
+  "tags": [
+   "Lands & Recursion"
+  ]
+ },
+ "teval-the-balanced-scale/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Selfmill / Dredge",
+  "tags": [
+   "Selfmill / Dredge"
+  ]
+ },
+ "teval-the-balanced-scale/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "teval-the-balanced-scale/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "teval-the-balanced-scale/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "teval-the-balanced-scale/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "teval-the-balanced-scale/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "teval-the-balanced-scale/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "fire-lord-azula/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Combat Spellslinger",
+  "tags": [
+   "Combat Spellslinger"
+  ]
+ },
+ "fire-lord-azula/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Spell-Copy / Storm-Combo",
+  "tags": [
+   "Spell-Copy / Storm-Combo"
+  ]
+ },
+ "fire-lord-azula/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Aggro / Combat Tempo",
+  "tags": [
+   "Aggro / Combat Tempo"
+  ]
+ },
+ "fire-lord-azula/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "fire-lord-azula/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "fire-lord-azula/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "fire-lord-azula/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "fire-lord-azula/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "fire-lord-azula/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "cloud-ex-soldier/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Equipment Voltron",
+  "tags": [
+   "Equipment Voltron"
+  ]
+ },
+ "cloud-ex-soldier/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Equipped Army / Modified",
+  "tags": [
+   "Equipped Army / Modified"
+  ]
+ },
+ "cloud-ex-soldier/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Artifact / Equipment Value",
+  "tags": [
+   "Artifact / Equipment Value"
+  ]
+ },
+ "cloud-ex-soldier/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "cloud-ex-soldier/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "cloud-ex-soldier/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "cloud-ex-soldier/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "cloud-ex-soldier/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "cloud-ex-soldier/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "ureni-of-the-unwritten/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Dragon Ramp",
+  "tags": [
+   "Dragon Ramp"
+  ]
+ },
+ "ureni-of-the-unwritten/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Dragon ETB / Blink",
+  "tags": [
+   "Dragon ETB / Blink"
+  ]
+ },
+ "ureni-of-the-unwritten/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Dragon Aggro / Flying",
+  "tags": [
+   "Dragon Aggro / Flying"
+  ]
+ },
+ "ureni-of-the-unwritten/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "ureni-of-the-unwritten/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "ureni-of-the-unwritten/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "ureni-of-the-unwritten/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "ureni-of-the-unwritten/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "ureni-of-the-unwritten/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "karolina-dean-runaway/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Exile / Impulse Draw",
+  "tags": [
+   "Exile / Impulse Draw"
+  ]
+ },
+ "karolina-dean-runaway/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Exile Burn / Cast Payoffs",
+  "tags": [
+   "Exile Burn / Cast Payoffs"
+  ]
+ },
+ "karolina-dean-runaway/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Activated-Abilities Value",
+  "tags": [
+   "Activated-Abilities Value"
+  ]
+ },
+ "karolina-dean-runaway/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "karolina-dean-runaway/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "karolina-dean-runaway/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "karolina-dean-runaway/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "karolina-dean-runaway/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "karolina-dean-runaway/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "pantlaza-sun-favored/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Dinosaur Stompy",
+  "tags": [
+   "Dinosaur Stompy"
+  ]
+ },
+ "pantlaza-sun-favored/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Dinosaur Blink / ETB",
+  "tags": [
+   "Dinosaur Blink / ETB"
+  ]
+ },
+ "pantlaza-sun-favored/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Discover Value",
+  "tags": [
+   "Discover Value"
+  ]
+ },
+ "pantlaza-sun-favored/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "pantlaza-sun-favored/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "pantlaza-sun-favored/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "pantlaza-sun-favored/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "pantlaza-sun-favored/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "pantlaza-sun-favored/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "jace-multiverse-architect/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Superfriends Control",
+  "tags": [
+   "Superfriends Control"
+  ]
+ },
+ "jace-multiverse-architect/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Token Polymorph",
+  "tags": [
+   "Token Polymorph"
+  ]
+ },
+ "jace-multiverse-architect/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Tokens / Go-Wide",
+  "tags": [
+   "Tokens / Go-Wide"
+  ]
+ },
+ "jace-multiverse-architect/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "jace-multiverse-architect/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "jace-multiverse-architect/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "jace-multiverse-architect/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "jace-multiverse-architect/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "jace-multiverse-architect/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "the-wise-mothman/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Radiation / Mill",
+  "tags": [
+   "Radiation / Mill"
+  ]
+ },
+ "the-wise-mothman/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Counters / Mutants",
+  "tags": [
+   "Counters / Mutants"
+  ]
+ },
+ "the-wise-mothman/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Selfmill / Reanimator",
+  "tags": [
+   "Selfmill / Reanimator"
+  ]
+ },
+ "the-wise-mothman/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "the-wise-mothman/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "the-wise-mothman/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "the-wise-mothman/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "the-wise-mothman/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "the-wise-mothman/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "shang-chi-master-of-kung-fu/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Elfball / Creature Ramp",
+  "tags": [
+   "Elfball / Creature Ramp"
+  ]
+ },
+ "shang-chi-master-of-kung-fu/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Untap / Activated-Ability Combo",
+  "tags": [
+   "Untap / Activated-Ability Combo"
+  ]
+ },
+ "shang-chi-master-of-kung-fu/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Creature Storm / Big Mana",
+  "tags": [
+   "Creature Storm / Big Mana"
+  ]
+ },
+ "shang-chi-master-of-kung-fu/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "shang-chi-master-of-kung-fu/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "shang-chi-master-of-kung-fu/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "shang-chi-master-of-kung-fu/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "shang-chi-master-of-kung-fu/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "shang-chi-master-of-kung-fu/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "teysa-karlov/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Aristocrats Drain",
+  "tags": [
+   "Aristocrats Drain"
+  ]
+ },
+ "teysa-karlov/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Reanimator / Creature Recursion",
+  "tags": [
+   "Reanimator / Creature Recursion"
+  ]
+ },
+ "teysa-karlov/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Token-Aristocrats",
+  "tags": [
+   "Token-Aristocrats"
+  ]
+ },
+ "teysa-karlov/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "teysa-karlov/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "teysa-karlov/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "teysa-karlov/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "teysa-karlov/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "teysa-karlov/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "breya-etherium-shaper/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Artifact Sacrifice / Combo",
+  "tags": [
+   "Artifact Sacrifice / Combo"
+  ]
+ },
+ "breya-etherium-shaper/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Thopters / Artifact Tokens",
+  "tags": [
+   "Thopters / Artifact Tokens"
+  ]
+ },
+ "breya-etherium-shaper/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Artifact Blink / ETB",
+  "tags": [
+   "Artifact Blink / ETB"
+  ]
+ },
+ "breya-etherium-shaper/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "breya-etherium-shaper/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "breya-etherium-shaper/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "breya-etherium-shaper/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "breya-etherium-shaper/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "breya-etherium-shaper/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "eriette-of-the-charmed-apple/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Aura Prison / Control",
+  "tags": [
+   "Aura Prison / Control"
+  ]
+ },
+ "eriette-of-the-charmed-apple/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Enchantress Value",
+  "tags": [
+   "Enchantress Value"
+  ]
+ },
+ "eriette-of-the-charmed-apple/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Aura Lifedrain / Lifegain",
+  "tags": [
+   "Aura Lifedrain / Lifegain"
+  ]
+ },
+ "eriette-of-the-charmed-apple/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "eriette-of-the-charmed-apple/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "eriette-of-the-charmed-apple/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "eriette-of-the-charmed-apple/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "eriette-of-the-charmed-apple/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "eriette-of-the-charmed-apple/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "aragorn-the-uniter/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Legends / Multicolour Midrange",
+  "tags": [
+   "Legends / Multicolour Midrange"
+  ]
+ },
+ "aragorn-the-uniter/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Humans / Tokens",
+  "tags": [
+   "Humans / Tokens"
+  ]
+ },
+ "aragorn-the-uniter/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Multicolour Spellslinger",
+  "tags": [
+   "Multicolour Spellslinger"
+  ]
+ },
+ "aragorn-the-uniter/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "aragorn-the-uniter/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "aragorn-the-uniter/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "aragorn-the-uniter/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "aragorn-the-uniter/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "aragorn-the-uniter/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "atraxa-praetors-voice/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Counters Creature Army",
+  "tags": [
+   "Counters Creature Army"
+  ]
+ },
+ "atraxa-praetors-voice/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Superfriends Control",
+  "tags": [
+   "Superfriends Control"
+  ]
+ },
+ "atraxa-praetors-voice/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Poison / Proliferate",
+  "tags": [
+   "Poison / Proliferate"
+  ]
+ },
+ "atraxa-praetors-voice/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "atraxa-praetors-voice/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "atraxa-praetors-voice/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "atraxa-praetors-voice/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "atraxa-praetors-voice/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "atraxa-praetors-voice/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "hearthhull-the-worldseed/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Land Sacrifice / Recursion",
+  "tags": [
+   "Land Sacrifice / Recursion"
+  ]
+ },
+ "hearthhull-the-worldseed/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Landfall / Ramp",
+  "tags": [
+   "Landfall / Ramp"
+  ]
+ },
+ "hearthhull-the-worldseed/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Land Destruction / Lands Control",
+  "tags": [
+   "Land Destruction / Lands Control"
+  ]
+ },
+ "hearthhull-the-worldseed/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "hearthhull-the-worldseed/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "hearthhull-the-worldseed/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "hearthhull-the-worldseed/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "hearthhull-the-worldseed/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "hearthhull-the-worldseed/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "kaalia-of-the-vast/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Angels & Protection",
+  "tags": [
+   "Angels & Protection"
+  ]
+ },
+ "kaalia-of-the-vast/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Demons & Reanimator",
+  "tags": [
+   "Demons & Reanimator"
+  ]
+ },
+ "kaalia-of-the-vast/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Dragons & Combat",
+  "tags": [
+   "Dragons & Combat"
+  ]
+ },
+ "kaalia-of-the-vast/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "kaalia-of-the-vast/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "kaalia-of-the-vast/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "kaalia-of-the-vast/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "kaalia-of-the-vast/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "kaalia-of-the-vast/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "lathril-blade-of-the-elves/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Elfball / Mana Engines",
+  "tags": [
+   "Elfball / Mana Engines"
+  ]
+ },
+ "lathril-blade-of-the-elves/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Elf Tokens / Aggro",
+  "tags": [
+   "Elf Tokens / Aggro"
+  ]
+ },
+ "lathril-blade-of-the-elves/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Counters / Elf Combat",
+  "tags": [
+   "Counters / Elf Combat"
+  ]
+ },
+ "lathril-blade-of-the-elves/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "lathril-blade-of-the-elves/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "lathril-blade-of-the-elves/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "lathril-blade-of-the-elves/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "lathril-blade-of-the-elves/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "lathril-blade-of-the-elves/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "muldrotha-the-gravetide/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Reanimator",
+  "tags": [
+   "Reanimator"
+  ]
+ },
+ "muldrotha-the-gravetide/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Selfmill / Permanent Value",
+  "tags": [
+   "Selfmill / Permanent Value"
+  ]
+ },
+ "muldrotha-the-gravetide/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Sacrifice / Recursion",
+  "tags": [
+   "Sacrifice / Recursion"
+  ]
+ },
+ "muldrotha-the-gravetide/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "muldrotha-the-gravetide/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "muldrotha-the-gravetide/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "muldrotha-the-gravetide/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "muldrotha-the-gravetide/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "muldrotha-the-gravetide/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ },
+ "sephiroth-fabled-soldier/style-1": {
+  "image": "artifacts.png",
+  "shortName": "Aristocrats / Drain",
+  "tags": [
+   "Aristocrats / Drain"
+  ]
+ },
+ "sephiroth-fabled-soldier/style-2": {
+  "image": "artifacts.png",
+  "shortName": "Sacrifice Combo",
+  "tags": [
+   "Sacrifice Combo"
+  ]
+ },
+ "sephiroth-fabled-soldier/style-3": {
+  "image": "artifacts.png",
+  "shortName": "Reanimator",
+  "tags": [
+   "Reanimator"
+  ]
+ },
+ "sephiroth-fabled-soldier/neutral-ramp": {
+  "image": "mana.png",
+  "shortName": "Ramp & Fixing",
+  "tags": [
+   "Ramp & Fixing"
+  ]
+ },
+ "sephiroth-fabled-soldier/neutral-lands": {
+  "image": "lands.png",
+  "shortName": "Lands",
+  "tags": [
+   "Lands"
+  ]
+ },
+ "sephiroth-fabled-soldier/neutral-interaction": {
+  "image": "control.png",
+  "shortName": "Interaction & Protection",
+  "tags": [
+   "Interaction & Protection"
+  ]
+ },
+ "sephiroth-fabled-soldier/neutral-draw": {
+  "image": "draw.png",
+  "shortName": "Draw & Value",
+  "tags": [
+   "Draw & Value"
+  ]
+ },
+ "sephiroth-fabled-soldier/neutral-artifacts": {
+  "image": "artifacts.png",
+  "shortName": "Artifacts",
+  "tags": [
+   "Artifacts"
+  ]
+ },
+ "sephiroth-fabled-soldier/neutral-enchantments": {
+  "image": "enchantments.png",
+  "shortName": "Enchantments",
+  "tags": [
+   "Enchantments"
+  ]
+ }
+}
