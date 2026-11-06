@@ -1155,7 +1155,7 @@ def patch_match_menu():
     install_java_mod('prompt bar style', 'PromptStyleMod.java', [],
                      [('forge/screens/match/views/VPrompt.class', 'PatchPromptStyle.java'),
                       ('forge/screens/match/views/VPrompt$MessageLabel.class', 'PatchPromptStyle.java'),
-                      ('forge/toolbox/FButton.class', 'PatchPromptStyle.java')], extra_sources=['FantasyButtonArt.java'])
+                      ('forge/toolbox/FButton.class', 'PatchPromptStyle.java')], extra_sources=['FantasyButtonArt.java','BattleUiSettings.java'])
     # popup menus in a duel (stack item menu: Auto-Yield / Yield to stack / Resolve entire stack) - user 2026-10-18
     install_java_mod('popup menu style', 'MenuStyleMod.java', [],
                      [('forge/menu/FMenuItem.class', 'PatchMenuStyle.java'), ('forge/menu/FPopupMenu.class', 'PatchMenuStyle.java')])

@@ -90,8 +90,33 @@ public final class PromptStyleMod {
             MatchController c = MatchController.instance;
             if (c == null || !(c.getGameController() instanceof forge.player.PlayerControllerHuman h)) return false;
             Object in = h.getInputProxy().getInput();
-            return in != null && !(in instanceof forge.gamemodes.match.input.InputPassPriority);
+            // not while the game thread works (InputLockUI) - that made the panel open and close in a loop with the
+            // priority text while Android's own confirm dialog ("pay 1 life?") was up (user 2026-11-06: "vibriert")
+            return in != null && !(in instanceof forge.gamemodes.match.input.InputPassPriority)
+                    && !(in instanceof forge.gamemodes.match.input.InputLockUI);
         } catch (Throwable t) { return false; }
+    }
+    /** the decision is about cards in the own hand (London mulligan "put N on the bottom", discard ...): the panel then
+     *  sits in the middle so the hand stays tappable (user 2026-11-06: "direkt ueber der Hand ... in der Mitte anzeigen") */
+    private static boolean handChoice() {
+        try {
+            MatchController c = MatchController.instance;
+            if (c == null || !(c.getGameController() instanceof forge.player.PlayerControllerHuman h)) return false;
+            Object in = h.getInputProxy().getInput();
+            if (in instanceof forge.gamemodes.match.input.InputLondonMulligan) return true;
+            if (in instanceof forge.gamemodes.match.input.InputSelectEntitiesFromList<?> sel)
+                for (Object o : sel.getValidChoices())
+                    if (o instanceof forge.game.card.Card card && card.isInZone(forge.game.zone.ZoneType.Hand)) return true;
+            return false;
+        } catch (Throwable t) { return false; }
+    }
+    /** another overlay (Android confirm dialog with card picture, card zoom, option list ...) is open: keep out of its way */
+    private static boolean otherOverlay(FOverlay self) {
+        try {
+            for (FOverlay o : FOverlay.getOverlays())
+                if (o != self && o.isVisible() && !(o instanceof MulliganPanel)) return true;
+        } catch (Throwable t) { }
+        return false;
     }
 
     /** Called by ArenaBattleHudMod.prompt in place of its old layout body. */
@@ -148,6 +173,7 @@ public final class PromptStyleMod {
         if (behindDialog(p)) return true;
         if (mulliganPrompt(p)) { MulliganPanel.ensure(p); return true; }   // keep / mulligan and play / draw: big, in the middle (tester 2026-10-19)
         if (decisionPrompt(p)) DecisionPanel.ensure(p);   // Android: confirmations pop up big, bottom right (user 2026-11-05)
+        if (DecisionPanel.showing(p)) return true;   // the panel shows the question - no second text box over the hand (user 2026-11-06)
         String message = p.getMessage();
         state.clipped = false;
         if (message == null || message.isBlank()) return true;
@@ -291,11 +317,15 @@ public final class PromptStyleMod {
         private final VPrompt prompt;
         private final Big ok, no;
         private float s = 1f, px, py, pw, ph, textH;
-        static boolean showing(VPrompt p) { return current != null && current.prompt == p && current.isVisible(); }
+        private boolean centered, suspended;   // centered: hand choice in the middle; suspended: another overlay is open
+        private long falseSince;               // close only after the decision is really over (no flicker)
+        private String laidOut = "";
+        /** the bar buttons hide while the panel stands for them - not while it steps aside for a dialog */
+        static boolean showing(VPrompt p) { return current != null && current.prompt == p && current.isVisible() && !current.suspended; }
         static void ensure(VPrompt p) {
-            if (showing(p)) return;
+            if (current != null && current.prompt == p && current.isVisible()) return;
             com.badlogic.gdx.Gdx.app.postRunnable(() -> {
-                if (showing(p) || !decisionPrompt(p) || mulliganPrompt(p)) return;
+                if (current != null && current.prompt == p && current.isVisible() || !decisionPrompt(p) || mulliganPrompt(p)) return;
                 if (current != null) current.close();
                 current = new DecisionPanel(p);
                 current.show();
@@ -305,7 +335,21 @@ public final class PromptStyleMod {
         void close() { if (current == this) current = null; if (isVisible()) hide(); }
         @Override public boolean preventInputBehindOverlay() { return false; }
         @Override public void buildTouchListeners(float screenX, float screenY, java.util.List<FDisplayObject> listeners) {
-            if (screenX >= px && screenX <= px + pw && screenY >= py && screenY <= py + ph) super.buildTouchListeners(screenX, screenY, listeners);
+            if (!suspended && screenX >= px && screenX <= px + pw && screenY >= py && screenY <= py + ph) super.buildTouchListeners(screenX, screenY, listeners);
+        }
+        @Override public void draw(Graphics g) {
+            if (!prompt.isVisible() || mulliganPrompt(prompt) || !decisionPrompt(prompt)) {
+                long now = System.currentTimeMillis();
+                if (falseSince == 0) falseSince = now;
+                if (now - falseSince > 300 || !prompt.isVisible() || mulliganPrompt(prompt)) com.badlogic.gdx.Gdx.app.postRunnable(this::close);
+                return;   // a short gap between two inputs: draw nothing, keep the panel (no open / close loop)
+            }
+            falseSince = 0;
+            suspended = otherOverlay(this);
+            if (suspended) return;
+            if (handChoice() != centered || !question().equals(laidOut)) revalidate();   // new question: new height, same anchor
+            forge.adventure.util.BattleUiSettings.decisionAt = System.currentTimeMillis();   // the turn panel steps aside
+            super.draw(g);
         }
         @Override public boolean keyDown(int keyCode) { return false; }
         private String question() {
@@ -313,20 +357,30 @@ public final class PromptStyleMod {
             return m.replaceAll("\\s*\\R+\\s*", "  ");
         }
         @Override protected void doLayout(float w, float h) {
-            s = Math.max(.9f, Math.min(3.2f, Math.min(w / 1600f, h / 900f) * 1.5f));
-            pw = Math.min(w * .40f, 600f * s);
+            s = Math.max(.9f, Math.min(3.2f, Math.min(w / 1600f, h / 900f) * 1.3f));
+            pw = Math.min(w * .38f, 600f * s);
+            centered = handChoice();
+            // right edge left of the portrait column: the opponent's portrait stays tappable as a target
+            float right = w - 14f * s;
+            try { VPlayerPanel top = MatchController.getView().getTopPlayerPanel(); if (top != null && top.getAvatar().screenPos.x > w * .5f) right = top.getAvatar().screenPos.x - 12f * s; } catch (Throwable t) { }
+            if (!centered) pw = Math.min(pw, right - w * .3f);
+            laidOut = question();
             FSkinFont f = FSkinFont._get(Math.max(12, Math.round(19f * s)));
-            textH = Math.min(f.getLineHeight() * 4.2f, f.getWrappedBounds(question(), pw - 36f * s).height + 6f * s);
-            float bh = 62f * s;
+            textH = Math.min(f.getLineHeight() * 5.2f, Math.max(f.getLineHeight() * 1.2f, f.getWrappedBounds(laidOut, pw - 36f * s).height + 6f * s));
+            float bh = 58f * s;
             ph = 18f * s + textH + 16f * s + bh + 16f * s;
-            float bottom = prompt.screenPos.height > 0 ? prompt.screenPos.y : h - 60f * s;
-            px = w - pw - 14f * s; py = Math.max(8f * s, bottom - ph - 10f * s);
+            // upper right, standing on the middle line where the turn panel sits (which steps aside meanwhile): the hand,
+            // the zone strip and an open graveyard stay free (user 2026-11-06: "die Menus sind im Weg, weiter oben");
+            // the bottom edge is fixed, a longer question grows upwards. Hand choices: the middle of the screen.
+            float middle = h * .45f;
+            try { VPlayerPanel b = MatchController.getView().getBottomPlayerPanel(); if (b != null && b.screenPos.y > h * .2f) middle = b.screenPos.y; } catch (Throwable t) { }
+            if (centered) { px = (w - pw) / 2f; py = Math.max(8f * s, h * .40f - ph / 2f); }
+            else { px = right - pw; py = Math.max(8f * s, middle - ph - 8f * s); }
             float bw = (pw - 3 * 16f * s) / 2f, by = py + ph - bh - 16f * s;
             no.setBounds(px + 16f * s, by, bw, bh);
             ok.setBounds(px + pw - 16f * s - bw, by, bw, bh);
         }
         @Override protected void drawBackground(Graphics g) {
-            if (!prompt.isVisible() || !decisionPrompt(prompt) || mulliganPrompt(prompt)) { com.badlogic.gdx.Gdx.app.postRunnable(this::close); return; }
             pill(g, PANEL_STRONG, GOLD, px, py, pw, ph, Math.max(1.5f, 2f * s), 16f * s);
             g.fillRect(GOLD, px + pw * .1f, py + 3f * s, pw * .8f, Math.max(1f, s));
             g.drawText(question(), FSkinFont._get(Math.max(12, Math.round(19f * s))), TEXT, px + 18f * s, py + 18f * s, pw - 36f * s, textH, true, 8, false);

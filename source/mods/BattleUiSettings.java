@@ -74,4 +74,7 @@ public final class BattleUiSettings {
  public static void resetTurnPosition(){ensure();turnDx=0;turnDy=0;}
  /** index of the action bound to this key, -1 if none */
  public static int actionFor(int key){ensure();if(key<0)return -1;for(int i=0;i<keys.length;i++)if(keys[i]==key)return i;return -1;}
+    /** Android decision panel (PromptStyleMod) drawn in the last 250 ms: the turn panel steps aside for it (user 2026-11-06) */
+    public static volatile long decisionAt;
+    public static boolean decisionShowing(){return touch()&&System.currentTimeMillis()-decisionAt<250;}
 }

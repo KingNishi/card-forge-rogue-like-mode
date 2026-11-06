@@ -2360,7 +2360,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
  private static boolean menuShown;private boolean mainMenu,naming,namingNew;
  static boolean hasProgress(Profile p){return p.runs>0||p.run!=null||!p.general.isEmpty()||!p.achievements.isEmpty()||p.progressionPoints>0;}
  /** shown in the main menu; bump with every release and add an entry to _mods/release/PATCH-NOTES.md */
- static final String GAME_VERSION="0.2.9";
+ static final String GAME_VERSION="0.2.9.1";
  static final String ITCH_PAGE="https://kingnishi.itch.io/card-force-rogue-lite-mode";
  private static volatile String latestVersion;private static boolean updateAsked;
  /** once per game start: ask itch.io (public build API, no account) which version the windows channel has; silent offline */

@@ -55,9 +55,21 @@ public final class ArenaBattleHudMod {
   float toggleSize=Math.min(l.bandHeight()-6*scale,40*scale)*side;
   float zoomW=toggleSize*2.9f;
   float tabsX=12*scale+(bottom&&bars()?toggleSize+8*scale+zoomW+14*scale:!bottom&&bars()?92*scale:0);
+  // Android: the zone tiles (hand, graveyard, library, energy, exile) stand in a column at the left edge instead of a
+  // row - the row took the space above the hand (user 2026-11-06: "die Leiste mit graveyard etc vertikal und an die Seite")
+  boolean zoneCol=BattleUiSettings.touch()&&count>0;float colW=0,colY=0;
+  if(zoneCol){
+   float colBottom=bottom?Math.min(l.bandY()+l.bandHeight(),h-promptGap()-l.bandHeight()/2-toggleSize/2)-8*scale:0;
+   float colTop=bottom?l.fieldY()+8*scale:(bars()?116*scale:12*scale);
+   float avail=bottom?colBottom-colTop:Math.max(1,l.fieldY()+l.fieldHeight()-colTop-8*scale);
+   th=Math.max(18*scale,Math.min(th,avail/count-6*scale));
+   float colH=count*th+(count-1)*6*scale;
+   colY=bottom?colBottom-colH:colTop;colW=tw+12*scale;tabsX=12*scale;
+  }
   for(var tab:p.getTabs()){
    if(tab==p.getManaPoolTab())tab.setBounds(manaX,l.bandY()+(l.bandHeight()-38*scale)/2,manaW,38*scale);
    else if(tab instanceof VPlayerPanel.InfoTabExtra){tab.setVisible(false);tab.setBounds(0,0,0,0);continue;}   // star = sideboard/extra zones: not needed in Rogue (user 2026-10-17)
+   else if(zoneCol)tab.setBounds(tabsX,colY+(index++)*(th+6*scale),tw,th);
    else tab.setBounds(tabsX+(index++)*(tw+6*scale),l.bandY()+(l.bandHeight()-th)/2,tw,th);
    tab.setDisplayBounds(w*.12f,l.displayY(),w*.76f,Math.max(1,l.displayHeight()));
   }
@@ -87,12 +99,12 @@ public final class ArenaBattleHudMod {
   float column=w*.15f-2*gap,commandLimit=showTop?(column-gap)/2:column;
   float cw=cards>0?grid(cards,commandLimit,czh-2*gap,gap)[4]+2*gap:0;
   float topW=showTop?Math.min((column-gap)/2,Math.max(1,(czh-26*scale)/FCardPanel.ASPECT_RATIO)):0,topH=topW*FCardPanel.ASPECT_RATIO+22*scale;
-  float leftWidth=cw+(showTop?topW+(cw>0?gap:0):0);
+  float leftWidth=colW+cw+(showTop?topW+(cw>0?gap:0):0);   // colW: Android zone column at the left edge
   float reserve=reserve(l,w,leftWidth,scale);
   try{Method m=VField.class.getDeclaredMethod("setCommandZoneWidth",float.class);m.setAccessible(true);m.invoke(p.getField(),0f);}catch(ReflectiveOperationException e){throw new IllegalStateException(e);}
   p.getField().setBounds(12*scale+reserve,l.fieldY(),w-24*scale-2*reserve,l.fieldHeight());
-  p.getCommandZone().setBounds(12*scale,l.fieldY()+(l.fieldHeight()-czh)/2,cw,czh);
-  top.setBounds(12*scale+cw+(cw>0?gap:0),l.fieldY()+(l.fieldHeight()-topH)/2,topW,topH);
+  p.getCommandZone().setBounds(12*scale+colW,l.fieldY()+(l.fieldHeight()-czh)/2,cw,czh);
+  top.setBounds(12*scale+colW+cw+(cw>0?gap:0),l.fieldY()+(l.fieldHeight()-topH)/2,topW,topH);
  }
  /** Only the current top card, and only while the local player's actual visibility permits it.
   * A standalone renderer avoids stealing Forge's globally cached panel from Library/Flashback. */
@@ -642,7 +654,7 @@ public final class ArenaBattleHudMod {
    return t;
   }
   static float clamp(float v,float lo,float hi){return Math.max(lo,Math.min(Math.max(lo,hi),v));}
-  boolean stale(){return System.currentTimeMillis()-placedAt>400;}   // the HUD stopped placing it (other layout, game over)
+  boolean stale(){return System.currentTimeMillis()-placedAt>400||BattleUiSettings.decisionShowing();}   // Android: the decision panel takes this spot (user 2026-11-06)   // the HUD stopped placing it (other layout, game over)
   @Override protected void doLayout(float w,float h){}
   @Override public void draw(Graphics g){if(!stale())super.draw(g);}
   @Override public void buildTouchListeners(float x,float y,List<FDisplayObject> listeners){if(!stale())super.buildTouchListeners(x,y,listeners);}
