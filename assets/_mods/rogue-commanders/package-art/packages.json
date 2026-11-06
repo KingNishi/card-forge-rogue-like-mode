@@ -1,9 +1,9 @@
 {
  "yshtola-nights-blessed/style-1": {
   "image": "artifacts.png",
-  "shortName": "Esper Control",
+  "shortName": "Spell-Drain Control",
   "tags": [
-   "Esper Control"
+   "Spell-Drain Control"
   ]
  },
  "yshtola-nights-blessed/style-2": {
@@ -22,44 +22,44 @@
  },
  "yshtola-nights-blessed/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "yshtola-nights-blessed/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "yshtola-nights-blessed/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "yshtola-nights-blessed/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "yshtola-nights-blessed/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "yshtola-nights-blessed/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "teval-the-balanced-scale/style-1": {
@@ -71,9 +71,9 @@
  },
  "teval-the-balanced-scale/style-2": {
   "image": "artifacts.png",
-  "shortName": "Lands & Recursion",
+  "shortName": "Land Recursion / Graveyard Engine",
   "tags": [
-   "Lands & Recursion"
+   "Land Recursion / Graveyard Engine"
   ]
  },
  "teval-the-balanced-scale/style-3": {
@@ -85,44 +85,44 @@
  },
  "teval-the-balanced-scale/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "teval-the-balanced-scale/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "teval-the-balanced-scale/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "teval-the-balanced-scale/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "teval-the-balanced-scale/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "teval-the-balanced-scale/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "fire-lord-azula/style-1": {
@@ -148,44 +148,44 @@
  },
  "fire-lord-azula/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "fire-lord-azula/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "fire-lord-azula/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "fire-lord-azula/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "fire-lord-azula/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "fire-lord-azula/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "cloud-ex-soldier/style-1": {
@@ -204,58 +204,58 @@
  },
  "cloud-ex-soldier/style-3": {
   "image": "artifacts.png",
-  "shortName": "Artifact / Equipment Value",
+  "shortName": "Equipment Recursion / Artifact Value",
   "tags": [
-   "Artifact / Equipment Value"
+   "Equipment Recursion / Artifact Value"
   ]
  },
  "cloud-ex-soldier/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "cloud-ex-soldier/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "cloud-ex-soldier/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "cloud-ex-soldier/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "cloud-ex-soldier/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "cloud-ex-soldier/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "ureni-of-the-unwritten/style-1": {
   "image": "artifacts.png",
-  "shortName": "Dragon Ramp",
+  "shortName": "Dragon Mana / Cost Reduction",
   "tags": [
-   "Dragon Ramp"
+   "Dragon Mana / Cost Reduction"
   ]
  },
  "ureni-of-the-unwritten/style-2": {
@@ -274,58 +274,58 @@
  },
  "ureni-of-the-unwritten/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "ureni-of-the-unwritten/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "ureni-of-the-unwritten/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "ureni-of-the-unwritten/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "ureni-of-the-unwritten/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "ureni-of-the-unwritten/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "karolina-dean-runaway/style-1": {
   "image": "artifacts.png",
-  "shortName": "Exile / Impulse Draw",
+  "shortName": "Impulse Engines / Exile Value",
   "tags": [
-   "Exile / Impulse Draw"
+   "Impulse Engines / Exile Value"
   ]
  },
  "karolina-dean-runaway/style-2": {
   "image": "artifacts.png",
-  "shortName": "Exile Burn / Cast Payoffs",
+  "shortName": "Cascade / Cast-from-Exile Burn",
   "tags": [
-   "Exile Burn / Cast Payoffs"
+   "Cascade / Cast-from-Exile Burn"
   ]
  },
  "karolina-dean-runaway/style-3": {
@@ -337,44 +337,44 @@
  },
  "karolina-dean-runaway/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "karolina-dean-runaway/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "karolina-dean-runaway/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "karolina-dean-runaway/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "karolina-dean-runaway/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "karolina-dean-runaway/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "pantlaza-sun-favored/style-1": {
@@ -400,44 +400,44 @@
  },
  "pantlaza-sun-favored/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "pantlaza-sun-favored/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "pantlaza-sun-favored/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "pantlaza-sun-favored/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "pantlaza-sun-favored/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "pantlaza-sun-favored/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "jace-multiverse-architect/style-1": {
@@ -463,44 +463,44 @@
  },
  "jace-multiverse-architect/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "jace-multiverse-architect/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "jace-multiverse-architect/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "jace-multiverse-architect/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "jace-multiverse-architect/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "jace-multiverse-architect/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "the-wise-mothman/style-1": {
@@ -526,44 +526,44 @@
  },
  "the-wise-mothman/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "the-wise-mothman/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "the-wise-mothman/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "the-wise-mothman/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "the-wise-mothman/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "the-wise-mothman/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "shang-chi-master-of-kung-fu/style-1": {
@@ -589,51 +589,51 @@
  },
  "shang-chi-master-of-kung-fu/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "shang-chi-master-of-kung-fu/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "shang-chi-master-of-kung-fu/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "shang-chi-master-of-kung-fu/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "shang-chi-master-of-kung-fu/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "shang-chi-master-of-kung-fu/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "teysa-karlov/style-1": {
   "image": "artifacts.png",
-  "shortName": "Aristocrats Drain",
+  "shortName": "Death-Trigger Drain / Sacrifice Engines",
   "tags": [
-   "Aristocrats Drain"
+   "Death-Trigger Drain / Sacrifice Engines"
   ]
  },
  "teysa-karlov/style-2": {
@@ -645,58 +645,58 @@
  },
  "teysa-karlov/style-3": {
   "image": "artifacts.png",
-  "shortName": "Token-Aristocrats",
+  "shortName": "Afterlife Tokens / Fodder Army",
   "tags": [
-   "Token-Aristocrats"
+   "Afterlife Tokens / Fodder Army"
   ]
  },
  "teysa-karlov/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "teysa-karlov/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "teysa-karlov/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "teysa-karlov/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "teysa-karlov/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "teysa-karlov/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "breya-etherium-shaper/style-1": {
   "image": "artifacts.png",
-  "shortName": "Artifact Sacrifice / Combo",
+  "shortName": "Artifact Sacrifice / Combo Engines",
   "tags": [
-   "Artifact Sacrifice / Combo"
+   "Artifact Sacrifice / Combo Engines"
   ]
  },
  "breya-etherium-shaper/style-2": {
@@ -715,44 +715,44 @@
  },
  "breya-etherium-shaper/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "breya-etherium-shaper/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "breya-etherium-shaper/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "breya-etherium-shaper/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "breya-etherium-shaper/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "breya-etherium-shaper/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "eriette-of-the-charmed-apple/style-1": {
@@ -764,9 +764,9 @@
  },
  "eriette-of-the-charmed-apple/style-2": {
   "image": "artifacts.png",
-  "shortName": "Enchantress Value",
+  "shortName": "Aura Draw / Enchantment Recursion",
   "tags": [
-   "Enchantress Value"
+   "Aura Draw / Enchantment Recursion"
   ]
  },
  "eriette-of-the-charmed-apple/style-3": {
@@ -778,44 +778,44 @@
  },
  "eriette-of-the-charmed-apple/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "eriette-of-the-charmed-apple/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "eriette-of-the-charmed-apple/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "eriette-of-the-charmed-apple/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "eriette-of-the-charmed-apple/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "eriette-of-the-charmed-apple/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "aragorn-the-uniter/style-1": {
@@ -841,44 +841,44 @@
  },
  "aragorn-the-uniter/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "aragorn-the-uniter/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "aragorn-the-uniter/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "aragorn-the-uniter/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "aragorn-the-uniter/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "aragorn-the-uniter/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "atraxa-praetors-voice/style-1": {
@@ -904,51 +904,51 @@
  },
  "atraxa-praetors-voice/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "atraxa-praetors-voice/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "atraxa-praetors-voice/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "atraxa-praetors-voice/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "atraxa-praetors-voice/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "atraxa-praetors-voice/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "hearthhull-the-worldseed/style-1": {
   "image": "artifacts.png",
-  "shortName": "Land Sacrifice / Recursion",
+  "shortName": "Land Sacrifice / Graveyard Engine",
   "tags": [
-   "Land Sacrifice / Recursion"
+   "Land Sacrifice / Graveyard Engine"
   ]
  },
  "hearthhull-the-worldseed/style-2": {
@@ -967,44 +967,44 @@
  },
  "hearthhull-the-worldseed/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "hearthhull-the-worldseed/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "hearthhull-the-worldseed/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "hearthhull-the-worldseed/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "hearthhull-the-worldseed/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "hearthhull-the-worldseed/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "kaalia-of-the-vast/style-1": {
@@ -1030,44 +1030,44 @@
  },
  "kaalia-of-the-vast/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "kaalia-of-the-vast/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "kaalia-of-the-vast/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "kaalia-of-the-vast/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "kaalia-of-the-vast/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "kaalia-of-the-vast/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "lathril-blade-of-the-elves/style-1": {
@@ -1079,58 +1079,58 @@
  },
  "lathril-blade-of-the-elves/style-2": {
   "image": "artifacts.png",
-  "shortName": "Elf Tokens / Aggro",
+  "shortName": "Elf Tokens / Wide Army",
   "tags": [
-   "Elf Tokens / Aggro"
+   "Elf Tokens / Wide Army"
   ]
  },
  "lathril-blade-of-the-elves/style-3": {
   "image": "artifacts.png",
-  "shortName": "Counters / Elf Combat",
+  "shortName": "Elf Counters / Combat Growth",
   "tags": [
-   "Counters / Elf Combat"
+   "Elf Counters / Combat Growth"
   ]
  },
  "lathril-blade-of-the-elves/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "lathril-blade-of-the-elves/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "lathril-blade-of-the-elves/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "lathril-blade-of-the-elves/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "lathril-blade-of-the-elves/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "lathril-blade-of-the-elves/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "muldrotha-the-gravetide/style-1": {
@@ -1156,44 +1156,44 @@
  },
  "muldrotha-the-gravetide/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "muldrotha-the-gravetide/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "muldrotha-the-gravetide/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "muldrotha-the-gravetide/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "muldrotha-the-gravetide/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "muldrotha-the-gravetide/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  },
  "sephiroth-fabled-soldier/style-1": {
@@ -1205,9 +1205,9 @@
  },
  "sephiroth-fabled-soldier/style-2": {
   "image": "artifacts.png",
-  "shortName": "Sacrifice Combo",
+  "shortName": "Recursive Combo / Tutors",
   "tags": [
-   "Sacrifice Combo"
+   "Recursive Combo / Tutors"
   ]
  },
  "sephiroth-fabled-soldier/style-3": {
@@ -1219,44 +1219,44 @@
  },
  "sephiroth-fabled-soldier/neutral-ramp": {
   "image": "mana.png",
-  "shortName": "Ramp & Fixing",
+  "shortName": "General Mana / Fixing",
   "tags": [
-   "Ramp & Fixing"
+   "General Mana / Fixing"
   ]
  },
  "sephiroth-fabled-soldier/neutral-lands": {
   "image": "lands.png",
-  "shortName": "Lands",
+  "shortName": "Mana Base / Utility Lands",
   "tags": [
-   "Lands"
+   "Mana Base / Utility Lands"
   ]
  },
  "sephiroth-fabled-soldier/neutral-interaction": {
   "image": "control.png",
-  "shortName": "Interaction & Protection",
+  "shortName": "Answers / Protection",
   "tags": [
-   "Interaction & Protection"
+   "Answers / Protection"
   ]
  },
  "sephiroth-fabled-soldier/neutral-draw": {
   "image": "draw.png",
-  "shortName": "Draw & Value",
+  "shortName": "General Draw / Selection",
   "tags": [
-   "Draw & Value"
+   "General Draw / Selection"
   ]
  },
  "sephiroth-fabled-soldier/neutral-artifacts": {
   "image": "artifacts.png",
-  "shortName": "Artifacts",
+  "shortName": "Artifact Utility / Threats",
   "tags": [
-   "Artifacts"
+   "Artifact Utility / Threats"
   ]
  },
  "sephiroth-fabled-soldier/neutral-enchantments": {
   "image": "enchantments.png",
-  "shortName": "Enchantments",
+  "shortName": "Enchantment Utility / Value",
   "tags": [
-   "Enchantments"
+   "Enchantment Utility / Value"
   ]
  }
 }

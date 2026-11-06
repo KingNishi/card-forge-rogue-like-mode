@@ -69,7 +69,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
  }
  /** Android APK (user 2026-11-04: "ein paar PC Sachen auf Android aendern - Steuerung, Tooltips, Guides"): touch texts and
   *  gestures instead of mouse and keyboard. On the PC nothing changes. */
- static boolean touch(){try{return forge.gui.GuiBase.getInterface()!=null&&forge.gui.GuiBase.isAndroid();}catch(Throwable t){return false;}}
+ static boolean touch(){if(System.getProperty("forge.touchtest")!=null)return true;try{return forge.gui.GuiBase.getInterface()!=null&&forge.gui.GuiBase.isAndroid();}catch(Throwable t){return false;}}
  static String tx(String pc,String touch){return touch()?touch:pc;}
  /** long press (0.5 s) on touch screens: the right-click actions */
  static void onLongPress(Actor a,Runnable r){if(!touch())return;var gl=new com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener(){
@@ -97,7 +97,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
  static class MapNode{int id,floor,lane,count;String type,deck,pre;boolean preDone;List<Integer> next=new ArrayList<>();}   // Spire map room
  /** one card over all runs: taken from rewards, runs + duels in the deck, wins, times played (cast or land drop) */
  static class CardStat{int taken,runs,games,wins,played;}
- static class Run{Set<String> statCards;   /* cards whose run count went up this run (card history) */int storyAct;List<MapNode> map;int mapPos=-1,mapVersion,eliteBonus,extraWins;List<Integer> mapPath=new ArrayList<>();boolean eliteFight,extraFight;String extraDeck,treasureCard;String commander,opponent,phase="fight";long seed,duelStart,lastAchievementDuel;int rewardTier,skippedRewards,rewardSchema;boolean skippedThirteen;int round=1,wins,ruhm,bosses,perfect,fast,close,legendary,epic,lifeSource,marathon,cmdrKill,poison,mill,altWin,overkill,mulligan,storm,army,noCommander,heirlooms,quickWin,longWin;int routeCurseRound;Map<String,String> routeCurses;int routeRound;String routeChoice;List<String> routeOptions;boolean routeConfirmed;boolean lost,completed,cursed,trueRogue;int life,branchSide=-1,branchSegment=-1,encounters,forcedTier=-1;String encounter,nextFightPenalty;boolean bonusEpicPending,bonusEpicReady;List<String> encounterTypes=new ArrayList<>(),lastUsed=new ArrayList<>();EffectData savedBlessing;List<String> curses=new ArrayList<>(),curseOptions=new ArrayList<>(),offered=new ArrayList<>();
+ static class Run{List<CardRef> roomShop;List<String> roomShopBought,eliteCards;boolean shopsPlaced,eliteSpoilsPending;   /* shop room + elite spoils (user 2026-11-05) */Set<String> statCards;   /* cards whose run count went up this run (card history) */int storyAct;List<MapNode> map;int mapPos=-1,mapVersion,eliteBonus,extraWins;List<Integer> mapPath=new ArrayList<>();boolean eliteFight,extraFight;String extraDeck,treasureCard;String commander,opponent,phase="fight";long seed,duelStart,lastAchievementDuel;int rewardTier,skippedRewards,rewardSchema;boolean skippedThirteen;int round=1,wins,ruhm,bosses,perfect,fast,close,legendary,epic,lifeSource,marathon,cmdrKill,poison,mill,altWin,overkill,mulligan,storm,army,noCommander,heirlooms,quickWin,longWin;int routeCurseRound;Map<String,String> routeCurses;int routeRound;String routeChoice;List<String> routeOptions;boolean routeConfirmed;boolean lost,completed,cursed,trueRogue;int life,branchSide=-1,branchSegment=-1,encounters,forcedTier=-1;String encounter,nextFightPenalty;boolean bonusEpicPending,bonusEpicReady;List<String> encounterTypes=new ArrayList<>(),lastUsed=new ArrayList<>();EffectData savedBlessing;List<String> curses=new ArrayList<>(),curseOptions=new ArrayList<>(),offered=new ArrayList<>();
   List<String> deck=new ArrayList<>(),picked=new ArrayList<>(),added=new ArrayList<>(),bench=new ArrayList<>(),lastPackage=new ArrayList<>();List<Offer> offers=new ArrayList<>();List<String> selectedPackages,chosenPackages,shopBought;List<CardRef> shopStock;int shopRound,shopRerolls,shopCatalogVersion,creditedBossGold,goldEarned;int packageRerolls,rerollSalt,rewardUpgrades;List<String> rerollAvoid;}
  /** cards of this run that are not in the run deck right now (old saves have no bench yet) */
  static List<String> bench(Run r){if(r.bench==null)r.bench=new ArrayList<>();return r.bench;}
@@ -453,13 +453,21 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
  }
  // Observe native events only while an actual Rogue duel is active. Weak keys avoid retaining finished games.
  static final Map<forge.game.Game,DuelProgress> duelProgress=Collections.synchronizedMap(new WeakHashMap<>());
+ private static Object identityGame;private static long identityAt;
+ /** a short chime when a triggered ability goes on the stack: bright for yours, lower for the enemy's; Forge's sound volume,
+  *  at most one per 0.25 s so a board full of triggers does not turn into noise (user 2026-11-05) */
+ private static long lastTriggerSound;
+ static void triggerSound(boolean mine){
+  long now=System.currentTimeMillis();if(now-lastTriggerSound<250)return;lastTriggerSound=now;
+  try{forge.sound.SoundSystem.instance.play(mine?"rogue_trigger_me.wav":"rogue_trigger_foe.wav",false);}catch(Throwable t){/* no sound is fine */}
+ }
  public static void trackDuel(){
   updateBossMusic();
   Profile p=profile;if(p==null||p.run==null||p.run.duelStart<=0||!"fight".equals(p.run.phase))return;
   try{var view=forge.screens.match.MatchController.instance.getGameView();if(view==null)return;var game=view.getGame();
    if(game==null||game.isGameOver())return;
    synchronized(duelProgress){if(!duelProgress.containsKey(game)){DuelProgress d=new DuelProgress(p.run.duelStart);duelProgress.put(game,d);game.subscribeToEvents(d);game.subscribeToEvents(new LoopWatch(game));}}
-   matchIdentity(p,view);
+   long now=System.currentTimeMillis();if(game!=identityGame||now-identityAt>1000){identityGame=game;identityAt=now;matchIdentity(p,view);}   // was every frame: file checks per frame lag on Android (2026-11-05)
   }catch(Exception e){log(e);}
  }
  private static final Map<String,forge.assets.FImage> rogueAvatars=new HashMap<>();
@@ -524,6 +532,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
    var c=e.card();if(c!=null&&c.getController()!=null&&!c.getController().isAI()&&c.getCurrentState().getType().isPermanent()){sacrifices++;if(c.getCurrentState().getType().isCreature())creatureSacs++;}
   }
   @com.google.common.eventbus.Subscribe public synchronized void cast(forge.game.event.GameEventSpellAbilityCast e){
+   if(e.si()!=null&&e.si().isTrigger())triggerSound(e.si().getActivatingPlayer()!=null&&!e.si().getActivatingPlayer().isAI());
    if(e.sa()==null||!e.sa().isSpell()||e.si()==null||e.si().getActivatingPlayer()==null||e.si().getActivatingPlayer().isAI())return;
    var c=e.sa().getHostCard();if(c==null||c.isToken()||c.isTokenCard()||c.getGamePieceType()==forge.card.GamePieceType.COPIED_SPELL)return;
    var type=c.getCurrentState().getType();if(type.isArtifact())artifacts++;used.add(c.getName());
@@ -1088,7 +1097,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
    {"START RUN","Next you pick 4 packages - the themes your rewards come from."}},
   "map",new String[][]{{"THE CLIMB","You climb from the bottom to the next boss at the top. Every place is one opponent; the lit roads show where you can go next."},
    {"CHOOSE","Tap a place to see the opponent: deck style, starting life and why it stands in your way. Take this path decides."},
-   {"SYMBOLS","? unknown event, $ treasure, E elite (harder, reward one tier better - Epic from floor 9), ^ campfire (True Rogue-like only)."},
+   {"SYMBOLS","? unknown event, $ treasure, S shop (strong neutral cards for Divine Favor), E elite (harder: 2 Legendary cards before the fight, reward one tier better), ^ campfire (True Rogue-like only). Every room still has its fight."},
    {"BOSSES","Bosses wait on floors 5, 10 and 15. Edit deck opens your deck at any time."}},
   "run",new String[][]{{"NEXT OPPONENT","Its deck style, starting life and hand size. Bosses talk back and some start with extra cards."},
    {"FIGHT","Starts the battle. One loss ends the run."},
@@ -1099,13 +1108,13 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
    {"SKIP","Skipping upgrades one option of the next reward a tier, one more per skip in a row. Epic rewards start at floor 9 - an Epic bonus waits until then."},
    {"FAVORITES","Add to favorites: this neutral package is always in your package choice in future runs."},
    {"NEVER AGAIN","It never appears again for this commander. Up to 8 per commander - when the list is full, you choose one to allow again."},
-   {"HUNT","\"Hunt 2/40\" counts cards from your hunting list (package screen > Hunting list); hunted cards here carry a gold HUNTED tag."}},
+   {"HUNT","\"Hunt 2/50\" counts cards from your hunting list (package screen > Hunting list); hunted cards here carry a gold HUNTED tag."}},
   "deck",new String[][]{{"DECK",tx("The cards you play this run. Right-click a card to move it to the bench.","The cards you play this run. Long-press a card to move it to the bench.")},
    {"BENCH",tx("Every card you won but are not playing. Right-click to put it into the deck.","Every card you won but are not playing. Long-press it to put it into the deck.")},
    {"NEW CARDS","Rewards always land on the bench first - you decide what goes in. NEW marks your last reward."},
    {"SIZE","70-99 cards plus your commander; missing slots are filled with basic lands. Tap a card to see it big."}},
   "hunt",new String[][]{{"YOUR HUNTING LIST","Every commander starts with 10 hunted cards: its combo pieces and strongest synergy cards. Open Hunting list to see them - remove or add cards any time."},
-   {"PICK THE RIGHT PACKAGES","Every package shows Hunt 2/40: how many of your hunted cards it holds. Packages with many hunted cards bring them into your rewards."},
+   {"PICK THE RIGHT PACKAGES","Every package shows Hunt 2/50: how many of your hunted cards it holds. Packages with many hunted cards bring them into your rewards."},
    {"GRAB THEM","On the reward screen your hunted cards carry a gold HUNTED tag."}});
  static boolean tutorialSeen(Profile p,String id){
   if("packages".equals(id))return p.packagesExplained;if("battle".equals(id))return p.battleTourDone;
@@ -1794,6 +1803,8 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
    case "relics"->p.progressionPoints+=Math.max(1,n);
    case "favor"->p.goldBalance+=Math.max(1,n);
    case "tour"->p.battleTourDone=false;
+   case "roomshop"->{if(r==null)return "no run";ensureMap(r);MapNode m0=r.map.get(Math.min(r.map.size()-1,5));r.roomShop=rollRoomShop(r,m0);r.roomShopBought=new ArrayList<>();r.phase="shop";}
+   case "elitespoils"->{if(r==null)return "no run";r.phase="fight";r.eliteCards=eliteSpoils(r);r.eliteSpoilsPending=!r.eliteCards.isEmpty();}
    case "explain"->p.packagesExplained=false;
    case "flags"->{p.battleTourDone=false;p.packagesExplained=false;p.storyOff=false;p.tutorialsSeen=new HashSet<>();}
    case "unlock"->{for(Cmd c:content().commanders){String g=commanderGoal(c.name);if(g!=null)p.achievements.add(g);}}
@@ -1921,6 +1932,8 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
   else if(p.run!=null&&"curse".equals(p.run.phase))buildCurse(p.run);
   else if(p.run!=null&&"treasure".equals(p.run.phase))buildTreasure(p.run);
   else if(p.run!=null&&"rest".equals(p.run.phase))buildRest(p.run);
+  else if(p.run!=null&&"shop".equals(p.run.phase))buildRoomShop(p.run);
+  else if(p.run!=null&&"fight".equals(p.run.phase)&&p.run.eliteSpoilsPending&&p.run.eliteCards!=null&&!p.run.eliteCards.isEmpty())buildEliteSpoils(p.run);
   else if(p.run!=null&&"encounter".equals(p.run.phase))buildEncounter(p.run);
   else if(p.run!=null&&"package".equals(p.run.phase))buildOffers(p.run);
   else if(p.run!=null)buildRun(p.run);
@@ -2138,8 +2151,12 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
    root.addActor(new SizeSlider(group,x+34,y-28,width-68));
    button("+",x+width-24,y-27,24,20,()->setSizePercent(group,sizePercent(group)+5,true));
   }
-  button("Reset to 100%",x+width/2-50,26,100,16,()->{forge.adventure.util.BattleUiSettings.resetSizes();forge.adventure.util.BattleUiSettings.save();rebuild();});
-  root.addActor(new Painter((b,a)->text(b,"Sizes of the buttons and texts on the battlefield, 60% to 160%. Used from the next battle on; saved automatically.",12,14,5.5f,DIM,a,W()-24,Align.center,false)));
+  float bw=(width-12)/3;   // turn panel look + its dragged spot (user 2026-11-05: compact on Android, detailed as an option)
+  Btn style=button("Turn panel: "+forge.adventure.util.BattleUiSettings.TURN_STYLES[forge.adventure.util.BattleUiSettings.turnStyle()],x,26,bw,16,()->{
+   forge.adventure.util.BattleUiSettings.setTurnStyle((forge.adventure.util.BattleUiSettings.turnStyle()+1)%3);forge.adventure.util.BattleUiSettings.save();rebuild();});style.gold=true;
+  button("Turn panel: reset spot",x+bw+6,26,bw,16,()->{forge.adventure.util.BattleUiSettings.resetTurnPosition();forge.adventure.util.BattleUiSettings.save();toast("The turn panel is back at its usual spot.");});
+  button("Sizes: reset to 100%",x+2*(bw+6),26,bw,16,()->{forge.adventure.util.BattleUiSettings.resetSizes();forge.adventure.util.BattleUiSettings.save();rebuild();});
+  root.addActor(new Painter((b,a)->text(b,"Sizes of the buttons and texts on the battlefield, 60% to 160%. Turn panel: Auto = compact on phones, detailed on PC; drag it in battle, double-tap puts it back.",12,14,5.5f,DIM,a,W()-24,Align.center,false)));
  }
  // ------------------------------------------------------------------ tips & tricks on the VS screen (user 2026-10-17)
  // story/tips.json: short paraphrased advice from real players with name + accurate title (sources kept in the file).
@@ -2343,7 +2360,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
  private static boolean menuShown;private boolean mainMenu,naming,namingNew;
  static boolean hasProgress(Profile p){return p.runs>0||p.run!=null||!p.general.isEmpty()||!p.achievements.isEmpty()||p.progressionPoints>0;}
  /** shown in the main menu; bump with every release and add an entry to _mods/release/PATCH-NOTES.md */
- static final String GAME_VERSION="0.2.8";
+ static final String GAME_VERSION="0.2.9";
  static final String ITCH_PAGE="https://kingnishi.itch.io/card-force-rogue-lite-mode";
  private static volatile String latestVersion;private static boolean updateAsked;
  /** once per game start: ask itch.io (public build API, no account) which version the windows channel has; silent offline */
@@ -2763,7 +2780,9 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
  /** places per floor (index = floor; 5, 10, 15 are the single boss): floor 1 only two choices to start (user 2026-10-17) */
  static final int[] FLOOR_SLOTS={0, 2,3,2,3, 1, 3,2,3,2, 1, 3,2,3,2, 1};   // at most 3 per floor (user 2026-10-18: "4 Paths sind immer ein Problem"), alternating = staggered rows
  static void ensureMap(Run r){
-  if(r==null||r.commander==null||(r.map!=null&&r.mapVersion==MAP_VERSION&&!r.map.isEmpty()))return;
+  if(r==null||r.commander==null)return;
+  if(r.map!=null&&r.mapVersion==MAP_VERSION&&!r.map.isEmpty()){   // running runs get their two shops on rooms not reached yet
+   if(!r.shopsPlaced){placeShops(r.map,new Random(r.seed^0x5409L),Math.max(1,r.round),r.mapPath);r.shopsPlaced=true;}return;}
   Random rnd=new Random(r.seed*0x9E3779B1L+0x51A9L);List<MapNode> m=new ArrayList<>();List<List<MapNode>> floors=new ArrayList<>();floors.add(new ArrayList<>());
   for(int f=1;f<=15;f++){List<MapNode> row=new ArrayList<>();
    if(f%5==0){MapNode n=new MapNode();n.floor=f;n.count=1;n.type="boss";
@@ -2782,9 +2801,18 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
     if(!has){MapNode best=a.get(0);for(MapNode n:a)if(Math.abs(rel(n)-rel(x))<Math.abs(rel(best)-rel(x)))best=n;best.next.add(x.id);}}}
   List<MapNode> slots=new ArrayList<>();for(MapNode n:m)if(n.floor>=3&&n.floor<=14&&n.floor%5!=0)slots.add(n);Collections.shuffle(slots,rnd);
   int k=0;for(String pre:new String[]{"treasure","treasure","unknown","unknown","unknown","unknown"})if(k<slots.size())slots.get(k++).pre=pre;
+  placeShops(m,rnd,1,List.of());r.shopsPlaced=true;
   if(r.trueRogue)for(int fl:new int[]{4,9,14})for(MapNode n:slots)if(n.floor==fl&&n.pre==null){n.pre="rest";break;}   // campfires only in True Rogue-like
   r.map=m;r.mapVersion=MAP_VERSION;r.mapPath=new ArrayList<>();r.mapPos=-1;
  }
+ /** two shop rooms per run, one in floors 3-9 and one in 11-14, never replacing a fight (user 2026-11-05) */
+ static void placeShops(List<MapNode> m,Random rnd,int fromFloor,List<Integer> walked){
+  for(int[] range:new int[][]{{3,9},{11,14}}){List<MapNode> c=new ArrayList<>();
+   for(MapNode n:m)if(n.floor>=Math.max(range[0],fromFloor)&&n.floor<=range[1]&&n.floor%5!=0&&n.pre==null&&(walked==null||!walked.contains(n.id)))c.add(n);
+   if(!c.isEmpty())c.get(rnd.nextInt(c.size())).pre="shop";}
+ }
+ static Color preColor(String pre){return Color.valueOf("treasure".equals(pre)?"ffc94a":"rest".equals(pre)?"ff8a3c":"shop".equals(pre)?"4fd8c4":"c79bff");}
+ static String preSymbol(String pre){return "treasure".equals(pre)?"$":"rest".equals(pre)?"^":"shop".equals(pre)?"S":"?";}
  static List<MapNode> reachable(Run r){
   List<MapNode> out=new ArrayList<>();if(!mapActive(r))return out;MapNode at=mapNode(r,r.mapPos);
   if(at!=null&&at.floor==r.round-1){for(int id:at.next){MapNode n=mapNode(r,id);if(n!=null)out.add(n);}}
@@ -2812,10 +2840,12 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
  void enterNode(Run r,MapNode n){
   if(n==null||reachable(r).stream().noneMatch(x->x.id==n.id))return;
   r.mapPos=n.id;r.mapPath.add(n.id);applyNode(r,n);mapSelected=-1;
+  if("elite".equals(n.type)){r.eliteCards=eliteSpoils(r);r.eliteSpoilsPending=!r.eliteCards.isEmpty();}   // 2 Legendary cards before the elite fight (user 2026-11-05)
   if(n.pre!=null&&!n.preDone){n.preDone=true;
    switch(n.pre){
     case "treasure"->{r.treasureCard=treasureCard(r);r.phase="treasure";}
     case "rest"->r.phase="rest";
+    case "shop"->{r.roomShop=rollRoomShop(r,n);r.roomShopBought=new ArrayList<>();r.phase="shop";}
     default->{Random rnd=new Random(r.seed^((long)n.id*0x2545F491L));
      List<String> kinds=new ArrayList<>(List.of("relics","favor","offer","merchant"));kinds.removeAll(r.encounterTypes);if(merchantCards(r).isEmpty())kinds.remove("merchant");
      if(!kinds.isEmpty()&&rnd.nextBoolean()){String enc=kinds.get(rnd.nextInt(kinds.size()));r.encounter=enc;r.encounters++;r.encounterTypes.add(enc);r.phase="encounter";merchantPick.clear();}
@@ -2869,9 +2899,9 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
    else if(big&&n.floor==15)centerText(b,"15",q[0]-rr,q[1]-rr,rr*2,rr*2,rr*.8f,RED,a,true);
    if(big&&"elite".equals(n.type)){float ex=q[0]+rr*.92f,ey=q[1]+rr*.92f,er=rr*.36f;disc(b,ex,ey,er,RED,a);disc(b,ex,ey,er*.78f,Color.valueOf("2a0e10"),a);centerText(b,"E",ex-er,ey-er,er*2,er*2,er*1.1f,RED,a,true);}
    if(n.pre!=null&&!n.preDone){float bx=q[0]-rr*.92f,by=q[1]+rr*.92f,br=Math.max(2.2f,rr*.4f);
-    Color pc="treasure".equals(n.pre)?Color.valueOf("ffc94a"):"rest".equals(n.pre)?Color.valueOf("ff8a3c"):Color.valueOf("c79bff");
+    Color pc=preColor(n.pre);
     disc(b,bx,by,br,pc,a);disc(b,bx,by,br*.78f,Color.valueOf("0e1119"),a);
-    if(big)centerText(b,"treasure".equals(n.pre)?"$":"rest".equals(n.pre)?"^":"?",bx-br,by-br,br*2,br*2,br*1.15f,pc,a,true);}
+    if(big)centerText(b,preSymbol(n.pre),bx-br,by-br,br*2,br*2,br*1.15f,pc,a,true);}
   }
  }
  // ------------------------------------------------------------------ "The road ahead": path map v2 (Codex design, user 2026-10-17)
@@ -2935,8 +2965,8 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
     centerText(b,label,q[0]-2,q[1]-ls-1.5f,q[2]+4,ls+1,ls,boss||elite?RED:sel?GOLD:TEXT,a,true);
     if(!state.isEmpty())centerText(b,state,q[0]-2,q[1]-lh+.5f,q[2]+4,ls,ls*.78f,Color.valueOf("aab2c4"),a,false);}
    if(n.pre!=null&&!n.preDone&&!fog){float bx=q[0]+3,by=q[1]+q[3]-3,br=Math.max(2.4f,q[3]*.13f);
-    Color pc="treasure".equals(n.pre)?Color.valueOf("ffc94a"):"rest".equals(n.pre)?Color.valueOf("ff8a3c"):Color.valueOf("c79bff");
-    disc(b,bx,by,br,pc,a);disc(b,bx,by,br*.78f,Color.valueOf("0e1119"),a);centerText(b,"treasure".equals(n.pre)?"$":"rest".equals(n.pre)?"^":"?",bx-br,by-br,br*2,br*2,br*1.15f,pc,a,true);}
+    Color pc=preColor(n.pre);
+    disc(b,bx,by,br,pc,a);disc(b,bx,by,br*.78f,Color.valueOf("0e1119"),a);centerText(b,preSymbol(n.pre),bx-br,by-br,br*2,br*2,br*1.15f,pc,a,true);}
    if(elite&&!fog){float ex=q[0]+q[2]-3,ey=q[1]+q[3]-3,er=Math.max(2.4f,q[3]*.13f);disc(b,ex,ey,er,RED,a);disc(b,ex,ey,er*.78f,Color.valueOf("2a0e10"),a);centerText(b,"E",ex-er,ey-er,er*2,er*2,er*1.1f,RED,a,true);}
   }
   // where you stand: a small gold marker on the last location (or at the road's start)
@@ -3095,8 +3125,8 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
    // markers: E (elite) right, event ($ ^ ?) left - on dark plates, 14-16 design px
    float mr=Math.max(2.6f,8*u),my=g[1]+S*.78f;
    if("elite".equals(n.type)){float ex=g[0]+S*.42f;disc(b,ex,my,mr,RED,a);disc(b,ex,my,mr*.78f,Color.valueOf("2a0e10"),a);centerText(b,"E",ex-mr,my-mr,mr*2,mr*2,mr*1.1f,RED,a,true);}
-   if(n.pre!=null&&!n.preDone){float ex=g[0]-S*.42f;Color pc="treasure".equals(n.pre)?Color.valueOf("ffc94a"):"rest".equals(n.pre)?Color.valueOf("ff8a3c"):Color.valueOf("c79bff");
-    disc(b,ex,my,mr,pc,a);disc(b,ex,my,mr*.78f,Color.valueOf("0e1119"),a);centerText(b,"treasure".equals(n.pre)?"$":"rest".equals(n.pre)?"^":"?",ex-mr,my-mr,mr*2,mr*2,mr*1.15f,pc,a,true);}
+   if(n.pre!=null&&!n.preDone){float ex=g[0]-S*.42f;Color pc=preColor(n.pre);
+    disc(b,ex,my,mr,pc,a);disc(b,ex,my,mr*.78f,Color.valueOf("0e1119"),a);centerText(b,preSymbol(n.pre),ex-mr,my-mr,mr*2,mr*2,mr*1.15f,pc,a,true);}
   }
   // lantern at your position
   if(at!=null&&pos.containsKey(at.id)){float[] p=pos.get(at.id);float S=p[2]*u;float[] g=P.apply(p[0],p[1]);
@@ -3197,15 +3227,15 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
     if(sel){float cy=q[1]+s*1.16f+(float)Math.sin(time*4)*s*.05f,cw=s*.15f,t=Math.max(1.5f,s*.045f);   // bobbing double arrow above the chosen place
      for(int k=0;k<2;k++){float yy=cy+k*cw*.75f;line(b,q[0]-cw,yy+cw,q[0],yy,t,PICK,a*(k==0?1f:.6f),false);line(b,q[0]+cw,yy+cw,q[0],yy,t,PICK,a*(k==0?1f:.6f),false);}}});
    float bx=q[0]-s*.42f,by=q[1]+s*.55f,br=Math.max(2.6f,s*.08f);
-   if(n.pre!=null&&!n.preDone&&!fog){Color pc="treasure".equals(n.pre)?Color.valueOf("ffc94a"):"rest".equals(n.pre)?Color.valueOf("ff8a3c"):Color.valueOf("c79bff");
-    disc(b,bx,by,br,pc,a);disc(b,bx,by,br*.78f,Color.valueOf("0e1119"),a);centerText(b,"treasure".equals(n.pre)?"$":"rest".equals(n.pre)?"^":"?",bx-br,by-br,br*2,br*2,br*1.15f,pc,a,true);}
+   if(n.pre!=null&&!n.preDone&&!fog){Color pc=preColor(n.pre);
+    disc(b,bx,by,br,pc,a);disc(b,bx,by,br*.78f,Color.valueOf("0e1119"),a);centerText(b,preSymbol(n.pre),bx-br,by-br,br*2,br*2,br*1.15f,pc,a,true);}
    if(elite&&!fog){float ex=q[0]+s*.42f;disc(b,ex,by,br,RED,a);disc(b,ex,by,br*.78f,Color.valueOf("2a0e10"),a);centerText(b,"E",ex-br,by-br,br*2,br*2,br*1.1f,RED,a,true);}
   }
   for(Runnable lb:labels)lb.run();
   if(hoverN[0]!=null){MapNode hn=hoverN[0];float[] q=hoverQ[0];float s=hoverS[0];OpponentSpec hd=hn.deck==null?null:specById(hn.deck);   // tooltip: what waits there
    String t1=("boss".equals(hn.type)?"BOSS":"FLOOR")+" "+hn.floor+(hn.floor==15?"  ·  THE SUMMIT":hd!=null?"  ·  "+roomName(hd.room).toUpperCase(Locale.ROOT):"");
    List<String> more=new ArrayList<>();if("elite".equals(hn.type))more.add("Elite: harder, reward one tier better");
-   if(hn.pre!=null&&!hn.preDone)more.add("treasure".equals(hn.pre)?"Treasure on the way":"rest".equals(hn.pre)?"Campfire on the way":"Unknown event on the way");
+   if(hn.pre!=null&&!hn.preDone)more.add("treasure".equals(hn.pre)?"Treasure on the way":"rest".equals(hn.pre)?"Campfire on the way":"shop".equals(hn.pre)?"Shop on the way":"Unknown event on the way");
    if(r.mapPath.contains(hn.id))more.add("Completed");else if(hn.floor>r.round)more.add("Reachable later - plan your road");
    String t2=String.join("  ·  ",more);float ls=6.2f,tw=Math.max(boldWidth(t1,ls),t2.isEmpty()?0:chipWidth(t2,ls*.85f))+14,th=t2.isEmpty()?ls+6:ls*2+8;
    float tx=Math.max(x,Math.min(x+w-tw,q[0]-tw/2)),ty=Math.min(y+h-th,q[1]+s*.95f);
@@ -3318,7 +3348,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
    if(from!=to)for(int f=from;f<=to;f++){float fy=my+mh*(.17f+.75f*(f-from)/(float)Math.max(1,to-from));ActSpots fsp=actSpots((from-1)/5+1);   /* labels next to the spot rows */
     if(fsp!=null&&fsp.floors!=null&&f-from<fsp.floors.length){float sum=0;for(int[] pt:fsp.floors[f-from])sum+=spotUi(pt)[1];fy=sum/fsp.floors[f-from].length+4;}boolean boss=f%5==0;   // floor labels on the left, climbing up
     text(b,boss?"BOSS "+f:"FLOOR "+f,mx-6,fy+3,5.6f,boss?RED:f==r.round?GOLD:Color.valueOf("c9c1b0"),a,40,Align.left,boss||f==r.round);}
-   float lx=16;for(String[] l:new String[][]{{"?","Unknown","c79bff"},{"$","Treasure","ffc94a"},{"^","Campfire","ff8a3c"},{"E","Elite +1 tier","ef6b6b"}}){
+   float lx=16;for(String[] l:new String[][]{{"?","Unknown","c79bff"},{"$","Treasure","ffc94a"},{"S","Shop","4fd8c4"},{"^","Campfire","ff8a3c"},{"E","Elite: 2 Legendary","ef6b6b"}}){
     if(l[0].equals("^")&&!r.trueRogue)continue;Color lc=Color.valueOf(l[2]);disc(b,lx+5,23,5,lc,a);disc(b,lx+5,23,3.9f,Color.valueOf("0e1119"),a);centerText(b,l[0],lx,18,10,10,5.5f,lc,a,true);
     text(b,l[1],lx+13,25.6f,5.8f,Color.valueOf("c9c1b0"),a,90,Align.left,false);lx+=20+chipWidth(l[1],5.8f);}
   }));
@@ -3357,7 +3387,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
     top-=lifeLine(b,life,"   ·   Hand "+opponentStartCards(pv),px+6,top,pw-12,7f,TEXT,a,true)+5;
     if(!bn.isEmpty())top-=boxedText(b,"Starts with: "+String.join(", ",bn),px+6,top,pw-12,6.4f,Color.valueOf("ffb43c"),Color.valueOf("ffc766"),a,true)+5;
     // (elite hint removed: "ELITE" is in the panel header and the legend says "Elite +1 tier" - it overflowed the button)
-    if(sel.pre!=null&&!sel.preDone)text(b,"Before this room: "+("treasure".equals(sel.pre)?"a treasure chest (free Epic card + "+TREASURE_FAVOR+" Divine Favor)":"rest".equals(sel.pre)?"a campfire (heal or pray)":"something unknown (?)"),px+6,top,6.2f,Color.valueOf("d9c4ff"),a,pw-12,Align.center,false);
+    if(sel.pre!=null&&!sel.preDone)text(b,"Before this room: "+("treasure".equals(sel.pre)?"a treasure chest (free Epic card + "+TREASURE_FAVOR+" Divine Favor)":"rest".equals(sel.pre)?"a campfire (heal or pray)":"shop".equals(sel.pre)?"a shop (8 strong neutral cards for Divine Favor)":"something unknown (?)"),px+6,top,6.2f,Color.valueOf("d9c4ff"),a,pw-12,Align.center,false);
    }));
    Btn enter=button(sel.floor==15?"Final gate":"Take this path",px-4,12,pw+8,24,()->enterNode(r,sel));enter.gold=true;
   }
@@ -3374,6 +3404,59 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
    boxedText(b,"+"+TREASURE_FAVOR+" Divine Favor",W()/2-60,52,120,7f,GOLD,GOLD,a,true);}));
   Btn take=button("Take it",W()/2-70,12,140,24,()->{if(r.treasureCard!=null&&!r.deck.contains(r.treasureCard)&&!bench(r).contains(r.treasureCard))r.bench.add(r.treasureCard);
    profile().goldBalance+=TREASURE_FAVOR;r.treasureCard=null;r.phase="fight";resumeOpponent(r);save();rebuild();});take.gold=true;
+ }
+ // ------------------------------------------------------------------ shop room + elite spoils (user 2026-11-05)
+ // Shop: 8 random strong cards from ALL neutral packages of the commander (not only the run's), Divine Favor, then the fight.
+ static int tierRank(String t){return "legendary".equals(t)?3:"epic".equals(t)?2:"rare".equals(t)?1:0;}
+ static final int[] ROOM_SHOP_PRICE={0,4,7,12};
+ static int roomShopPrice(CardRef x){return ROOM_SHOP_PRICE[tierRank(x.tier)];}
+ static List<CardRef> rollRoomShop(Run r,MapNode n){
+  Cmd c=cmd(r.commander);List<CardRef> out=new ArrayList<>();if(c==null)return out;
+  Set<String> own=new HashSet<>(r.deck);own.addAll(bench(r));Set<String> seen=new HashSet<>();Map<Integer,List<CardRef>> pools=new HashMap<>();
+  for(Theme t:c.themes)if(isNeutral(t)&&t.cards!=null)for(CardRef x:t.cards){int k=tierRank(x.tier);
+   if(k==0||own.contains(x.n)||x.n.equals(c.name)||!fits(x.c,c.colors)||!rewardCompatible(x,c)||paper(x.n)==null||!seen.add(x.n))continue;
+   pools.computeIfAbsent(k,q->new ArrayList<>()).add(x);}
+  Random rnd=new Random(r.seed^((long)n.id*0x5B0FL)^0x5409L);
+  for(int k:new int[]{1,1,2,2,2,2,3,3}){int kk=k;List<CardRef> pool=pools.getOrDefault(kk,List.of());
+   while(pool.isEmpty()&&kk>1){kk--;pool=pools.getOrDefault(kk,List.of());}
+   if(!pool.isEmpty())out.add(pool.remove(rnd.nextInt(pool.size())));}
+  out.sort(Comparator.comparingInt(x->tierRank(x.tier)));return out;
+ }
+ private void buildRoomShop(Run r){
+  root.addActor(new Painter((b,a)->{float w=W(),h=H();Texture t=roomTexture("library");if(t!=null)drawCover(b,t,0,0,w,h,a);else rect(b,0,0,w,h,DARK,a);rect(b,0,0,w,h,DARK,a*.45f);}));
+  if(r.roomShop==null)r.roomShop=new ArrayList<>();if(r.roomShopBought==null)r.roomShopBought=new ArrayList<>();
+  Profile p=profile();
+  title("THE WANDERING SHOP · "+p.goldBalance+" DIVINE FAVOR","Eight strong neutral cards for Divine Favor - bought cards go to your bench for this run. Your fight still waits behind the door.");
+  int n=r.roomShop.size(),cols=Math.max(1,Math.min(8,n));float gap=6,cw=Math.min((W()-24-gap*(cols-1))/cols,(H()-118)*.716f),ch=cw/.716f;
+  float x0=(W()-(cw*cols+gap*(cols-1)))/2,y=H()-64-ch;
+  for(int i=0;i<n;i++){CardRef x=r.roomShop.get(i);float xx=x0+i*(cw+gap);int price=roomShopPrice(x);boolean bought=r.roomShopBought.contains(x.n);
+   CardView v=new CardView(x.n,xx,y,cw,ch);v.selected=bought;root.addActor(v);
+   String tier=x.tier==null?"":x.tier.toUpperCase(Locale.ROOT);Color tc=tierRank(x.tier)==3?Color.valueOf("ff9f43"):tierRank(x.tier)==2?Color.valueOf("c79bff"):Color.valueOf("6fb7ff");
+   root.addActor(new Painter((b,a)->text(b,tier,xx,y+ch+8,5.2f,tc,a,cw,Align.center,true)));
+   Btn buy=button(bought?"Bought":price+" favor",xx,y-15,cw,13,()->{Profile q=profile();
+    if(r.roomShopBought.contains(x.n)||q.goldBalance<price)return;q.goldBalance-=price;r.roomShopBought.add(x.n);
+    if(!r.deck.contains(x.n)&&!bench(r).contains(x.n))bench(r).add(x.n);save();toast("Bought "+x.n+" - on your bench.");rebuild();});
+   buy.disabled=bought||p.goldBalance<price;buy.gold=!buy.disabled;}
+  if(n==0)root.addActor(new Painter((b,a)->text(b,"The shelves are empty today.",0,H()/2,8,TEXT,a,W(),Align.center,false)));
+  root.addActor(new Painter((b,a)->text(b,"Rare 4 · Epic 7 · Legendary 12 Divine Favor",0,62,6,DIM,a,W(),Align.center,false)));
+  Btn go=button("Leave the shop",W()/2-70,12,140,22,()->{r.phase="fight";r.roomShop=null;resumeOpponent(r);save();rebuild();});go.gold=true;
+ }
+ /** Elite room: two Legendary cards (from the run's packages, Epic if none are left) before the fight */
+ static List<String> eliteSpoils(Run r){
+  Cmd c=cmd(r.commander);List<String> out=new ArrayList<>();if(c==null)return out;Set<String> own=new HashSet<>(r.deck);own.addAll(bench(r));
+  Random rnd=new Random(r.seed^((long)r.round*0xE117EL)^0x5B01L);
+  for(String tier:new String[]{"legendary","epic"}){List<String> pool=new ArrayList<>();
+   for(Theme t:activeThemes(c,r))if(t.cards!=null)for(CardRef x:t.cards)if(tier.equals(x.tier)&&!own.contains(x.n)&&!out.contains(x.n)&&!pool.contains(x.n)&&paper(x.n)!=null)pool.add(x.n);
+   while(out.size()<2&&!pool.isEmpty())out.add(pool.remove(rnd.nextInt(pool.size())));if(out.size()>=2)break;}
+  return out;
+ }
+ private void buildEliteSpoils(Run r){
+  root.addActor(new Painter((b,a)->{float w=W(),h=H();Texture t=roomTexture("dragon-lair");if(t!=null)drawCover(b,t,0,0,w,h,a);else rect(b,0,0,w,h,DARK,a);rect(b,0,0,w,h,DARK,a*.45f);}));
+  title("ELITE SPOILS","The elite guard's hoard: two Legendary cards before the fight. They go to your bench - put them in your deck right away if you like.");
+  float cw=112,ch=cw/.716f,gap=14,x0=W()/2-cw-gap/2;
+  for(int i=0;i<r.eliteCards.size()&&i<2;i++){CardView v=new CardView(r.eliteCards.get(i),x0+i*(cw+gap),H()/2-ch/2+6,cw,ch);v.selected=true;root.addActor(v);}
+  Btn take=button("Take them",W()/2-70,12,140,24,()->{for(String n:r.eliteCards)if(!r.deck.contains(n)&&!bench(r).contains(n))bench(r).add(n);
+   toast("On your bench: "+String.join(", ",r.eliteCards));r.eliteCards=null;r.eliteSpoilsPending=false;save();rebuild();});take.gold=true;
  }
  private void buildRest(Run r){
   root.addActor(new Painter((b,a)->{float w=W(),h=H();Texture t=roomTexture("den");if(t!=null)drawCover(b,t,0,0,w,h,a);else rect(b,0,0,w,h,DARK,a);rect(b,0,0,w,h,DARK,a*.42f);}));

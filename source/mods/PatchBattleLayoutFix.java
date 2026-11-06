@@ -18,10 +18,19 @@ public class PatchBattleLayoutFix {
    if((c.name.endsWith("VCardDisplayArea")||c.name.endsWith("VZoneDisplay"))&&m.name.equals("layoutAndGetScrollBounds")){
     for(AbstractInsnNode n:m.instructions.toArray())if(n.getOpcode()==Opcodes.ARETURN){InsnList a=new InsnList();a.add(new VarInsnNode(Opcodes.ALOAD,0));a.add(new VarInsnNode(Opcodes.FLOAD,1));a.add(new VarInsnNode(Opcodes.FLOAD,2));a.add(new MethodInsnNode(Opcodes.INVOKESTATIC,H,"center","(Lforge/toolbox/FScrollPane$ScrollBounds;Lforge/screens/match/views/VCardDisplayArea;FF)Lforge/toolbox/FScrollPane$ScrollBounds;",false));m.instructions.insertBefore(n,a);changes++;}
    }
+   // many attackers on a phone: one bundled arrow per defending player instead of 30 (user 2026-11-05: alpha strike lag)
+   if(c.name.equals("forge/screens/match/TargetingOverlay")&&m.name.equals("assembleArrows"))for(AbstractInsnNode n:m.instructions.toArray())if(n instanceof MethodInsnNode call&&call.name.equals("flushArrows")){m.instructions.insertBefore(n,new MethodInsnNode(Opcodes.INVOKESTATIC,H,"thinArrows","()V",false));changes++;}
    if(c.name.endsWith("VField")&&m.name.equals("doLayout"))for(AbstractInsnNode n:m.instructions.toArray())if(n.getOpcode()==Opcodes.RETURN){InsnList a=new InsnList();a.add(new VarInsnNode(Opcodes.ALOAD,0));a.add(new VarInsnNode(Opcodes.FLOAD,1));a.add(new VarInsnNode(Opcodes.FLOAD,2));a.add(new MethodInsnNode(Opcodes.INVOKESTATIC,H,"field","(Lforge/screens/match/views/VField;FF)V",false));m.instructions.insertBefore(n,a);changes++;}
    if(c.name.equals("forge/screens/match/MatchScreen")&&m.name.equals("drawOverlay"))for(AbstractInsnNode n:m.instructions.toArray())if(n instanceof MethodInsnNode call&&((call.owner.equals("forge/card/CardRenderer")&&call.name.equals("drawCard"))||(call.owner.equals("forge/card/CardImageRenderer")&&call.name.equals("drawDetails")))){
     m.instructions.insertBefore(n,new VarInsnNode(Opcodes.ALOAD,0));call.owner=H;call.name=call.name.equals("drawCard")?"preview":"details";call.desc=call.desc.substring(0,call.desc.indexOf(')'))+"Lforge/screens/match/MatchScreen;)V";changes++;
    }
+  }
+  // graveyard + flashback share one card panel: each zone row puts its own bounds back before it draws (user 2026-11-05)
+  if(c.name.equals("forge/screens/match/views/VCardDisplayArea")&&c.methods.stream().noneMatch(m->m.name.equals("draw")&&m.desc.equals("(Lforge/Graphics;)V"))){
+   MethodNode d=new MethodNode(Opcodes.ACC_PUBLIC,"draw","(Lforge/Graphics;)V",null,null);
+   d.instructions.add(new VarInsnNode(Opcodes.ALOAD,0));d.instructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC,H,"beforeDraw","(Lforge/screens/match/views/VCardDisplayArea;)V",false));
+   d.instructions.add(new VarInsnNode(Opcodes.ALOAD,0));d.instructions.add(new VarInsnNode(Opcodes.ALOAD,1));d.instructions.add(new MethodInsnNode(Opcodes.INVOKESPECIAL,"forge/toolbox/FScrollPane","draw","(Lforge/Graphics;)V",false));
+   d.instructions.add(new InsnNode(Opcodes.RETURN));c.methods.add(d);changes++;
   }
   String method=c.name.equals("forge/toolbox/FButton")?"draw":c.name.equals("forge/toolbox/FList")?"drawBackground":null;
   if(method!=null&&c.methods.stream().noneMatch(m->m.name.equals(method.equals("draw")?"layoutOriginalDraw":"layoutOriginalBackground"))){

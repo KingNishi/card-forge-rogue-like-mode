@@ -95,7 +95,53 @@ public final class BattleLayoutFixMod {
   catch(ReflectiveOperationException e){throw new IllegalStateException(e);}
  }
  private static boolean plainLand(CardView card){return card!=null&&card.getCurrentState().isLand()&&!card.getCurrentState().isCreature();}
+ /** A card that can be cast from the graveyard sits in two zone rows at once (graveyard + flashback) with ONE shared
+  *  panel; the row laid out last moved it, leaving a gap in the other (user 2026-11-05: "Luecken zwischen den Karten").
+  *  Every zone row remembers the bounds of its own layout and puts them back right before it draws. */
+ private static final java.util.Map<VCardDisplayArea,java.util.Map<FDisplayObject,float[]>> ownBounds=new java.util.WeakHashMap<>();
+ private static Field panelArea;
  public static FScrollPane.ScrollBounds center(FScrollPane.ScrollBounds original,VCardDisplayArea area,float w,float h){
+  FScrollPane.ScrollBounds b=center0(original,area,w,h);
+  if(area instanceof VZoneDisplay){var m=new java.util.IdentityHashMap<FDisplayObject,float[]>();
+   for(FDisplayObject c:area.getChildren())m.put(c,new float[]{c.getLeft(),c.getTop(),c.getWidth(),c.getHeight()});ownBounds.put(area,m);}
+  return b;
+ }
+ public static void beforeDraw(VCardDisplayArea area){
+  var m=ownBounds.get(area);if(m==null)return;
+  for(var e:m.entrySet()){FDisplayObject c=e.getKey();float[] r=e.getValue();
+   if(c.getLeft()==r[0]&&c.getTop()==r[1]&&c.getWidth()==r[2]&&c.getHeight()==r[3]||!childOf(area,c))continue;   // left this row since: not ours any more
+   c.setBounds(r[0],r[1],r[2],r[3]);
+   if(c instanceof VCardDisplayArea.CardAreaPanel p)try{if(panelArea==null){panelArea=VCardDisplayArea.CardAreaPanel.class.getDeclaredField("displayArea");panelArea.setAccessible(true);}panelArea.set(p,area);}catch(ReflectiveOperationException ignored){}
+  }
+ }
+ /** Android: more than BUNDLE attackers against one player draw ONE arrow from the middle of the attackers instead of one
+  *  each - every arrow costs extra GPU passes per frame on a phone (user 2026-11-05: "lagt ... alpha strike"). The attacking
+  *  cards keep their own attack marking. Runs right before TargetingOverlay draws its prepared arrows. */
+ static final int BUNDLE=6;
+ private static Field arrowsF,countF,startF,endF,solidF;
+ @SuppressWarnings("unchecked") public static void thinArrows(){
+  if(!BattleUiSettings.touch())return;
+  try{
+   if(arrowsF==null){Class<?> t=Class.forName("forge.screens.match.TargetingOverlay"),pa=Class.forName("forge.screens.match.TargetingOverlay$PendingArrow");
+    Field a=t.getDeclaredField("pendingArrows"),c=t.getDeclaredField("pendingCount"),s=pa.getDeclaredField("start"),e=pa.getDeclaredField("end"),so=pa.getDeclaredField("solid");
+    for(Field f:new Field[]{a,c,s,e,so})f.setAccessible(true);startF=s;endF=e;solidF=so;countF=c;arrowsF=a;}
+   java.util.List<Object> list=(java.util.List<Object>)arrowsF.get(null);int n=countF.getInt(null);if(n<=BUNDLE)return;
+   var groups=new java.util.LinkedHashMap<Long,java.util.List<Object>>();
+   for(int i=0;i<n;i++){Object a=list.get(i);if(!solidF.getBoolean(a))continue;var end=(com.badlogic.gdx.math.Vector2)endF.get(a);if(end==null)continue;
+    groups.computeIfAbsent(((long)Math.round(end.x)<<32)^(Math.round(end.y)&0xffffffffL),k->new java.util.ArrayList<>()).add(a);}
+   var drop=java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<Object,Boolean>());
+   for(var g:groups.values()){if(g.size()<=BUNDLE)continue;float sx=0,sy=0;
+    for(Object a:g){var st=(com.badlogic.gdx.math.Vector2)startF.get(a);sx+=st.x;sy+=st.y;}
+    startF.set(g.get(0),new com.badlogic.gdx.math.Vector2(sx/g.size(),sy/g.size()));for(int i=1;i<g.size();i++)drop.add(g.get(i));}
+   if(drop.isEmpty())return;
+   var kept=new java.util.ArrayList<Object>(n);for(int i=0;i<n;i++)if(!drop.contains(list.get(i)))kept.add(list.get(i));
+   var tail=new java.util.ArrayList<Object>(list.subList(0,n));tail.removeAll(kept);   // dropped entries stay in the pool for reuse
+   for(int i=0;i<kept.size();i++)list.set(i,kept.get(i));for(int i=0;i<tail.size();i++)list.set(kept.size()+i,tail.get(i));
+   countF.setInt(null,kept.size());
+  }catch(ReflectiveOperationException|RuntimeException e){/* never break arrow drawing */}
+ }
+ private static boolean childOf(VCardDisplayArea area,FDisplayObject c){for(FDisplayObject x:area.getChildren())if(x==c)return true;return false;}
+ private static FScrollPane.ScrollBounds center0(FScrollPane.ScrollBounds original,VCardDisplayArea area,float w,float h){
   FScrollPane.ScrollBounds grid=ArenaBattleHudMod.commandGrid(area,w,h);if(grid!=null)return grid;   // command zone: card grid
   ArenaBattleHudMod.shrinkLands(area);   // battlefield rows: lands a little smaller
   autoFit(area,w,h);

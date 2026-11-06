@@ -387,7 +387,7 @@ public final class ArenaBattleHudMod {
  public static float headerHeight(float original){return bars()?0:original;}
  /** bottom prompt bar (message, OK / End Turn) */
  // from the CURRENT screen height: VPrompt.HEIGHT is fixed at startup and went tiny after a monitor/DPI switch (user 2026-10-17)
- public static float promptHeight(float original){return bars()?Math.round(Math.max(30,Math.min(110,forge.Forge.getScreenHeight()*.045f))*BattleUiSettings.size(1)):original;}   // x Settings > Battle UI: OK / End Turn
+ public static float promptHeight(float original){return bars()?Math.round(Math.max(30,Math.min(BattleUiSettings.touch()?150:110,forge.Forge.getScreenHeight()*(BattleUiSettings.touch()?.07f:.045f)))*BattleUiSettings.size(1)):original;}   // x Settings > Battle UI: OK / End Turn
  // ------------------------------------------------------------------ keyboard shortcuts (Settings > Keys, user 2026-10-17)
  /** BattleZoomMod.key calls this first (reflection); true = the key was a bound battle action */
  public static boolean battleKey(int key){
@@ -427,27 +427,27 @@ public final class ArenaBattleHudMod {
   record Step(String title,String text,java.util.function.Supplier<com.badlogic.gdx.math.Rectangle> target){}
   final List<Step> steps=new ArrayList<>();int index;final long start=System.currentTimeMillis();
   Tour(VPlayerPanel me,VPlayerPanel foe){
-   var view=forge.screens.match.MatchController.getView();
-   steps.add(new Step("Battle controls","A quick tour of the battle screen. Tap anywhere (or press a key) for the next tip - Escape skips the tour.",()->null));
-   steps.add(new Step("Your hand","Tap a card to play it. Hover a card or right-click it to see it big.",()->{var t=me.getSelectedTab();return t==null?null:rectOf(t.getDisplayArea());}));
-   steps.add(new Step("Show / hide the hand","Folds your hand away to see the whole battlefield - tap again to bring it back. Key: H.",()->rectOf(toggles.get(me))));
-   steps.add(new Step("Board zoom","- and + make the cards on the battlefield smaller or bigger, the middle resets. Keys: Page Up / Page Down / Home.",()->rectOf(boardZooms.get(me))));
-   steps.add(new Step("OK and End Turn","OK confirms what the message on the left asks for (keep the hand, attack, pass...). End Turn passes until your turn ends. Keys: Space / E.",()->{var p=view.getActivePrompt();return p==null?null:union(rectOf(p.getBtnOk()),rectOf(p.getBtnCancel()));}));
+   var view=forge.screens.match.MatchController.getView();boolean touch=BattleUiSettings.touch();   // phone / tablet: touch wording, no keys (user 2026-11-05)
+   steps.add(new Step("Battle controls",touch?"A quick tour of the battle screen. Tap anywhere for the next tip - the Back button skips the tour.":"A quick tour of the battle screen. Tap anywhere (or press a key) for the next tip - Escape skips the tour.",()->null));
+   steps.add(new Step("Your hand",touch?"Tap a card to play it. Long-press a card to see it big.":"Tap a card to play it. Hover a card or right-click it to see it big.",()->{var t=me.getSelectedTab();return t==null?null:rectOf(t.getDisplayArea());}));
+   steps.add(new Step("Show / hide the hand","Folds your hand away to see the whole battlefield - tap again to bring it back."+(touch?"":" Key: H."),()->rectOf(toggles.get(me))));
+   steps.add(new Step("Board zoom","- and + make the cards on the battlefield smaller or bigger, the middle resets."+(touch?"":" Keys: Page Up / Page Down / Home."),()->rectOf(boardZooms.get(me))));
+   steps.add(new Step("OK and End Turn","OK confirms what the message on the left asks for (keep the hand, attack, pass...). End Turn passes until your turn ends."+(touch?"":" Keys: Space / E."),()->{var p=view.getActivePrompt();return p==null?null:union(rectOf(p.getBtnOk()),rectOf(p.getBtnCancel()));}));
    steps.add(new Step("The message line","Bottom left: what the game is waiting for right now. Tap it to read a long message in full.",()->{var p=view.getActivePrompt();if(p==null)return null;var r=rectOf(p);if(r==null)return null;r.width*=.55f;return r;}));
-   steps.add(new Step("Turn panel","Whose turn it is and which step you are in. The blue steps are the main phases.",()->lastPlaque==null?null:new com.badlogic.gdx.math.Rectangle(lastPlaque)));
-   steps.add(new Step("Skip","Passes everything until the main phase of your next turn - for when you don't want to respond. Tap again to stop. Key: S.",()->rectOf(skips.get(me))));
+   steps.add(new Step("Turn panel","Whose turn it is and which step you are in. The blue steps are the main phases. Drag it anywhere you like - double-tap puts it back.",()->lastPlaque==null?null:new com.badlogic.gdx.math.Rectangle(lastPlaque)));
+   steps.add(new Step("Skip","Passes everything until the main phase of your next turn - for when you don't want to respond. Tap again to stop."+(touch?"":" Key: S."),()->rectOf(skips.get(me))));
    steps.add(new Step("Your portrait and life","Your commander and your life total. The glowing frame shows whose turn it is.",()->rectOf(me.getAvatar())));
-   steps.add(new Step("Mana and deck","Mana you have floating appears in this tile. Deck shows your deck list. Key: D.",()->union(rectOf(me.getManaPoolTab()),rectOf(deckButtons.get(me)))));
+   steps.add(new Step("Mana and deck","Mana you have floating appears in this tile. Deck shows your deck list."+(touch?"":" Key: D."),()->union(rectOf(me.getManaPoolTab()),rectOf(deckButtons.get(me)))));
    steps.add(new Step("Zones","Library, graveyard, exile and more - tap a tab to look inside, tap it again to close it.",()->{com.badlogic.gdx.math.Rectangle r=null;for(var t:me.getTabs())if(t!=me.getManaPoolTab()&&!(t instanceof VPlayerPanel.InfoTabExtra))r=union(r,rectOf(t));return r;}));
    steps.add(new Step("Command zone","Your commander waits here. Tap it to cast it - also again after it died.",()->rectOf(me.getCommandZone())));
-   steps.add(new Step("The enemy","Their portrait and life. Log (the scroll) lists everything that happened. Key: L.",()->union(rectOf(foe.getAvatar()),rectOf(logButtons.get(foe)))));
+   steps.add(new Step("The enemy","Their portrait and life. Log (the scroll) lists everything that happened."+(touch?"":" Key: L."),()->union(rectOf(foe.getAvatar()),rectOf(logButtons.get(foe)))));
    steps.add(new Step("The stack","Spells and abilities waiting to resolve show up in a list in the middle of the board. While it is open you can still answer with instants before they resolve.",()->rectOf(view.getStack())));
    steps.add(new Step("Battle menu","Top left: concede, zoom, hand size and more.",()->{for(FDisplayObject c:view.getChildren())if(c.getClass().getSimpleName().equals("MenuButton"))return rectOf(c);return null;}));
-   steps.add(new Step("Make it yours","Button sizes and keyboard shortcuts: Rogue Commanders > Settings > Battle UI / Keys. Good luck!",()->null));
+   steps.add(new Step("Make it yours",touch?"Button sizes and the turn panel: battle menu > Battle settings, or Rogue Commanders > Settings > Battle UI. Good luck!":"Button sizes and keyboard shortcuts: Rogue Commanders > Settings > Battle UI / Keys. Good luck!",()->null));
   }
   void next(){index++;if(index>=steps.size())finish();Gdx.graphics.requestRendering();}
   void finish(){current=null;setVisible(false);try{forge.adventure.scene.RogueCommandersScene.setBattleTourDone();}catch(Throwable ignored){}}
-  void key(int k){if(k==com.badlogic.gdx.Input.Keys.ESCAPE)finish();else if(k==com.badlogic.gdx.Input.Keys.LEFT){index=Math.max(0,index-1);Gdx.graphics.requestRendering();}else next();}   // Left = back
+  void key(int k){if(k==com.badlogic.gdx.Input.Keys.ESCAPE||k==com.badlogic.gdx.Input.Keys.BACK)finish();else if(k==com.badlogic.gdx.Input.Keys.LEFT){index=Math.max(0,index-1);Gdx.graphics.requestRendering();}else next();}   // Left = back
   @Override public boolean tap(float x,float y,int count){if(System.currentTimeMillis()-start>400)next();return true;}
   @Override public boolean press(float x,float y){return true;}
   @Override public boolean release(float x,float y){return true;}
@@ -474,7 +474,7 @@ public final class ArenaBattleHudMod {
    frame(g,MINE,new Color(.05f,.06f,.10f,1f),bx,by,bw,bh,12*s,Math.max(1.5f,2*s));   // nested fills: no drawRoundRect cross lines
    g.drawText(st.title(),tf,MINE,bx+pad,by+pad,bw-2*pad,30*s,false,com.badlogic.gdx.utils.Align.left,true);
    g.drawText(st.text(),bf,TEXT,bx+pad,by+pad+30*s,bw-2*pad,th+4,true,com.badlogic.gdx.utils.Align.left,false);
-   g.drawText((index+1)+" / "+steps.size()+"   -   tap / any key: next   -   Left: back   -   Escape: skip",hf,MUTED,bx+pad,by+bh-pad-14*s,bw-2*pad,16*s,false,com.badlogic.gdx.utils.Align.right,true);
+   g.drawText((index+1)+" / "+steps.size()+(BattleUiSettings.touch()?"   -   tap: next   -   Back: skip":"   -   tap / any key: next   -   Left: back   -   Escape: skip"),hf,MUTED,bx+pad,by+bh-pad-14*s,bw-2*pad,16*s,false,com.badlogic.gdx.utils.Align.right,true);
    Gdx.graphics.requestRendering();
   }
  }
@@ -594,6 +594,70 @@ public final class ArenaBattleHudMod {
    }
   }
  }
+ /** compact turn panel (Android default, Settings: Compact): one line + a strip of the 13 steps, Skip on the right (user 2026-11-05) */
+ public static final float COMPACT_W=400,COMPACT_H=60,COMPACT_SKIP=84;
+ public static void drawCompactTurn(Graphics g,float x,float y,float s,boolean mine,int turn,PhaseType phase){
+  float pw=COMPACT_W*s,ph=COMPACT_H*s;Color accent=mine?MINE:ENEMY;
+  g.fillRoundRect(new Color(0,0,0,.30f),x+2*s,y+3*s,pw,ph,9*s);
+  frame(g,accent,BG,x,y,pw,ph,9*s,Math.max(1,1.6f*s));
+  float pad=10*s,info=pw-(COMPACT_SKIP+12)*s,th=24*s,ty=y+5*s;
+  String title=mine?"YOUR TURN":"ENEMY TURN",sub="Turn "+Math.max(1,turn)+" - "+phaseName(phase);
+  FSkinFont tf=fit(title,info*.42f,th);float tw=Math.min(info*.42f,tf.getBounds(title).width+2);
+  g.drawText(title,tf,accent,x+pad,ty,tw,th,false,com.badlogic.gdx.utils.Align.left,true);
+  float sx=x+pad+tw+8*s,sw=Math.max(10,x+info-pad-sx);
+  g.drawText(sub,fit(sub,sw,th*.8f),TEXT,sx,ty,sw,th,false,com.badlogic.gdx.utils.Align.left,true);
+  // the 13 steps as ticks in three groups (beginning / combat / end), the current one lit and taller, main phases blue
+  int active=stepIndex(phase),index=0;float gap=2.5f*s,groupGap=8*s,avail=info-2*pad-2*groupGap,seg=(avail-10*gap)/13f,bh=7*s,by=y+ph-15*s,bx=x+pad;
+  for(String[] row:STEPS){
+   for(int i=0;i<row.length;i++,index++){boolean main=row[i].startsWith("Main");Color c=main?MAIN_PHASE:accent;
+    if(index==active)g.fillRoundRect(c,bx,by-3*s,seg,bh+6*s,2*s);
+    else if(index<active)g.fillRoundRect(mix(c,.35f),bx,by,seg,bh,2*s);
+    else if(main)frame(g,MAIN_PHASE,BG,bx,by,seg,bh,2*s,Math.max(1,s));
+    else g.fillRoundRect(mix(MUTED,.28f),bx,by,seg,bh,2*s);
+    bx+=seg+(i<row.length-1?gap:0);}
+   bx+=groupGap;}
+ }
+ /** the turn panel and its Skip button as one piece on the match screen: drag it anywhere, double-tap puts it back,
+  *  the spot is saved (user 2026-11-05: "mach das ding dragable"). Compact or detailed from Settings > Battle UI. */
+ static final class TurnPanel extends FContainer{
+  static final Map<Object,TurnPanel> byView=new WeakHashMap<>();
+  final SkipButton skip=add(new SkipButton());
+  boolean compact,mine,dragging;int turn;PhaseType phase;float ps,defX,defY,viewW,viewH,dragX,dragY;long placedAt,lastPan;
+  static float pointer(float ps){return 10*ps;}
+  static TurnPanel place(VPlayerPanel p,float plaqueX,float ps,boolean mine,GameView game){
+   var view=forge.screens.match.MatchController.getView();if(view==null)return null;
+   TurnPanel t=byView.get(view);boolean child=false;
+   if(t!=null)for(FDisplayObject c:view.getChildren())if(c==t){child=true;break;}
+   if(!child){t=new TurnPanel();view.add(t);byView.put(view,t);}
+   t.compact=BattleUiSettings.compactTurn();float ps0=ps;if(t.compact&&BattleUiSettings.touch())ps*=1.3f;   /* phone: desktop pixels on a small screen */t.mine=mine;t.turn=game.getTurn();t.phase=game.getPhase();t.ps=ps;t.placedAt=System.currentTimeMillis();
+   t.viewW=view.getWidth();t.viewH=view.getHeight();
+   float px=p.screenPos.x-view.screenPos.x,py=p.screenPos.y-view.screenPos.y,w,h;
+   if(t.compact){w=COMPACT_W*ps;h=COMPACT_H*ps;t.defX=px+plaqueX+PLAQUE_W*ps0-w;t.defY=py-h-6*ps;}   // right edge where the big plaque ended, just above the middle line (not over your creatures)
+   else{w=PLAQUE_W*ps;h=pointer(ps)+PLAQUE_H*ps+46*ps;t.defX=px+plaqueX;t.defY=py-PLAQUE_H*.28f*ps-pointer(ps);}
+   if(t.dragging&&System.currentTimeMillis()-t.lastPan>300)t.endDrag();   // no panStop reached us: the drag ended anyway
+   if(t.dragging){t.setSize(w,h);}
+   else{float x=t.defX+BattleUiSettings.turnDx()*t.viewW,y=t.defY+BattleUiSettings.turnDy()*t.viewH;t.setBounds(clamp(x,0,t.viewW-w),clamp(y,0,t.viewH-h),w,h);}
+   if(t.compact)t.skip.setBounds(w-(COMPACT_SKIP+7)*ps,7*ps,COMPACT_SKIP*ps,h-14*ps);
+   else t.skip.setBounds(w*.25f,pointer(ps)+PLAQUE_H*ps+16*ps,w*.5f,30*ps);
+   return t;
+  }
+  static float clamp(float v,float lo,float hi){return Math.max(lo,Math.min(Math.max(lo,hi),v));}
+  boolean stale(){return System.currentTimeMillis()-placedAt>400;}   // the HUD stopped placing it (other layout, game over)
+  @Override protected void doLayout(float w,float h){}
+  @Override public void draw(Graphics g){if(!stale())super.draw(g);}
+  @Override public void buildTouchListeners(float x,float y,List<FDisplayObject> listeners){if(!stale())super.buildTouchListeners(x,y,listeners);}
+  @Override protected void drawBackground(Graphics g){
+   if(compact)drawCompactTurn(g,0,0,ps,mine,turn,phase);else drawTurnPlaque(g,0,pointer(ps),ps,mine,turn,phase);
+   lastPlaque=new com.badlogic.gdx.math.Rectangle(screenPos.x,screenPos.y+(compact?0:pointer(ps)),getWidth(),compact?getHeight():PLAQUE_H*ps);   // for the controls tour
+  }
+  @Override public boolean pan(float x,float y,float dx,float dy,boolean moreVertical){
+   if(!dragging){dragging=true;dragX=getLeft();dragY=getTop();}
+   lastPan=System.currentTimeMillis();dragX+=dx;dragY+=dy;setPosition(clamp(dragX,0,viewW-getWidth()),clamp(dragY,0,viewH-getHeight()));Gdx.graphics.requestRendering();return true;}
+  @Override public boolean panStop(float x,float y){if(!dragging)return false;endDrag();return true;}
+  void endDrag(){dragging=false;BattleUiSettings.setTurnOffset(viewW<=0?0:(getLeft()-defX)/viewW,viewH<=0?0:(getTop()-defY)/viewH);BattleUiSettings.save();}
+  @Override public boolean tap(float x,float y,int count){
+   if(count>=2){BattleUiSettings.resetTurnPosition();BattleUiSettings.save();Gdx.graphics.requestRendering();}return true;}
+ }
  private static final Map<VPlayerPanel,SkipButton> skips=new WeakHashMap<>();
  private static final Map<VPlayerPanel,DeckButton> deckButtons=new WeakHashMap<>();
  private static final Map<VPlayerPanel,LogButton> logButtons=new WeakHashMap<>();
@@ -709,11 +773,8 @@ public final class ArenaBattleHudMod {
   float w=p.getWidth(),s=uiScale;boolean mine=isTurnOf(game,p);
   float ps=s*BattleUiSettings.size(0);   // Settings > Battle UI: turn panel + Skip (user 2026-10-17)
   float plaqueX=Math.min(w-(PLAQUE_W+18)*ps,p.getAvatar().getLeft()-(PLAQUE_W+14)*ps);
-  drawTurnPlaque(g,plaqueX,-PLAQUE_H*.28f*ps,ps,mine,game.getTurn(),game.getPhase());   // lower than centred on the border
-  lastPlaque=new com.badlogic.gdx.math.Rectangle(p.screenPos.x+plaqueX,p.screenPos.y-PLAQUE_H*.28f*ps,PLAQUE_W*ps,PLAQUE_H*ps);   // for the controls tour
+  TurnPanel tp=TurnPanel.place(p,plaqueX,ps,mine,game);if(tp!=null)skips.put(p,tp.skip);   // turn panel + Skip: one piece on the match screen, draggable (user 2026-11-05)
   if(game.getTurn()>=1)maybeTour(p);
-  SkipButton sk=skips.get(p);if(sk==null){sk=p.add(new SkipButton());skips.put(p,sk);}
-  sk.setBounds(plaqueX+PLAQUE_W*ps*.25f,PLAQUE_H*.72f*ps+16*ps,PLAQUE_W*ps*.5f,30*ps);
   // Deck button right ABOVE the mana tile next to the portrait (user 2026-10-16: visible, not in the match menu)
   DeckButton db=deckButtons.get(p);if(db==null){db=p.add(new DeckButton());deckButtons.put(p,db);}
   var mana=p.getManaPoolTab();

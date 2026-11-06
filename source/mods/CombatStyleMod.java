@@ -37,7 +37,13 @@ public final class CombatStyleMod {
   Map<Integer,TextureRegion> all=FSkin.getSleeves();if(!SELECTING.get())return all;
   return unlocked(all,AchievementBoosterMod.unlockedSleeveCount());
  }
+ private static Map<Integer,TextureRegion> unlockedCache;private static Object unlockedFrom;private static int unlockedCount=-1;
+ /** per card back drawn, so cached (2026-11-05: Android frame time) */
  private static Map<Integer,TextureRegion> unlocked(Map<Integer,TextureRegion> all,int count){
+  if(all==unlockedFrom&&count==unlockedCount&&unlockedCache!=null)return unlockedCache;
+  unlockedCache=unlocked0(all,count);unlockedFrom=all;unlockedCount=count;return unlockedCache;
+ }
+ private static Map<Integer,TextureRegion> unlocked0(Map<Integer,TextureRegion> all,int count){
   Map<Integer,TextureRegion> result=new LinkedHashMap<>();for(Integer id:eligible(all.keySet(),count))result.put(id,all.get(id));return result;
  }
  public static void label(SleeveSelector selector,FImage image,int index){

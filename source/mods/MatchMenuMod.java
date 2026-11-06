@@ -209,7 +209,18 @@ public final class MatchMenuMod {
                 BORDER = new Color(0x5b6378ff), MUTED = new Color(0xaab2c4ff), LISTEN = new Color(0x4a3a12ff);
         private final MatchScreen screen;
         private final java.util.List<Cell> minus = new java.util.ArrayList<>(), plus = new java.util.ArrayList<>(), keys = new java.util.ArrayList<>();
-        private final Cell resetSizes, resetKeys, close;
+        private final Cell resetSizes, resetKeys, close, turnStyle, turnSpot;
+        /** phones / tablets: no keyboard, so the right column explains the touch controls (user 2026-11-05) */
+        private final boolean touch = BattleUiSettings.touch();
+        private static final String[] TOUCH_HELP = {
+                "Tap a card: play it or choose it",
+                "Long-press a card: see it big",
+                "OK / End Turn: bottom of the screen",
+                "Skip: pass until your next main phase",
+                "Drag the turn panel to move it - double-tap puts it back",
+                "Hand button: fold your hand away to see the board",
+                "- and + next to the board: zoom the cards",
+                "Back button: close menus and pop-ups"};
         private int listening = -1;
         private float scale = 1f, px, py, pw, ph, row, pad, colW, top;
 
@@ -220,13 +231,16 @@ public final class MatchMenuMod {
                 minus.add(add(new Cell(() -> "-", () -> step(k, -.05f), -1)));
                 plus.add(add(new Cell(() -> "+", () -> step(k, .05f), -1)));
             }
-            for (int i = 0; i < BattleUiSettings.ACTIONS.length; i++) {
+            for (int i = 0; i < (touch ? 0 : BattleUiSettings.ACTIONS.length); i++) {
                 final int k = i;
                 keys.add(add(new Cell(() -> listening == k ? "Press a key ..." : BattleUiSettings.keyName(k),
                         () -> { listening = listening == k ? -1 : k; requestRendering(); }, k)));
             }
             resetSizes = add(new Cell(() -> "Reset sizes", () -> { BattleUiSettings.resetSizes(); applied(); }, -1));
-            resetKeys = add(new Cell(() -> "Reset keys", () -> { BattleUiSettings.resetKeys(); listening = -1; requestRendering(); }, -1));
+            resetKeys = touch ? null : add(new Cell(() -> "Reset keys", () -> { BattleUiSettings.resetKeys(); listening = -1; requestRendering(); }, -1));
+            turnStyle = add(new Cell(() -> "Turn panel: " + BattleUiSettings.TURN_STYLES[BattleUiSettings.turnStyle()],
+                    () -> { BattleUiSettings.setTurnStyle((BattleUiSettings.turnStyle() + 1) % 3); applied(); }, -1));
+            turnSpot = add(new Cell(() -> "Turn panel: reset spot", () -> { BattleUiSettings.resetTurnPosition(); applied(); }, -1));
             close = add(new Cell(() -> "Close", this::close, -1));
             close.gold = true;
         }
@@ -239,7 +253,8 @@ public final class MatchMenuMod {
             scale = Math.max(.65f, Math.min(2.5f, Math.min(w / 1600f, h / 900f)));
             pad = 22f * scale; row = 34f * scale;
             float gap = 7f * scale;
-            int rows = BattleUiSettings.ACTIONS.length + 2;   // heading + keys + reset
+            int rows = touch ? TOUCH_HELP.length + 1 : BattleUiSettings.ACTIONS.length + 2;   // heading + keys + reset / touch help
+            if (touch) row = 40f * scale;   // bigger tap targets on a phone
             pw = Math.min(w - 2 * pad, 1180f * scale);
             ph = pad + 46f * scale + 30f * scale + rows * (row + gap) + row * 1.3f + pad * 1.6f;
             ph = Math.min(ph, h - pad);
@@ -254,10 +269,13 @@ public final class MatchMenuMod {
                 y += row + gap;
             }
             resetSizes.setBounds(lx + colW - 200f * scale, y + gap, 200f * scale, row);
+            y += row + 2 * gap;
+            turnStyle.setBounds(lx, y + gap, colW * .5f - gap, row);
+            turnSpot.setBounds(lx + colW * .5f + gap, y + gap, colW * .5f - gap, row);
             float rx = px + 2 * pad + colW;
             y = top + row + gap;
             for (Cell k : keys) { k.setBounds(rx + colW * .6f, y, colW * .4f, row); y += row + gap; }
-            resetKeys.setBounds(rx + colW * .6f, y + gap * .5f, colW * .4f, row);
+            if (resetKeys != null) resetKeys.setBounds(rx + colW * .6f, y + gap * .5f, colW * .4f, row);
             close.setBounds(px + (pw - 240f * scale) / 2f, py + ph - pad - row * 1.3f, 240f * scale, row * 1.3f);
         }
 
@@ -268,11 +286,14 @@ public final class MatchMenuMod {
             g.drawText("Battle settings", font(26), GOLD, px + pad, py + pad * .5f, pw - 2 * pad, 46f * scale, false, 8, true);
             String hint = listening >= 0
                     ? "Press the new key for \"" + BattleUiSettings.ACTION_LABELS[listening] + "\"  -  Backspace clears it, Esc cancels."
+                    : touch ? "Changes apply right away and are saved when you close."
                     : "Changes apply right away and are saved when you close. Click a key to change it.";
             g.drawText(hint, font(14), listening >= 0 ? GOLD : MUTED, px + pad, py + pad * .5f + 46f * scale, pw - 2 * pad, 30f * scale, false, 8, true);
             float lx = px + pad, rx = px + 2 * pad + colW;
             g.drawText("Sizes", font(19), GOLD, lx, top, colW, row, false, 8, true);
-            g.drawText("Keys", font(19), GOLD, rx, top, colW, row, false, 8, true);
+            g.drawText(touch ? "Touch controls" : "Keys", font(19), GOLD, rx, top, colW, row, false, 8, true);
+            if (touch) for (int i = 0; i < TOUCH_HELP.length; i++)
+                g.drawText(TOUCH_HELP[i], font(15), TEXT, rx, top + (i + 1) * row * 1.05f, colW, row, false, 8, true);
             for (int i = 0; i < minus.size(); i++) {
                 Cell m = minus.get(i), p = plus.get(i);
                 g.drawText(BattleUiSettings.SIZE_LABELS[i], font(15), TEXT, lx, m.getTop(), m.getLeft() - lx - pad * .5f, row, false, 8, true);

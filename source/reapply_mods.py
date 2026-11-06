@@ -1411,6 +1411,21 @@ def patch_prefs():
     say('OK', want.decode())
 
 
+def patch_rogue_sounds():
+    print('46) Rogue Commanders sounds: trigger chimes (rogue-commanders/sounds -> res/sound)')
+    src = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rogue-commanders', 'sounds')
+    dst = os.path.join(FORGE, 'res', 'sound')
+    for name in sorted(os.listdir(src)) if os.path.isdir(src) else []:
+        if not name.endswith('.wav'): continue
+        a, b = os.path.join(src, name), os.path.join(dst, name)
+        data = open(a, 'rb').read()
+        if os.path.exists(b) and open(b, 'rb').read() == data:
+            say('ok', f'{name} already in res/sound'); continue
+        if CHECK_ONLY:
+            say('->', f'would copy {name}'); continue
+        os.makedirs(dst, exist_ok=True); open(b, 'wb').write(data); say('OK', f'{name} -> res/sound')
+
+
 def patch_battle_layout_fixes():
     print('32) Automatic battlefield zoom, centered hands/field rows, small land fans, safe hover previews, full action buttons and styled choices')
     choices=['forge/toolbox/FChoiceList.class','forge/toolbox/FList.class',
@@ -1425,8 +1440,8 @@ def patch_battle_layout_fixes():
                        'forge/screens/match/views/VField$1.class',
                        'forge/screens/match/views/VCardDisplayArea.class',
                        'forge/screens/match/views/VZoneDisplay.class',
-                       'forge/screens/match/MatchScreen.class',
-                       'forge/toolbox/FButton.class','forge/toolbox/FList.class']], extra_sources=['FantasyButtonArt.java'])
+                       'forge/screens/match/MatchScreen.class','forge/screens/match/TargetingOverlay.class',
+                       'forge/toolbox/FButton.class','forge/toolbox/FList.class']], extra_sources=['FantasyButtonArt.java','BattleUiSettings.java'])
 
 
 if __name__ == '__main__':
@@ -1436,7 +1451,7 @@ if __name__ == '__main__':
     if running:
         print('\nForge is running: JARs and preferences are skipped (Forge has them open/would overwrite them).')
         print('Data files are patched now and take effect after the next Forge start.\n')
-    for step in (patch_jars, patch_enemies, patch_config, patch_prefs, patch_quest_reputation, patch_shops, patch_rotation, patch_arenas, patch_avatars, patch_autowin, patch_shop_hour, patch_portraits, patch_art_avatars, patch_world_sprites, patch_highres_downloads, patch_token_images, patch_map_zoom, patch_shop_signs, patch_upscaled_shop_signs, patch_witcher_music, patch_modern_hud, patch_draft_rating, patch_floating_mage, patch_achievement_rewards, patch_enemy_sprite_detail, patch_librarium_enemies, patch_combat_style, patch_modern_atmosphere, patch_combat_preferences, patch_arena_motion, patch_map_style, patch_map_light, patch_dungeon_run, patch_world_content, patch_starter_decks, patch_commander_rating, patch_rogue_commanders, patch_dev_mode, patch_modern_skin, patch_modern_results, patch_stack_clearance, patch_mana_pool_layout, patch_zone_tabs, patch_match_menu, patch_transition_style, patch_card_art_pref, patch_digital_sets, patch_card_scripts, patch_upstream_fixes, patch_ai_aggression):
+    for step in (patch_jars, patch_enemies, patch_config, patch_prefs, patch_quest_reputation, patch_shops, patch_rotation, patch_arenas, patch_avatars, patch_autowin, patch_shop_hour, patch_portraits, patch_art_avatars, patch_world_sprites, patch_highres_downloads, patch_token_images, patch_map_zoom, patch_shop_signs, patch_upscaled_shop_signs, patch_witcher_music, patch_modern_hud, patch_draft_rating, patch_floating_mage, patch_achievement_rewards, patch_enemy_sprite_detail, patch_librarium_enemies, patch_combat_style, patch_modern_atmosphere, patch_combat_preferences, patch_arena_motion, patch_map_style, patch_map_light, patch_dungeon_run, patch_world_content, patch_starter_decks, patch_commander_rating, patch_rogue_commanders, patch_dev_mode, patch_modern_skin, patch_modern_results, patch_stack_clearance, patch_mana_pool_layout, patch_zone_tabs, patch_match_menu, patch_transition_style, patch_card_art_pref, patch_digital_sets, patch_card_scripts, patch_upstream_fixes, patch_ai_aggression, patch_rogue_sounds):
         if running and step in (patch_jars, patch_prefs, patch_rotation, patch_card_art_pref, patch_card_scripts):
             print(f'{step.__name__}: skipped - close Forge and run again to apply'); continue
         try:

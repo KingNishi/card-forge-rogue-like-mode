@@ -76,7 +76,22 @@ public final class PromptStyleMod {
 
     private static float scale(VPrompt p) {
         // current width AND height: follows window/monitor switches (DevModeMod.followWindowSize)
-        return Math.max(.75f, Math.min(2.4f, Math.min(p.getWidth() / 1600f, Forge.getScreenHeight() / 900f)));
+        float s = Math.min(p.getWidth() / 1600f, Forge.getScreenHeight() / 900f);
+        if (touch()) s *= 1.45f;   // a phone has desktop pixels on a few centimetres: bigger buttons and text (user 2026-11-05)
+        return Math.max(.75f, Math.min(touch() ? 3.2f : 2.4f, s));
+    }
+    static boolean touch() { if (System.getProperty("forge.touchtest") != null) return true; try { return forge.gui.GuiBase.getInterface() != null && forge.gui.GuiBase.isAndroid(); } catch (Throwable t) { return false; } }
+    /** a real decision on a phone (targets, attackers, blockers, "use this trigger?", choices) - not plain priority passing */
+    private static boolean decisionPrompt(VPrompt p) {
+        try {
+            if (!touch() || !p.isVisible()) return false;
+            FButton ok = p.getBtnOk(), no = p.getBtnCancel();
+            if (!(ok.isVisible() && ok.isEnabled() || no.isVisible() && no.isEnabled())) return false;
+            MatchController c = MatchController.instance;
+            if (c == null || !(c.getGameController() instanceof forge.player.PlayerControllerHuman h)) return false;
+            Object in = h.getInputProxy().getInput();
+            return in != null && !(in instanceof forge.gamemodes.match.input.InputPassPriority);
+        } catch (Throwable t) { return false; }
     }
 
     /** Called by ArenaBattleHudMod.prompt in place of its old layout body. */
@@ -132,6 +147,7 @@ public final class PromptStyleMod {
         if (!active(p) || state == null || !state.styled) return false;
         if (behindDialog(p)) return true;
         if (mulliganPrompt(p)) { MulliganPanel.ensure(p); return true; }   // keep / mulligan and play / draw: big, in the middle (tester 2026-10-19)
+        if (decisionPrompt(p)) DecisionPanel.ensure(p);   // Android: confirmations pop up big, bottom right (user 2026-11-05)
         String message = p.getMessage();
         state.clipped = false;
         if (message == null || message.isBlank()) return true;
@@ -263,6 +279,69 @@ public final class PromptStyleMod {
                 Color fill = ok ? (isHovered() ? GOLD_HOVER : GOLD) : (isHovered() ? HOVER : SECONDARY);
                 pill(g, fill, ok ? GOLD_DOWN : EDGE, 0, 0, w, h, Math.max(1f, 1.5f * s), 14f * s);
                 g.drawText(button().getText(), FSkinFont._get(Math.max(12, Math.round(26f * s))), ok ? INK : TEXT, 0, 0, w, h, false, 1, true);
+            }
+        }
+    }
+
+    /** Android: a decision (targets, attackers, "use this trigger?", choices ...) as a big card above the bottom-right corner:
+     *  the question and two large buttons (user 2026-11-05: "OK und Cancel ... ultra klein", "unten rechts ... aufploppen").
+     *  Only the card takes touches - cards on the board stay selectable. */
+    private static final class DecisionPanel extends FOverlay {
+        private static DecisionPanel current;
+        private final VPrompt prompt;
+        private final Big ok, no;
+        private float s = 1f, px, py, pw, ph, textH;
+        static boolean showing(VPrompt p) { return current != null && current.prompt == p && current.isVisible(); }
+        static void ensure(VPrompt p) {
+            if (showing(p)) return;
+            com.badlogic.gdx.Gdx.app.postRunnable(() -> {
+                if (showing(p) || !decisionPrompt(p) || mulliganPrompt(p)) return;
+                if (current != null) current.close();
+                current = new DecisionPanel(p);
+                current.show();
+            });
+        }
+        DecisionPanel(VPrompt p) { prompt = p; no = add(new Big(false)); ok = add(new Big(true)); }
+        void close() { if (current == this) current = null; if (isVisible()) hide(); }
+        @Override public boolean preventInputBehindOverlay() { return false; }
+        @Override public void buildTouchListeners(float screenX, float screenY, java.util.List<FDisplayObject> listeners) {
+            if (screenX >= px && screenX <= px + pw && screenY >= py && screenY <= py + ph) super.buildTouchListeners(screenX, screenY, listeners);
+        }
+        @Override public boolean keyDown(int keyCode) { return false; }
+        private String question() {
+            String m = prompt.getMessage() == null ? "" : prompt.getMessage().trim();
+            return m.replaceAll("\\s*\\R+\\s*", "  ");
+        }
+        @Override protected void doLayout(float w, float h) {
+            s = Math.max(.9f, Math.min(3.2f, Math.min(w / 1600f, h / 900f) * 1.5f));
+            pw = Math.min(w * .40f, 600f * s);
+            FSkinFont f = FSkinFont._get(Math.max(12, Math.round(19f * s)));
+            textH = Math.min(f.getLineHeight() * 4.2f, f.getWrappedBounds(question(), pw - 36f * s).height + 6f * s);
+            float bh = 62f * s;
+            ph = 18f * s + textH + 16f * s + bh + 16f * s;
+            float bottom = prompt.screenPos.height > 0 ? prompt.screenPos.y : h - 60f * s;
+            px = w - pw - 14f * s; py = Math.max(8f * s, bottom - ph - 10f * s);
+            float bw = (pw - 3 * 16f * s) / 2f, by = py + ph - bh - 16f * s;
+            no.setBounds(px + 16f * s, by, bw, bh);
+            ok.setBounds(px + pw - 16f * s - bw, by, bw, bh);
+        }
+        @Override protected void drawBackground(Graphics g) {
+            if (!prompt.isVisible() || !decisionPrompt(prompt) || mulliganPrompt(prompt)) { com.badlogic.gdx.Gdx.app.postRunnable(this::close); return; }
+            pill(g, PANEL_STRONG, GOLD, px, py, pw, ph, Math.max(1.5f, 2f * s), 16f * s);
+            g.fillRect(GOLD, px + pw * .1f, py + 3f * s, pw * .8f, Math.max(1f, s));
+            g.drawText(question(), FSkinFont._get(Math.max(12, Math.round(19f * s))), TEXT, px + 18f * s, py + 18f * s, pw - 36f * s, textH, true, 8, false);
+        }
+        private final class Big extends FDisplayObject {
+            private final boolean primary;
+            Big(boolean primary) { this.primary = primary; }
+            private FButton button() { return primary ? prompt.getBtnOk() : prompt.getBtnCancel(); }
+            private boolean usable() { FButton b = button(); return b.isVisible() && b.isEnabled(); }
+            @Override public boolean tap(float x, float y, int count) { if (!usable()) return true; FButton b = button(); close(); b.trigger(); return true; }
+            @Override public void draw(Graphics g) {
+                float w = getWidth(), h = getHeight();boolean on = usable();
+                Color fill = !on ? DISABLED : primary ? (isHovered() ? GOLD_HOVER : GOLD) : (isHovered() ? HOVER : SECONDARY);
+                pill(g, fill, primary && on ? GOLD_DOWN : EDGE, 0, 0, w, h, Math.max(1f, 1.5f * s), 14f * s);
+                g.drawText(button().getText(), FSkinFont._get(Math.max(12, Math.round(25f * s))), !on ? DISABLED_TEXT : primary ? INK : TEXT, 0, 0, w, h, false, 1, true);
             }
         }
     }
@@ -412,6 +491,7 @@ public final class PromptStyleMod {
         if (p == null || !active(p) || state == null || !state.styled) return false;
         if (behindDialog(p)) return true;
         if (mulliganPrompt(p) && MulliganPanel.showing(p)) return true;
+        if (DecisionPanel.showing(p)) return true;   // the big panel shows these two buttons
         boolean enabled = b.isEnabled(), primary = b == p.getBtnOk();
         boolean down = pressed || b.isToggled(), hover = b.isHovered();
         Color fill = !enabled ? DISABLED : primary ? (down ? GOLD_DOWN : hover ? GOLD_HOVER : GOLD)
