@@ -19,7 +19,9 @@ import java.util.*;
 public final class ArenaMotionMod {
  private static final Map<Class<?>,Map<String,Field>> FIELDS=new HashMap<>();
  private static final Map<String,Method> ORIGINALS=new HashMap<>();
- public static boolean active(){return forge.Forge.getCurrentScene() instanceof forge.adventure.scene.DuelScene;}
+ /** Forge 1v1 Browser (2026-11-10): -Dforge.duo=1 shows the Rogue battle look in online matches too */
+ public static boolean duo(){return (System.getProperty("forge.duo")!=null&&forge.Forge.getCurrentScreen() instanceof forge.screens.match.MatchScreen);}
+ public static boolean active(){return forge.Forge.getCurrentScene() instanceof forge.adventure.scene.DuelScene||duo();}
  public static float smooth(float p){float t=Math.max(0,Math.min(1,p));return t*t*t*(t*(t*6-15)+10);}
  public static float eased(float p){return active()?smooth(p):p;}
  public static float duration(float nativeNanos){return active()?(nativeNanos==450_000_000f?500_000_000f:260_000_000f):nativeNanos;}

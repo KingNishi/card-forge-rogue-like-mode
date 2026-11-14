@@ -71,7 +71,7 @@ public final class PromptStyleMod {
 
     private static boolean active(VPrompt p) {
         return Forge.isLandscapeMode() && p.getWidth() >= 900f
-                && Forge.getCurrentScene() instanceof forge.adventure.scene.DuelScene;
+                && (Forge.getCurrentScene() instanceof forge.adventure.scene.DuelScene || (System.getProperty("forge.duo")!=null&&forge.Forge.getCurrentScreen() instanceof forge.screens.match.MatchScreen));   // forge.duo: 1v1 browser mode
     }
 
     private static float scale(VPrompt p) {
@@ -98,6 +98,16 @@ public final class PromptStyleMod {
     }
     /** the decision is about cards in the own hand (London mulligan "put N on the bottom", discard ...): the panel then
      *  sits in the middle so the hand stays tappable (user 2026-11-06: "direkt ueber der Hand ... in der Mitte anzeigen") */
+    /** a plain question (yes/no, use this trigger?, optional cost): a big popup in the middle of the screen on touch
+     *  (user 2026-11-13: "alle confirmation buttons als groessere pop ups") */
+    private static boolean confirmQuestion() {
+        try {
+            MatchController c = MatchController.instance;
+            if (c == null || !(c.getGameController() instanceof forge.player.PlayerControllerHuman h)) return false;
+            return h.getInputProxy().getInput() instanceof forge.gamemodes.match.input.InputConfirm;
+        } catch (Throwable t) { return false; }
+    }
+    private static boolean popupCentered() { return handChoice() || confirmQuestion(); }
     private static boolean handChoice() {
         try {
             MatchController c = MatchController.instance;
@@ -347,7 +357,7 @@ public final class PromptStyleMod {
             falseSince = 0;
             suspended = otherOverlay(this);
             if (suspended) return;
-            if (handChoice() != centered || !question().equals(laidOut)) revalidate();   // new question: new height, same anchor
+            if (popupCentered() != centered || !question().equals(laidOut)) revalidate();   // new question: new height, same anchor
             forge.adventure.util.BattleUiSettings.decisionAt = System.currentTimeMillis();   // the turn panel steps aside
             super.draw(g);
         }
@@ -359,7 +369,8 @@ public final class PromptStyleMod {
         @Override protected void doLayout(float w, float h) {
             s = Math.max(.9f, Math.min(3.2f, Math.min(w / 1600f, h / 900f) * 1.3f));
             pw = Math.min(w * .38f, 600f * s);
-            centered = handChoice();
+            if (popupCentered()) pw = Math.min(w * .62f, 820f * s);
+            centered = popupCentered();
             // right edge left of the portrait column: the opponent's portrait stays tappable as a target
             float right = w - 14f * s;
             try { VPlayerPanel top = MatchController.getView().getTopPlayerPanel(); if (top != null && top.getAvatar().screenPos.x > w * .5f) right = top.getAvatar().screenPos.x - 12f * s; } catch (Throwable t) { }
@@ -367,7 +378,7 @@ public final class PromptStyleMod {
             laidOut = question();
             FSkinFont f = FSkinFont._get(Math.max(12, Math.round(19f * s)));
             textH = Math.min(f.getLineHeight() * 5.2f, Math.max(f.getLineHeight() * 1.2f, f.getWrappedBounds(laidOut, pw - 36f * s).height + 6f * s));
-            float bh = 58f * s;
+            float bh = Math.max(58f * s, forge.util.Utils.AVG_FINGER_HEIGHT * 1.35f);   // at least a fingertip on small phones
             ph = 18f * s + textH + 16f * s + bh + 16f * s;
             // upper right, standing on the middle line where the turn panel sits (which steps aside meanwhile): the hand,
             // the zone strip and an open graveyard stay free (user 2026-11-06: "die Menus sind im Weg, weiter oben");
@@ -395,7 +406,7 @@ public final class PromptStyleMod {
                 float w = getWidth(), h = getHeight();boolean on = usable();
                 Color fill = !on ? DISABLED : primary ? (isHovered() ? GOLD_HOVER : GOLD) : (isHovered() ? HOVER : SECONDARY);
                 pill(g, fill, primary && on ? GOLD_DOWN : EDGE, 0, 0, w, h, Math.max(1f, 1.5f * s), 14f * s);
-                g.drawText(button().getText(), FSkinFont._get(Math.max(12, Math.round(25f * s))), !on ? DISABLED_TEXT : primary ? INK : TEXT, 0, 0, w, h, false, 1, true);
+                g.drawText(button().getText(), FSkinFont._get(Math.max(12, Math.round(Math.max(25f * s, h * .42f)))), !on ? DISABLED_TEXT : primary ? INK : TEXT, 0, 0, w, h, false, 1, true);
             }
         }
     }

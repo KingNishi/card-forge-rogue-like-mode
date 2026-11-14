@@ -102,6 +102,7 @@ public final class BattleLayoutFixMod {
  private static Field panelArea;
  public static FScrollPane.ScrollBounds center(FScrollPane.ScrollBounds original,VCardDisplayArea area,float w,float h){
   FScrollPane.ScrollBounds b=center0(original,area,w,h);
+  placeZoneButton(area);
   if(area instanceof VZoneDisplay){var m=new java.util.IdentityHashMap<FDisplayObject,float[]>();
    for(FDisplayObject c:area.getChildren())m.put(c,new float[]{c.getLeft(),c.getTop(),c.getWidth(),c.getHeight()});ownBounds.put(area,m);}
   return b;
@@ -144,6 +145,7 @@ public final class BattleLayoutFixMod {
  private static FScrollPane.ScrollBounds center0(FScrollPane.ScrollBounds original,VCardDisplayArea area,float w,float h){
   FScrollPane.ScrollBounds grid=ArenaBattleHudMod.commandGrid(area,w,h);if(grid!=null)return grid;   // command zone: card grid
   ArenaBattleHudMod.shrinkLands(area);   // battlefield rows: lands a little smaller
+  foldZone(area);   // folded artifacts / enchantments: one fan (user 2026-11-13)
   autoFit(area,w,h);
   if(!ArenaMotionMod.active()||w<h||w<200)return original;
   float left=Float.POSITIVE_INFINITY,right=0;
@@ -159,12 +161,12 @@ public final class BattleLayoutFixMod {
  private static float[] split(VField field,float w,float h){
   try{Field f=VField.class.getDeclaredField("commandZoneWidth");f.setAccessible(true);float reserve=f.getFloat(field);
    float usable=Math.max(200,w-reserve),card=ArenaBattleHudMod.fieldCardHeight(field);
-   float rearRatio=ArenaBattleHudMod.LAND_SCALE;for(var p:field.getRow2().getCardPanels())if(!plainLand(p.getCard())){rearRatio=1;break;}
+   float rearRatio=(BattleUiSettings.compactLands()?.58f:ArenaBattleHudMod.LAND_SCALE);for(var p:field.getRow2().getCardPanels())if(!plainLand(p.getCard())){rearRatio=1;break;}
    float gap=Math.max(4,Math.min(10,card*.06f)),rear=BattleZoomMod.manual()?card*rearRatio+2*gap:Math.min(h*.48f,card+2*gap);
    // Let a crowded rear row borrow height before making its lands/artifacts too small.
    float rearWidth=0,rearCard=0;int roots=0;
    for(var panel:field.getRow2().getCardPanels()){
-    float size=card*(plainLand(panel.getCard())?ArenaBattleHudMod.LAND_SCALE:1),fan=1;
+    float size=card*(plainLand(panel.getCard())?(BattleUiSettings.compactLands()?.58f:ArenaBattleHudMod.LAND_SCALE):1),fan=1;
     var p=panel;var seen=new java.util.HashSet<VCardDisplayArea.CardAreaPanel>();
     while(p.getNextPanelInStack()!=null&&seen.add(p)){p=p.getNextPanelInStack();fan+=.32f;}
     rearWidth+=size*(fan+panel.getCard().getAttachedCards().size()*.20f);rearCard=Math.max(rearCard,size);roots++;
@@ -190,6 +192,7 @@ public final class BattleLayoutFixMod {
   // the creature row stays next to the centre line, the rear row at the outer edge; the spare height lies between them
   field.getRow1().setBounds(0,field.isFlipped()?h-front:0,usable,front);
   field.getRow2().setBounds(0,field.isFlipped()?0:h-rear,usable,rear);
+  zoneButton(field,usable);
   APPLIED_FRONT.put(field,front);
   if(other!=null&&!evening){Float was=APPLIED_FRONT.get(other);if(was==null||Math.abs(was-front)>.5f){evening=true;try{other.revalidate();}finally{evening=false;}}}
  }
@@ -223,5 +226,80 @@ public final class BattleLayoutFixMod {
  public static void list(FList<?> list,Graphics g){
   if(!ArenaMotionMod.active()){original(list,FList.class,"layoutOriginalBackground",g);return;}
   g.fillRect(Color.valueOf("15212c"),0,0,list.getWidth(),list.getHeight());
+ }
+
+ // ------------------------------------------------------------------ compact lands + folding artifact zone (user 2026-11-13)
+ // "Lands kompakt wie MTG Arena: kleine Kacheln mit Tap-Symbol statt Drehung" and "Artefakt/Verzauberungs-Zone pro Spieler
+ // einklappbar, trotzdem aktivierbar". Battle UI setting each: Auto = Android on, PC off.
+ private static boolean onField(CardView c){return c!=null&&c.getZone()==forge.game.zone.ZoneType.Battlefield;}
+ /** CardAreaPanel.getTappedAngle: compact lands stay upright when tapped */
+ public static float tappedAngle(float angle,VCardDisplayArea.CardAreaPanel panel){
+  if(ArenaMotionMod.active()&&BattleUiSettings.compactLands()&&plainLand(panel.getCard())&&onField(panel.getCard())&&panel.getAttachedToPanel()==null)return 0;
+  return angle;
+ }
+ /** FCardPanel.rotateTransform (end): a tapped compact land is darkened and shows the tap symbol */
+ public static void tapMark(FCardPanel panel,Graphics g,float x,float y,float w,float h){
+  CardView c=panel.getCard();
+  if(!panel.isTapped()||!ArenaMotionMod.active()||!BattleUiSettings.compactLands()||!plainLand(c)||!onField(c))return;
+  if(panel instanceof VCardDisplayArea.CardAreaPanel p&&p.getAttachedToPanel()!=null)return;
+  g.fillRect(new Color(0,0,0,.50f),x,y,w,h);
+  float s=Math.min(w,h)*.46f;
+  g.fillCircle(new Color(0,0,0,.55f),x+w/2,y+h/2,s*.62f);
+  CardFaceSymbols.drawSymbol("T",g,x+(w-s)/2,y+(h-s)/2,s,s);
+ }
+ private static boolean zoneCard(CardView c){
+  if(c==null||c.getCurrentState()==null)return false;var s=c.getCurrentState();
+  return !s.isCreature()&&!s.isLand()&&!s.isPlaneswalker()&&(s.isArtifact()||s.isEnchantment());
+ }
+ private static final java.util.Map<VField,Boolean> OPEN=new java.util.WeakHashMap<>();
+ private static final java.util.Map<VField,FButton> BUTTONS=new java.util.WeakHashMap<>();
+ private static VField owner(VCardDisplayArea area){
+  try{Field f=VField.FieldRow.class.getDeclaredField("this$0");f.setAccessible(true);return (VField)f.get(area);}catch(ReflectiveOperationException e){return null;}
+ }
+ private static int zoneCount(VCardDisplayArea row){int n=0;for(var p:row.getCardPanels())if(p.getAttachedToPanel()==null&&zoneCard(p.getCard()))n++;return n;}
+ private static boolean folded(VField field){return field!=null&&ArenaMotionMod.active()&&BattleUiSettings.collapsibleZone()&&!OPEN.getOrDefault(field,false);}
+ /** folded: every artifact / enchantment (with whatever is attached to it) moves into one tight fan; each card keeps an
+  *  exposed edge, so it can still be tapped, activated or targeted. Cards right of the old span close the gap. */
+ private static void foldZone(VCardDisplayArea area){
+  if(!(area instanceof VField.FieldRow))return;VField field=owner(area);if(!folded(field))return;
+  var map=new java.util.LinkedHashMap<VCardDisplayArea.CardAreaPanel,RowGroup>();
+  for(FDisplayObject c:area.getChildren())if(c.isVisible()&&c instanceof VCardDisplayArea.CardAreaPanel p&&c.getWidth()>0){var r=root(p);if(zoneCard(r.getCard()))map.computeIfAbsent(r,k->new RowGroup()).add(c);}
+  if(map.size()<2)return;
+  var groups=new java.util.ArrayList<>(map.values());groups.sort(java.util.Comparator.comparingDouble(g->g.left));
+  float L=groups.get(0).left,R=0,card=0;for(RowGroup g:groups){R=Math.max(R,g.right);card=Math.max(card,g.height());}
+  float step=Math.max(14,card*.30f),x=L,fanRight=L;
+  for(RowGroup g:groups){float dx=x-g.left;for(FDisplayObject c:g.cards)c.setPosition(c.getLeft()+dx,c.getTop());fanRight=Math.max(fanRight,x+g.width());x+=step;}
+  float saved=R-fanRight;if(saved<=0)return;
+  var moved=new java.util.HashSet<FDisplayObject>();for(RowGroup g:groups)moved.addAll(g.cards);
+  for(FDisplayObject c:area.getChildren())if(c.isVisible()&&!moved.contains(c)&&c.getLeft()>=R-.5f)c.setPosition(c.getLeft()-saved,c.getTop());
+ }
+ private static final java.util.Map<VField,VCardDisplayArea> ZONE_ROW=new java.util.WeakHashMap<>();
+ /** the fold button sits right next to the artifact / enchantment fan; the row keeps room for it at its right end */
+ private static void zoneButton(VField field,float usable){
+  FButton b=BUTTONS.get(field);
+  boolean creatures=false;for(var p:field.getRow1().getCardPanels())if(p.getCard()!=null&&p.getCard().getCurrentState().isCreature()){creatures=true;break;}
+  VField.FieldRow row=!creatures&&zoneCount(field.getRow1())>0?field.getRow1():field.getRow2();
+  int n=zoneCount(row);
+  boolean show=ArenaMotionMod.active()&&BattleUiSettings.collapsibleZone()&&n>=2;
+  if(!show){if(b!=null)b.setVisible(false);return;}
+  if(b==null){FButton nb=new FButton("",e->{OPEN.put(field,!OPEN.getOrDefault(field,false));field.revalidate();field.getRow1().revalidate();field.getRow2().revalidate();});b=nb;field.add(b);BUTTONS.put(field,b);}
+  b.setVisible(true);boolean open=OPEN.getOrDefault(field,false);
+  b.setText((open?"Fold ":"Artifacts ")+n);b.setToggled(open);
+  float bh=Math.min(row.getHeight()-4,Math.max(30,forge.util.Utils.AVG_FINGER_HEIGHT*.75f)),bw=bh*2.4f;
+  ZONE_ROW.put(field,row);
+  b.setBounds(row.getLeft()+row.getWidth()-bw-4,row.getTop()+(row.getHeight()-bh)/2,bw,bh);
+  row.setBounds(row.getLeft(),row.getTop(),Math.max(60,row.getWidth()-bw-10),row.getHeight());
+  placeZoneButton(row);
+ }
+ /** after a row layout: put the button at the right edge of the folded fan (or of the last artifact when unfolded) */
+ private static void placeZoneButton(VCardDisplayArea area){
+  if(!(area instanceof VField.FieldRow))return;VField field=owner(area);if(field==null||ZONE_ROW.get(field)!=area)return;
+  FButton b=BUTTONS.get(field);if(b==null||!b.isVisible())return;
+  float right=-1,top=Float.POSITIVE_INFINITY,bottom=0;
+  for(FDisplayObject c:area.getChildren())if(c.isVisible()&&c instanceof VCardDisplayArea.CardAreaPanel p&&c.getWidth()>0&&zoneCard(root(p).getCard())){right=Math.max(right,c.getRight());top=Math.min(top,c.getTop());bottom=Math.max(bottom,c.getBottom());}
+  if(right<0)return;
+  float x=area.getLeft()+right-area.getScrollLeft()+6,y=area.getTop()+(top+bottom)/2-b.getHeight()/2;
+  x=Math.min(x,area.getLeft()+area.getWidth()+6);
+  b.setPosition(x,Math.max(area.getTop(),Math.min(y,area.getTop()+area.getHeight()-b.getHeight())));
  }
 }

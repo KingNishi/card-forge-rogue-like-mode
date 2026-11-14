@@ -1441,7 +1441,8 @@ def patch_battle_layout_fixes():
                        'forge/screens/match/views/VCardDisplayArea.class',
                        'forge/screens/match/views/VZoneDisplay.class',
                        'forge/screens/match/MatchScreen.class','forge/screens/match/TargetingOverlay.class',
-                       'forge/toolbox/FButton.class','forge/toolbox/FList.class']], extra_sources=['FantasyButtonArt.java','BattleUiSettings.java'])
+                       'forge/toolbox/FButton.class','forge/toolbox/FList.class',
+                       'forge/screens/match/views/VCardDisplayArea$CardAreaPanel.class','forge/toolbox/FCardPanel.class']], extra_sources=['FantasyButtonArt.java','BattleUiSettings.java'])
 
 
 if __name__ == '__main__':

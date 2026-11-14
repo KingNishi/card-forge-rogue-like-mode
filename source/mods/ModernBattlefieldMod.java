@@ -70,7 +70,7 @@ public final class ModernBattlefieldMod {
   });
  }
  public static void background(FSkinTexture image,Graphics g,float x,float y,float w,float h){
-  boolean battle=Forge.getCurrentScene() instanceof forge.adventure.scene.DuelScene;
+  boolean battle=Forge.getCurrentScene() instanceof forge.adventure.scene.DuelScene||(System.getProperty("forge.duo")!=null&&forge.Forge.getCurrentScreen() instanceof forge.screens.match.MatchScreen);   // forge.duo: 1v1 browser mode
   String name=image.name();
   // the old patterned Forge background (side columns of the battle, deck editor, menus): modern dark gradient instead
   if(name.equals("BG_TEXTURE")||name.equals("ADV_BG_TEXTURE")){

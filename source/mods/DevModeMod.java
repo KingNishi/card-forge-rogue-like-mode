@@ -229,6 +229,8 @@ public final class DevModeMod {
      var win=((Lwjgl3Graphics)Gdx.graphics).getWindow();win.restoreWindow();   // a minimized window renders at 0x0
      if(mode.equals("show"))win.setPosition(Integer.parseInt(q.getOrDefault("x","120")),Integer.parseInt(q.getOrDefault("y","80")));
      else win.setPosition(-6000,-6000);return "ok";}));}
+    case "/mouse"->text(ex,200,mouse(q));
+    case "/duo"->text(ex,200,onGl(()->duo(q)));
     case "/rogue"->text(ex,200,onGl(()->rogue(q.getOrDefault("action",""))));
    case "/scene"->text(ex,200,onGl(()->sceneDev(q.getOrDefault("action",""),q.getOrDefault("arg",""))));
    case "/match"->text(ex,200,match(q));
@@ -237,6 +239,78 @@ public final class DevModeMod {
     default->text(ex,404,"endpoints: /state /shot?w= /tap?x=&y= /drag?x1=&y1=&x2=&y2= /click?name=|text= /key?k= /type?text= /scroll?x=&y=&amount= /log?n= /window?mode=hide|show /rogue?action=open|win|lose|state /quit");
    }
   }catch(Throwable e){text(ex,500,"error: "+e);}
+ }
+
+ // ------------------------------------------------------------------ Forge 1v1 Browser (user 2026-11-10)
+ /** /mouse?k=down|move|up|rclick|wheel&x=&y=&dy= - raw pointer events for the browser opponent (x/y like /tap) */
+ static boolean duoDown;
+ static String mouse(Map<String,String> q){
+  float[] p=point(q);int x=(int)p[0],y=(int)p[1];String k=q.getOrDefault("k","move");
+  switch(k){
+   case "down"->later(0,()->{input().mouseMoved(x,y);input().touchDown(x,y,0,Input.Buttons.LEFT);duoDown=true;});
+   case "move"->later(0,()->{if(duoDown)input().touchDragged(x,y,0);else input().mouseMoved(x,y);});
+   case "up"->later(0,()->{input().touchUp(x,y,0,Input.Buttons.LEFT);duoDown=false;});
+   case "rclick"->{later(0,()->{input().mouseMoved(x,y);input().touchDown(x,y,0,Input.Buttons.RIGHT);});later(60,()->input().touchUp(x,y,0,Input.Buttons.RIGHT));}
+   case "wheel"->{float dy=Float.parseFloat(q.getOrDefault("dy","1"));later(0,()->{input().mouseMoved(x,y);input().scrolled(0,dy);});}
+   default->{return "k: down|move|up|rclick|wheel";}
+  }
+  return "ok";
+ }
+ static Object field(Object o,String name)throws ReflectiveOperationException{
+  for(Class<?> c=o.getClass();c!=null;c=c.getSuperclass()){try{Field f=c.getDeclaredField(name);f.setAccessible(true);return f.get(o);}catch(NoSuchFieldException ignored){}}
+  throw new NoSuchFieldException(name);
+ }
+ static Object call(Object o,String name,Class<?>[] types,Object... args)throws ReflectiveOperationException{
+  for(Class<?> c=o.getClass();c!=null;c=c.getSuperclass()){try{java.lang.reflect.Method m=c.getDeclaredMethod(name,types);m.setAccessible(true);return m.invoke(o,args);}catch(NoSuchMethodException ignored){}}
+  throw new NoSuchMethodException(name);
+ }
+ /** /duo?action=info|variant|deck&name=|ready|start - operates the online lobby of this instance (host or client) */
+ static String duo(Map<String,String> q){
+  try{
+   if("online".equals(q.get("action"))){forge.screens.online.OnlineMenu.OnlineScreen.Lobby.open();return "opening online lobby";}
+   if("screen".equals(q.get("action")))return Forge.getCurrentScreen()==null?"none":Forge.getCurrentScreen().getClass().getSimpleName();
+   if(!(Forge.getCurrentScreen() instanceof forge.screens.constructed.LobbyScreen ls))
+    return "screen "+(Forge.getCurrentScreen()==null?"none":Forge.getCurrentScreen().getClass().getSimpleName());
+   @SuppressWarnings("unchecked") List<Object> panels=(List<Object>)field(ls,"playerPanels");
+   String action=q.getOrDefault("action","info");
+   switch(action){
+    case "variant"->{
+     ls.getLobby().applyVariant(forge.game.GameType.Commander);
+     return "ok "+ls.getLobby().hasVariant(forge.game.GameType.Commander);}
+    case "deck"->{
+     String name=q.getOrDefault("name","");StringBuilder seen=new StringBuilder();
+     for(Object pp:panels){
+      if(!Boolean.TRUE.equals(field(pp,"mayEdit")))continue;
+      int idx=(Integer)field(pp,"index");
+      forge.deck.FDeckChooser ch=(forge.deck.FDeckChooser)call(pp,"getCommanderDeckChooser",new Class<?>[0]);
+      if(ch.getSelectedDeckType()!=forge.deck.DeckType.COMMANDER_DECK){ch.setSelectedDeckType(forge.deck.DeckType.COMMANDER_DECK);return "retry: deck type set";}
+      var lst=ch.getLstDecks();Object match=null;
+      for(var e:lst.getPool()){Object item=e.getKey();String n=item.toString();
+       try{n=String.valueOf(item.getClass().getMethod("getName").invoke(item));}catch(Exception ignored){}
+       if(seen.length()<300)seen.append(n).append(" | ");
+       if(n.equalsIgnoreCase(name))match=item;}
+      if(match==null)return "missing deck; seen: "+seen;
+      call(lst,"setSelectedItem",new Class<?>[]{forge.item.InventoryItem.class},match);
+      call(ls,"updateDeck",new Class<?>[]{int.class},idx);
+      return "ok slot "+idx;
+     }
+     return "no editable slot";}
+    case "ready"->{
+     int n=0;
+     for(Object pp:panels){
+      if(!Boolean.TRUE.equals(field(pp,"mayEdit")))continue;
+      int idx=(Integer)field(pp,"index");
+      call(pp,"setIsReady",new Class<?>[]{boolean.class},true);
+      call(ls,"setReady",new Class<?>[]{int.class,boolean.class},idx,true);n++;}
+     return "ready "+n;}
+    case "start"->{call(ls,"startMatch",new Class<?>[0]);return "starting";}
+    default->{
+     StringBuilder sb=new StringBuilder("players "+panels.size()+" commander "+ls.getLobby().hasVariant(forge.game.GameType.Commander)+"\n");
+     for(Object pp:panels)sb.append(field(pp,"index")).append(" edit=").append(field(pp,"mayEdit")).append(" ready=").append(field(pp,"isReady")).append('\n');
+     return sb.toString();}
+   }
+  }catch(java.lang.reflect.InvocationTargetException e){return "error: "+e.getCause();}
+  catch(Exception e){return "error: "+e;}
  }
 
  // ------------------------------------------------------------------ input

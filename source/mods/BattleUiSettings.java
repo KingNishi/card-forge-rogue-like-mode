@@ -22,6 +22,10 @@ public final class BattleUiSettings {
  private static int turnStyle;
  /** where the player dragged the turn panel: offset from its default spot as a fraction of the screen, 0/0 = default */
  private static float turnDx,turnDy;
+ /** battlefield look (user 2026-11-13): compact lands = small tiles with a tap mark instead of turning them sideways;
+  *  artifact zone = a player's artifacts / enchantments fold into one fan with a button. 0 = auto (on for Android), 1 = on, 2 = off */
+ public static final String[] BOARD_STYLES={"Auto","On","Off"};
+ private static int landStyle,zoneStyle;
  private static Path file(){return java.nio.file.Paths.get(forge.localinstance.properties.ForgeConstants.USER_PREFS_DIR,"rogue_battle_ui.json");}
  private static void ensure(){
   if(loaded)return;loaded=true;
@@ -37,6 +41,9 @@ public final class BattleUiSettings {
    if(root.has("turnPanel")){JsonObject t=root.getAsJsonObject("turnPanel");
     if(t.has("style"))turnStyle=Math.max(0,Math.min(2,t.get("style").getAsInt()));
     if(t.has("dx"))turnDx=frac(t.get("dx").getAsFloat());if(t.has("dy"))turnDy=frac(t.get("dy").getAsFloat());}
+   if(root.has("board")){JsonObject bd=root.getAsJsonObject("board");
+    if(bd.has("lands"))landStyle=Math.max(0,Math.min(2,bd.get("lands").getAsInt()));
+    if(bd.has("zone"))zoneStyle=Math.max(0,Math.min(2,bd.get("zone").getAsInt()));}
   }catch(Exception e){System.err.println("[Rogue] battle UI settings unreadable, using defaults: "+e);}
  }
  public static void save(){
@@ -46,6 +53,7 @@ public final class BattleUiSettings {
    for(int i=0;i<ACTIONS.length;i++)k.addProperty(ACTIONS[i],keys[i]<0?"":Input.Keys.toString(keys[i]));
    root.add("sizes",s);root.add("keys",k);
    JsonObject t=new JsonObject();t.addProperty("style",turnStyle);t.addProperty("dx",turnDx);t.addProperty("dy",turnDy);root.add("turnPanel",t);
+   JsonObject bd=new JsonObject();bd.addProperty("lands",landStyle);bd.addProperty("zone",zoneStyle);root.add("board",bd);
    Path f=file();Files.createDirectories(f.getParent());Path tmp=f.resolveSibling(f.getFileName()+".tmp");
    Files.writeString(tmp,new GsonBuilder().setPrettyPrinting().create().toJson(root));
    try{Files.move(tmp,f,StandardCopyOption.REPLACE_EXISTING,StandardCopyOption.ATOMIC_MOVE);}catch(AtomicMoveNotSupportedException e){Files.move(tmp,f,StandardCopyOption.REPLACE_EXISTING);}
@@ -68,6 +76,14 @@ public final class BattleUiSettings {
  public static void setTurnStyle(int style){ensure();turnStyle=Math.max(0,Math.min(2,style));}
  /** the slim one-line turn panel: Compact, or Auto on a phone / tablet */
  public static boolean compactTurn(){ensure();return turnStyle==1||turnStyle==0&&touch();}
+ public static int landStyle(){ensure();return landStyle;}
+ public static void setLandStyle(int v){ensure();landStyle=Math.max(0,Math.min(2,v));}
+ public static int zoneStyle(){ensure();return zoneStyle;}
+ public static void setZoneStyle(int v){ensure();zoneStyle=Math.max(0,Math.min(2,v));}
+ /** lands as small upright tiles, tapped = dark + tap symbol (Auto: Android only) */
+ public static boolean compactLands(){ensure();return landStyle==1||landStyle==0&&touch();}
+ /** artifacts / enchantments of a player can be folded into one fan (Auto: Android only) */
+ public static boolean collapsibleZone(){ensure();return zoneStyle==1||zoneStyle==0&&touch();}
  public static float turnDx(){ensure();return turnDx;}
  public static float turnDy(){ensure();return turnDy;}
  public static void setTurnOffset(float dx,float dy){ensure();turnDx=frac(dx);turnDy=frac(dy);}

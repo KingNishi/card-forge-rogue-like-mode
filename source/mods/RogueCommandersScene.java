@@ -103,7 +103,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
  static List<String> bench(Run r){if(r.bench==null)r.bench=new ArrayList<>();return r.bench;}
  static class ScoreLine{String label,detail;int points;ScoreLine(){}ScoreLine(String label,String detail,int points){this.label=label;this.detail=detail;this.points=points;}}
  static class Result{String commander,rank,dungeonNotice;boolean dungeonNoticeSeen,storySeen;int wins,ruhm,score,previousBest,progressionEarned;boolean record,completed;List<String> unlocked=new ArrayList<>(),signature=new ArrayList<>(),skins=new ArrayList<>();List<ScoreLine> lines=new ArrayList<>();}
- static class Profile{Set<String> tutorialsSeen,huntSeeded;boolean lastRunFailed,storyOff,packagesExplained,battleTourDone;Map<String,List<String>> neutralFavorites,huntLists;String playerName;Map<String,Map<String,String>> forgeAchievements=new HashMap<>();int voiceVolume=100;String monitorKey;   /* Settings > Display: the monitor to play on (tester 2026-10-19) */Map<String,Integer> packagePicks=new HashMap<>(),packageTaken=new HashMap<>();   /* package statistics over all runs (user 2026-10-18) */Map<String,CardStat> cardStats=new HashMap<>();   /* card history over all runs (user 2026-10-19) */int version=4,counter,runs,totalWins,progressionPoints,goldBalance,packageRerolls;long sacrificedPermanents,artifactCreaturesCast,artifactsCast;boolean artifactCounterMigrated;boolean bossOneDefeated,bossTenDefeated,bossDrainKill;List<String> packageUnlocks=new ArrayList<>(),achievements=new ArrayList<>();Map<String,List<String>> packageChoices=new HashMap<>();Map<String,List<String>> neutralExcluded=new HashMap<>();Map<String,Integer> starterSchema=new HashMap<>();   /* saved decks migrated to this starter version */long activeMs;double carry;
+ static class Profile{Set<String> tutorialsSeen,huntSeeded;boolean lastRunFailed,storyOff,packagesExplained,battleTourDone;Map<String,List<String>> neutralFavorites,huntLists,packageHidden;String playerName;Map<String,Map<String,String>> forgeAchievements=new HashMap<>();int voiceVolume=100;String monitorKey;   /* Settings > Display: the monitor to play on (tester 2026-10-19) */Map<String,Integer> packagePicks=new HashMap<>(),packageTaken=new HashMap<>();   /* package statistics over all runs (user 2026-10-18) */Map<String,CardStat> cardStats=new HashMap<>();   /* card history over all runs (user 2026-10-19) */int version=4,counter,runs,totalWins,progressionPoints,goldBalance,packageRerolls;long sacrificedPermanents,artifactCreaturesCast,artifactsCast;boolean artifactCounterMigrated;boolean bossOneDefeated,bossTenDefeated,bossDrainKill;List<String> packageUnlocks=new ArrayList<>(),achievements=new ArrayList<>();Map<String,List<String>> packageChoices=new HashMap<>();Map<String,List<String>> neutralExcluded=new HashMap<>();Map<String,Integer> starterSchema=new HashMap<>();   /* saved decks migrated to this starter version */long activeMs;double carry;
   List<String> general=new ArrayList<>(),unlockOrder=new ArrayList<>();Map<String,List<String>> signature=new HashMap<>(),loadout=new HashMap<>();
   Map<String,Integer> best=new HashMap<>(),bestScore=new HashMap<>();Map<String,String> commanderArt=new HashMap<>();Run run;Result result;String selected;boolean cursesUnlocked,cursesOn,trueRogueOn,trueRogueWarned,reachedFinalBoss,trueRogueBossOne;long elvesRemoved,graveyardPlays,creaturesSacrificed;boolean killedAngel,killedDemon,killedDragon;long landsDestroyed;long castWhite,castBlue,castRed,castGreen;List<String> recentOffers=new ArrayList<>();int bestScoreAll;}
 
@@ -706,6 +706,19 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
    if(same.size()>=(n?NEUTRAL_PICKS:CMD_PICKS))selected.remove(same.get(0));selected.add(t.key);}   // a third pick of a kind replaces the older one of that kind
   p.packageChoices.put(c.name,selected);return true;
  }
+ /** user 2026-11-13: every run has all unlocked packages; up to 1 commander + 1 neutral package can be hidden for the run */
+ static List<String> hiddenPackages(Profile p,Cmd c){if(p.packageHidden==null)p.packageHidden=new HashMap<>();List<String> l=p.packageHidden.computeIfAbsent(c.name,k->new ArrayList<>());l.removeIf(k->findTheme(c,k)==null);return l;}
+ static boolean isHiddenPkg(Profile p,Cmd c,Theme t){return hiddenPackages(p,c).contains(t.key);}
+ /** hide / show a package for the next run; one hidden package per kind (a second one replaces the first) */
+ static String toggleHidden(Profile p,Cmd c,Theme t){
+  List<String> h=hiddenPackages(p,c);if(h.remove(t.key))return null;
+  if(!packageOpen(p,c,t))return "Unlock with "+t.cost+" Ancient Relics after "+t.requiredWins+" wins in one run.";
+  boolean n=isNeutral(t);long open=Arrays.stream(c.themes).filter(x->isNeutral(x)==n&&packageOpen(p,c,x)).count();
+  if(open<=1)return "Keep at least one "+(n?"neutral":"commander")+" package in the run.";
+  h.removeIf(k->{Theme x=findTheme(c,k);return x!=null&&isNeutral(x)==n;});h.add(t.key);return null;
+ }
+ /** this run's packages: every unlocked package with enough cards that is not hidden */
+ static List<String> allRunPackages(Profile p,Cmd c){List<String> out=new ArrayList<>();for(Theme t:c.themes)if(packageOpen(p,c,t)&&!isHiddenPkg(p,c,t)&&t.cards!=null&&t.cards.length>=6)out.add(t.key);return out;}
  /** the run's packages: the 4 picks (2 commander + 2 neutral) plus 3 random open, not excluded packages (seeded by the run) */
  static List<String> runPackages(Profile p,Cmd c,List<String> picks,long seed){
   List<String> out=new ArrayList<>(picks),pool=new ArrayList<>();
@@ -780,7 +793,12 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
   catch(Exception e){log(e);missingSprites.add(room);return null;}
  }
  static void drawSprite(Batch b,String room,float cx,float cy,float size,float a){
-  Texture t=roomSprite(room);if(t==null)return;Color o=b.getColor().cpy();b.setColor(1,1,1,a);b.draw(t,cx-size/2,cy-size/2,size,size);b.setColor(o);
+  Texture t=roomSprite(room);if(t==null)return;Color o=b.getColor().cpy();
+  // strong black outline that follows the building's shape (user 2026-11-13: "starke schwarze outlines"): the sprite
+  // eight times in black, slightly shifted, behind the building; faded (fogged / walked) buildings get a lighter one
+  float d=Math.max(1.2f,size*.028f),oa=Math.min(1f,a*1.15f);b.setColor(0,0,0,oa);
+  for(int k=0;k<8;k++){double ang=k*Math.PI/4;b.draw(t,cx-size/2+(float)Math.cos(ang)*d,cy-size/2+(float)Math.sin(ang)*d,size,size);}
+  b.setColor(1,1,1,a);b.draw(t,cx-size/2,cy-size/2,size,size);b.setColor(o);
  }
  static void drawCover(Batch b,Texture t,float x,float y,float w,float h,float a){
   float ta=t.getWidth()/(float)t.getHeight(),sa=w/h;int sw=t.getWidth(),sh=t.getHeight(),sx=0,sy=0;
@@ -907,16 +925,13 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
   PackageTile(Cmd c,Theme t,float x,float y,float w,float h){commander=c;theme=t;setBounds(x,y,w,h);
    addListener(new ClickListener(){@Override public void clicked(InputEvent e,float xx,float yy){
     if(blocked(PackageTile.this))return;
-    if(excludeMode){neverAgain(profile(),c,t);return;}   // allow again / exclude / swap dialog when the list is full (user 2026-10-18)
-    if(isExcluded(profile(),c,t)){toast("Excluded for this commander - tap Allow to use it again.");return;}
-    if(!packageOpen(profile(),c,t)){toast("Unlock with "+t.cost+" Ancient Relics after "+t.requiredWins+" wins in one run.");return;}
-    togglePackage(profile(),c,t);
+    String why=toggleHidden(profile(),c,t);   // tap = hide / show for this run (user 2026-11-13)
+    if(why!=null){toast(why);return;}
     save();rebuild();
    }});
   }
   @Override public void draw(Batch b,float a){
-   Profile p=profile();boolean excluded=isExcluded(p,commander,theme),open=packageOpen(p,commander,theme)&&!excluded,selected=excludeMode?excluded:packageSelection(p,commander).contains(theme.key);
-   if(excludeMode){drawExclude(b,a,excluded);return;}
+   Profile p=profile();boolean open=packageOpen(p,commander,theme),selected=open&&!isHiddenPkg(p,commander,theme);
    float x=getX(),y=getY(),w=getWidth(),h=getHeight();
    PackageArt art=packageArt(commander,theme);Texture image=packageIllustration(art);
    Color old=b.getColor().cpy();b.setColor(1,1,1,a);tablet(selected?1:0).draw(b,x,y,w,h);b.setColor(old);
@@ -938,7 +953,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
     text(b,tags,tx,tagY,fitSingleLine(tags,4.6f,tagW,false),Color.valueOf("a8bcef"),a,tagW,Align.left,false);
    }
    boolean fav=isFavorite(p,commander,theme);
-   String state=excluded?"EXCLUDED":selected?(fav?"FAVORITE  ·  SELECTED":"SELECTED"):open?(fav?"FAVORITE  ·  CHOOSE":"CHOOSE"):"LOCKED";
+   String state=selected?"IN THIS RUN":open?"HIDDEN THIS RUN":"LOCKED";
    int pk=packagePicks(p).getOrDefault(packageId(commander,theme),0),tk=packageTaken(p).getOrDefault(packageId(commander,theme),0);
    String stats=pk+tk==0?"":"Picked "+pk+"x  ·  Taken "+tk+"x";   // over all runs (user 2026-10-18)
    float room=available-(open?TILE_CARDS_W:TILE_UNLOCK_W)-4,stateW=boldWidth(state,4.6f)+4;   // the state keeps its size, the statistics take what is left
@@ -991,31 +1006,28 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
  static int packageRows(float height){return Math.max(1,(int)((height-112)/34));}
  private void buildPackages(Cmd c){
   if(!commanderOpen(profile(),c)){packageConfig=null;buildSelect(profile());return;}
-  Profile p=profile();List<String> selected=packageSelection(p,c);
+  Profile p=profile();List<String> hidden=hiddenPackages(p,c);if(packageTab>1)packageTab=0;
   Texture lib=fileTexture(DIR+"menu-art/package-selection-library-v1.png");   // library hall behind the package choice (user, Codex art 2026-10-17)
   if(lib!=null)root.addActor(new Painter((bb,aa)->{drawCover(bb,lib,0,0,W(),H(),aa);rect(bb,0,0,W(),H(),Color.BLACK,aa*.28f);}));else background(c.name,.86f);
-  long cmdPicked=selected.stream().filter(k->!isNeutral(findTheme(c,k))).count(),neuPicked=selected.size()-cmdPicked;
-  long neutralLeft=Arrays.stream(c.themes).filter(t->isNeutral(t)&&!neutralHidden(p,c,t)).count();int neuNeed=(int)Math.min(NEUTRAL_PICKS,neutralLeft);
-  title("CHOOSE "+RUN_PICKS+" PACKAGES","Commander "+cmdPicked+" / "+CMD_PICKS+"  ·  Neutral "+neuPicked+" / "+NEUTRAL_PICKS);
+  long cmdOpen=Arrays.stream(c.themes).filter(t->!isNeutral(t)&&packageOpen(p,c,t)).count(),neuOpen=Arrays.stream(c.themes).filter(t->isNeutral(t)&&packageOpen(p,c,t)).count();
+  long cmdHidden=hidden.stream().filter(k->!isNeutral(findTheme(c,k))).count(),neuHidden=hidden.size()-cmdHidden;
+  title("PACKAGES FOR THIS RUN","All unlocked packages are in");
   {Btn hb=button("Hunting list ("+huntList(p,c).size()+")",W()-14-122-120,H()-40,116,15,()->{huntPage=0;showHuntList(c);});hb.gold=true;}   // own button instead of hidden in the Compendium (user 2026-10-18)
   root.addActor(new Painter((b,a)->{relicAmount(b,p.progressionPoints,W()-14,H()-10,8,a);text(b,"Ancient Relics",W()-160,H()-24,5.4f,Color.valueOf("c9c1b0"),a,146,Align.right,false);}));
-  float tabW=(W()-36)/3;
-  Btn tabC=button("Commander packages  "+cmdPicked+"/"+CMD_PICKS,12,H()-56,tabW,15,()->{packageTab=0;packagePage=0;rebuild();});tabC.gold=packageTab==0;
-  Btn tabN=button("Neutral packages  "+neuPicked+"/"+NEUTRAL_PICKS,18+tabW,H()-56,tabW,15,()->{packageTab=1;packagePage=0;rebuild();});tabN.gold=packageTab==1;
-  Btn tabX=button("Exclude  "+excluded(p,c).size()+"/"+maxExcluded(c),24+tabW*2,H()-56,tabW,15,()->{packageTab=2;packagePage=0;rebuild();});tabX.gold=packageTab==2;
+  float tabW=(W()-30)/2;
+  Btn tabC=button("Commander packages  "+(cmdOpen-cmdHidden)+"/"+cmdOpen,12,H()-56,tabW,15,()->{packageTab=0;packagePage=0;rebuild();});tabC.gold=packageTab==0;
+  Btn tabN=button("Neutral packages  "+(neuOpen-neuHidden)+"/"+neuOpen,18+tabW,H()-56,tabW,15,()->{packageTab=1;packagePage=0;rebuild();});tabN.gold=packageTab==1;
   List<Theme> ordered=new ArrayList<>(Arrays.asList(c.themes));
   List<String> suggested=suggestedNeutrals(p,c);
-  if(packageTab==0)ordered.removeIf(t->isNeutral(t));else if(packageTab==1)ordered.removeIf(t->!isNeutral(t)||isExcluded(p,c,t)||(!neutralShowAll&&!suggested.contains(t.key)));else ordered.removeIf(t->!isNeutral(t)||!isExcluded(p,c,t));   // only what you excluded during runs; tap = allow again (user 2026-10-17)
-  ordered.sort(Comparator.comparing((Theme t)->isExcluded(p,c,t)).thenComparing(t->!isFavorite(p,c,t)).thenComparing(t->!packageOpen(p,c,t))
+  if(packageTab==0)ordered.removeIf(t->isNeutral(t));else ordered.removeIf(t->!isNeutral(t));   // every package, no suggestions (user 2026-11-13)   // only what you excluded during runs; tap = allow again (user 2026-10-17)
+  ordered.sort(Comparator.comparing((Theme t)->!packageOpen(p,c,t))
    .thenComparingDouble(t->isNeutral(t)?-neutralSynergy(c,t):0));   // favorites first, then the best fits for this commander
-  if(packageTab==1){long more=Arrays.stream(c.themes).filter(t->isNeutral(t)&&!isExcluded(p,c,t)&&!suggested.contains(t.key)).count();
-   if(more>0||neutralShowAll)button(neutralShowAll?"Show suggested":"Show more ("+more+")",12,58,112,22,()->{neutralShowAll=!neutralShowAll;packagePage=0;rebuild();});}
   int cols=W()>=420?3:2;float gap=4,tw=(W()-24-(cols-1)*gap)/cols,top=H()-64;int desiredRows=Math.max(1,(ordered.size()+cols-1)/cols);float th=Math.max(34,Math.min(56,(top-84+gap)/desiredRows-gap));
   int rows=Math.max(1,(int)((top-84+gap)/(th+gap))),perPage=cols*rows,pages=Math.max(1,(ordered.size()+perPage-1)/perPage);
   packagePage=Math.max(0,Math.min(packagePage,pages-1));int first=packagePage*perPage;
   for(int i=first;i<Math.min(ordered.size(),first+perPage);i++){
    Theme t=ordered.get(i);int k=i-first;float x=12+(k%cols)*(tw+gap),y=top-(k/cols+1)*th-(k/cols)*gap;
-   PackageTile tile=new PackageTile(c,t,x,y,tw,th);tile.excludeMode=packageTab==2;root.addActor(tile);
+   PackageTile tile=new PackageTile(c,t,x,y,tw,th);root.addActor(tile);
    boolean open=packageOpen(p,c,t);
    if(open)button("Cards",x+tw-TILE_CARDS_W-4,y+3,TILE_CARDS_W,11,()->showPackageCards(c,t));   // smaller (tester 2026-10-19)
    else if(!isNeutral(t))button("Unlock "+t.cost+" relics",x+tw-TILE_UNLOCK_W-4,y+3,TILE_UNLOCK_W,11,()->{
@@ -1028,11 +1040,10 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
    button("<",W()/2-112,58,66,22,()->{packagePage=Math.max(0,pg-1);rebuild();}).disabled=pg==0;   // bigger arrows (user 2026-10-17)
    root.addActor(new Painter((b,a)->centerText(b,"Page "+(pg+1)+" / "+pc,W()/2-42,60,84,18,7.4f,Color.valueOf("c9c1b0"),a,false)));
    button(">",W()/2+46,58,66,22,()->{packagePage=Math.min(pc-1,pg+1);rebuild();}).disabled=pg>=pc-1;}
-  root.addActor(new Painter((b,a)->hintLine(b,packageTab==0?"MORE PACKAGES unlock with Ancient Relics + achievements. Your picks are saved for the next runs.":packageTab==1?(neutralShowAll?"Every neutral package, best fits for this commander first - pick "+NEUTRAL_PICKS+".":"The "+NEUTRAL_SUGGESTED+" neutral packages that fit this commander best, plus your favorites - pick "+NEUTRAL_PICKS+". Show more lists all."):(ordered.isEmpty()?"Nothing excluded yet. During a run, press Never again on a reward package you dislike (max "+maxExcluded(c)+").":"Excluded during your runs (max "+maxExcluded(c)+") - tap a package to allow it again."),12,46,GOLD,a)));
+  root.addActor(new Painter((b,a)->hintLine(b,"Tap a package to hide it for this run (1 commander + 1 neutral). MORE PACKAGES unlock with Ancient Relics + achievements.",12,46,GOLD,a)));
   button("Back",12,10,84,22,()->{packageConfig=null;compendiumOpen=false;rebuild();});
-  button("Random",W()-130-96,10,88,22,()->randomPackages(p,c));   // random 2 commander + 3 neutral picks
   button("Help",202,10,48,22,this::explainPackages);   // right after Compendium   // wide enough for the painted caps
-  Btn start=button("START RUN",W()-130,10,118,22,()->{packageConfig=null;compendiumOpen=false;startRun(c);});start.gold=true;start.disabled=cmdPicked!=CMD_PICKS||neuPicked<neuNeed;
+  Btn start=button("START RUN",W()-130,10,118,22,()->{packageConfig=null;compendiumOpen=false;startRun(c);});start.gold=true;
   button("Compendium",102,10,96,22,()->{compendiumPage=0;showCompendium(c);});   // search cards across all packages (user 2026-10-17)
   if(!p.packagesExplained){p.packagesExplained=true;setTutorialSeen(p,"hunt",true);save();explainPackages();}   // first visit: how the game works with packages (hunting list included)
   else if(!tutorialSeen(p,"hunt")){maybeGuide("hunt");save();}   // players who knew the old screen meet the hunting list once (user 2026-10-18)
@@ -1050,11 +1061,11 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
  }
  static final String[][] PACKAGE_HELP={
   {"YOUR DECK GROWS DURING THE RUN","Your commander starts with a small starter deck. Packages decide which cards you can win on the way up."},
-  {"PICK 5 PACKAGES","2 Commander packages (built around your commander's strategy) and 3 Neutral packages (general themes such as ramp, removal or card draw). The neutral tab suggests the 6 that fit your commander best - Show more lists all."},
-  {"REWARDS","After every won battle you choose one reward package. Its cards go to your bench - open Edit deck to put them into your deck. Every reward offers at least one of your 4 picks."},
+  {"ALL PACKAGES","Every run uses all unlocked packages: Commander packages (built around your commander's strategy) and Neutral packages (ramp, removal, card draw ...). If you like, hide 1 Commander and 1 Neutral package for the run - tap it."},
+  {"REWARDS","After every won battle you choose one reward package. Its cards go to your bench - open Edit deck to put them into your deck."},
   {"RARITY","Normal, Rare, Epic and Legendary cards. Skipping a reward upgrades the next one. Tap Cards on a package to see everything it can give you."},
   {"UNLOCKS & FAVORITES","More packages unlock with Ancient Relics and achievements. On the reward screen, Add to favorites keeps a neutral package always in your choice; Never again hides it for this commander."},
-  {"THE CLIMB","15 floors, bosses on floors 5, 10 and 15. One loss ends the run - relics and unlocks stay. Not sure? Press Random."}};
+  {"THE CLIMB","15 floors, bosses on floors 5, 10 and 15. One loss ends the run - relics and unlocks stay."}};
  /** controls tour in the first battle (ArenaBattleHudMod.Tour): due once per profile, only in a Rogue run */
  public static boolean battleTourDue(){Profile p=profile;return p!=null&&p.run!=null&&!p.battleTourDone;}
  public static void setBattleTourDone(){Profile p=profile;if(p!=null&&!p.battleTourDone){p.battleTourDone=true;save();}}
@@ -2145,7 +2156,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
   float width=Math.min(330,W()-24),x=(W()-width)/2;
   String[] labels=forge.adventure.util.BattleUiSettings.SIZE_LABELS;
   for(int i=0;i<labels.length;i++){
-   final int group=i;float y=H()-74-i*40;   // four groups since the trigger text size (2026-10-18)
+   final int group=i;float y=H()-66-i*36;   // four groups since the trigger text size (2026-10-18); tighter for the board row (2026-11-13)
    root.addActor(new Painter((b,a)->{text(b,labels[group],x,y,7,TEXT,a,width-58,Align.left,false);text(b,sizePercent(group)+"%",x+width-55,y,7,GOLD,a,55,Align.right,false);}));
    button("-",x,y-27,24,20,()->setSizePercent(group,sizePercent(group)-5,true));
    root.addActor(new SizeSlider(group,x+34,y-28,width-68));
@@ -2156,7 +2167,13 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
    forge.adventure.util.BattleUiSettings.setTurnStyle((forge.adventure.util.BattleUiSettings.turnStyle()+1)%3);forge.adventure.util.BattleUiSettings.save();rebuild();});style.gold=true;
   button("Turn panel: reset spot",x+bw+6,26,bw,16,()->{forge.adventure.util.BattleUiSettings.resetTurnPosition();forge.adventure.util.BattleUiSettings.save();toast("The turn panel is back at its usual spot.");});
   button("Sizes: reset to 100%",x+2*(bw+6),26,bw,16,()->{forge.adventure.util.BattleUiSettings.resetSizes();forge.adventure.util.BattleUiSettings.save();rebuild();});
-  root.addActor(new Painter((b,a)->text(b,"Sizes of the buttons and texts on the battlefield, 60% to 160%. Turn panel: Auto = compact on phones, detailed on PC; drag it in battle, double-tap puts it back.",12,14,5.5f,DIM,a,W()-24,Align.center,false)));
+  // battlefield look (user 2026-11-13): Auto = on for Android, off on PC
+  float hw=(width-6)/2;String[] bs=forge.adventure.util.BattleUiSettings.BOARD_STYLES;
+  Btn lands=button("Compact lands: "+bs[forge.adventure.util.BattleUiSettings.landStyle()],x,46,hw,16,()->{
+   forge.adventure.util.BattleUiSettings.setLandStyle((forge.adventure.util.BattleUiSettings.landStyle()+1)%3);forge.adventure.util.BattleUiSettings.save();rebuild();});lands.gold=forge.adventure.util.BattleUiSettings.compactLands();
+  Btn zone=button("Fold artifacts: "+bs[forge.adventure.util.BattleUiSettings.zoneStyle()],x+hw+6,46,hw,16,()->{
+   forge.adventure.util.BattleUiSettings.setZoneStyle((forge.adventure.util.BattleUiSettings.zoneStyle()+1)%3);forge.adventure.util.BattleUiSettings.save();rebuild();});zone.gold=forge.adventure.util.BattleUiSettings.collapsibleZone();
+  root.addActor(new Painter((b,a)->text(b,"Sizes of the buttons and texts on the battlefield, 60% to 160%. Turn panel: Auto = compact on phones, detailed on PC; drag it in battle, double-tap puts it back. Lands + artifacts: Auto = on for Android.",12,14,5.5f,DIM,a,W()-24,Align.center,false)));
  }
  // ------------------------------------------------------------------ tips & tricks on the VS screen (user 2026-10-17)
  // story/tips.json: short paraphrased advice from real players with name + accurate title (sources kept in the file).
@@ -2360,7 +2377,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
  private static boolean menuShown;private boolean mainMenu,naming,namingNew;
  static boolean hasProgress(Profile p){return p.runs>0||p.run!=null||!p.general.isEmpty()||!p.achievements.isEmpty()||p.progressionPoints>0;}
  /** shown in the main menu; bump with every release and add an entry to _mods/release/PATCH-NOTES.md */
- static final String GAME_VERSION="0.2.9.2";
+ static final String GAME_VERSION="0.2.10";
  static final String ITCH_PAGE="https://kingnishi.itch.io/card-force-rogue-lite-mode";
  private static volatile String latestVersion;private static boolean updateAsked;
  /** once per game start: ask itch.io (public build API, no account) which version the windows channel has; silent offline */
@@ -2529,6 +2546,10 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
   if(artBtn)button("Artwork "+available+"/"+skins(c.name).size(),ix+iw-4-86,iy-21,86,16,()->{wardrobe=c;rebuild();});
 
   if(p.cursesUnlocked){Btn cb=button("Curses: "+(p.cursesOn?"On":"Off"),portrait?12:bx,portrait?sy+th+30:sy+32,portrait?W-24:bw,16,()->{profile().cursesOn=!profile().cursesOn;save();rebuild();});cb.gold=p.cursesOn;}   // only once unlocked (user 2026-10-17)
+  if(commanderOpen(p,c)){float py=portrait?sy+th+(p.cursesUnlocked?50:30):sy+(p.cursesUnlocked?52:32);
+   long hid=hiddenPackages(p,c).size();
+   button(hid>0?"Packages ("+hid+" hidden)":"Packages",portrait?12:bx,py,portrait?W-24:bw,16,()->{compendiumPage=0;showCompendium(c);});   // all packages are in every run; hide 1+1 here (user 2026-11-13)
+   if(compendiumOpen)showCompendium(c);}
 
  }
 
@@ -2564,7 +2585,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
  private void beginRun(Cmd c){
   if(!commanderOpen(profile(),c)){toast(commanderRequirement(profile(),c));return;}
   List<String> pool=unlockedFor(c);pool.removeAll(loadout(c));
-  if(pool.isEmpty()){packageConfig=c;packagePage=0;rebuild();return;}
+  if(pool.isEmpty()){startRun(c);return;}   // no package screen: every unlocked package is in the run (user 2026-11-13)
   showLoadout(c,true);
  }
  private void openLoadoutEditor(Cmd c){showLoadout(c,false);}
@@ -2605,7 +2626,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
    }
    public void closed(){
     int before=deck.size();List<String> fixed=normalize(c,deck);profile().loadout.put(c.name,fixed);save();
-    if(thenPackages){packageConfig=c;packagePage=0;toast("Deck saved ("+fixed.size()+" cards) - now choose "+RUN_PICKS+" packages for this run.");rebuild();return;}
+    if(thenPackages){toast("Deck saved ("+fixed.size()+" cards) - the run starts with all unlocked packages.");startRun(c);return;}
     toast(before>MAX_DECK?"Deck had "+before+" cards - the weakest were removed (max 99).":before<DECK?"Deck filled with basic lands to the minimum of "+DECK+" ("+(DECK-before)+" added).":"Deck saved: "+fixed.size()+" cards + commander.");
    }
   };
@@ -2657,8 +2678,8 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
   for(var e:d.getMain())for(int i=0;i<e.getValue();i++){String n=e.getKey().getName();if(allowed.contains(n)||isBasic(n))main.add(n);}
   int before=main.size();List<String> fixed=normalize(c,main);
   profile().loadout.put(c.name,fixed);save();
-  if(editingThenPackages){editingThenPackages=false;packageConfig=c;packagePage=0;
-   toast("Deck saved ("+fixed.size()+" cards) - now choose "+RUN_PICKS+" packages for this run.");return;}
+  if(editingThenPackages){editingThenPackages=false;
+   toast("Deck saved ("+fixed.size()+" cards) - the run starts with all unlocked packages.");startRun(c);return;}
   toast(before>MAX_DECK?"Deck had "+before+" cards - the weakest were removed (max 99).":before<DECK?"Deck filled with basic lands to the minimum of "+DECK+" ("+(DECK-before)+" added).":"Deck saved: "+fixed.size()+" cards + commander.");
  }
 
@@ -2666,7 +2687,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
  private void startRun(Cmd c){
   if(!commanderOpen(profile(),c)){toast(commanderRequirement(profile(),c));return;}
   Run r=new Run();r.commander=c.name;r.seed=new Random().nextLong();r.deck=normalize(c,loadout(c));
-  r.chosenPackages=packageSelection(profile(),c);r.selectedPackages=runPackages(profile(),c,r.chosenPackages,r.seed);initRunEconomy(r);shopOpen=false;
+  r.chosenPackages=allRunPackages(profile(),c);r.selectedPackages=new ArrayList<>(r.chosenPackages);initRunEconomy(r);shopOpen=false;   // all packages (user 2026-11-13)
   for(String k:r.chosenPackages)packagePicks(profile()).merge(c.slug+":"+k,1,Integer::sum);   // statistics: picked before a run
   {List<String> saved=profile().packageChoices.get(c.name);if(saved!=null)saved.removeIf(k->isNeutral(findTheme(c,k)));}   // neutral picks: this run only
   r.cursed=profile().cursesUnlocked&&profile().cursesOn;
@@ -3120,7 +3141,10 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
    Texture loc=room==null?null:fileTexture(DIR+"rooms/locations/act"+act+"/"+room+".png");
    if(loc==null&&room!=null)loc=fileTexture(DIR+"rooms/locations/"+room+".png");
    float al=a*(future?.82f:1f);
-   if(loc!=null){Color o=b.getColor().cpy();b.setColor(done?.78f:1,done?.78f:1,done?.82f:1,al);b.draw(loc,g[0]-S*.6f,g[1]-S*.12f,S*1.2f,S*1.2f);b.setColor(o);}
+   if(loc!=null){Color o=b.getColor().cpy();
+    float od=Math.max(2f,S*1.2f*.045f);b.setColor(0,0,0,Math.min(1f,al*1.3f));   // strong black outline around the building (user 2026-11-13), two rings = solid
+    for(int ring=1;ring<=2;ring++)for(int k=0;k<12;k++){double ang=k*Math.PI/6;float rd=od*ring/2;b.draw(loc,g[0]-S*.6f+(float)Math.cos(ang)*rd,g[1]-S*.12f+(float)Math.sin(ang)*rd,S*1.2f,S*1.2f);}
+    b.setColor(done?.78f:1,done?.78f:1,done?.82f:1,al);b.draw(loc,g[0]-S*.6f,g[1]-S*.12f,S*1.2f,S*1.2f);b.setColor(o);}
    else if(room!=null)drawSprite(b,room,g[0],g[1]+S*.36f,S*.62f,al);
    // markers: E (elite) right, event ($ ^ ?) left - on dark plates, 14-16 design px
    float mr=Math.max(2.6f,8*u),my=g[1]+S*.78f;
@@ -4975,7 +4999,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
     Theme t=hh.t();boolean neutral=isNeutral(t),open=packageOpen(p,c,t),ex=isExcluded(p,c,t),fav=isFavorite(p,c,t),sel=packageSelection(p,c).contains(t.key);
     rect(b,x+10,ry,w-20,rowH,sel?Color.valueOf("231d4a"):Color.valueOf("141a2a"),a*.9f);frame(b,x+10,ry,w-20,rowH,.6f,sel?Color.valueOf("a59ae8"):Color.valueOf("3a4152"),a);
     PackageArt art=packageArt(c,t);String label=art!=null&&art.shortName!=null?art.shortName:t.name;
-    String state=(neutral?"Neutral":"Commander")+"  ·  "+(ex?"excluded":!open?"locked":sel?"selected":fav?"favorite":neutral&&!neutralOffered(p,c,t)?"not offered this run":"available");
+    String state=(neutral?"Neutral":"Commander")+"  ·  "+(!open?"locked":isHiddenPkg(p,c,t)?"hidden this run":"in every run");   // all packages per run (user 2026-11-13)
     text(b,label,x+14,ry+rowH-3,fitSingleLine(label,7,w*.42f,true),open&&!ex?GOLD:DIM,a,w*.42f,Align.left,true);
     text(b,state,x+14,ry+8,fitSingleLine(state,5.2f,w*.29f,false),ex||!open?Color.valueOf("ff9a9a"):Color.valueOf("a8bcef"),a,w*.29f,Align.left,false);
     if(!hunt.isEmpty()){int hc=huntCount(p,c,t),total=packageSize(t);if(hc>0)text(b,"Hunt "+hc+"/"+total,x+14+w*.30f,ry+8,5.2f,Color.valueOf("ffb43c"),a,w*.13f,Align.right,true);}
@@ -4984,8 +5008,8 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
   }));
   for(int i=shownFrom;i<Math.min(hits.size(),shownFrom+perPage);i++){Theme t=hits.get(i).t();float ry=listTop-(i-shownFrom+1)*(rowH+3);
    g.addActor(new Btn("Cards",x+w-86,ry+5,36,14,()->showPackageCards(c,t)));
-   boolean can=packageOpen(p,c,t)&&!isExcluded(p,c,t)&&(!isNeutral(t)||neutralOffered(p,c,t));
-   Btn sel=new Btn(packageSelection(p,c).contains(t.key)?"Unpick":"Pick",x+w-46,ry+5,34,14,()->{togglePackage(p,c,t);save();rebuild();});sel.disabled=!can;g.addActor(sel);}
+   boolean can=packageOpen(p,c,t);
+   Btn sel=new Btn(isHiddenPkg(p,c,t)?"Show":"Hide",x+w-46,ry+5,34,14,()->{String why=toggleHidden(p,c,t);if(why!=null)toast(why);save();rebuild();});sel.disabled=!can;g.addActor(sel);}
   // chips: "+ card" adds to the hunting list (search), hunted cards remove (hunting-list view)
   List<String> chips=huntView?hunt:matchCards.subList(0,Math.min(8,matchCards.size()));float cx=x+10,cy=y+h-70;
   for(String card:chips){boolean has=hunt.contains(card);String label=(huntView?"x  ":has?"Hunted: ":"+ ")+card;float cw=Math.min(w-20,chipWidth(label,5.6f)+8);

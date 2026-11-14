@@ -303,6 +303,8 @@ public final class ArenaBattleHudMod {
   return new FScrollPane.ScrollBounds(w,h);
  }
  public static final float LAND_SCALE=.65f;
+ /** compact lands (Battle UI setting, Android default): upright tiles a little smaller (user 2026-11-13: "wie MTG Arena") */
+ public static float landScale(){return BattleUiSettings.compactLands()?.58f:LAND_SCALE;}
  /** A shared size for both rows; allocating more board height must not enlarge every permanent. */
  public static float fieldCardHeight(float width,float height){
   float scale=Math.max(1,Math.min(1.6f,width/1600));
@@ -313,7 +315,7 @@ public final class ArenaBattleHudMod {
   float w=field.getWidth(),h=field.getHeight(),s=Math.max(1,Math.min(1.6f,w/1600));
   float base=Math.min(h*.42f,Math.max(72,Math.min(140*s,w*.09f)));
   if(!BattleZoomMod.manual())return base;
-  float rear=LAND_SCALE;for(var p:field.getRow2().getCardPanels())if(!isLand(p.getCard())){rear=1;break;}
+  float rear=landScale();for(var p:field.getRow2().getCardPanels())if(!isLand(p.getCard())){rear=1;break;}
   return zoomTarget(base,h,rear);
  }
  private static float zoomTarget(float base,float height,float rear){
@@ -336,7 +338,8 @@ public final class ArenaBattleHudMod {
   try{Field f=VField.FieldRow.class.getDeclaredField("this$0");f.setAccessible(true);field=(VField)f.get(area);}catch(ReflectiveOperationException e){throw new IllegalStateException(e);}
   float cardHeight=fieldCardHeight(field);
   float gap=Math.max(4,Math.min(10,cardHeight*.06f));
-  float prevOld=0,prevNew=0,prevScale=1;boolean first=true;
+  float prevOld=0,prevNew=0,prevScale=1,prevDelta=0;boolean first=true;
+  boolean compact=BattleUiSettings.compactLands();float landScale=landScale();
   VCardDisplayArea.CardAreaPanel previous=null;
   for(FDisplayObject c:kids){
    if(!(c instanceof VCardDisplayArea.CardAreaPanel panel)||c.getHeight()<=0)continue;
@@ -344,15 +347,19 @@ public final class ArenaBattleHudMod {
    VCardDisplayArea.CardAreaPanel root=panel;
    Set<VCardDisplayArea.CardAreaPanel> seen=new HashSet<>();
    while(root.getAttachedToPanel()!=null&&seen.add(root))root=root.getAttachedToPanel();
-   float target=cardHeight*(isLand(root.getCard())?LAND_SCALE:1);
+   float target=cardHeight*(isLand(root.getCard())?landScale:1);
    float scale=Math.min(1,target/c.getHeight());
-   float left=first?c.getLeft():prevNew+(c.getLeft()-prevOld)*prevScale;
+   float left=first?c.getLeft():prevNew+(c.getLeft()-prevOld)*prevScale-prevDelta;
    // Native stacks have very narrow edges. Give the small land fans a 32% step
    // (at least 14 layout units) so each card is exposed and can still be selected.
    if(previous!=null&&panel.getPrevPanelInStack()==previous&&isLand(panel.getCard()))
-    left=prevNew+Math.max(14,previous.getWidth()*.32f);
+    left=prevNew+Math.max(14,previous.getWidth()*(compact?.40f:.32f));
    prevOld=c.getLeft();prevNew=left;prevScale=scale;first=false;
    float w=c.getWidth()*scale,h=c.getHeight()*scale;
+   // compact lands never turn sideways, so they need no square slot: the panel shrinks to the upright card
+   float delta=0;
+   if(compact&&root==panel&&isLand(panel.getCard())){float pad=FCardPanel.PADDING,nw=Math.min(w,(h-2*pad)/FCardPanel.ASPECT_RATIO+2*pad);delta=w-nw;w=nw;}
+   prevDelta=delta;
    // Align our rear row near the hand instead of centring tiny lands in a tall empty row.
    float top=field.isFlipped()?gap:Math.max(gap,area.getHeight()-h-gap);
    c.setBounds(left,top,w,h);
