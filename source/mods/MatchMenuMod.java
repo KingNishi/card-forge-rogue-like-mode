@@ -130,6 +130,9 @@ public final class MatchMenuMod {
         @Override public void buildTouchListeners(float x, float y, java.util.List<FDisplayObject> listeners) { }   // display only
         @Override public void draw(Graphics g) {
             try {
+                FOverlay top = FOverlay.getTopOverlay();
+                if (top != null && top.isVisible()) return;   // card zoom / dialogs open: no badge cutting into them (user 2026-11-14)
+                if (forge.adventure.util.BattleUiSettings.previewShowing()) return;   // nor into the big hover preview
                 for (forge.screens.match.views.VPlayerPanel p : screen.getPlayerPanelsList()) {
                     forge.game.player.PlayerView pv = p.getPlayer();
                     var zone = p.getCommandZone();

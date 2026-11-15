@@ -914,7 +914,7 @@ def patch_modern_atmosphere():
              'forge/toolbox/FCardPanel$CardDestroyedAnimation.class',
              'forge/toolbox/FCardPanel$CardTransformAnimation.class']
     install_java_mod('modern battlefield presentation', 'ModernBattlefieldMod.java', [],
-                     [(entry,'PatchModernBattlefield.java') for entry in entries], extra_sources=['FantasyButtonArt.java'])
+                     [(entry,'PatchModernBattlefield.java') for entry in entries], extra_sources=['FantasyButtonArt.java','BattleUiSettings.java'])
 
 
 def patch_combat_preferences():
@@ -953,7 +953,7 @@ def patch_arena_motion():
                       ['forge/screens/match/views/VPlayerPanel.class','forge/screens/match/views/VPrompt.class',
                        'forge/screens/match/views/VZoneDisplay.class','forge/screens/match/views/VPrompt$MessageLabel.class',
                        'forge/menu/FMenuBar.class','forge/screens/match/MatchScreen.class',
-                       'forge/screens/match/MatchScreen$FieldScroller.class','forge/screens/match/views/VAvatar.class']], extra_sources=['RogueCommandersScene.java','RogueForgeAchievements.java','FantasyButtonArt.java','BattleUiSettings.java'])
+                       'forge/screens/match/MatchScreen$FieldScroller.class','forge/screens/match/views/VAvatar.class']], extra_sources=['RogueCommandersScene.java','RogueForgeAchievements.java','FantasyButtonArt.java','BattleUiSettings.java','RogueLan.java'])
     install_java_mod('remove dangerous attack engines before attackers', 'AttackTriggerRemovalMod.java', [],
                      [('forge/ai/ComputerUtilCard.class', 'PatchAttackTriggerRemoval.java')])
     install_java_mod('no order prompt for replacement effects whose order cannot matter', 'ReplacementAutoMod.java', [],
@@ -1049,9 +1049,12 @@ def patch_rogue_commanders():
             json.dump(layout, open(path, 'w', encoding='utf-8'), indent=2)
             say('ok', f'common/ui/{fname} written')
     install_java_mod('Rogue Commanders', 'RogueCommandersScene.java', [],
-                     [('forge/adventure/scene/StartScene.class', 'PatchRogueCommanders.java')], extra_sources=['RogueForgeAchievements.java','FantasyButtonArt.java','BattleUiSettings.java'])
+                     [('forge/adventure/scene/StartScene.class', 'PatchRogueCommanders.java'),
+                      ('forge/gamemodes/net/client/NetGameController.class', 'PatchRogueLanNet.java'),
+                      ('forge/ImageKeys.class', 'PatchRogueLanNet.java'),
+                      ('forge/game/mulligan/MulliganService.class', 'PatchRogueLanNet.java')], extra_sources=['RogueForgeAchievements.java','FantasyButtonArt.java','BattleUiSettings.java','RogueLan.java'])
     install_java_mod('Rogue commander achievement life-loss observer', 'RogueCommandersScene.java', [],
-                     [('forge/game/player/Player.class', 'PatchRogueLifeLoss.java')], extra_sources=['RogueForgeAchievements.java','FantasyButtonArt.java','BattleUiSettings.java'])
+                     [('forge/game/player/Player.class', 'PatchRogueLifeLoss.java')], extra_sources=['RogueForgeAchievements.java','FantasyButtonArt.java','BattleUiSettings.java','RogueLan.java'])
 
 
 def patch_commander_rating():

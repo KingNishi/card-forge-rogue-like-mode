@@ -71,14 +71,16 @@ public final class ModernWinLose {
   s=new State();STATES.put(v,s);
   GameView game=get(v,"game");
   PlayerView me=null;List<String> others=new ArrayList<>();
-  for(PlayerView p:game.getPlayers()){if(me==null&&!p.isAI())me=p;else others.add(p.getName());}
+  var mc=forge.screens.match.MatchController.instance;   // 1v1 LAN: both players are human - "me" is the local one (user 2026-11-14)
+  for(PlayerView p:game.getPlayers())if(me==null&&mc!=null&&mc.isLocalPlayer(p))me=p;
+  for(PlayerView p:game.getPlayers()){if(me==null&&!p.isAI())me=p;else if(p!=me)others.add(p.getName());}
   String winner=game.getWinningPlayerName();
   String meName=me==null?"":me.getName();
   s.draw=winner==null;s.won=!s.draw&&winner.equals(meName);
-  s.result=s.draw?"DRAW":s.won?"VICTORY":"DEFEAT";
+  s.result=forge.adventure.util.BattleUiSettings.tr(s.draw?"DRAW":s.won?"VICTORY":"DEFEAT");
   s.accent=s.draw?SILVER:s.won?GOLD:RED;
   String loser=s.draw?null:s.won?String.join(", ",others):meName;
-  s.subtitle=s.draw?"Nobody wins this game":(s.won?meName:winner)+"  defeats  "+loser;
+  s.subtitle=s.draw?forge.adventure.util.BattleUiSettings.tr("Nobody wins this game"):(s.won?meName:winner)+"  "+forge.adventure.util.BattleUiSettings.tr("defeats")+"  "+loser;
   String turn=null,duration=null;
   for(GameLogEntry e:game.getGameLog().getLogEntriesExact(GameLogEntryType.GAME_OUTCOME)){
    String m=e.message();
@@ -138,8 +140,8 @@ public final class ModernWinLose {
   }
   if(s.logToggle==null){
    final State st=s;
-   s.logToggle=v.add(new FLabel.ButtonBuilder().text("Show game log").font(FSkinFont.get(13)).command(e->{
-    st.logOpen=!st.logOpen;st.logToggle.setText(st.logOpen?"Hide game log":"Show game log");v.revalidate();}).build());
+   s.logToggle=v.add(new FLabel.ButtonBuilder().text(forge.adventure.util.BattleUiSettings.tr("Show game log")).font(FSkinFont.get(13)).command(e->{
+    st.logOpen=!st.logOpen;st.logToggle.setText(forge.adventure.util.BattleUiSettings.tr(st.logOpen?"Hide game log":"Show game log"));v.revalidate();}).build());
   }
   boolean land=width>=height;
   float pw=land?Math.min(width*.5f,height*1.2f):width*.92f;
@@ -264,7 +266,7 @@ public final class ModernWinLose {
      heart(g,x0,ty+u*1.2f+(u*7.2f-hs)/2,hs);g.drawText(t[0],value,TEXT,x0+hs+u*1.2f,ty+u*1.2f,vw+u,u*7.2f,false,Align.left,true);}
     else g.drawText(t[0],value,TEXT,tx,ty+u*1.2f,tw,u*7.2f,false,Align.center,true);
     if(t.length>2&&"*".equals(t[2]))star(g,tx+tw-u*2.8f,ty+u*2.8f,u*2.1f);
-    g.drawText(spaced(t[1]),label,DIM,tx,ty+u*8.4f,tw,u*3.4f,false,Align.center,true);
+    g.drawText(spaced(forge.adventure.util.BattleUiSettings.tr(t[1])),label,DIM,tx,ty+u*8.4f,tw,u*3.4f,false,Align.center,true);
     tx+=tw+gap;
    }
   }

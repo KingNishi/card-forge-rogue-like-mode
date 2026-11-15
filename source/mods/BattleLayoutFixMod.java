@@ -161,12 +161,12 @@ public final class BattleLayoutFixMod {
  private static float[] split(VField field,float w,float h){
   try{Field f=VField.class.getDeclaredField("commandZoneWidth");f.setAccessible(true);float reserve=f.getFloat(field);
    float usable=Math.max(200,w-reserve),card=ArenaBattleHudMod.fieldCardHeight(field);
-   float rearRatio=(BattleUiSettings.compactLands()?.58f:ArenaBattleHudMod.LAND_SCALE);for(var p:field.getRow2().getCardPanels())if(!plainLand(p.getCard())){rearRatio=1;break;}
+   float rearRatio=(BattleUiSettings.compactLands()?.48f:ArenaBattleHudMod.LAND_SCALE);for(var p:field.getRow2().getCardPanels())if(!plainLand(p.getCard())){rearRatio=1;break;}
    float gap=Math.max(4,Math.min(10,card*.06f)),rear=BattleZoomMod.manual()?card*rearRatio+2*gap:Math.min(h*.48f,card+2*gap);
    // Let a crowded rear row borrow height before making its lands/artifacts too small.
    float rearWidth=0,rearCard=0;int roots=0;
    for(var panel:field.getRow2().getCardPanels()){
-    float size=card*(plainLand(panel.getCard())?(BattleUiSettings.compactLands()?.58f:ArenaBattleHudMod.LAND_SCALE):1),fan=1;
+    float size=card*(plainLand(panel.getCard())?(BattleUiSettings.compactLands()?.48f:ArenaBattleHudMod.LAND_SCALE):1),fan=1;
     var p=panel;var seen=new java.util.HashSet<VCardDisplayArea.CardAreaPanel>();
     while(p.getNextPanelInStack()!=null&&seen.add(p)){p=p.getNextPanelInStack();fan+=.32f;}
     rearWidth+=size*(fan+panel.getCard().getAttachedCards().size()*.20f);rearCard=Math.max(rearCard,size);roots++;
@@ -198,10 +198,12 @@ public final class BattleLayoutFixMod {
  }
  public static float previewX(float x,float width,float screenWidth){return Math.max(12,Math.min(x,Math.max(12,screenWidth-width-12)));}
  public static void preview(Graphics g,CardView card,float x,float y,float w,float h,CardRenderer.CardStackPosition stack,boolean rotated,boolean a,boolean b,boolean c,MatchScreen screen){
+  BattleUiSettings.previewAt=System.currentTimeMillis();
   if(ArenaMotionMod.active()){x=previewX(x,rotated?Math.max(w,h):w,screen.getWidth());y=Math.max(64,Math.min(y,Math.max(64,screen.getHeight()-h-80)));}
   CardRenderer.drawCard(g,card,x,y,w,h,stack,rotated,a,b,c);
  }
  public static void details(Graphics g,CardView card,GameView view,boolean a,float x,float y,float w,float h,MatchScreen screen){
+  BattleUiSettings.previewAt=System.currentTimeMillis();
   if(ArenaMotionMod.active()){x=previewX(x,w,screen.getWidth());y=Math.max(64,Math.min(y,Math.max(64,screen.getHeight()-h-80)));}
   CardImageRenderer.drawDetails(g,card,view,a,x,y,w,h);
  }
@@ -247,59 +249,85 @@ public final class BattleLayoutFixMod {
   g.fillCircle(new Color(0,0,0,.55f),x+w/2,y+h/2,s*.62f);
   CardFaceSymbols.drawSymbol("T",g,x+(w-s)/2,y+(h-s)/2,s,s);
  }
- private static boolean zoneCard(CardView c){
-  if(c==null||c.getCurrentState()==null)return false;var s=c.getCurrentState();
-  return !s.isCreature()&&!s.isLand()&&!s.isPlaneswalker()&&(s.isArtifact()||s.isEnchantment());
+ /** which fan a card goes into (user 2026-11-15): 0 = artifacts (no creatures, no equipment), 1 = enchantments
+  *  (no creatures, no sagas), -1 = stays where it is */
+ static final int ART=0,ENCH=1;
+ private static int stackType(CardView c){
+  if(c==null||c.getCurrentState()==null)return -1;var s=c.getCurrentState();
+  if(s.isCreature()||s.isLand()||s.isPlaneswalker())return -1;
+  var t=s.getType();
+  if(s.isArtifact())return t.hasSubtype("Equipment")?-1:ART;
+  if(s.isEnchantment())return t.hasSubtype("Saga")?-1:ENCH;
+  return -1;
  }
- private static final java.util.Map<VField,Boolean> OPEN=new java.util.WeakHashMap<>();
- private static final java.util.Map<VField,FButton> BUTTONS=new java.util.WeakHashMap<>();
+ private static boolean zoneCard(CardView c){return stackType(c)>=0;}
+ private static final java.util.Map<VField,boolean[]> OPEN=new java.util.WeakHashMap<>();
+ private static boolean open(VField f,int t){boolean[] o=OPEN.get(f);return o!=null&&o[t];}
+ private static void toggle(VField f,int t){OPEN.computeIfAbsent(f,k->new boolean[2])[t]^=true;f.revalidate();f.getRow1().revalidate();f.getRow2().revalidate();}
  private static VField owner(VCardDisplayArea area){
   try{Field f=VField.FieldRow.class.getDeclaredField("this$0");f.setAccessible(true);return (VField)f.get(area);}catch(ReflectiveOperationException e){return null;}
  }
- private static int zoneCount(VCardDisplayArea row){int n=0;for(var p:row.getCardPanels())if(p.getAttachedToPanel()==null&&zoneCard(p.getCard()))n++;return n;}
- private static boolean folded(VField field){return field!=null&&ArenaMotionMod.active()&&BattleUiSettings.collapsibleZone()&&!OPEN.getOrDefault(field,false);}
- /** folded: every artifact / enchantment (with whatever is attached to it) moves into one tight fan; each card keeps an
-  *  exposed edge, so it can still be tapped, activated or targeted. Cards right of the old span close the gap. */
- private static void foldZone(VCardDisplayArea area){
-  if(!(area instanceof VField.FieldRow))return;VField field=owner(area);if(!folded(field))return;
+ private static boolean foldOn(VField field){return field!=null&&ArenaMotionMod.active()&&BattleUiSettings.collapsibleZone();}
+ /** every root card of a row (with what is attached to / stacked on it) as one unit, left to right */
+ private static java.util.List<java.util.Map.Entry<VCardDisplayArea.CardAreaPanel,RowGroup>> units(VCardDisplayArea area){
   var map=new java.util.LinkedHashMap<VCardDisplayArea.CardAreaPanel,RowGroup>();
-  for(FDisplayObject c:area.getChildren())if(c.isVisible()&&c instanceof VCardDisplayArea.CardAreaPanel p&&c.getWidth()>0){var r=root(p);if(zoneCard(r.getCard()))map.computeIfAbsent(r,k->new RowGroup()).add(c);}
-  if(map.size()<2)return;
-  var groups=new java.util.ArrayList<>(map.values());groups.sort(java.util.Comparator.comparingDouble(g->g.left));
-  float L=groups.get(0).left,R=0,card=0;for(RowGroup g:groups){R=Math.max(R,g.right);card=Math.max(card,g.height());}
-  float step=Math.max(14,card*.30f),x=L,fanRight=L;
-  for(RowGroup g:groups){float dx=x-g.left;for(FDisplayObject c:g.cards)c.setPosition(c.getLeft()+dx,c.getTop());fanRight=Math.max(fanRight,x+g.width());x+=step;}
-  float saved=R-fanRight;if(saved<=0)return;
-  var moved=new java.util.HashSet<FDisplayObject>();for(RowGroup g:groups)moved.addAll(g.cards);
-  for(FDisplayObject c:area.getChildren())if(c.isVisible()&&!moved.contains(c)&&c.getLeft()>=R-.5f)c.setPosition(c.getLeft()-saved,c.getTop());
+  for(FDisplayObject c:area.getChildren())if(c.isVisible()&&c instanceof VCardDisplayArea.CardAreaPanel p&&c.getWidth()>0)map.computeIfAbsent(root(p),k->new RowGroup()).add(c);
+  var list=new java.util.ArrayList<>(map.entrySet());list.sort(java.util.Comparator.comparingDouble(e->e.getValue().left));return list;
  }
- private static final java.util.Map<VField,VCardDisplayArea> ZONE_ROW=new java.util.WeakHashMap<>();
- /** the fold button sits right next to the artifact / enchantment fan; the row keeps room for it at its right end */
- private static void zoneButton(VField field,float usable){
-  FButton b=BUTTONS.get(field);
-  boolean creatures=false;for(var p:field.getRow1().getCardPanels())if(p.getCard()!=null&&p.getCard().getCurrentState().isCreature()){creatures=true;break;}
-  VField.FieldRow row=!creatures&&zoneCount(field.getRow1())>0?field.getRow1():field.getRow2();
-  int n=zoneCount(row);
-  boolean show=ArenaMotionMod.active()&&BattleUiSettings.collapsibleZone()&&n>=2;
-  if(!show){if(b!=null)b.setVisible(false);return;}
-  if(b==null){FButton nb=new FButton("",e->{OPEN.put(field,!OPEN.getOrDefault(field,false));field.revalidate();field.getRow1().revalidate();field.getRow2().revalidate();});b=nb;field.add(b);BUTTONS.put(field,b);}
-  b.setVisible(true);boolean open=OPEN.getOrDefault(field,false);
-  b.setText((open?"Fold ":"Artifacts ")+n);b.setToggled(open);
-  float bh=Math.min(row.getHeight()-4,Math.max(30,forge.util.Utils.AVG_FINGER_HEIGHT*.75f)),bw=bh*2.4f;
-  ZONE_ROW.put(field,row);
-  b.setBounds(row.getLeft()+row.getWidth()-bw-4,row.getTop()+(row.getHeight()-bh)/2,bw,bh);
-  row.setBounds(row.getLeft(),row.getTop(),Math.max(60,row.getWidth()-bw-10),row.getHeight());
-  placeZoneButton(row);
+ /** folded: artifacts and enchantments each lie in one fan; the more cards, the tighter (the fan stays about 1.6 cards
+  *  wide), every card keeps a visible edge. The number on the top card opens / closes the fan (user 2026-11-15). */
+ private static void foldZone(VCardDisplayArea area){
+  if(!(area instanceof VField.FieldRow))return;VField field=owner(area);if(!foldOn(field))return;
+  var units=units(area);if(units.size()<2)return;
+  int[] count=new int[2];float cw=0;
+  for(var e:units){int t=stackType(e.getKey().getCard());if(t>=0){count[t]++;cw=Math.max(cw,e.getValue().width());}}
+  boolean[] fold={count[ART]>=2&&!open(field,ART),count[ENCH]>=2&&!open(field,ENCH)};
+  if(!fold[ART]&&!fold[ENCH])return;
+  float[] step=new float[2];for(int t=0;t<2;t++)step[t]=count[t]<2?0:Math.max(6,Math.min(cw*.30f,cw*.60f/(count[t]-1)));
+  float[] slot={Float.NaN,Float.NaN};int[] k=new int[2];
+  float x=0,prevRight=0;boolean first=true;
+  for(var e:units){
+   RowGroup g=e.getValue();int t=stackType(e.getKey().getCard());
+   float gap=first?0:Math.max(0,g.left-prevRight);prevRight=g.right;
+   if(t>=0&&fold[t]&&!Float.isNaN(slot[t])){k[t]++;shift(g,slot[t]+k[t]*step[t]);continue;}   // tucked into its fan
+   float nx=first?g.left:x+gap;shift(g,nx);x=nx+g.width();first=false;
+   if(t>=0&&fold[t]){slot[t]=nx;x+=(count[t]-1)*step[t];}   // room for the rest of the fan
+  }
  }
- /** after a row layout: put the button at the right edge of the folded fan (or of the last artifact when unfolded) */
+ private static void shift(RowGroup g,float nx){float dx=nx-g.left;if(Math.abs(dx)<.01f)return;for(FDisplayObject c:g.cards)c.setPosition(c.getLeft()+dx,c.getTop());}
+ /** the old "Artifacts N" button is gone: the count sits on the fan itself */
+ private static final java.util.Map<VField,FButton> BUTTONS=new java.util.WeakHashMap<>();
+ private static void zoneButton(VField field,float usable){FButton b=BUTTONS.get(field);if(b!=null)b.setVisible(false);}
+ private static final java.util.Map<VCardDisplayArea,StackBadge[]> BADGES=new java.util.WeakHashMap<>();
+ /** round count on the top card of a fan; a tap opens / closes that fan */
+ static final class StackBadge extends FDisplayObject{
+  final VField field;final int type;int n;boolean opened;
+  StackBadge(VField field,int type){this.field=field;this.type=type;}
+  @Override public boolean tap(float x,float y,int count){toggle(field,type);return true;}
+  @Override public void draw(Graphics g){
+   float w=getWidth(),h=getHeight(),r=Math.min(w,h)/2,cx=w/2,cy=h/2;
+   Color gold=Color.valueOf("e0b24f"),dark=Color.valueOf("111722");
+   g.fillCircle(new Color(0,0,0,.45f),cx+r*.08f,cy+r*.1f,r);g.fillCircle(gold,cx,cy,r);
+   if(!opened)g.fillCircle(isHovered()?Color.valueOf("1c2738"):dark,cx,cy,r-Math.max(1.2f,r*.12f));
+   String t=String.valueOf(n);g.drawText(t,forge.assets.FSkinFont.forHeight(h*.6f),opened?dark:gold,0,0,w,h,false,com.badlogic.gdx.utils.Align.center,true);
+  }
+ }
+ /** after a row layout: the count badge on the top card of each fan (or on the first card while the fan is open) */
  private static void placeZoneButton(VCardDisplayArea area){
-  if(!(area instanceof VField.FieldRow))return;VField field=owner(area);if(field==null||ZONE_ROW.get(field)!=area)return;
-  FButton b=BUTTONS.get(field);if(b==null||!b.isVisible())return;
-  float right=-1,top=Float.POSITIVE_INFINITY,bottom=0;
-  for(FDisplayObject c:area.getChildren())if(c.isVisible()&&c instanceof VCardDisplayArea.CardAreaPanel p&&c.getWidth()>0&&zoneCard(root(p).getCard())){right=Math.max(right,c.getRight());top=Math.min(top,c.getTop());bottom=Math.max(bottom,c.getBottom());}
-  if(right<0)return;
-  float x=area.getLeft()+right-area.getScrollLeft()+6,y=area.getTop()+(top+bottom)/2-b.getHeight()/2;
-  x=Math.min(x,area.getLeft()+area.getWidth()+6);
-  b.setPosition(x,Math.max(area.getTop(),Math.min(y,area.getTop()+area.getHeight()-b.getHeight())));
+  if(!(area instanceof VField.FieldRow))return;VField field=owner(area);if(field==null)return;
+  StackBadge[] bs=BADGES.computeIfAbsent(area,a->new StackBadge[2]);
+  if(!foldOn(field)){for(StackBadge b:bs)if(b!=null)b.setVisible(false);return;}
+  var units=units(area);int[] count=new int[2];RowGroup[] firstU=new RowGroup[2],lastU=new RowGroup[2];
+  for(var e:units){int t=stackType(e.getKey().getCard());if(t<0)continue;count[t]++;if(firstU[t]==null)firstU[t]=e.getValue();lastU[t]=e.getValue();}
+  for(int t=0;t<2;t++){
+   StackBadge b=bs[t];
+   if(count[t]<2){if(b!=null)b.setVisible(false);continue;}
+   if(b==null){b=new StackBadge(field,t);field.add(b);bs[t]=b;}
+   b.n=count[t];b.opened=open(field,t);
+   RowGroup u=b.opened?firstU[t]:lastU[t];
+   float d=Math.max(18,Math.min(34,u.height()*.24f));
+   float x=area.getLeft()+u.left+u.width()*.72f-d/2-area.getScrollLeft(),y=area.getTop()+u.top+u.height()*.07f;   // upper right of the top card
+   b.setBounds(x,y,d,d);b.setVisible(true);
+  }
  }
 }

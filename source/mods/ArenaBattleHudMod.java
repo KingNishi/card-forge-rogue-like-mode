@@ -44,6 +44,8 @@ public final class ArenaBattleHudMod {
   Layout l=plan(w,h,bottom,selected);float scale=uiScale;
   p.getAvatar().setBounds(l.avatarX(),l.avatarY(),l.avatarSize(),l.avatarSize());
   ((FDisplayObject)member(p,"lblLife")).setBounds(l.avatarX()+l.avatarSize()/2-50*scale,l.lifeY(),100*scale,LIFE*scale-2*scale);
+  CmdDamage cd=cmdDamage.get(p);if(cd==null){cd=p.add(new CmdDamage(p));cmdDamage.put(p,cd);}   // commander damage on top of the portrait (user 2026-11-14)
+  cd.setBounds(l.avatarX()+l.avatarSize()*.18f,l.avatarY()+4*scale,l.avatarSize()*.64f,Math.max(18*scale,l.avatarSize()*.16f));
   float manaW=65*scale,manaX=l.avatarX()-manaW-18*scale,phaseW=Math.max(120,Math.min(w*.32f,manaX-12*scale-w*.45f));
   // the per-player phase strips (UP DR M1 ...) are gone: the turn plaque in the middle shows every step
   p.getPhaseIndicator().setBounds(manaX-12*scale-phaseW,l.bandY(),0,0);p.getPhaseIndicator().setVisible(false);
@@ -85,6 +87,8 @@ public final class ArenaBattleHudMod {
    t.setBounds(12*scale,cy-toggleSize/2,toggleSize,toggleSize);
    BoardZoom bz=boardZooms.get(p);if(bz==null){bz=p.add(new BoardZoom());boardZooms.put(p,bz);}
    bz.setBounds(12*scale+toggleSize+8*scale,cy-toggleSize/2,zoomW,toggleSize);   // board zoom: battlefield + commander
+   FoldToggle ft=folds.get(p);if(ft==null){ft=p.add(new FoldToggle());folds.put(p,ft);}   // fold artifacts / enchantments on or off (user 2026-11-14 "toggleable ... hier hin")
+   ft.setBounds(12*scale+toggleSize+8*scale+zoomW+8*scale,cy-toggleSize/2,toggleSize,toggleSize);
    HandZoom z=zooms.get(p);if(z==null){z=p.add(new HandZoom());zooms.put(p,z);}
    boolean handShown=t.handOpen();z.setVisible(handShown);   // hand zoom only while the hand is open, right of it
    if(handShown)z.setBounds(w*.88f+8*scale,l.displayY()+Math.max(0,(l.displayHeight()-toggleSize)/2),Math.min(zoomW,w*.12f-16*scale),toggleSize);
@@ -153,6 +157,23 @@ public final class ArenaBattleHudMod {
  private static final Map<VPlayerPanel,HandZoom> zooms=new WeakHashMap<>();
  /** hand size right next to the hand: [-] magnifier 100 % [+]; tapping the magnifier resets to 100 % */
  private static final Map<VPlayerPanel,BoardZoom> boardZooms=new WeakHashMap<>();
+ private static final Map<VPlayerPanel,FoldToggle> folds=new WeakHashMap<>();
+ /** round button next to the board zoom: gold = artifacts / enchantments are folded into one fan per player, dark = laid out */
+ static final class FoldToggle extends FDisplayObject{
+  @Override public boolean tap(float x,float y,int count){
+   BattleUiSettings.setZoneStyle(BattleUiSettings.collapsibleZone()?2:1);BattleUiSettings.save();
+   try{var view=forge.screens.match.MatchController.getView();if(view!=null)view.revalidate();}catch(Exception ignored){}
+   return true;}
+  @Override public void draw(Graphics g){
+   float w=getWidth(),h=getHeight(),r=Math.min(w,h)/2,cx=w/2,cy=h/2;boolean on=BattleUiSettings.collapsibleZone();
+   Color gold=Color.valueOf("e0b24f"),ink=on?Color.valueOf("111722"):Color.valueOf("ece6d8");
+   g.fillCircle(gold,cx,cy,r);
+   if(!on)g.fillCircle(isHovered()?Color.valueOf("1c2738"):Color.valueOf("111722"),cx,cy,r-Math.max(1.5f,r*.09f));
+   float cw=r*.48f,ch=r*.68f,lw=Math.max(1.2f,r*.08f);   // three cards fanned out
+   for(int i=0;i<3;i++){float ox=cx-cw/2+(i-1)*r*.30f,oy=cy-ch/2+(i==1?-r*.06f:r*.04f);
+    g.fillRect(on?gold:Color.valueOf("111722"),ox,oy,cw,ch);g.drawRect(lw,ink,ox,oy,cw,ch);}
+  }
+ }
  /** board zoom (user 2026-10-16): battlefield cards + commander; - / + at the ends, tap the middle to reset */
  static final class BoardZoom extends FDisplayObject{
   @Override public boolean tap(float x,float y,int count){
@@ -289,7 +310,9 @@ public final class ArenaBattleHudMod {
  /** Lays the command zone out as a grid (called at the end of VZoneDisplay's layout); null for every other zone. */
  public static FScrollPane.ScrollBounds commandGrid(VCardDisplayArea area,float w,float h){
   if(!ArenaMotionMod.active()||!(area instanceof VZoneDisplay zone)||zone.getZoneType()!=ZoneType.Command||w<20||h<20)return null;
-  List<FDisplayObject> cards=new ArrayList<>();for(var c:area.getCardPanels())if(c.isVisible())cards.add(c);
+  List<FDisplayObject> cards=new ArrayList<>();
+  for(var c:area.getCardPanels())if(c.getCard()!=null&&c.getCard().isCommander()){if(!c.isVisible())c.setVisible(true);cards.add(c);}   // commanders always shown and first (user 2026-11-14: commander hidden behind a "Keyword effects" card)
+  for(var c:area.getCardPanels())if(c.isVisible()&&!cards.contains(c))cards.add(c);
   if(!cards.isEmpty()){
    float gap=Math.max(4,Math.min(w,h)*.025f);float[] g=grid(cards.size(),w-2*gap,h-2*gap,gap);
    int cols=(int)g[0];float y0=(h-g[5])/2;
@@ -302,9 +325,9 @@ public final class ArenaBattleHudMod {
   try{Field f=VZoneDisplay.class.getDeclaredField("revealedPanel");f.setAccessible(true);f.set(area,null);}catch(ReflectiveOperationException e){throw new IllegalStateException(e);}
   return new FScrollPane.ScrollBounds(w,h);
  }
- public static final float LAND_SCALE=.65f;
+ public static final float LAND_SCALE=.52f;   // was .65 - lands smaller next to the other permanents (user 2026-11-14)
  /** compact lands (Battle UI setting, Android default): upright tiles a little smaller (user 2026-11-13: "wie MTG Arena") */
- public static float landScale(){return BattleUiSettings.compactLands()?.58f:LAND_SCALE;}
+ public static float landScale(){return BattleUiSettings.compactLands()?.48f:LAND_SCALE;}
  /** A shared size for both rows; allocating more board height must not enlarge every permanent. */
  public static float fieldCardHeight(float width,float height){
   float scale=Math.max(1,Math.min(1.6f,width/1600));
@@ -446,26 +469,27 @@ public final class ArenaBattleHudMod {
   record Step(String title,String text,java.util.function.Supplier<com.badlogic.gdx.math.Rectangle> target){}
   final List<Step> steps=new ArrayList<>();int index;final long start=System.currentTimeMillis();
   Tour(VPlayerPanel me,VPlayerPanel foe){
-   var view=forge.screens.match.MatchController.getView();boolean touch=BattleUiSettings.touch();   // phone / tablet: touch wording, no keys (user 2026-11-05)
-   steps.add(new Step("Battle controls",touch?"A quick tour of the battle screen. Tap anywhere for the next tip - the Back button skips the tour.":"A quick tour of the battle screen. Tap anywhere (or press a key) for the next tip - Escape skips the tour.",()->null));
-   steps.add(new Step("Your hand",touch?"Tap a card to play it. Long-press a card to see it big.":"Tap a card to play it. Hover a card or right-click it to see it big.",()->{var t=me.getSelectedTab();return t==null?null:rectOf(t.getDisplayArea());}));
-   steps.add(new Step("Show / hide the hand","Folds your hand away to see the whole battlefield - tap again to bring it back."+(touch?"":" Key: H."),()->rectOf(toggles.get(me))));
-   steps.add(new Step("Board zoom","- and + make the cards on the battlefield smaller or bigger, the middle resets."+(touch?"":" Keys: Page Up / Page Down / Home."),()->rectOf(boardZooms.get(me))));
-   steps.add(new Step("OK and End Turn","OK confirms what the message on the left asks for (keep the hand, attack, pass...). End Turn passes until your turn ends."+(touch?"":" Keys: Space / E."),()->{var p=view.getActivePrompt();return p==null?null:union(rectOf(p.getBtnOk()),rectOf(p.getBtnCancel()));}));
-   steps.add(new Step("The message line","Bottom left: what the game is waiting for right now. Tap it to read a long message in full.",()->{var p=view.getActivePrompt();if(p==null)return null;var r=rectOf(p);if(r==null)return null;r.width*=.55f;return r;}));
-   steps.add(new Step("Turn panel","Whose turn it is and which step you are in. The blue steps are the main phases. Drag it anywhere you like - double-tap puts it back.",()->lastPlaque==null?null:new com.badlogic.gdx.math.Rectangle(lastPlaque)));
-   steps.add(new Step("Skip","Passes everything until the main phase of your next turn - for when you don't want to respond. Tap again to stop."+(touch?"":" Key: S."),()->rectOf(skips.get(me))));
-   steps.add(new Step("Your portrait and life","Your commander and your life total. The glowing frame shows whose turn it is.",()->rectOf(me.getAvatar())));
-   steps.add(new Step("Mana and deck","Mana you have floating appears in this tile. Deck shows your deck list."+(touch?"":" Key: D."),()->union(rectOf(me.getManaPoolTab()),rectOf(deckButtons.get(me)))));
-   steps.add(new Step("Zones","Library, graveyard, exile and more - tap a tab to look inside, tap it again to close it.",()->{com.badlogic.gdx.math.Rectangle r=null;for(var t:me.getTabs())if(t!=me.getManaPoolTab()&&!(t instanceof VPlayerPanel.InfoTabExtra))r=union(r,rectOf(t));return r;}));
-   steps.add(new Step("Command zone","Your commander waits here. Tap it to cast it - also again after it died.",()->rectOf(me.getCommandZone())));
-   steps.add(new Step("The enemy","Their portrait and life. Log (the scroll) lists everything that happened."+(touch?"":" Key: L."),()->union(rectOf(foe.getAvatar()),rectOf(logButtons.get(foe)))));
-   steps.add(new Step("The stack","Spells and abilities waiting to resolve show up in a list in the middle of the board. While it is open you can still answer with instants before they resolve.",()->rectOf(view.getStack())));
-   steps.add(new Step("Battle menu","Top left: concede, zoom, hand size and more.",()->{for(FDisplayObject c:view.getChildren())if(c.getClass().getSimpleName().equals("MenuButton"))return rectOf(c);return null;}));
-   steps.add(new Step("Make it yours",touch?"Button sizes and the turn panel: battle menu > Battle settings, or Rogue Commanders > Settings > Battle UI. Good luck!":"Button sizes and keyboard shortcuts: Rogue Commanders > Settings > Battle UI / Keys. Good luck!",()->null));
+   var view=forge.screens.match.MatchController.getView();boolean touch=BattleUiSettings.touch();
+   final boolean de=lan();   // 1v1 LAN: the tour in German (user 2026-11-14)   // phone / tablet: touch wording, no keys (user 2026-11-05)
+   steps.add(new Step(de?"Kampf-Steuerung":"Battle controls",de?(touch?"Eine kurze Tour durch den Kampfbildschirm. Tippe irgendwo für den nächsten Tipp - die Zurück-Taste überspringt die Tour.":"Eine kurze Tour durch den Kampfbildschirm. Klick irgendwo (oder drück eine Taste) für den nächsten Tipp - Escape überspringt die Tour."):touch?"A quick tour of the battle screen. Tap anywhere for the next tip - the Back button skips the tour.":"A quick tour of the battle screen. Tap anywhere (or press a key) for the next tip - Escape skips the tour.",()->null));
+   steps.add(new Step(de?"Deine Hand":"Your hand",de?(touch?"Tippe eine Karte an, um sie zu spielen. Lange drücken zeigt sie groß.":"Klick eine Karte an, um sie zu spielen. Maus drüber oder Rechtsklick zeigt sie groß."):touch?"Tap a card to play it. Long-press a card to see it big.":"Tap a card to play it. Hover a card or right-click it to see it big.",()->{var t=me.getSelectedTab();return t==null?null:rectOf(t.getDisplayArea());}));
+   steps.add(new Step(de?"Hand zeigen / verstecken":"Show / hide the hand",de?"Klappt deine Hand weg, damit du das ganze Spielfeld siehst - nochmal tippen holt sie zurück."+(touch?"":" Taste: H."):"Folds your hand away to see the whole battlefield - tap again to bring it back."+(touch?"":" Key: H."),()->rectOf(toggles.get(me))));
+   steps.add(new Step(de?"Spielfeld-Zoom":"Board zoom",de?"- und + machen die Karten auf dem Spielfeld kleiner oder größer, die Mitte setzt zurück."+(touch?"":" Tasten: Bild auf / Bild ab / Pos1."):"- and + make the cards on the battlefield smaller or bigger, the middle resets."+(touch?"":" Keys: Page Up / Page Down / Home."),()->rectOf(boardZooms.get(me))));
+   steps.add(new Step(de?"OK und Zug beenden":"OK and End Turn",de?"OK bestätigt, was die Meldung links fragt (Hand behalten, angreifen, passen...). End Turn passt, bis dein Zug vorbei ist."+(touch?"":" Tasten: Leertaste / E."):"OK confirms what the message on the left asks for (keep the hand, attack, pass...). End Turn passes until your turn ends."+(touch?"":" Keys: Space / E."),()->{var p=view.getActivePrompt();return p==null?null:union(rectOf(p.getBtnOk()),rectOf(p.getBtnCancel()));}));
+   steps.add(new Step(de?"Die Meldungszeile":"The message line",de?"Unten links: worauf das Spiel gerade wartet. Tippe drauf, um eine lange Meldung ganz zu lesen.":"Bottom left: what the game is waiting for right now. Tap it to read a long message in full.",()->{var p=view.getActivePrompt();if(p==null)return null;var r=rectOf(p);if(r==null)return null;r.width*=.55f;return r;}));
+   steps.add(new Step(de?"Zug-Anzeige":"Turn panel",de?"Wer am Zug ist und in welchem Schritt ihr seid. Die aktuelle Phase ist hervorgehoben. Du kannst sie überallhin ziehen - Doppeltipp setzt sie zurück.":"Whose turn it is and which step you are in. The current step is lit. Drag it anywhere you like - double-tap puts it back.",()->lastPlaque==null?null:new com.badlogic.gdx.math.Rectangle(lastPlaque)));
+   steps.add(new Step(de?"Skip":"Skip",de?"Passt alles bis zur Hauptphase deines nächsten Zugs - wenn du nicht reagieren willst. Nochmal tippen stoppt es."+(touch?"":" Taste: S."):"Passes everything until the main phase of your next turn - for when you don't want to respond. Tap again to stop."+(touch?"":" Key: S."),()->rectOf(skips.get(me))));
+   steps.add(new Step(de?"Dein Porträt und Leben":"Your portrait and life",de?"Dein Commander und deine Lebenspunkte. Der leuchtende Rahmen zeigt, wer am Zug ist.":"Your commander and your life total. The glowing frame shows whose turn it is.",()->rectOf(me.getAvatar())));
+   steps.add(new Step(de?"Mana und Deck":"Mana and deck",de?"Mana, das du übrig hast, erscheint in diesem Feld. Deck zeigt deine Deckliste."+(touch?"":" Taste: D."):"Mana you have floating appears in this tile. Deck shows your deck list."+(touch?"":" Key: D."),()->union(rectOf(me.getManaPoolTab()),rectOf(deckButtons.get(me)))));
+   steps.add(new Step(de?"Zonen":"Zones",de?"Bibliothek, Friedhof, Exil und mehr - tippe einen Reiter an, um hineinzuschauen, nochmal tippen schließt ihn.":"Library, graveyard, exile and more - tap a tab to look inside, tap it again to close it.",()->{com.badlogic.gdx.math.Rectangle r=null;for(var t:me.getTabs())if(t!=me.getManaPoolTab()&&!(t instanceof VPlayerPanel.InfoTabExtra))r=union(r,rectOf(t));return r;}));
+   steps.add(new Step(de?"Kommandozone":"Command zone",de?"Hier wartet dein Commander. Tippe ihn an, um ihn zu wirken - auch wieder, nachdem er gestorben ist.":"Your commander waits here. Tap it to cast it - also again after it died.",()->rectOf(me.getCommandZone())));
+   steps.add(new Step(de?"Dein Gegner":"The enemy",de?"Sein Porträt und seine Lebenspunkte. Log (die Schriftrolle) zeigt alles, was passiert ist."+(touch?"":" Taste: L."):"Their portrait and life. Log (the scroll) lists everything that happened."+(touch?"":" Key: L."),()->union(rectOf(foe.getAvatar()),rectOf(logButtons.get(foe)))));
+   steps.add(new Step(de?"Der Stapel":"The stack",de?"Zauber und Fähigkeiten, die noch auf ihre Auflösung warten, erscheinen als Liste in der Mitte des Spielfelds. Solange sie offen ist, kannst du noch mit Spontanzaubern antworten.":"Spells and abilities waiting to resolve show up in a list in the middle of the board. While it is open you can still answer with instants before they resolve.",()->rectOf(view.getStack())));
+   steps.add(new Step(de?"Kampfmenü":"Battle menu",de?"Oben links: aufgeben, Zoom, Handgröße und mehr.":"Top left: concede, zoom, hand size and more.",()->{for(FDisplayObject c:view.getChildren())if(c.getClass().getSimpleName().equals("MenuButton"))return rectOf(c);return null;}));
+   steps.add(new Step(de?"Mach es dir passend":"Make it yours",de?"Knopfgrößen und Tasten: Rogue Commanders > Settings > Battle UI. Viel Spaß beim Spiel!":touch?"Button sizes and the turn panel: battle menu > Battle settings, or Rogue Commanders > Settings > Battle UI. Good luck!":"Button sizes and keyboard shortcuts: Rogue Commanders > Settings > Battle UI / Keys. Good luck!",()->null));
   }
   void next(){index++;if(index>=steps.size())finish();Gdx.graphics.requestRendering();}
-  void finish(){current=null;setVisible(false);try{forge.adventure.scene.RogueCommandersScene.setBattleTourDone();}catch(Throwable ignored){}}
+  void finish(){current=null;setVisible(false);try{if(lan())forge.adventure.util.RogueLan.setTourDone();else forge.adventure.scene.RogueCommandersScene.setBattleTourDone();}catch(Throwable ignored){}}
   void key(int k){if(k==com.badlogic.gdx.Input.Keys.ESCAPE||k==com.badlogic.gdx.Input.Keys.BACK)finish();else if(k==com.badlogic.gdx.Input.Keys.LEFT){index=Math.max(0,index-1);Gdx.graphics.requestRendering();}else next();}   // Left = back
   @Override public boolean tap(float x,float y,int count){if(System.currentTimeMillis()-start>400)next();return true;}
   @Override public boolean press(float x,float y){return true;}
@@ -493,14 +517,16 @@ public final class ArenaBattleHudMod {
    frame(g,MINE,new Color(.05f,.06f,.10f,1f),bx,by,bw,bh,12*s,Math.max(1.5f,2*s));   // nested fills: no drawRoundRect cross lines
    g.drawText(st.title(),tf,MINE,bx+pad,by+pad,bw-2*pad,30*s,false,com.badlogic.gdx.utils.Align.left,true);
    g.drawText(st.text(),bf,TEXT,bx+pad,by+pad+30*s,bw-2*pad,th+4,true,com.badlogic.gdx.utils.Align.left,false);
-   g.drawText((index+1)+" / "+steps.size()+(BattleUiSettings.touch()?"   -   tap: next   -   Back: skip":"   -   tap / any key: next   -   Left: back   -   Escape: skip"),hf,MUTED,bx+pad,by+bh-pad-14*s,bw-2*pad,16*s,false,com.badlogic.gdx.utils.Align.right,true);
+   g.drawText((index+1)+" / "+steps.size()+(lan()?(BattleUiSettings.touch()?"   -   Tippen: weiter   -   Zurück: überspringen":"   -   Klick / Taste: weiter   -   Links: zurück   -   Escape: überspringen"):BattleUiSettings.touch()?"   -   tap: next   -   Back: skip":"   -   tap / any key: next   -   Left: back   -   Escape: skip"),hf,MUTED,bx+pad,by+bh-pad-14*s,bw-2*pad,16*s,false,com.badlogic.gdx.utils.Align.right,true);
    Gdx.graphics.requestRendering();
   }
  }
+ /** a 1v1 LAN match is running (German texts, own tour flag) */
+ static boolean lan(){try{return forge.adventure.util.RogueLan.inMatch();}catch(Throwable t){return false;}}
  /** start the tour once, in the first Rogue battle, as soon as the hand is on screen */
  static void maybeTour(VPlayerPanel me){
   if(Tour.current!=null)return;
-  try{if(!forge.adventure.scene.RogueCommandersScene.battleTourDue())return;}catch(Throwable e){return;}
+  try{if(lan()?!forge.adventure.util.RogueLan.tourDue():!forge.adventure.scene.RogueCommandersScene.battleTourDue())return;}catch(Throwable e){return;}
   var view=forge.screens.match.MatchController.getView();if(view==null)return;
   VPlayerPanel foe=null;for(VPlayerPanel p:forge.screens.match.MatchScreen.getPlayerPanels().values())if(p!=me)foe=p;if(foe==null)return;
   Tour t=new Tour(me,foe);t.setBounds(0,0,view.getWidth(),view.getHeight());view.add(t);Tour.current=t;
@@ -552,7 +578,8 @@ public final class ArenaBattleHudMod {
  private static boolean isTurnOf(GameView game,VPlayerPanel p){return game!=null&&game.getPlayerTurn()!=null&&p.getPlayer()!=null&&game.getPlayerTurn().getId()==p.getPlayer().getId();}
  /** 0..12 in turn order, -1 if unknown */
  public static int stepIndex(PhaseType phase){if(phase!=null)for(int i=0;i<ORDER.length;i++)if(ORDER[i].equals(phase.name()))return i;return -1;}
- public static String phaseName(PhaseType phase){
+ public static String phaseName(PhaseType phase){return BattleUiSettings.tr(phaseName0(phase));}
+ static String phaseName0(PhaseType phase){
   if(phase==null)return "";
   return switch(phase.name()){case "UNTAP"->"Untap";case "UPKEEP"->"Upkeep";case "DRAW"->"Draw Step";case "MAIN1"->"Main Phase 1";
    case "COMBAT_BEGIN"->"Beginning of Combat";case "COMBAT_DECLARE_ATTACKERS"->"Declare Attackers";case "COMBAT_DECLARE_BLOCKERS"->"Declare Blockers";
@@ -592,9 +619,9 @@ public final class ArenaBattleHudMod {
   // pointer towards the player whose turn it is
   float cx=x+pw/2,t=10*s;
   if(mine)g.fillTriangle(accent,cx-t,y+ph,cx+t,y+ph,cx,y+ph+t);else g.fillTriangle(accent,cx-t,y,cx+t,y,cx,y-t);
-  String title=mine?"YOUR TURN":"ENEMY TURN";
+  String title=BattleUiSettings.tr(mine?"YOUR TURN":"ENEMY TURN");
   g.drawText(title,fit(title,pw-24*s,34*s),accent,x+12*s,y+8*s,pw-24*s,34*s,false,1,true);
-  String sub="Turn "+Math.max(1,turn)+"  -  "+phaseName(phase);
+  String sub=BattleUiSettings.tr("Turn")+" "+Math.max(1,turn)+"  -  "+phaseName(phase);
   g.drawText(sub,fit(sub,pw-24*s,20*s),TEXT,x+12*s,y+44*s,pw-24*s,20*s,false,1,true);
   int active=stepIndex(phase),index=0;float gap=4*s,bh=26*s,rowGap=5*s,top=y+72*s,inner=pw-24*s;
   // one size that fits every label: compare font SIZES - on 1080p several sizes share one line height (user 2026-10-17)
@@ -605,11 +632,10 @@ public final class ArenaBattleHudMod {
    String[] row=STEPS[r];float bw=(inner-(row.length-1)*gap)/row.length,by=top+r*(bh+rowGap);
    for(int i=0;i<row.length;i++,index++){
     float bx=x+12*s+i*(bw+gap);
-    boolean main=row[i].startsWith("Main");   // main phases (where you cast your cards) in their own colour (user 2026-10-17)
-    if(index==active){g.fillRoundRect(main?MAIN_PHASE:accent,bx,by,bw,bh,5*s);g.drawText(row[i],small,INK,bx,by,bw,bh,false,1,true);}
-    else if(index<active){g.fillRoundRect(mix(main?MAIN_PHASE:accent,.22f),bx,by,bw,bh,5*s);g.drawText(row[i],small,MUTED,bx,by,bw,bh,false,1,true);}
-    else if(main){frame(g,MAIN_PHASE,BG,bx,by,bw,bh,5*s,Math.max(1,s*1.2f));g.drawText(row[i],small,MAIN_PHASE,bx,by,bw,bh,false,1,true);}
-    else{frame(g,mix(MUTED,.45f),BG,bx,by,bw,bh,5*s,Math.max(1,s*.8f));g.drawText(row[i],small,alpha(MUTED,.85f),bx,by,bw,bh,false,1,true);}
+    // one colour per side (user 2026-11-14): your turn gold on black, the enemy's red on black, the current step filled
+    if(index==active){g.fillRoundRect(accent,bx,by,bw,bh,5*s);g.drawText(BattleUiSettings.tr(row[i]),small,INK,bx,by,bw,bh,false,1,true);}
+    else if(index<active){g.fillRoundRect(mix(accent,.22f),bx,by,bw,bh,5*s);g.drawText(BattleUiSettings.tr(row[i]),small,alpha(accent,.55f),bx,by,bw,bh,false,1,true);}
+    else{frame(g,alpha(accent,.75f),BG,bx,by,bw,bh,5*s,Math.max(1,s*1.0f));g.drawText(BattleUiSettings.tr(row[i]),small,alpha(accent,.9f),bx,by,bw,bh,false,1,true);}
    }
   }
  }
@@ -620,7 +646,7 @@ public final class ArenaBattleHudMod {
   g.fillRoundRect(new Color(0,0,0,.30f),x+2*s,y+3*s,pw,ph,9*s);
   frame(g,accent,BG,x,y,pw,ph,9*s,Math.max(1,1.6f*s));
   float pad=10*s,info=pw-(COMPACT_SKIP+12)*s,th=24*s,ty=y+5*s;
-  String title=mine?"YOUR TURN":"ENEMY TURN",sub="Turn "+Math.max(1,turn)+" - "+phaseName(phase);
+  String title=BattleUiSettings.tr(mine?"YOUR TURN":"ENEMY TURN"),sub=BattleUiSettings.tr("Turn")+" "+Math.max(1,turn)+" - "+phaseName(phase);
   FSkinFont tf=fit(title,info*.42f,th);float tw=Math.min(info*.42f,tf.getBounds(title).width+2);
   g.drawText(title,tf,accent,x+pad,ty,tw,th,false,com.badlogic.gdx.utils.Align.left,true);
   float sx=x+pad+tw+8*s,sw=Math.max(10,x+info-pad-sx);
@@ -628,11 +654,10 @@ public final class ArenaBattleHudMod {
   // the 13 steps as ticks in three groups (beginning / combat / end), the current one lit and taller, main phases blue
   int active=stepIndex(phase),index=0;float gap=2.5f*s,groupGap=8*s,avail=info-2*pad-2*groupGap,seg=(avail-10*gap)/13f,bh=7*s,by=y+ph-15*s,bx=x+pad;
   for(String[] row:STEPS){
-   for(int i=0;i<row.length;i++,index++){boolean main=row[i].startsWith("Main");Color c=main?MAIN_PHASE:accent;
+   for(int i=0;i<row.length;i++,index++){Color c=accent;   // one colour per side (user 2026-11-14)
     if(index==active)g.fillRoundRect(c,bx,by-3*s,seg,bh+6*s,2*s);
     else if(index<active)g.fillRoundRect(mix(c,.35f),bx,by,seg,bh,2*s);
-    else if(main)frame(g,MAIN_PHASE,BG,bx,by,seg,bh,2*s,Math.max(1,s));
-    else g.fillRoundRect(mix(MUTED,.28f),bx,by,seg,bh,2*s);
+    else frame(g,alpha(c,.75f),BG,bx,by,seg,bh,2*s,Math.max(1,s));
     bx+=seg+(i<row.length-1?gap:0);}
    bx+=groupGap;}
  }
@@ -641,6 +666,7 @@ public final class ArenaBattleHudMod {
  static final class TurnPanel extends FContainer{
   static final Map<Object,TurnPanel> byView=new WeakHashMap<>();
   final SkipButton skip=add(new SkipButton());
+  final CombatAskToggle ask=add(new CombatAskToggle());
   boolean compact,mine,dragging;int turn;PhaseType phase;float ps,defX,defY,viewW,viewH,dragX,dragY;long placedAt,lastPan;
   static float pointer(float ps){return 10*ps;}
   static TurnPanel place(VPlayerPanel p,float plaqueX,float ps,boolean mine,GameView game){
@@ -656,14 +682,14 @@ public final class ArenaBattleHudMod {
    if(t.dragging&&System.currentTimeMillis()-t.lastPan>300)t.endDrag();   // no panStop reached us: the drag ended anyway
    if(t.dragging){t.setSize(w,h);}
    else{float x=t.defX+BattleUiSettings.turnDx()*t.viewW,y=t.defY+BattleUiSettings.turnDy()*t.viewH;t.setBounds(clamp(x,0,t.viewW-w),clamp(y,0,t.viewH-h),w,h);}
-   if(t.compact)t.skip.setBounds(w-(COMPACT_SKIP+7)*ps,7*ps,COMPACT_SKIP*ps,h-14*ps);
-   else t.skip.setBounds(w*.25f,pointer(ps)+PLAQUE_H*ps+16*ps,w*.5f,30*ps);
+   if(t.compact){t.skip.setBounds(w-(COMPACT_SKIP+7)*ps,7*ps,COMPACT_SKIP*ps,h-14*ps);float a=h-14*ps;t.ask.setBounds(w-(COMPACT_SKIP+7)*ps-a-4*ps,7*ps,a,a);}
+   else{t.skip.setBounds(w*.25f,pointer(ps)+PLAQUE_H*ps+16*ps,w*.5f,30*ps);t.ask.setBounds(w*.75f+6*ps,pointer(ps)+PLAQUE_H*ps+19*ps,24*ps,24*ps);}
    return t;
   }
   static float clamp(float v,float lo,float hi){return Math.max(lo,Math.min(Math.max(lo,hi),v));}
   boolean stale(){return System.currentTimeMillis()-placedAt>400||BattleUiSettings.decisionShowing();}   // Android: the decision panel takes this spot (user 2026-11-06)   // the HUD stopped placing it (other layout, game over)
   @Override protected void doLayout(float w,float h){}
-  @Override public void draw(Graphics g){if(!stale())super.draw(g);}
+  @Override public void draw(Graphics g){if(!stale()&&!zoomOpen()&&!BattleUiSettings.previewShowing())super.draw(g);}   // not over the big card view (user 2026-11-14)
   @Override public void buildTouchListeners(float x,float y,List<FDisplayObject> listeners){if(!stale())super.buildTouchListeners(x,y,listeners);}
   @Override protected void drawBackground(Graphics g){
    if(compact)drawCompactTurn(g,0,0,ps,mine,turn,phase);else drawTurnPlaque(g,0,pointer(ps),ps,mine,turn,phase);
@@ -681,6 +707,29 @@ public final class ArenaBattleHudMod {
  private static final Map<VPlayerPanel,DeckButton> deckButtons=new WeakHashMap<>();
  private static final Map<VPlayerPanel,LogButton> logButtons=new WeakHashMap<>();
  /** opens / closes the game log; a small parchment scroll as icon (user 2026-10-16: "Log Button mit einer Schriftrolle") */
+ private static final Map<VPlayerPanel,CmdDamage> cmdDamage=new WeakHashMap<>();
+ /** "7/21" with crossed swords on top of a portrait: the most damage this player took from one enemy commander
+  *  (21 loses the game); gold, red from 15 on; only when an enemy has a commander (user 2026-11-14) */
+ static final class CmdDamage extends FDisplayObject{
+  private final VPlayerPanel panel;
+  CmdDamage(VPlayerPanel panel){this.panel=panel;}
+  @Override public void buildTouchListeners(float x,float y,List<FDisplayObject> listeners){}   // display only: taps go to the portrait
+  int damage(){
+   GameView g=game();var me=panel.getPlayer();if(g==null||me==null)return -1;int best=-1;
+   for(var other:g.getPlayers()){if(other==me||other.getCommanders()==null)continue;
+    for(CardView c:other.getCommanders())if(c!=null)best=Math.max(best,me.getCommanderDamage(c));}
+   return best;
+  }
+  @Override public void draw(Graphics g){
+   int d;try{d=damage();}catch(Throwable t){return;}if(d<0)return;
+   float w=getWidth(),h=getHeight(),r=h/2,lw=Math.max(1.2f,h*.08f);
+   Color edge=d>=15?ENEMY:MINE,ink=d>=15?Color.valueOf("ff8a7a"):Color.valueOf("f2cf63");
+   g.fillRoundRect(edge,0,0,w,h,r);g.fillRoundRect(new Color(.04f,.05f,.08f,.92f),lw,lw,w-2*lw,h-2*lw,r-lw);
+   float a=h*.22f,cx=h*.62f,cy=h/2,sw=Math.max(1.2f,h*.08f);   // crossed swords
+   g.drawLine(sw,ink,cx-a,cy-a,cx+a,cy+a);g.drawLine(sw,ink,cx+a,cy-a,cx-a,cy+a);
+   String t=d+"/21";g.drawText(t,fit(t,w-h*1.3f,h*.72f),ink,h*1.15f,0,w-h*1.3f,h,false,com.badlogic.gdx.utils.Align.center,true);
+  }
+ }
  static final class LogButton extends FDisplayObject{
   @Override public boolean tap(float x,float y,int count){
    try{var log=forge.screens.match.MatchController.getView().getLog();if(log.isVisible())log.hide();else log.show();}catch(Throwable t){}   // its own anchor: full width, not squeezed at the right edge
@@ -713,6 +762,60 @@ public final class ArenaBattleHudMod {
   *  ("der ist fuer ungeduldige Leute ... man kann im Log eh sehen was passiert ist"). The player's own optional triggers
   *  are accepted automatically; real decisions (targets, choices, blockers) wait for the player and the skip continues
   *  afterwards. Tap again to cancel. */
+ /** small round toggle next to Skip: crossed swords, gold = ask before OK ends your main phase 1 (user 2026-11-14) */
+ static final class CombatAskToggle extends FDisplayObject{
+  @Override public boolean tap(float x,float y,int count){BattleUiSettings.setConfirmCombat(!BattleUiSettings.confirmCombat());BattleUiSettings.save();Gdx.graphics.requestRendering();return true;}
+  @Override public void draw(Graphics g){
+   float w=getWidth(),h=getHeight(),r=Math.min(w,h)/2,cx=w/2,cy=h/2;boolean on=BattleUiSettings.confirmCombat();
+   Color gold=Color.valueOf("e0b24f"),ink=on?Color.valueOf("111722"):Color.valueOf("b9a586");
+   g.fillCircle(gold,cx,cy,r);if(!on)g.fillCircle(isHovered()?Color.valueOf("1c2738"):Color.valueOf("111722"),cx,cy,r-Math.max(1.2f,r*.1f));
+   float a=r*.55f,lw=Math.max(1.2f,r*.14f);   // two crossed swords
+   g.drawLine(lw,ink,cx-a,cy-a,cx+a,cy+a);g.drawLine(lw,ink,cx+a,cy-a,cx-a,cy+a);
+   g.drawLine(lw,ink,cx-a*.95f,cy+a*.35f,cx-a*.35f,cy+a*.95f);g.drawLine(lw,ink,cx+a*.95f,cy+a*.35f,cx+a*.35f,cy+a*.95f);
+  }
+ }
+ private static final Map<forge.toolbox.FButton,Boolean> askWrapped=new WeakHashMap<>();private static Field buttonCommand;
+ /** OK in your own main phase 1 (empty stack, nothing to pick): ask first whether combat should start - the same for
+  *  the mouse, Space and on both PCs of a LAN game, since it sits on the prompt's OK button itself */
+ static void wrapOk(){
+  try{var view=forge.screens.match.MatchController.getView();if(view==null)return;var pr=view.getActivePrompt();if(pr==null)return;
+   forge.toolbox.FButton ok=pr.getBtnOk();if(ok==null||askWrapped.containsKey(ok))return;
+   if(buttonCommand==null){buttonCommand=forge.toolbox.FButton.class.getDeclaredField("command");buttonCommand.setAccessible(true);}
+   forge.toolbox.FEvent.FEventHandler original=(forge.toolbox.FEvent.FEventHandler)buttonCommand.get(ok);if(original==null)return;
+   askWrapped.put(ok,true);
+   ok.setCommand(e->{
+    if(!askCombat()){original.handleEvent(e);return;}
+    forge.toolbox.FOptionPane.showConfirmDialog(BattleUiSettings.tr("Are you sure you want to end your main phase 1 and start the combat phase?"),BattleUiSettings.tr("Start the combat phase?"),
+     BattleUiSettings.tr("Start combat"),BattleUiSettings.tr("Stay in main phase"),true,yes->{if(Boolean.TRUE.equals(yes))original.handleEvent(e);});
+   });
+  }catch(Throwable t){System.err.println("[CombatAsk] "+t);}
+ }
+ static boolean askCombat(){
+  try{if(!BattleUiSettings.confirmCombat()||SkipButton.active)return false;
+   GameView g=game();var ui=forge.screens.match.MatchController.instance;if(g==null||ui==null||g.isGameOver())return false;
+   var turn=g.getPlayerTurn();if(turn==null||!ui.getLocalPlayers().contains(turn)||g.getPhase()!=PhaseType.MAIN1)return false;
+   if(g.getStack()!=null&&!g.getStack().isEmpty())return false;
+   for(var p:g.getPlayers())if(p.getCards(ZoneType.Hand)!=null)for(var c:p.getCards(ZoneType.Hand))if(ui.isSelectable(c))return false;   // picking cards (discard, choose): OK confirms the pick
+   for(var p:g.getPlayers())if(p.getCards(ZoneType.Battlefield)!=null)for(var c:p.getCards(ZoneType.Battlefield))if(ui.isSelectable(c))return false;
+   return true;
+  }catch(Throwable t){return false;}
+ }
+ /** tap on your own portrait = tap on your commander in the command zone (cast it); while a player is being chosen as a
+  *  target the tap stays a target pick. true = handled here. (user 2026-11-14) */
+ public static boolean avatarTap(forge.screens.match.views.VAvatar v){
+  try{
+   if(avatarPlayer==null){avatarPlayer=forge.screens.match.views.VAvatar.class.getDeclaredField("player");avatarPlayer.setAccessible(true);}
+   forge.game.player.PlayerView p=(forge.game.player.PlayerView)avatarPlayer.get(v);var ui=forge.screens.match.MatchController.instance;
+   if(p==null||ui==null||!ui.getLocalPlayers().contains(p)||ui.isHighlighted(p))return false;
+   var cards=p.getCards(ZoneType.Command);if(cards==null)return false;
+   CardView commander=null;for(CardView c:cards)if(c!=null&&c.isCommander()){commander=c;break;}
+   if(commander==null)return false;
+   final CardView cast=commander;forge.util.ThreadUtil.invokeInGameThread(()->ui.getGameController().selectCard(cast,Collections.emptyList(),null));
+   return true;
+  }catch(Throwable t){System.err.println("[Avatar] "+t);return false;}
+ }
+ /** the big card view is open: turn panel and Skip stay out of it */
+ static boolean zoomOpen(){forge.toolbox.FOverlay t=forge.toolbox.FOverlay.getTopOverlay();return t instanceof forge.card.CardZoom&&t.isVisible();}
  static final class SkipButton extends FDisplayObject{
   static volatile boolean active;private static long lastPass;private static Field confirmSa;
   // Skip from inside your own main phase runs to the NEXT main phase; after arriving in a main phase the button
@@ -732,7 +835,23 @@ public final class ArenaBattleHudMod {
   @Override public boolean tap(float x,float y,int count){
    if(!active&&locked())return true;
    active=!active;lastPass=0;startKey=active?myMainKey():null;
+   if(lanSkip()){if(active)mark();else clearMark();}
    tick();return true;}
+  /** 1v1 LAN (user 2026-11-14 "kein Unterschied zwischen Host und Client"): the host runs the rules for both players, so
+   *  Skip asks it to pass for us until our next main phase 1 (Forge's yield marker) instead of pressing OK locally */
+  static boolean lanSkip(){try{return forge.adventure.util.RogueLan.inMatch();}catch(Throwable t){return false;}}
+  private static long markAt;
+  static void mark(){
+   try{var ui=forge.screens.match.MatchController.instance;var me=ui==null?null:ui.getCurrentPlayer();var c=ui==null?null:ui.getGameController();GameView g=game();
+    if(me==null||c==null||g==null)return;
+    boolean past=forge.gamemodes.match.YieldController.isPriorityAtOrPastMarker(g,me,PhaseType.MAIN1);
+    c.sendYieldUpdate(new forge.gamemodes.match.YieldUpdate.SetMarker(me,PhaseType.MAIN1,past));markAt=System.currentTimeMillis();
+   }catch(Throwable t){System.err.println("[Skip] "+t);}
+  }
+  static void clearMark(){
+   try{var ui=forge.screens.match.MatchController.instance;var me=ui==null?null:ui.getCurrentPlayer();var c=ui==null?null:ui.getGameController();
+    if(me!=null&&c!=null)c.sendYieldUpdate(new forge.gamemodes.match.YieldUpdate.ClearMarker(me));}catch(Throwable t){System.err.println("[Skip] "+t);}
+  }
   @Override public void draw(Graphics g){
    float w=getWidth(),h=getHeight(),r=h/2,lw=Math.max(1.5f,h*.07f);
    Color gold=Color.valueOf("e0b24f"),dark=Color.valueOf("111722");
@@ -740,7 +859,7 @@ public final class ArenaBattleHudMod {
    g.fillRoundRect(active?Color.valueOf("3a2c10"):isHovered()?Color.valueOf("17202e"):dark,lw,lw,w-2*lw,h-2*lw,r-lw);
    boolean lock=!active&&locked();if(lock)Gdx.graphics.requestRendering();
    if(lock)g.fillRoundRect(new Color(0,0,0,.45f),0,0,w,h,r);
-   String label=active?"Skipping...":"Skip";
+   String label=BattleUiSettings.tr(active?"Skipping...":"Skip");
    g.drawText(label,fit(label,w-12,h*.62f),active?gold:Color.valueOf("ece6d8"),0,0,w,h,false,com.badlogic.gdx.utils.Align.center,true);
    if(active)Gdx.graphics.requestRendering();
   }
@@ -751,7 +870,11 @@ public final class ArenaBattleHudMod {
    forge.game.player.PlayerView turn=game.getPlayerTurn();
    boolean myTurn=turn!=null&&ui.getLocalPlayers().contains(turn);
    String key=myMainKey();
-   if(key!=null&&!key.equals(startKey)){active=false;locked();return;}   // arrived: the next main phase of yours
+   if(key!=null&&!key.equals(startKey)){active=false;locked();if(lanSkip())clearMark();return;}   // arrived: the next main phase of yours
+   if(lanSkip()){   // interrupted (an enemy spell, a trigger) -> set the marker again, the skip goes on
+    try{var yc=ui.getGameController().getYieldController();long now=System.currentTimeMillis();
+     if(now-markAt>1500&&(yc==null||yc.getAutoPassUntilMarker()==null))mark();}catch(Throwable t){}
+    return;}
    if(!(ui.getGameController() instanceof forge.player.PlayerControllerHuman h))return;
    Object input=h.getInputProxy().getInput();
    boolean trigger=input instanceof forge.gamemodes.match.input.InputConfirm ic&&isTriggerConfirm(ic);   // "use this trigger?" -> Yes
@@ -768,9 +891,9 @@ public final class ArenaBattleHudMod {
   g.fillGradientRect(new Color(.04f,.03f,.02f,.86f*a),new Color(0,0,0,0),false,w/2,y,w/2,bh);
   g.fillGradientRect(alpha(accent,0),alpha(accent,a),false,w*.15f,y,w*.35f,2*s);g.fillGradientRect(alpha(accent,a),alpha(accent,0),false,w*.5f,y,w*.35f,2*s);
   g.fillGradientRect(alpha(accent,0),alpha(accent,a),false,w*.15f,y+bh-2*s,w*.35f,2*s);g.fillGradientRect(alpha(accent,a),alpha(accent,0),false,w*.5f,y+bh-2*s,w*.35f,2*s);
-  String title=mine?"YOUR TURN":"ENEMY TURN";
+  String title=BattleUiSettings.tr(mine?"YOUR TURN":"ENEMY TURN");
   g.drawOutlinedText(title,fit(title,w*.5f,62*s),alpha(accent,a),alpha(INK,a),0,y+8*s,w,62*s,false,1,true);
-  String sub="Turn "+Math.max(1,turn);
+  String sub=BattleUiSettings.tr("Turn")+" "+Math.max(1,turn);
   g.drawText(sub,fit(sub,w*.3f,22*s),alpha(TEXT,a),0,y+72*s,w,22*s,false,1,true);
  }
  private static int bannerTurn=-1,bannerGame;private static long bannerStart;
@@ -799,7 +922,7 @@ public final class ArenaBattleHudMod {
   var mana=p.getManaPoolTab();
   float side=BattleUiSettings.size(2),dbw=mana==null?0:mana.getWidth()*side,dbh=26*s*side;
   if(mana!=null&&mana.getWidth()>0&&mine){db.setVisible(true);db.setBounds(mana.getLeft()+(mana.getWidth()-dbw)/2,mana.getTop()-dbh-4*s,dbw,dbh);}else db.setVisible(false);
-  SkipButton.tick();styleStack();
+  SkipButton.tick();wrapOk();styleStack();
   drawTurnBanner(g,w,0,s,mine,game.getTurn(),bannerAlpha(game));
  }
  public static void background(VPlayerPanel p,Graphics g){

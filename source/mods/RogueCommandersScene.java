@@ -1910,14 +1910,15 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
 
  @Override public void enter(){
   super.enter();restoreSavedDisplay();
-  try{profile();content();if(editing!=null)finishEditing();if(!menuShown){menuShown=true;mainMenu=true;}rebuild();}catch(Throwable t){log(t);}
+  try{profile();content();if(editing!=null)finishEditing();if(!menuShown){menuShown=true;mainMenu=true;if("lan".equalsIgnoreCase(System.getProperty("rogue.start"))){openLan();return;}}rebuild();}catch(Throwable t){log(t);}   // rogue.start=lan: "Rogue Commanders 1v1" shortcut opens 1v1 LAN (user 2026-11-14)
  }
  @Override public boolean leave(){save();return super.leave();}
- @Override public boolean back(){if(displayScreen){displayScreen=false;rebuild();return true;}
+ @Override public boolean back(){if(lanScreen){closeLan();return true;}if(displayScreen){displayScreen=false;rebuild();return true;}
   if(mainMenu&&naming){naming=false;rebuild();return true;}
   if(mainMenu){if(standalone())confirm("Quit Rogue Commanders?","Your progress is saved.","Quit","Stay",()->Gdx.app.exit());else Forge.switchScene(StartScene.instance());return true;}if(achievementScreen){achievementScreen=false;rebuild();return true;}if(!overlays.isEmpty()){closeOverlay();return true;}if(packageConfig!=null){packageConfig=null;rebuild();return true;}if(shopOpen){shopOpen=false;rebuild();return true;}if(wardrobe!=null){wardrobe=null;rebuild();return true;}if(standalone()){confirm("Quit Rogue Commanders?","Your run is saved automatically.","Quit","Keep playing",()->Gdx.app.exit());return true;}Forge.switchScene(StartScene.instance());return true;}
  @Override public void act(float delta){
   super.act(delta);time+=delta;if(messageTime>0)messageTime-=delta;
+  if(lanScreen&&lanSeen!=forge.adventure.util.RogueLan.version){lanSeen=forge.adventure.util.RogueLan.version;rebuild();}
   long now=System.currentTimeMillis();
   if(Gdx.input.isTouched()||Gdx.input.justTouched())lastInput=now;
   if(now-lastInput<120_000)profile().activeMs+=Math.min(250,now-lastTick);   // idle menus do not count
@@ -1930,6 +1931,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
   root.clearChildren();root.setBounds(0,0,W(),H());
   Profile p=profile();
   if(displayScreen)buildDisplay();
+  else if(lanScreen)buildLan();
   else if(mainMenu)buildMainMenu(p);
   else if(achievementScreen)buildAchievements(p);
   else if(packageConfig!=null)buildPackages(packageConfig);
@@ -2173,7 +2175,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
    forge.adventure.util.BattleUiSettings.setLandStyle((forge.adventure.util.BattleUiSettings.landStyle()+1)%3);forge.adventure.util.BattleUiSettings.save();rebuild();});lands.gold=forge.adventure.util.BattleUiSettings.compactLands();
   Btn zone=button("Fold artifacts: "+bs[forge.adventure.util.BattleUiSettings.zoneStyle()],x+hw+6,46,hw,16,()->{
    forge.adventure.util.BattleUiSettings.setZoneStyle((forge.adventure.util.BattleUiSettings.zoneStyle()+1)%3);forge.adventure.util.BattleUiSettings.save();rebuild();});zone.gold=forge.adventure.util.BattleUiSettings.collapsibleZone();
-  root.addActor(new Painter((b,a)->text(b,"Sizes of the buttons and texts on the battlefield, 60% to 160%. Turn panel: Auto = compact on phones, detailed on PC; drag it in battle, double-tap puts it back. Lands + artifacts: Auto = on for Android.",12,14,5.5f,DIM,a,W()-24,Align.center,false)));
+  root.addActor(new Painter((b,a)->text(b,"Sizes of the buttons and texts on the battlefield, 60% to 160%. Turn panel: Auto = compact on phones, detailed on PC; drag it in battle, double-tap puts it back. Lands: Auto = on for Android. Artifacts fold everywhere - toggle in battle next to the zoom.",12,14,5.5f,DIM,a,W()-24,Align.center,false)));
  }
  // ------------------------------------------------------------------ tips & tricks on the VS screen (user 2026-10-17)
  // story/tips.json: short paraphrased advice from real players with name + accurate title (sources kept in the file).
@@ -2377,7 +2379,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
  private static boolean menuShown;private boolean mainMenu,naming,namingNew;
  static boolean hasProgress(Profile p){return p.runs>0||p.run!=null||!p.general.isEmpty()||!p.achievements.isEmpty()||p.progressionPoints>0;}
  /** shown in the main menu; bump with every release and add an entry to _mods/release/PATCH-NOTES.md */
- static final String GAME_VERSION="0.2.10";
+ static final String GAME_VERSION="0.2.12";
  static final String ITCH_PAGE="https://kingnishi.itch.io/card-force-rogue-lite-mode";
  private static volatile String latestVersion;private static boolean updateAsked;
  /** once per game start: ask itch.io (public build API, no account) which version the windows channel has; silent offline */
@@ -2424,6 +2426,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
   }
   if(hasProgress(p)||p.playerName!=null){Btn cont=button(p.run!=null?"Continue run":"Continue",bx,y,bw,bh,()->{if(p.playerName==null){naming=true;namingNew=false;rebuild();return;}mainMenu=false;rebuild();});cont.gold=true;y-=bh+gap;}
   Btn ng=button("New Game",bx,y,bw,bh,()->{naming=true;namingNew=true;rebuild();});ng.gold=!hasProgress(p)&&p.playerName==null;y-=bh+gap;
+  button("1v1 Online Mode",bx,y,bw,bh,this::openLan);y-=bh+gap;   // play a friend in the same network (user 2026-11-14)
   button("Settings",bx,y,bw,bh,this::openDisplay);y-=bh+gap;
   button("Exit",bx,y,bw,bh,()->confirm("Quit Rogue Commanders?","Your progress is saved.","Quit","Stay",()->Gdx.app.exit()));
  }
@@ -2469,6 +2472,82 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
    boolean focused=getStage()!=null&&getStage().getKeyboardFocus()==this;
    if(focused&&((int)(time*2))%2==0)rect(b,x+8+tw+1.5f,y+h*.22f,Math.max(.8f,h*.05f),h*.56f,GOLD,a);   // blinking cursor while typing
   }
+ }
+
+ // ------------------------------------------------------------------ 1v1 LAN (user 2026-11-14: name, Moxfield link or list, IP, Start Game)
+ private boolean lanScreen;private int lanSeen=-1;private Texture lanPreview;private String lanPreviewFile;
+ private void openLan(){forge.adventure.util.RogueLan.load(profile().playerName);forge.adventure.util.RogueLan.backToRogue=()->{try{Forge.switchScene(instance());}catch(Throwable t){log(t);}};lanScreen=true;lanSeen=forge.adventure.util.RogueLan.version;rebuild();}
+
+ /** the commander's prints (German first): big preview, arrows, "Uebernehmen" saves the choice (user 2026-11-15) */
+ private void commanderArtOverlay(){
+  forge.adventure.util.RogueLan.loadCommanderPrints(forge.adventure.util.RogueLan.deckText);
+  Group g=pushOverlay();float w=Math.min(W()-40,320),h=Math.min(H()-24,250),x=(W()-w)/2,y=(H()-h)/2;
+  final int[] idx={-1};final Texture[] tex={null};final String[] texFile={null};
+  g.addActor(new Painter((b,a)->{
+   rect(b,0,0,W(),H(),Color.BLACK,a*.6f);rect(b,x,y,w,h,Color.valueOf("0d1220"),a*.97f);frame(b,x,y,w,h,1.2f,GOLD,a);
+   text(b,"Commander-Artwork",x,y+h-8,9,GOLD,a,w,Align.center,true);
+   List<String[]> pr=forge.adventure.util.RogueLan.cmdPrints;
+   if(forge.adventure.util.RogueLan.cmdLoading){text(b,"Lade die Drucke von Scryfall ...",x,y+h/2+6,7,TEXT,a,w,Align.center,false);return;}
+   if(pr.isEmpty()){text(b,forge.adventure.util.RogueLan.cmdError.isEmpty()?"Keine Drucke gefunden.":forge.adventure.util.RogueLan.cmdError,x+12,y+h/2+6,7,TEXT,a,w-24,Align.center,false);return;}
+   if(idx[0]<0||idx[0]>=pr.size())idx[0]=Math.min(Math.max(0,forge.adventure.util.RogueLan.cmdIndex),pr.size()-1);
+   String[] p=pr.get(idx[0]);java.io.File f=forge.adventure.util.RogueLan.thumb(p);
+   if(f!=null&&!f.getPath().equals(texFile[0])){if(tex[0]!=null)tex[0].dispose();tex[0]=null;texFile[0]=f.getPath();
+    try{tex[0]=new Texture(Gdx.files.absolute(f.getPath()));tex[0].setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);}catch(Throwable t){log(t);}}
+   float ph=h-62,pw=ph*.716f,px=x+(w-pw)/2,py=y+30;
+   if(tex[0]!=null&&f!=null&&f.getPath().equals(texFile[0])){Color o=b.getColor().cpy();b.setColor(1,1,1,a);b.draw(tex[0],px,py,pw,ph);b.setColor(o);}
+   else{rect(b,px,py,pw,ph,DARK,a);text(b,"lade ...",px,py+ph/2+4,6,DIM,a,pw,Align.center,false);}
+   text(b,forge.adventure.util.RogueLan.cmdName+": "+p[0]+"   ("+(idx[0]+1)+"/"+pr.size()+")",x+8,y+28,5.6f,TEXT,a,w-16,Align.center,false);
+  }));
+  Runnable close=()->{if(tex[0]!=null){tex[0].dispose();tex[0]=null;}closeOverlay();};
+  Btn prev=new Btn("<",x+8,y+h/2-10,22,24,()->{int n=forge.adventure.util.RogueLan.cmdPrints.size();if(n>0)idx[0]=(idx[0]-1+n)%n;});g.addActor(prev);
+  Btn next=new Btn(">",x+w-30,y+h/2-10,22,24,()->{int n=forge.adventure.util.RogueLan.cmdPrints.size();if(n>0)idx[0]=(idx[0]+1)%n;});g.addActor(next);
+  Btn ok=new Btn("Übernehmen",x+w/2+6,y+6,96,18,()->{if(!forge.adventure.util.RogueLan.cmdPrints.isEmpty()){forge.adventure.util.RogueLan.pickCommanderPrint(idx[0]);toast("Commander-Artwork gespeichert.");}close.run();});ok.gold=true;g.addActor(ok);
+  g.addActor(new Btn("Abbrechen",x+w/2-102,y+6,96,18,close));
+ }
+ private void closeLan(){forge.adventure.util.RogueLan.stop();lanScreen=false;mainMenu=true;rebuild();}
+ private void buildLan(){
+  background(profile().selected,.72f);
+  title("1v1 Online Mode",forge.adventure.util.RogueLan.online?"Dein Commander-Deck gegen einen Freund übers Internet":"Dein Commander-Deck gegen einen Freund im selben Netzwerk");
+  float W=W(),H=H(),fw=Math.min(430,W-30),fx=(W-fw)/2,lw=74,ix=fx+lw,iw=fw-lw;
+  boolean busy=forge.adventure.util.RogueLan.busy(),after=forge.adventure.util.RogueLan.state==forge.adventure.util.RogueLan.State.AFTER;
+  float y0=H-66;
+  root.addActor(new Painter((b,a)->{
+   text(b,"Dein Name",fx,y0+13,7,GOLD,a,lw-6,Align.left,false);
+   text(b,"Dein Deck",fx,y0-12,7,GOLD,a,lw-6,Align.left,false);
+   text(b,"Moxfield-Link\noder Deckliste",fx,y0-24,5.6f,DIM,a,lw-6,Align.left,false);
+   text(b,forge.adventure.util.RogueLan.online?"Internet-IP":"Deine IP",fx,y0-90,7,GOLD,a,lw-6,Align.left,false);
+   text(b,forge.adventure.util.RogueLan.shownIp(),ix,y0-88,10,TEXT,a,140,Align.left,true);
+   text(b,"IP vom Host",fx,y0-114,7,GOLD,a,lw-6,Align.left,false);
+   text(b,forge.adventure.util.RogueLan.online?"Online: Host lässt das Feld leer und schickt seine Internet-IP (Router: UPnP an oder Port 36743 freigeben).":"Du hostest: Feld leer lassen und deine IP schicken. Du trittst bei: IP vom Host einfügen.",ix,y0-130,5.4f,DIM,a,iw,Align.left,false);
+   String st=forge.adventure.util.RogueLan.status==null?"":forge.adventure.util.RogueLan.status;String sc=forge.adventure.util.RogueLan.score();if(!sc.isEmpty())st=sc+(st.isEmpty()?"":"\n"+st);
+   if(!st.isEmpty())text(b,st,fx+90,y0-172,6.2f,forge.adventure.util.RogueLan.error?Color.valueOf("ff8a7a"):TEXT,a,fw-180,Align.center,false);
+  }));
+  NameField nf=new NameField(forge.adventure.util.RogueLan.name,ix,y0,Math.min(200,iw),18);nf.placeholder="Dein Name";nf.onChange=()->forge.adventure.util.RogueLan.name=nf.entered();root.addActor(nf);
+  NameField df=new NameField(forge.adventure.util.RogueLan.deckText,ix,y0-72,iw-66,66);df.multiline=true;df.maxLen=30000;df.placeholder="Hier einfügen (Strg+V): moxfield.com/decks/... oder eine Liste wie\n1 Atraxa, Praetors' Voice\n1 Sol Ring\n...";
+  df.onChange=()->forge.adventure.util.RogueLan.deckText=df.value.toString();root.addActor(df);
+  button("Einfügen",ix+iw-60,y0-22,60,18,()->{df.value.setLength(0);df.paste();forge.adventure.util.RogueLan.deckText=df.value.toString();});
+  button("Leeren",ix+iw-60,y0-44,60,18,()->{df.value.setLength(0);forge.adventure.util.RogueLan.deckText="";});
+  button("Artwork",ix+iw-60,y0-66,60,18,()->{forge.adventure.util.RogueLan.deckText=df.value.toString();commanderArtOverlay();});   // pick the commander picture (user 2026-11-15)
+  button("IP kopieren",ix+144,y0-102,70,18,()->{try{Gdx.app.getClipboard().setContents(forge.adventure.util.RogueLan.shownIp());toast("IP kopiert - schick sie deinem Gegner.");}catch(Throwable t){toast("Deine IP: "+forge.adventure.util.RogueLan.shownIp());}});
+  {List<String[]> bl=forge.adventure.util.RogueLan.boards();int bi=0;for(int i=0;i<bl.size();i++)if(bl.get(i)[0].equals(forge.adventure.util.RogueLan.board))bi=i;   // battlefield chooser (user 2026-11-14)
+   final int cur=bi;String[] sel=bl.get(cur);float bx2=ix+iw-140,by2=y0-128;
+   if(sel[2]==null){if(lanPreview!=null){lanPreview.dispose();lanPreview=null;lanPreviewFile=null;}}
+   else if(!sel[2].equals(lanPreviewFile)){if(lanPreview!=null)lanPreview.dispose();lanPreview=null;lanPreviewFile=sel[2];
+    try{lanPreview=new Texture(Gdx.files.absolute(sel[2]));lanPreview.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);}catch(Throwable t){log(t);}}
+   root.addActor(new Painter((b,a)->{text(b,"Spielfeld",bx2,by2+52,7,GOLD,a,140,Align.left,false);
+    float pw=100,ph=36,px=bx2+20,py=by2+6;rect(b,px-1,py-1,pw+2,ph+2,GOLD,a*.8f);
+    if(lanPreview!=null){Color o=b.getColor().cpy();b.setColor(1,1,1,a);b.draw(lanPreview,px,py,pw,ph);b.setColor(o);}else rect(b,px,py,pw,ph,DARK,a);
+    text(b,sel[1],px,py+ph/2+4,6.4f,TEXT,a,pw,Align.center,false);}));
+   button("<",bx2,by2+14,18,20,()->{forge.adventure.util.RogueLan.setBoard(bl.get((cur+bl.size()-1)%bl.size())[0]);rebuild();});
+   button(">",bx2+122,by2+14,18,20,()->{forge.adventure.util.RogueLan.setBoard(bl.get((cur+1)%bl.size())[0]);rebuild();});}
+  NameField pf=new NameField(forge.adventure.util.RogueLan.hostIp,ix,y0-124,Math.min(200,iw),18);pf.maxLen=40;pf.placeholder="leer = du hostest";pf.onChange=()->forge.adventure.util.RogueLan.hostIp=pf.entered();root.addActor(pf);
+  float sw=170,sx=(W-sw)/2,sy=y0-164;
+  if(after){Btn again=button("Nochmal spielen",sx,sy,sw,24,forge.adventure.util.RogueLan::playAgain);again.gold=true;}
+  else if(busy)button(forge.adventure.util.RogueLan.state==forge.adventure.util.RogueLan.State.LOBBY?"Verlassen":"Abbrechen",sx,sy,sw,24,()->{forge.adventure.util.RogueLan.stop();rebuild();});
+  else{Btn go=button("SPIEL STARTEN",sx,sy,sw,24,()->{forge.adventure.util.RogueLan.name=nf.entered();forge.adventure.util.RogueLan.deckText=df.value.toString();forge.adventure.util.RogueLan.hostIp=pf.entered();forge.adventure.util.RogueLan.start();});go.gold=true;}
+  if(after)button("Verlassen",sx+sw+8,sy+3,60,18,()->{forge.adventure.util.RogueLan.stop();rebuild();});
+  {Btn mode=button(forge.adventure.util.RogueLan.online?"Modus: Online":"Modus: LAN",W-138,H-30,126,20,()->{if(forge.adventure.util.RogueLan.busy()){toast("Erst Abbrechen, dann den Modus wechseln.");return;}forge.adventure.util.RogueLan.online=!forge.adventure.util.RogueLan.online;forge.adventure.util.RogueLan.save();rebuild();});mode.gold=forge.adventure.util.RogueLan.online;}   // LAN / internet (user 2026-11-15)
+  button("Zurück",12,10,84,22,this::closeLan);
  }
  private void buildNaming(Profile p,float bx,float bw,float y){
   root.addActor(new Painter((b,a)->centerText(b,namingNew?"Start a new game - what is your name, commander?":"What is your name, commander?",0,y+4,W(),14,8.5f,TEXT,a,false)));

@@ -41,6 +41,7 @@ public final class BattleUiSettings {
    if(root.has("turnPanel")){JsonObject t=root.getAsJsonObject("turnPanel");
     if(t.has("style"))turnStyle=Math.max(0,Math.min(2,t.get("style").getAsInt()));
     if(t.has("dx"))turnDx=frac(t.get("dx").getAsFloat());if(t.has("dy"))turnDy=frac(t.get("dy").getAsFloat());}
+   if(root.has("confirmCombat"))confirmCombat=root.get("confirmCombat").getAsBoolean();
    if(root.has("board")){JsonObject bd=root.getAsJsonObject("board");
     if(bd.has("lands"))landStyle=Math.max(0,Math.min(2,bd.get("lands").getAsInt()));
     if(bd.has("zone"))zoneStyle=Math.max(0,Math.min(2,bd.get("zone").getAsInt()));}
@@ -53,7 +54,7 @@ public final class BattleUiSettings {
    for(int i=0;i<ACTIONS.length;i++)k.addProperty(ACTIONS[i],keys[i]<0?"":Input.Keys.toString(keys[i]));
    root.add("sizes",s);root.add("keys",k);
    JsonObject t=new JsonObject();t.addProperty("style",turnStyle);t.addProperty("dx",turnDx);t.addProperty("dy",turnDy);root.add("turnPanel",t);
-   JsonObject bd=new JsonObject();bd.addProperty("lands",landStyle);bd.addProperty("zone",zoneStyle);root.add("board",bd);
+   JsonObject bd=new JsonObject();bd.addProperty("lands",landStyle);bd.addProperty("zone",zoneStyle);root.add("board",bd);root.addProperty("confirmCombat",confirmCombat);
    Path f=file();Files.createDirectories(f.getParent());Path tmp=f.resolveSibling(f.getFileName()+".tmp");
    Files.writeString(tmp,new GsonBuilder().setPrettyPrinting().create().toJson(root));
    try{Files.move(tmp,f,StandardCopyOption.REPLACE_EXISTING,StandardCopyOption.ATOMIC_MOVE);}catch(AtomicMoveNotSupportedException e){Files.move(tmp,f,StandardCopyOption.REPLACE_EXISTING);}
@@ -83,7 +84,7 @@ public final class BattleUiSettings {
  /** lands as small upright tiles, tapped = dark + tap symbol (Auto: Android only) */
  public static boolean compactLands(){ensure();return landStyle==1||landStyle==0&&touch();}
  /** artifacts / enchantments of a player can be folded into one fan (Auto: Android only) */
- public static boolean collapsibleZone(){ensure();return zoneStyle==1||zoneStyle==0&&touch();}
+ public static boolean collapsibleZone(){ensure();return zoneStyle!=2;}   // Auto = on everywhere since 2026-11-14 ("auch fuer pc"), toggle in battle
  public static float turnDx(){ensure();return turnDx;}
  public static float turnDy(){ensure();return turnDy;}
  public static void setTurnOffset(float dx,float dy){ensure();turnDx=frac(dx);turnDy=frac(dy);}
@@ -93,4 +94,28 @@ public final class BattleUiSettings {
     /** Android decision panel (PromptStyleMod) drawn in the last 250 ms: the turn panel steps aside for it (user 2026-11-06) */
     public static volatile long decisionAt;
     public static boolean decisionShowing(){return touch()&&System.currentTimeMillis()-decisionAt<250;}
+ /** ask "start the combat phase?" before OK ends your main phase 1 (user 2026-11-14, small toggle next to Skip) */
+ private static boolean confirmCombat=true;
+ public static boolean confirmCombat(){ensure();return confirmCombat;}
+ public static void setConfirmCombat(boolean v){ensure();confirmCombat=v;}
+ /** 1v1 LAN (RogueLan sets it, user 2026-11-14 "alles auf deutsch"): the Rogue battle HUD texts in German */
+ public static volatile boolean german;
+ /** battlefield picked on the 1v1 LAN screen (board name like KHM_Mobile), "" = random; only set while the LAN mode runs */
+ public static volatile String lanBoard="";
+ /** last time the big hover preview of a card was drawn: badges and the turn panel keep out of it (user 2026-11-14) */
+ public static volatile long previewAt;
+ public static boolean previewShowing(){return System.currentTimeMillis()-previewAt<120;}
+ private static final Map<String,String> DE=Map.ofEntries(Map.entry("YOUR TURN","DEIN ZUG"),Map.entry("ENEMY TURN","GEGNERZUG"),Map.entry("Turn","Zug"),
+  Map.entry("Untap","Enttappen"),Map.entry("Upkeep","Versorgung"),Map.entry("Draw","Ziehen"),Map.entry("Main 1","Haupt 1"),Map.entry("Combat","Kampf"),
+  Map.entry("Attack","Angriff"),Map.entry("Block","Blocken"),Map.entry("1st Strike","Erstschlag"),Map.entry("Damage","Schaden"),Map.entry("End Combat","Kampfende"),
+  Map.entry("Main 2","Haupt 2"),Map.entry("End Step","Endsegment"),Map.entry("Cleanup","Aufräumen"),Map.entry("Draw Step","Ziehsegment"),
+  Map.entry("Main Phase 1","Hauptphase 1"),Map.entry("Beginning of Combat","Kampfbeginn"),Map.entry("Declare Attackers","Angreifer erklären"),
+  Map.entry("Declare Blockers","Blocker erklären"),Map.entry("First Strike Damage","Erstschlagschaden"),Map.entry("Combat Damage","Kampfschaden"),
+  Map.entry("End of Combat","Kampfende"),Map.entry("Main Phase 2","Hauptphase 2"),Map.entry("Skipping...","Überspringe..."),
+  Map.entry("Your turn","Dein Zug"),Map.entry("Enemy turn","Gegnerzug"),Map.entry("Priority","Priorität"),Map.entry("Stack","Stapel"),Map.entry("empty","leer"),
+  Map.entry("DRAW","UNENTSCHIEDEN"),Map.entry("VICTORY","SIEG"),Map.entry("DEFEAT","NIEDERLAGE"),Map.entry("TURNS","ZÜGE"),Map.entry("DURATION","DAUER"),Map.entry("LIFE","LEBEN"),
+  Map.entry("Nobody wins this game","Niemand gewinnt dieses Spiel"),Map.entry("defeats","besiegt"),Map.entry("Show game log","Spielprotokoll"),Map.entry("Hide game log","Protokoll schließen"),
+  Map.entry("Start the combat phase?","Kampfphase starten?"),Map.entry("Are you sure you want to end your main phase 1 and start the combat phase?","Bist du sicher, dass du deine Hauptphase 1 beenden und die Kampfphase starten willst?"),
+  Map.entry("Start combat","Kampf starten"),Map.entry("Stay in main phase","In der Hauptphase bleiben"));
+ public static String tr(String en){if(!german||en==null)return en;String d=DE.get(en);return d==null?en:d;}
 }

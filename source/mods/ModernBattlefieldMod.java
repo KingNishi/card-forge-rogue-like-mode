@@ -26,11 +26,13 @@ public final class ModernBattlefieldMod {
  /** one board per battle: a random pick from the biome's pool, kept until the next game */
  private static void board(String textureName){
   String b=textureName.startsWith("ADV_BG_")?textureName.substring(7):"COMMON";
+  String pick=BattleUiSettings.lanBoard;boolean picked=pick!=null&&!pick.isEmpty();   // 1v1 LAN battlefield chooser (user 2026-11-14)
+  if(picked)for(var e:POOLS.entrySet())if(Arrays.asList(e.getValue()).contains(pick)){b=e.getKey();break;}
   var controller=forge.screens.match.MatchController.instance;Object game=controller==null?null:controller.getGameView();
   if(board!=null&&game==boardGame&&b.equals(biome))return;
   boardGame=game;biome=POOLS.containsKey(b)?b:"COMMON";
   // reworked 4K boards (arena-boards/boards-hd, by Codex) are preferred over the 2048 px originals
-  List<String> present=new ArrayList<>();for(String n:POOLS.get(biome)){String hd=BOARDS.replace("/boards/","/boards-hd/")+n+".jpg";
+  List<String> present=new ArrayList<>();for(String n:picked?List.of(pick):Arrays.asList(POOLS.get(biome))){String hd=BOARDS.replace("/boards/","/boards-hd/")+n+".jpg";
    if(Gdx.files.absolute(hd).exists())present.add(hd);else if(Gdx.files.absolute(BOARDS+n+".jpg").exists())present.add(BOARDS+n+".jpg");}
   String file=present.isEmpty()?FALLBACK_BOARD:present.get(new Random().nextInt(present.size()));
   if(file.equals(boardFile)&&board!=null)return;

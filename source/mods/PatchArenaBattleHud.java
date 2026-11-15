@@ -78,6 +78,14 @@ public class PatchArenaBattleHud {
      m.instructions.insert(n,a);count++;
     }
    }
+   // own portrait: a tap casts your commander from the command zone (user 2026-11-14) - H.avatarTap decides, else Forge's selectPlayer
+   if(c.name.equals("forge/screens/match/views/VAvatar")&&m.name.equals("tap")&&m.desc.equals("(FFI)Z")){
+    boolean exists=false;for(AbstractInsnNode n:m.instructions.toArray())if(n instanceof MethodInsnNode call&&call.owner.equals(H)&&call.name.equals("avatarTap"))exists=true;
+    if(!exists){InsnList a=new InsnList();LabelNode go=new LabelNode();
+     a.add(new VarInsnNode(Opcodes.ALOAD,0));a.add(new MethodInsnNode(Opcodes.INVOKESTATIC,H,"avatarTap","(Lforge/screens/match/views/VAvatar;)Z",false));
+     a.add(new JumpInsnNode(Opcodes.IFEQ,go));a.add(new InsnNode(Opcodes.ICONST_1));a.add(new InsnNode(Opcodes.IRETURN));a.add(go);a.add(new FrameNode(Opcodes.F_SAME,0,null,0,null));
+     m.instructions.insert(a);count++;}
+   }
    // no divider line between the two player panels: FieldScroller.drawOverlay's Graphics.drawLine -> H.divider
    if(c.name.equals("forge/screens/match/MatchScreen$FieldScroller")&&m.name.equals("drawOverlay")&&m.desc.equals("(Lforge/Graphics;)V"))
     for(AbstractInsnNode n:m.instructions.toArray())if(n instanceof MethodInsnNode call&&call.getOpcode()==Opcodes.INVOKEVIRTUAL&&call.owner.equals("forge/Graphics")

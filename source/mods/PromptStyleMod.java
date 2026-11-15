@@ -462,10 +462,10 @@ public final class PromptStyleMod {
         String title = owner;
         if (game != null && game.getPlayerTurn() != null
                 && game.getPlayerTurn().getName().equals(owner)) {
-            title = game.getPlayerTurn().isAI() ? "Enemy turn" : "Your turn";
+            title = forge.adventure.util.BattleUiSettings.tr(game.getPlayerTurn().isAI() || controller != null && !controller.isLocalPlayer(game.getPlayerTurn()) ? "Enemy turn" : "Your turn");
         }
         String[] chips = {title + " · " + phase(status[2]) + (number.isEmpty() ? "" : " · T" + number),
-                "Priority: " + status[0], "Stack: " + (status[3].equalsIgnoreCase("empty") ? "empty" : status[3])};
+                forge.adventure.util.BattleUiSettings.tr("Priority") + ": " + status[0], forge.adventure.util.BattleUiSettings.tr("Stack") + ": " + (status[3].equalsIgnoreCase("empty") || status[3].equalsIgnoreCase("leer") ? forge.adventure.util.BattleUiSettings.tr("empty") : status[3])};
         float ch = Math.max(1f, Math.min(30f * s, h - 4f * s)), gap = 8f * s;
         FSkinFont f = font(14f * s, ch - 6f * s);
         float total = chipTotal(f, chips, s, gap);
@@ -588,16 +588,16 @@ public final class PromptStyleMod {
     // Strict recognition prevents instructions mentioning a phase/stack from becoming status chips.
     private static String[] parseStatus(String message) {
         String[] values = new String[4];
-        String[] keys = {"priority:", "turn:", "phase:", "stack:"};
+        String[][] keys = {{"priority:", "priorität:"}, {"turn:", "zug:"}, {"phase:"}, {"stack:", "stapel:"}};   // German: 1v1 LAN (user 2026-11-14)
         int count = 0;
         for (String part : message.split("\\s*(?:\\R|\\|)\\s*")) {
             String value = part.trim();
             if (value.isEmpty()) continue;
             String lower = value.toLowerCase(Locale.ROOT);
-            int index = -1;
-            for (int i = 0; i < keys.length; i++) if (lower.startsWith(keys[i])) { index = i; break; }
+            int index = -1, len = 0;
+            for (int i = 0; i < keys.length && index < 0; i++) for (String k : keys[i]) if (lower.startsWith(k)) { index = i; len = k.length(); break; }
             if (index < 0 || values[index] != null) return null;
-            values[index] = value.substring(keys[index].length()).trim();
+            values[index] = value.substring(len).trim();
             if (values[index].isEmpty()) return null;
             count++;
         }
