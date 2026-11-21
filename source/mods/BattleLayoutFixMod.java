@@ -68,6 +68,38 @@ public final class BattleLayoutFixMod {
    y+=laneH+6;start=end;
   }
  }
+ /** side seat (3 players): the cards of a row stand one below the other, in more columns (and smaller) when they do not fit;
+  *  fans and attachments stay together, the whole block centred in the row */
+ private static FScrollPane.ScrollBounds upright(VCardDisplayArea area,float w,float h){
+  var map=new java.util.LinkedHashMap<VCardDisplayArea.CardAreaPanel,RowGroup>();
+  for(FDisplayObject c:area.getChildren())if(c.isVisible()&&c instanceof VCardDisplayArea.CardAreaPanel p&&c.getWidth()>0&&c.getHeight()>0)map.computeIfAbsent(root(p),k->new RowGroup()).add(c);
+  if(map.isEmpty())return new FScrollPane.ScrollBounds(w,h);
+  var groups=new java.util.ArrayList<>(map.values());groups.sort(java.util.Comparator.comparingDouble(g->g.left));
+  float zoom=1;
+  if(packedWidth(groups,1,h-8)>w-8){float low=0,high=1;for(int i=0;i<20;i++){float mid=(low+high)/2;if(packedWidth(groups,mid,h-8)<=w-8)low=mid;else high=mid;}zoom=Math.max(MIN_BOARD_ZOOM,low);}
+  // columns: {first group, end, width, height}
+  var cols=new java.util.ArrayList<float[]>();int start=0;
+  while(start<groups.size()){int end=start;float used=0,colW=0;
+   while(end<groups.size()){RowGroup g=groups.get(end);float next=used+(end>start?6:0)+g.height()*zoom;if(end>start&&next>h-8)break;used=next;colW=Math.max(colW,g.width()*zoom);end++;}
+   cols.add(new float[]{start,end,colW,used});start=end;}
+  float total=0,maxH=0;for(float[] c:cols){total+=c[2];maxH=Math.max(maxH,c[3]);}total+=6*(cols.size()-1);
+  float x=Math.max(4,(w-total)/2);
+  for(float[] c:cols){float y=Math.max(4,(h-c[3])/2);
+   for(int i=(int)c[0];i<(int)c[1];i++){RowGroup g=groups.get(i);float gx=x+(c[2]-g.width()*zoom)/2;
+    for(FDisplayObject d:g.cards)d.setBounds(gx+(d.getLeft()-g.left)*zoom,y+(d.getTop()-g.top)*zoom,d.getWidth()*zoom,d.getHeight()*zoom);
+    y+=g.height()*zoom+6;}
+   x+=c[2]+6;}
+  return new FScrollPane.ScrollBounds(Math.max(w,x+2),Math.max(h,maxH+8));
+ }
+ private static float packedWidth(java.util.List<RowGroup> groups,float zoom,float maxH){
+  float y=0,width=0,colW=0;
+  for(RowGroup g:groups){float gw=g.width()*zoom,gh=g.height()*zoom;
+   if(gh>maxH)return Float.POSITIVE_INFINITY;
+   if(y>0&&y+6+gh>maxH){width+=colW+6;y=0;colW=0;}
+   y+=(y>0?6:0)+gh;colW=Math.max(colW,gw);
+  }
+  return width+colW;
+ }
  private static float packedHeight(java.util.List<RowGroup> groups,float zoom,float maxW){
   float x=0,height=0,laneH=0;
   for(RowGroup g:groups){float gw=g.width()*zoom,gh=g.height()*zoom;
@@ -146,6 +178,7 @@ public final class BattleLayoutFixMod {
   FScrollPane.ScrollBounds grid=ArenaBattleHudMod.commandGrid(area,w,h);if(grid!=null)return grid;   // command zone: card grid
   ArenaBattleHudMod.shrinkLands(area);   // battlefield rows: lands a little smaller
   foldZone(area);   // folded artifacts / enchantments: one fan (user 2026-11-13)
+  if(area instanceof VField.FieldRow&&ArenaBattleHudMod.sideField(owner(area)))return upright(area,w,h);
   autoFit(area,w,h);
   if(!ArenaMotionMod.active()||w<h||w<200)return original;
   float left=Float.POSITIVE_INFINITY,right=0;
@@ -181,7 +214,15 @@ public final class BattleLayoutFixMod {
  private static final java.util.Map<VField,Float> APPLIED_FRONT=new java.util.WeakHashMap<>();
  private static boolean evening;
  public static void field(VField field,float w,float h){
-  if(!ArenaMotionMod.active()||w<600)return;
+  if(ArenaMotionMod.active()&&ArenaBattleHudMod.sideField(field)){   // 3 players, side seat: rows stand upright - lands outside, creatures toward the middle
+   float lw=ArenaBattleHudMod.landScale(),n1=field.getRow1().getChildCount(),n2=field.getRow2().getChildCount();
+   float share=n1+n2==0?.42f:Math.max(.30f,Math.min(.62f,n2*lw/(n2*lw+n1)));
+   float g=Math.max(4,w*.02f),rearW=Math.round((w-g)*share);
+   field.getRow2().setBounds(0,0,rearW,h);
+   field.getRow1().setBounds(rearW+g,0,w-rearW-g,h);
+   zoneButton(field,w);APPLIED_FRONT.remove(field);return;
+  }
+  if(!ArenaMotionMod.active()||w<(BattleZoomMod.multi()?240:600))return;   // 3-4 players: quadrant fields are narrower
   float[] own=split(field,w,h);float front=own[0],rear=own[1],gap=own[2],usable=own[3];
   // both players' creatures at the same size (user 2026-10-18: "wieso sind beim Zoom die Karten vom Gegner groesser als meine"):
   // a field whose rear row holds only lands left its creature row taller - every field takes the smaller creature row
@@ -249,15 +290,16 @@ public final class BattleLayoutFixMod {
   g.fillCircle(new Color(0,0,0,.55f),x+w/2,y+h/2,s*.62f);
   CardFaceSymbols.drawSymbol("T",g,x+(w-s)/2,y+(h-s)/2,s,s);
  }
- /** which fan a card goes into (user 2026-11-15): 0 = artifacts (no creatures, no equipment), 1 = enchantments
-  *  (no creatures, no sagas), -1 = stays where it is */
+ /** which fan a card goes into (user 2026-11-15): 0 = artifacts (no creatures, no equipment) AND enchantments
+  *  (no creatures, no sagas) in one shared pile ("enchantments und artifacts auf ein stapel"), -1 = stays where it is.
+  *  ENCH stays as an index (arrays of 2) but is no longer used. */
  static final int ART=0,ENCH=1;
  private static int stackType(CardView c){
   if(c==null||c.getCurrentState()==null)return -1;var s=c.getCurrentState();
   if(s.isCreature()||s.isLand()||s.isPlaneswalker())return -1;
   var t=s.getType();
   if(s.isArtifact())return t.hasSubtype("Equipment")?-1:ART;
-  if(s.isEnchantment())return t.hasSubtype("Saga")?-1:ENCH;
+  if(s.isEnchantment())return t.hasSubtype("Saga")?-1:ART;   // same pile as the artifacts
   return -1;
  }
  private static boolean zoneCard(CardView c){return stackType(c)>=0;}

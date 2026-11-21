@@ -178,6 +178,43 @@ public final class PromptStyleMod {
 
     /** MessageLabel keeps its tap/magnify, fling and card-zoom behaviour. */
     public static boolean drawMessage(VPrompt p, FDisplayObject label, Graphics g) {
+        promptTop = label.screenPos == null ? -1f : label.screenPos.y;
+        boolean r = drawMessage0(p, label, g);
+        if (r) clampStack(promptTop);
+        return r;
+    }
+
+    // stack vs. long prompt text (user 2026-11-17: "wenn zuviele trigger auf dem stack sind und man einen langen auswahl text
+    // hat ueberlappen sich die texte unten mit dem stack" - "beim click auf den unteren text den wieder in vordergrund, beim
+    // click auf den stack ist dieser im vordergrund"): the open stack list ends above the prompt panel and scrolls; when
+    // there is not even room for about two entries, tapping the prompt closes the stack and the Stack tab opens it again
+    private static float promptTop = -1f;
+    private static final Map<FDropDown, Float> STACK_NATURAL = new WeakHashMap<>(), STACK_CLAMPED = new WeakHashMap<>();
+    private static VStack openStack() {
+        try { var v = MatchController.getView(); VStack st = v == null ? null : v.getStack(); return st != null && st.isVisible() ? st : null; }
+        catch (Throwable t) { return null; }
+    }
+    private static void clampStack(float top) {
+        if (top <= 0f) return;
+        VStack st = openStack(); if (st == null) return;
+        try {
+            float h = st.getHeight();
+            Float done = STACK_CLAMPED.get(st);
+            if (done == null || Math.abs(h - done) > .5f) STACK_NATURAL.put(st, h);   // Forge laid the list out anew
+            float natural = STACK_NATURAL.getOrDefault(st, h);
+            float min = Math.max(90f, Forge.getScreenHeight() * .16f);
+            float target = Math.min(natural, Math.max(min, top - st.getTop() - 6f));
+            if (Math.abs(target - h) > .5f) st.setHeight(Math.round(target));
+            STACK_CLAMPED.put(st, st.getHeight());
+        } catch (Throwable t) { System.err.println("[PromptStyle] stack clamp " + t); }
+    }
+    /** the prompt panel still lies under the open stack (not enough room above it) */
+    private static boolean stackCovers() {
+        VStack st = openStack();
+        return st != null && promptTop > 0f && st.getTop() + st.getHeight() > promptTop + 2f;
+    }
+
+    private static boolean drawMessage0(VPrompt p, FDisplayObject label, Graphics g) {
         State state = STATES.get(p);
         if (!active(p) || state == null || !state.styled) return false;
         if (behindDialog(p)) return true;
@@ -227,6 +264,7 @@ public final class PromptStyleMod {
                 state.clipped = th > maxH;
                 th = Math.min(th, maxH);
                 float ph = th + 2f * pad * .8f, top = h - ph;   // bottom on the bar, the rest above it
+                if (label.screenPos != null) promptTop = label.screenPos.y + top;
                 pill(g, PANEL_STRONG, HAIRLINE, px, top, pw, ph, Math.max(1f, s * .9f), Math.min(18f * s, ph / 2f));
                 g.fillRect(GOLD, px + pw * .08f, top + 1.5f * s, pw * .84f, Math.max(1f, s));   // thin gold rule on top
                 state.renderer.drawText(g, multi, f, TEXT, px + pad, top + pad * .8f, inner, th, top + pad * .8f, th, true, 8, false);
@@ -287,23 +325,16 @@ public final class PromptStyleMod {
         }
         @Override public boolean keyDown(int keyCode) { return false; }   // Enter / Esc and the battle keys still reach the prompt
         @Override protected void doLayout(float w, float h) {
+            // only the two buttons, no box and no text around them (user 2026-11-15 "die box verdeckt teilweise die karten
+            // ... nur die buttons ohne outer box"); they stay where they were inside the old panel
             s = Math.max(.7f, Math.min(2.4f, Math.min(w / 1600f, h / 900f)));
-            pw = Math.min(w * .52f, 860f * s); ph = 236f * s;
-            px = (w - pw) / 2f; py = h * .40f - ph / 2f;
-            float bw = Math.min(300f * s, (pw - 90f * s) / 2f), bh = 66f * s, by = py + ph - bh - 24f * s;
-            mull.setBounds(px + pw / 2f - 14f * s - bw, by, bw, bh);
-            keep.setBounds(px + pw / 2f + 14f * s, by, bw, bh);
+            float bw = Math.min(300f * s, (Math.min(w * .52f, 860f * s) - 90f * s) / 2f), bh = 66f * s, gap = 28f * s;
+            pw = 2f * bw + gap; ph = bh; px = (w - pw) / 2f; py = h * .40f + 28f * s;
+            mull.setBounds(px, py, bw, bh);
+            keep.setBounds(px + bw + gap, py, bw, bh);
         }
         @Override protected void drawBackground(Graphics g) {
-            if (!prompt.isVisible() || !mulliganPrompt(prompt)) { com.badlogic.gdx.Gdx.app.postRunnable(this::close); return; }
-            pill(g, PANEL_STRONG, GOLD, px, py, pw, ph, Math.max(1.5f, 2f * s), 18f * s);
-            g.fillRect(GOLD, px + pw * .1f, py + 3f * s, pw * .8f, Math.max(1f, s));
-            String message = prompt.getMessage() == null ? "" : prompt.getMessage().trim();
-            String[] lines = message.split("\\s*\\R+\\s*");
-            String question = lines.length == 0 ? "" : lines[lines.length - 1];
-            String info = lines.length < 2 ? "" : String.join("   ·   ", java.util.Arrays.copyOf(lines, lines.length - 1));
-            g.drawText(question, FSkinFont._get(Math.max(14, Math.round(32f * s))), GOLD, px + 20f * s, py + 22f * s, pw - 40f * s, 48f * s, false, 1, true);
-            if (!info.isEmpty()) g.drawText(info, FSkinFont._get(Math.max(11, Math.round(19f * s))), MUTED, px + 24f * s, py + 74f * s, pw - 48f * s, 40f * s, true, 1, true);
+            if (!prompt.isVisible() || !mulliganPrompt(prompt)) com.badlogic.gdx.Gdx.app.postRunnable(this::close);
         }
         private final class Big extends FDisplayObject {
             private final boolean ok;
@@ -502,6 +533,7 @@ public final class PromptStyleMod {
     public static boolean tapMessage(VPrompt p, FDisplayObject label) {
         State state = STATES.get(p);
         if (!active(p) || state == null || !state.styled) return false;
+        if (stackCovers()) { VStack st = openStack(); if (st != null) st.hide(); return true; }   // prompt to the front (user 2026-11-17)
         String message = p.getMessage();
         if (state.clipped && message != null && !message.isBlank()) new Popup(label, message.trim(), scale(p)).show();
         return true;

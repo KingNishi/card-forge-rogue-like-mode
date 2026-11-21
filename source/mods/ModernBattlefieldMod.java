@@ -9,16 +9,19 @@ import java.util.*;
 public final class ModernBattlefieldMod {
  private static Texture board;
  // Battle boards per biome: baked MTG Arena battlefields, extracted locally by _mods/arena-boards (private use only).
- private static final String BOARDS="D:/forge/_mods/arena-boards/boards/",FALLBACK_BOARD="D:/forge/_mods/modern-battlefield/board.png";
+ private static final String BOARDS="D:/forge/_mods/arena-boards/boards/",SOGNI_BOARDS="D:/forge/_mods/modern-battlefield/boards/",FALLBACK_BOARD="D:/forge/_mods/modern-battlefield/board.png";
  private static final Map<String,String[]> POOLS=Map.of(
-  "PLAINS",new String[]{"AKH_Mobile","WOE_Mobile"},
-  "ISLAND",new String[]{"KHM_Mobile","FRA"},
-  "SWAMP",new String[]{"Fallback","MID_Mobile"},
-  "MOUNTAIN",new String[]{"AFR_Mobile","AKR_Mobile"},
-  "FOREST",new String[]{"BLB","DAR_Mobile"},
-  "WASTE",new String[]{"XLN_Mobile","OTJ"},
-  "CAVE",new String[]{"AFR_Mobile","MID_Mobile"},
-  "COMMON",new String[]{"DAR_Mobile","XLN_Mobile","KHM_Mobile"});
+  // only the animated Sogni boards (user 2026-11-15 "ich will nur die animierten drin haben, die anderen ... benchen");
+  // benched Arena boards: PLAINS AKH_Mobile WOE_Mobile, ISLAND KHM_Mobile FRA, SWAMP Fallback MID_Mobile, MOUNTAIN AFR_Mobile AKR_Mobile,
+  // FOREST BLB DAR_Mobile, WASTE XLN_Mobile OTJ, CAVE AFR_Mobile MID_Mobile, COMMON DAR_Mobile XLN_Mobile KHM_Mobile
+  "PLAINS",new String[]{"SG_Forest","SG_Hoard","SG_Shrine","SG_Library"},
+  "ISLAND",new String[]{"SG_Deepsea","SG_Crystal","SG_Ice","SG_Library"},
+  "SWAMP",new String[]{"SG_Necropolis"},
+  "MOUNTAIN",new String[]{"SG_Hoard","SG_Ice"},
+  "FOREST",new String[]{"SG_Forest","SG_Shrine"},
+  "WASTE",new String[]{"SG_Hoard","SG_Necropolis"},
+  "CAVE",new String[]{"SG_Crystal"},
+  "COMMON",new String[]{"SG_Forest","SG_Deepsea","SG_Necropolis","SG_Crystal","SG_Hoard","SG_Ice","SG_Library","SG_Shrine"});
  private static final Map<String,Color> MOTES=Map.of("PLAINS",new Color(1,.86f,.45f,1),"ISLAND",new Color(.43f,.76f,1,1),"SWAMP",new Color(.65f,1,.4f,1),
   "MOUNTAIN",new Color(1,.5f,.15f,1),"FOREST",new Color(.62f,1,.5f,1),"WASTE",new Color(.95f,.82f,.6f,1),"CAVE",new Color(1,.6f,.25f,1),"COMMON",new Color(.9f,.9f,1,1));
  private static final Map<String,Integer> MODES=Map.of("PLAINS",0,"ISLAND",1,"SWAMP",2,"MOUNTAIN",3,"FOREST",4,"WASTE",5,"CAVE",6,"COMMON",7);
@@ -33,7 +36,8 @@ public final class ModernBattlefieldMod {
   boardGame=game;biome=POOLS.containsKey(b)?b:"COMMON";
   // reworked 4K boards (arena-boards/boards-hd, by Codex) are preferred over the 2048 px originals
   List<String> present=new ArrayList<>();for(String n:picked?List.of(pick):Arrays.asList(POOLS.get(biome))){String hd=BOARDS.replace("/boards/","/boards-hd/")+n+".jpg";
-   if(Gdx.files.absolute(hd).exists())present.add(hd);else if(Gdx.files.absolute(BOARDS+n+".jpg").exists())present.add(BOARDS+n+".jpg");}
+   if(Gdx.files.absolute(hd).exists())present.add(hd);else if(Gdx.files.absolute(BOARDS+n+".jpg").exists())present.add(BOARDS+n+".jpg");
+   else if(Gdx.files.absolute(SOGNI_BOARDS+n+".jpg").exists())present.add(SOGNI_BOARDS+n+".jpg");}   // own Sogni boards (2026-11-15)
   String file=present.isEmpty()?FALLBACK_BOARD:present.get(new Random().nextInt(present.size()));
   if(file.equals(boardFile)&&board!=null)return;
   if(board!=null)board.dispose();
@@ -82,9 +86,11 @@ public final class ModernBattlefieldMod {
   if(battle&&(name.contains("BG_MATCH")||name.matches("ADV_BG_(SWAMP|FOREST|MOUNTAIN|ISLAND|PLAINS|WASTE|COMMON|CAVE)"))&&(Gdx.files.absolute(BOARDS).exists()||Gdx.files.absolute(FALLBACK_BOARD).exists())){
    board(name);
    float t=(com.badlogic.gdx.utils.TimeUtils.nanoTime()-START)/1_000_000_000f;
-   LivingBoard.draw(g,board,boardFile,x,y,w,h,t);
-   BoardFx.particles(g,LivingBoard.particleBiome(boardFile),x,y,w,h,t);
-   RoamingCritters.draw(g,boardFile,x,y,w,h,t);
+   if(!VideoBoard.draw(g,board,boardFile,x,y,w,h,t)){   // Sogni-animated boards bring their own motion (no code particles)
+    LivingBoard.draw(g,board,boardFile,x,y,w,h,t);
+    BoardFx.particles(g,LivingBoard.particleBiome(boardFile),x,y,w,h,t);
+    RoamingCritters.draw(g,boardFile,x,y,w,h,t);
+   }
    Gdx.graphics.requestRendering();
    return;
   }
@@ -220,6 +226,57 @@ public final class ModernBattlefieldMod {
      }
     }finally{g.endTransform();}
    }
+  }
+ }
+
+ /** Whole-board animation made by Sogni WAN 2.2 (user 2026-11-15 "wie in hearthstone", "das gesamte bild ... short animation"):
+  *  next to SG_X.jpg lies SG_X.anim/000.jpg ... - small blurred "motion" frames (clip minus still, grey 128 = no change).
+  *  The shader adds them to the sharp still, so the board keeps its full resolution; frames cross-fade and play
+  *  forward then backward (seamless loop). Only two small textures live on the GPU. */
+ static final class VideoBoard{
+  static final float FPS=16;
+  static final String FRAG=String.join("\n",
+   "#ifdef GL_ES","precision mediump float;","#endif",
+   "varying vec4 v_color;","varying vec2 v_texCoords;",
+   "uniform sampler2D u_texture;","uniform sampler2D u_d0;","uniform sampler2D u_d1;","uniform float u_mix;",
+   "void main(){",
+   " vec4 s=texture2D(u_texture,v_texCoords);",
+   " vec3 d=mix(texture2D(u_d0,v_texCoords).rgb,texture2D(u_d1,v_texCoords).rgb,u_mix)-0.50196;",
+   " gl_FragColor=v_color*vec4(clamp(s.rgb+d,0.0,1.0),s.a);",
+   "}");
+  private static com.badlogic.gdx.graphics.glutils.ShaderProgram shader;private static boolean failed;
+  private static String loaded;private static boolean forward;private static final List<byte[]> frames=new ArrayList<>();
+  private static Texture a,b;private static int ia=-1,ib=-1;
+  private static void load(String file){
+   if(file.equals(loaded))return;
+   loaded=file;frames.clear();free();forward=false;
+   try{java.io.File dir=new java.io.File(file.substring(0,file.lastIndexOf('.'))+".anim");
+    forward=new java.io.File(dir,"forward").isFile();   // crossfaded loop (user 2026-11-17): forward only, leaves never fly back up
+    java.io.File[] fs=dir.listFiles((d,n)->n.endsWith(".jpg"));
+    if(fs!=null){Arrays.sort(fs);for(java.io.File f:fs)frames.add(java.nio.file.Files.readAllBytes(f.toPath()));}}
+   catch(Throwable e){System.err.println("[VideoBoard] "+e);frames.clear();}
+  }
+  private static void free(){if(a!=null)a.dispose();if(b!=null&&b!=a)b.dispose();a=b=null;ia=ib=-1;}
+  private static Texture frame(int i){
+   Pixmap p=new Pixmap(frames.get(i),0,frames.get(i).length);
+   try{Texture t=new Texture(p);t.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);return t;}finally{p.dispose();}
+  }
+  static boolean draw(Graphics g,Texture still,String file,float x,float y,float w,float h,float t){
+   if(file==null||failed)return false;
+   load(file);int n=frames.size();if(n<2)return false;
+   if(shader==null){shader=new com.badlogic.gdx.graphics.glutils.ShaderProgram(LivingBoard.VERTEX,FRAG);
+    if(!shader.isCompiled()){System.err.println("[VideoBoard] "+shader.getLog());shader.dispose();shader=null;failed=true;return false;}}
+   int period=forward?n:2*n-2;float pos=(t*FPS)%period;int p0=(int)pos,p1=(p0+1)%period;float mix=pos-p0;
+   int f0=forward||p0<n?p0:period-p0,f1=forward||p1<n?p1:period-p1;
+   if(f0!=ia){if(f0==ib){Texture keep=b;if(a!=null&&a!=b)a.dispose();a=keep;ia=ib;b=null;ib=-1;}else{if(a!=null&&a!=b)a.dispose();a=frame(f0);ia=f0;}}
+   if(f1!=ib){if(b!=null&&b!=a)b.dispose();b=f1==ia?a:frame(f1);ib=f1;}
+   var batch=g.getBatch();var previous=batch.getShader();batch.flush();
+   try{
+    batch.setShader(shader);a.bind(1);b.bind(2);Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);shader.bind();
+    shader.setUniformi("u_d0",1);shader.setUniformi("u_d1",2);shader.setUniformf("u_mix",mix);
+    g.drawImage(still,x,y,w,h);batch.flush();
+   }finally{batch.setShader(previous);Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);}
+   return true;
   }
  }
 
@@ -580,7 +637,11 @@ public final class ModernBattlefieldMod {
    }finally{batch.setShader(previous);Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);}
   }
   static String particleBiome(String file){return switch(id(file)){
-   case "DAR_Mobile","BLB"->"FOREST";
+   case "DAR_Mobile","BLB","SG_Forest","SG_Shrine"->"FOREST";
+   case "SG_Deepsea","SG_Crystal","SG_Ice"->"ISLAND";
+   case "SG_Library"->"PLAINS";
+   case "SG_Necropolis"->"SWAMP";
+   case "SG_Hoard"->"CAVE";
    case "Fallback"->"SWAMP";
    case "MID_Mobile"->"FOREST";
    case "KHM_Mobile"->"ISLAND";

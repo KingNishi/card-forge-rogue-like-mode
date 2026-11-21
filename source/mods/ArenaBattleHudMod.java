@@ -14,7 +14,9 @@ import java.lang.reflect.*;
 import java.util.*;
 public final class ArenaBattleHudMod {
  private static Object member(Object o,String name){try{Field f=VPlayerPanel.class.getDeclaredField(name);f.setAccessible(true);return f.get(o);}catch(ReflectiveOperationException e){throw new IllegalStateException(e);}}
- private static boolean enabled(VPlayerPanel p,float w,float h){return ArenaMotionMod.active()&&forge.Forge.isLandscapeMode()&&w>=900&&h>=240&&forge.screens.match.MatchScreen.getPlayerPanels().size()==2;}
+ private static boolean enabled(VPlayerPanel p,float w,float h){int n=forge.screens.match.MatchScreen.getPlayerPanels().size();return ArenaMotionMod.active()&&forge.Forge.isLandscapeMode()&&w>=(n>2?300:900)&&h>=(n>2?60:240)&&n>=2&&n<=4;}
+ /** 3-4 players (user 2026-11-15): every opponent gets a strip of the screen, the zoomed field more (BattleZoomMod.wheel) */
+ static boolean multi(){return BattleZoomMod.multi();}
  public record Layout(float avatarX,float avatarY,float avatarSize,float lifeY,float fieldY,float fieldHeight,float displayY,float displayHeight,float bandY,float bandHeight){}
  /** portrait size in units of the layout scale (it used to be 54, centred in a tall strip) */
  public static final float AVATAR=84,BAND=46,LIFE=24,BIG=2.5f;   // BIG: portrait size factor (user 2026-10-16)
@@ -24,13 +26,15 @@ public final class ArenaBattleHudMod {
   float sh=forge.Forge.getScreenHeight();
   // smaller screens (1080p): zone tabs and portraits down to 80 % so the board keeps room; 1440+ unchanged (user 2026-10-16)
   float res=Math.max(.8f,Math.min(1,.8f+.2f*(sh-1080)/360));
-  float scale=res*Math.max(.6f,Math.min(1.6f,Math.min(w/1600,sh/900f))),band=BAND*scale,life=LIFE*scale;
+  float sw=multi()?forge.Forge.getScreenWidth()*.72f:w;   // 3-4 players: a quadrant is half the screen - controls only a bit smaller
+  float scale=res*Math.max(.6f,Math.min(1.6f,Math.min(sw/1600,sh/900f))),band=BAND*scale,life=LIFE*scale;
   // portraits at most 15 % of the screen height: at 1080p they were 19 % (user 2026-10-18 "zu gross in 1900er Aufloesung");
   // 4K stays as it was (~15.5 %). Everything else keeps the layout scale (uiScale), only the portrait shrinks.
   float avatar=Math.min(AVATAR*BIG*scale,Math.max(sh*.15f,AVATAR*BIG*scale*.7f));uiScale=scale;
+  if(multi()){avatar=Math.min(avatar,w*.2f);if(!bottom)avatar=Math.max(16*scale,Math.min(avatar,h-life-10*scale-(h>band+120*scale?34*scale:0)));}   // quadrants: portrait + life (+ log) fit in
   float gap=bottom?promptGap():0;   // the transparent prompt bar lies over the bottom of the board
   // The hand gets the room of the old menu bar and phase strips: about a quarter of the screen height, bigger cards.
-  float display=selected?Math.min(h*.5f,Math.max(70,w*.123f*handScale())):0;
+  float display=selected?Math.min(h*(multi()?.46f:.5f),Math.max(70,(multi()?Math.max(w,forge.Forge.getScreenWidth()*.6f):w)*.123f*handScale())):0;
   float bandY=bottom?h-gap-display-band:0,fieldY=bottom?0:band+display,fieldH=Math.max(40,h-gap-band-display);
   // portrait + life in the right-hand column: standing on the bottom player's slim strip, hanging below the opponent's
   float avatarY=bottom?bandY+band-avatar-life-4*scale:bandY+4*scale;
@@ -42,11 +46,22 @@ public final class ArenaBattleHudMod {
   if(!enabled(p,w,h))return;
   boolean bottom=(Boolean)member(p,"isBottomPlayer");boolean selected=p.getSelectedTab()!=null;
   Layout l=plan(w,h,bottom,selected);float scale=uiScale;
+  if(!bottom&&multi()&&LOW.contains(p)){float pg=promptGap();l=new Layout(l.avatarX(),l.avatarY(),l.avatarSize(),l.lifeY(),l.fieldY(),Math.max(40,l.fieldHeight()-pg),l.displayY(),l.displayHeight(),l.bandY(),l.bandHeight());}
+  // 3-4 players (user 2026-11-15 "die Leben mit den Commander Icons immer jeweils in der Mitte statt am Rand"): portrait + life
+  // face the middle of the table - right-hand quadrants on their left side, the top row at its lower edge
+  boolean mirror=multi()&&RIGHT.contains(p);
+  if(multi()&&!bottom&&!LOW.contains(p)){float ay=Math.max(l.bandY()+l.bandHeight()+4*scale,h-l.avatarSize()-LIFE*scale-40*scale);
+   l=new Layout(l.avatarX(),ay,l.avatarSize(),ay+l.avatarSize()+2*scale,l.fieldY(),l.fieldHeight(),l.displayY(),l.displayHeight(),l.bandY(),l.bandHeight());}
+  if(multi()&&!bottom&&LOW.contains(p)&&h>forge.Forge.getScreenHeight()*.75f){float ay=Math.max(l.bandY()+l.bandHeight()+4*scale,(h-l.avatarSize()-LIFE*scale-34*scale)/2);   // 3 players: the left player over the full height - portrait at mid height
+   l=new Layout(l.avatarX(),ay,l.avatarSize(),ay+l.avatarSize()+2*scale,l.fieldY(),l.fieldHeight(),l.displayY(),l.displayHeight(),l.bandY(),l.bandHeight());}
+  if(mirror)l=new Layout(22*scale,l.avatarY(),l.avatarSize(),l.lifeY(),l.fieldY(),l.fieldHeight(),l.displayY(),l.displayHeight(),l.bandY(),l.bandHeight());
+  boolean avBand=l.avatarY()<l.bandY()+l.bandHeight()&&l.avatarY()+l.avatarSize()+LIFE*scale>l.bandY();
+  float avOff=mirror&&avBand?l.avatarSize()+24*scale:0;   // the zone row / hand buttons start right of a left-hand portrait
   p.getAvatar().setBounds(l.avatarX(),l.avatarY(),l.avatarSize(),l.avatarSize());
   ((FDisplayObject)member(p,"lblLife")).setBounds(l.avatarX()+l.avatarSize()/2-50*scale,l.lifeY(),100*scale,LIFE*scale-2*scale);
   CmdDamage cd=cmdDamage.get(p);if(cd==null){cd=p.add(new CmdDamage(p));cmdDamage.put(p,cd);}   // commander damage on top of the portrait (user 2026-11-14)
   cd.setBounds(l.avatarX()+l.avatarSize()*.18f,l.avatarY()+4*scale,l.avatarSize()*.64f,Math.max(18*scale,l.avatarSize()*.16f));
-  float manaW=65*scale,manaX=l.avatarX()-manaW-18*scale,phaseW=Math.max(120,Math.min(w*.32f,manaX-12*scale-w*.45f));
+  float manaW=65*scale,manaX=mirror?w-manaW-18*scale:l.avatarX()-manaW-18*scale,phaseW=Math.max(120,Math.min(w*.32f,manaX-12*scale-w*.45f));
   // the per-player phase strips (UP DR M1 ...) are gone: the turn plaque in the middle shows every step
   p.getPhaseIndicator().setBounds(manaX-12*scale-phaseW,l.bandY(),0,0);p.getPhaseIndicator().setVisible(false);
   int count=0;for(var tab:p.getTabs())if(tab!=p.getManaPoolTab()&&!(tab instanceof VPlayerPanel.InfoTabExtra))count++;
@@ -56,7 +71,7 @@ public final class ArenaBattleHudMod {
   float side=BattleUiSettings.size(2);   // Settings > Battle UI: side buttons (user 2026-10-17)
   float toggleSize=Math.min(l.bandHeight()-6*scale,40*scale)*side;
   float zoomW=toggleSize*2.9f;
-  float tabsX=12*scale+(bottom&&bars()?toggleSize+8*scale+zoomW+14*scale:!bottom&&bars()?92*scale:0);
+  float tabsX=12*scale+avOff+(bottom&&bars()?toggleSize+8*scale+zoomW+14*scale:!bottom&&bars()&&!(multi()&&!firstPanel(p))?92*scale:0);
   // Android: the zone tiles (hand, graveyard, library, energy, exile) stand in a column at the left edge instead of a
   // row - the row took the space above the hand (user 2026-11-06: "die Leiste mit graveyard etc vertikal und an die Seite")
   boolean zoneCol=BattleUiSettings.touch()&&count>0;float colW=0,colY=0;
@@ -75,19 +90,21 @@ public final class ArenaBattleHudMod {
    else tab.setBounds(tabsX+(index++)*(tw+6*scale),l.bandY()+(l.bandHeight()-th)/2,tw,th);
    tab.setDisplayBounds(w*.12f,l.displayY(),w*.76f,Math.max(1,l.displayHeight()));
   }
+  if(!bottom)for(FDisplayObject o:new FDisplayObject[]{toggles.get(p),boardZooms.get(p),folds.get(p),zooms.get(p)})if(o!=null)o.setVisible(false);   // made while Forge called it a bottom panel
+  else{LogButton old=logButtons.get(p);if(old!=null)old.setVisible(false);}
   if(!bottom){   // game log behind a scroll icon right under the opponent's portrait + life (user 2026-10-16)
-   LogButton lb=logButtons.get(p);if(lb==null){lb=p.add(new LogButton());logButtons.put(p,lb);}
+   LogButton lb=logButtons.get(p);if(lb==null){lb=p.add(new LogButton());logButtons.put(p,lb);}lb.setVisible(true);
    float lbw=Math.min(l.avatarSize()*.62f,120*scale)*side,lbh=30*scale*side;
    lb.setBounds(l.avatarX()+(l.avatarSize()-lbw)/2,l.lifeY()+LIFE*scale+4*scale,lbw,lbh);
   }
   if(bottom){   // Arena-style: fold the (big) hand away to see the whole battlefield, and back
-   HandToggle t=toggles.get(p);if(t==null){t=p.add(new HandToggle(p));toggles.put(p,t);}
+   HandToggle t=toggles.get(p);if(t==null){t=p.add(new HandToggle(p));toggles.put(p,t);}t.setVisible(true);
    // same place whether the hand is shown or folded away: centre of the bottom row above the prompt bar
    float cy=h-promptGap()-l.bandHeight()/2;
    t.setBounds(12*scale,cy-toggleSize/2,toggleSize,toggleSize);
-   BoardZoom bz=boardZooms.get(p);if(bz==null){bz=p.add(new BoardZoom());boardZooms.put(p,bz);}
+   BoardZoom bz=boardZooms.get(p);if(bz==null){bz=p.add(new BoardZoom());boardZooms.put(p,bz);}bz.setVisible(true);
    bz.setBounds(12*scale+toggleSize+8*scale,cy-toggleSize/2,zoomW,toggleSize);   // board zoom: battlefield + commander
-   FoldToggle ft=folds.get(p);if(ft==null){ft=p.add(new FoldToggle());folds.put(p,ft);}   // fold artifacts / enchantments on or off (user 2026-11-14 "toggleable ... hier hin")
+   FoldToggle ft=folds.get(p);if(ft==null){ft=p.add(new FoldToggle());folds.put(p,ft);}ft.setVisible(true);   // fold artifacts / enchantments on or off (user 2026-11-14 "toggleable ... hier hin")
    ft.setBounds(12*scale+toggleSize+8*scale+zoomW+8*scale,cy-toggleSize/2,toggleSize,toggleSize);
    HandZoom z=zooms.get(p);if(z==null){z=p.add(new HandZoom());zooms.put(p,z);}
    boolean handShown=t.handOpen();z.setVisible(handShown);   // hand zoom only while the hand is open, right of it
@@ -95,20 +112,25 @@ public final class ArenaBattleHudMod {
   }
   // Command zone (commander, item cards like Slobad's Iron Boots / Cursed Treasure) on the left as a grid of
   // separate cards; the same margin on both sides keeps the battlefield rows centred under the hand.
-  int cards=p.getCommandZone().getCount();float fieldRef=Math.min(l.fieldHeight(),plan(w,h,true,true).fieldHeight());uiScale=scale;   /* both commanders the same size: the smaller (own) half decides (user 2026-10-18) */
+  int cards=p.getCommandZone().getCount();float fieldRef=multi()?l.fieldHeight():Math.min(l.fieldHeight(),plan(w,h,true,true).fieldHeight());uiScale=scale;   // 3-4 players: each strip its own size   /* both commanders the same size: the smaller (own) half decides (user 2026-10-18) */
   float czh=fieldRef*.92f*Math.max(.45f,Math.min(1f,forge.adventure.util.BattleZoomMod.scale())),gap=gap(scale);   // board zoom shrinks the commander too
+  float czTop=-1;   // 3-4 players: the opponent's commander sits below its "TAX" badge, which sits below the zone row
+  if(multi()&&!bottom){float lab=Math.max(20,30*scale);czh=Math.max(20,Math.min(czh,l.fieldHeight()-lab-6*scale));czTop=l.fieldY()+lab+2*scale;}
   TopCardSlot top=topCards.get(p);if(top==null){top=p.add(new TopCardSlot(p));topCards.put(p,top);}
   boolean showTop=visibleTopCard(p)!=null;
   top.setVisible(showTop);
   float column=w*.15f-2*gap,commandLimit=showTop?(column-gap)/2:column;
   float cw=cards>0?grid(cards,commandLimit,czh-2*gap,gap)[4]+2*gap:0;
   float topW=showTop?Math.min((column-gap)/2,Math.max(1,(czh-26*scale)/FCardPanel.ASPECT_RATIO)):0,topH=topW*FCardPanel.ASPECT_RATIO+22*scale;
+  if(!bottom&&multi()&&bars()&&firstPanel(p))colW=Math.max(colW,Math.min(l.bandHeight()*1.7f,84*scale));   // top-left: the round match menu button sits in its corner
   float leftWidth=colW+cw+(showTop?topW+(cw>0?gap:0):0);   // colW: Android zone column at the left edge
-  float reserve=reserve(l,w,leftWidth,scale);
+  float reserve=mirror?Math.max(leftWidth>0?leftWidth+10*scale:0,l.avatarX()+l.avatarSize()+14*scale):reserve(l,w,leftWidth,scale);
   try{Method m=VField.class.getDeclaredMethod("setCommandZoneWidth",float.class);m.setAccessible(true);m.invoke(p.getField(),0f);}catch(ReflectiveOperationException e){throw new IllegalStateException(e);}
-  p.getField().setBounds(12*scale+reserve,l.fieldY(),w-24*scale-2*reserve,l.fieldHeight());
-  p.getCommandZone().setBounds(12*scale+colW,l.fieldY()+(l.fieldHeight()-czh)/2,cw,czh);
-  top.setBounds(12*scale+colW+cw+(cw>0?gap:0),l.fieldY()+(l.fieldHeight()-topH)/2,topW,topH);
+  if(SIDE.contains(p.getField())&&multi()){float fl=12*scale+leftWidth+10*scale,fr=l.avatarX()-14*scale;p.getField().setBounds(fl,l.fieldY(),Math.max(40,fr-fl),l.fieldHeight());}
+  else p.getField().setBounds(12*scale+reserve,l.fieldY(),w-24*scale-2*reserve,l.fieldHeight());
+  float cmdX=mirror?w-12*scale-colW-cw:12*scale+colW,topX=mirror?cmdX-(cw>0?gap:0)-topW:cmdX+cw+(cw>0?gap:0);   // mirrored: commander at the outer (right) edge
+  p.getCommandZone().setBounds(cmdX,czTop>=0?czTop:l.fieldY()+(l.fieldHeight()-czh)/2,cw,czh);
+  top.setBounds(topX,l.fieldY()+(l.fieldHeight()-topH)/2,topW,topH);
  }
  /** Only the current top card, and only while the local player's actual visibility permits it.
   * A standalone renderer avoids stealing Forge's globally cached panel from Library/Flashback. */
@@ -336,6 +358,7 @@ public final class ArenaBattleHudMod {
  }
  public static float fieldCardHeight(VField field){
   float w=field.getWidth(),h=field.getHeight(),s=Math.max(1,Math.min(1.6f,w/1600));
+  if(sideField(field))return Math.max(56,Math.min(h*.22f,w*.50f));   // side seat: two upright columns
   float base=Math.min(h*.42f,Math.max(72,Math.min(140*s,w*.09f)));
   if(!BattleZoomMod.manual())return base;
   float rear=landScale();for(var p:field.getRow2().getCardPanels())if(!isLand(p.getCard())){rear=1;break;}
@@ -362,7 +385,7 @@ public final class ArenaBattleHudMod {
   float cardHeight=fieldCardHeight(field);
   float gap=Math.max(4,Math.min(10,cardHeight*.06f));
   float prevOld=0,prevNew=0,prevScale=1,prevDelta=0;boolean first=true;
-  boolean compact=BattleUiSettings.compactLands();float landScale=landScale();
+  boolean compact=BattleUiSettings.compactLands();float landScale=sideField(field)?Math.max(landScale(),.8f):landScale();   // side seat: lands have their own column
   VCardDisplayArea.CardAreaPanel previous=null;
   for(FDisplayObject c:kids){
    if(!(c instanceof VCardDisplayArea.CardAreaPanel panel)||c.getHeight()<=0)continue;
@@ -470,7 +493,7 @@ public final class ArenaBattleHudMod {
   final List<Step> steps=new ArrayList<>();int index;final long start=System.currentTimeMillis();
   Tour(VPlayerPanel me,VPlayerPanel foe){
    var view=forge.screens.match.MatchController.getView();boolean touch=BattleUiSettings.touch();
-   final boolean de=lan();   // 1v1 LAN: the tour in German (user 2026-11-14)   // phone / tablet: touch wording, no keys (user 2026-11-05)
+   final boolean de=lan()&&BattleUiSettings.german;   // 1v1 LAN: the tour in German (user 2026-11-14)   // phone / tablet: touch wording, no keys (user 2026-11-05)
    steps.add(new Step(de?"Kampf-Steuerung":"Battle controls",de?(touch?"Eine kurze Tour durch den Kampfbildschirm. Tippe irgendwo für den nächsten Tipp - die Zurück-Taste überspringt die Tour.":"Eine kurze Tour durch den Kampfbildschirm. Klick irgendwo (oder drück eine Taste) für den nächsten Tipp - Escape überspringt die Tour."):touch?"A quick tour of the battle screen. Tap anywhere for the next tip - the Back button skips the tour.":"A quick tour of the battle screen. Tap anywhere (or press a key) for the next tip - Escape skips the tour.",()->null));
    steps.add(new Step(de?"Deine Hand":"Your hand",de?(touch?"Tippe eine Karte an, um sie zu spielen. Lange drücken zeigt sie groß.":"Klick eine Karte an, um sie zu spielen. Maus drüber oder Rechtsklick zeigt sie groß."):touch?"Tap a card to play it. Long-press a card to see it big.":"Tap a card to play it. Hover a card or right-click it to see it big.",()->{var t=me.getSelectedTab();return t==null?null:rectOf(t.getDisplayArea());}));
    steps.add(new Step(de?"Hand zeigen / verstecken":"Show / hide the hand",de?"Klappt deine Hand weg, damit du das ganze Spielfeld siehst - nochmal tippen holt sie zurück."+(touch?"":" Taste: H."):"Folds your hand away to see the whole battlefield - tap again to bring it back."+(touch?"":" Key: H."),()->rectOf(toggles.get(me))));
@@ -517,7 +540,7 @@ public final class ArenaBattleHudMod {
    frame(g,MINE,new Color(.05f,.06f,.10f,1f),bx,by,bw,bh,12*s,Math.max(1.5f,2*s));   // nested fills: no drawRoundRect cross lines
    g.drawText(st.title(),tf,MINE,bx+pad,by+pad,bw-2*pad,30*s,false,com.badlogic.gdx.utils.Align.left,true);
    g.drawText(st.text(),bf,TEXT,bx+pad,by+pad+30*s,bw-2*pad,th+4,true,com.badlogic.gdx.utils.Align.left,false);
-   g.drawText((index+1)+" / "+steps.size()+(lan()?(BattleUiSettings.touch()?"   -   Tippen: weiter   -   Zurück: überspringen":"   -   Klick / Taste: weiter   -   Links: zurück   -   Escape: überspringen"):BattleUiSettings.touch()?"   -   tap: next   -   Back: skip":"   -   tap / any key: next   -   Left: back   -   Escape: skip"),hf,MUTED,bx+pad,by+bh-pad-14*s,bw-2*pad,16*s,false,com.badlogic.gdx.utils.Align.right,true);
+   g.drawText((index+1)+" / "+steps.size()+((lan()&&BattleUiSettings.german)?(BattleUiSettings.touch()?"   -   Tippen: weiter   -   Zurück: überspringen":"   -   Klick / Taste: weiter   -   Links: zurück   -   Escape: überspringen"):BattleUiSettings.touch()?"   -   tap: next   -   Back: skip":"   -   tap / any key: next   -   Left: back   -   Escape: skip"),hf,MUTED,bx+pad,by+bh-pad-14*s,bw-2*pad,16*s,false,com.badlogic.gdx.utils.Align.right,true);
    Gdx.graphics.requestRendering();
   }
  }
@@ -556,8 +579,15 @@ public final class ArenaBattleHudMod {
  /** Both battlefields get the same height: the hand row is taken from the bottom player's half only, so without
   *  this the opponent had a huge empty field and our cards sat high up, far from the hand. */
  public static void split(float w,float h){
-  var panels=forge.screens.match.MatchScreen.getPlayerPanels().values();if(panels.size()!=2)return;
-  VPlayerPanel top=null,bottom=null;for(VPlayerPanel p:panels){if((Boolean)member(p,"isBottomPlayer"))bottom=p;else top=p;}
+  var panels=forge.screens.match.MatchScreen.getPlayerPanels().values();if(panels.size()<2||panels.size()>4)return;
+  VPlayerPanel top=null,bottom=null;
+  if(panels.size()>2){
+   var view=forge.screens.match.MatchController.getView();if(view==null)return;
+   List<VPlayerPanel> list=new ArrayList<>(view.getPlayerPanelsList());   // Forge drops players who lost; hidden ones are only zoomed away
+   if(list.size()>2){multiSplit(list,w,h);return;}
+   if(list.size()<2)return;top=list.get(0);bottom=list.get(list.size()-1);   // the others lost: the normal 1v1 split
+  }
+  else for(VPlayerPanel p:panels){if((Boolean)member(p,"isBottomPlayer"))bottom=p;else top=p;}
   if(top==null||bottom==null||!enabled(bottom,w,h/2))return;
   float th=h/2,field=0;
   for(int i=0;i<4;i++){   // hand/band sizes depend on the panel height: settle in a few steps
@@ -568,6 +598,52 @@ public final class ArenaBattleHudMod {
   if(field<80)return;
   th=Math.round(th);
   top.setBounds(0,0,w,th);bottom.setBounds(0,th,w,h-th);
+ }
+ /** 3-4 players as a table (user 2026-11-15 "in einem 4 Eck mit jeweils einer Ecke ... bei 3 player oben unten und einer links"):
+  *  4 players = 2x2, you bottom-left, then in turn order top-left, top-right, bottom-right; 3 players = the next player on
+  *  the left over the full height, the other one top right, you bottom right. The mouse wheel (BattleZoomMod.focusWeight)
+  *  widens the column and heightens the row of the field under the mouse; your own field always keeps room for the hand. */
+ static final Set<VPlayerPanel> LOW=Collections.newSetFromMap(new WeakHashMap<>()),RIGHT=Collections.newSetFromMap(new WeakHashMap<>());
+ /** 3 players: the left player sits at the side of the table (user 2026-11-15 "der linke soll wirklich links am rand spielen"):
+  *  its battlefield rows stand upright - lands at the outer edge, creatures toward the middle (BattleLayoutFixMod) */
+ static final Set<VField> SIDE=Collections.newSetFromMap(new WeakHashMap<>());
+ public static boolean sideField(VField f){return f!=null&&multi()&&SIDE.contains(f);}
+ static boolean firstPanel(VPlayerPanel p){var v=forge.screens.match.MatchController.getView();return v!=null&&!v.getPlayerPanelsList().isEmpty()&&v.getPlayerPanelsList().get(0)==p;}
+ static void multiSplit(List<VPlayerPanel> list,float w,float h){
+  int n=list.size();VPlayerPanel me=list.get(n-1);
+  // Forge (MatchController.openView) also marks the first opponent as "bottom player" when the local player is not first in
+  // the game's player list - a 3-4 player network game as a guest: only the last panel (you) is the bottom one
+  for(int i=0;i<n;i++){VPlayerPanel p=list.get(i);boolean b=i==n-1;if((Boolean)member(p,"isBottomPlayer")!=b){p.setBottomPlayer(b);p.revalidate();}}
+  // cell of each panel: {column, first row, last row}
+  int[][] cell=n==4?new int[][]{{0,0,0},{1,0,0},{1,1,1},{0,1,1}}:new int[][]{{0,0,1},{1,0,0},{1,1,1}};
+  float fx=n==4?.5f:.36f,fy=.5f;   // 3 players: the side seat on the left is a narrow column
+  int focus=-1,level=0;
+  for(int i=0;i<n;i++){float f=BattleZoomMod.focusWeight(list.get(i).getPlayer());if(f>1){focus=i;level=Float.isInfinite(f)?3:f>3?2:1;}}
+  LOW.clear();RIGHT.clear();SIDE.clear();
+  if(focus>=0&&level>=3){   // last step: only this player, full screen ("auf einen fokussieren"); wheel down / Esc = overview again
+   for(int i=0;i<n;i++){VPlayerPanel p=list.get(i);boolean on=i==focus;if(p.isVisible()!=on)p.setVisible(on);if(on){LOW.add(p);p.setBounds(0,0,w,h);}}
+   return;
+  }
+  for(VPlayerPanel p:list)if(!p.isVisible())p.setVisible(true);
+  if(focus>=0){
+   float frac=level==1?.62f:.76f;int[] c=cell[focus];
+   fx=c[0]==0?Math.max(fx,frac):Math.min(fx,1-frac);
+   if(c[1]==c[2])fy=c[1]==0?Math.max(fy,frac):Math.min(fy,1-frac);
+  }
+  int[] mc=cell[n-1];
+  float myColMin=.36f;fx=mc[0]==0?Math.max(fx,myColMin):Math.min(fx,1-myColMin);   // your hand needs some width ...
+  float myW=mc[0]==0?w*fx:w*(1-fx);
+  Layout lm=plan(myW,h*.5f,true,me.getSelectedTab()!=null);
+  float sc=uiScale,myMin=lm.bandHeight()+lm.displayHeight()+promptGap()+70*sc;   // ... and the hand + a field row some height
+  fy=Math.min(fy,1-myMin/h);fy=Math.max(fy,.2f);
+  float X=Math.round(w*fx),Y=Math.round(h*fy);
+  for(int i=0;i<n;i++){int[] c=cell[i];
+   float x=c[0]==0?0:X,cw=c[0]==0?X:w-X,y=c[1]==0?0:Y,ch=(c[2]==0?Y:h)-y;
+   if(c[2]==1)LOW.add(list.get(i));   // reaches the bottom edge: the prompt bar lies over it
+   if(c[0]==1)RIGHT.add(list.get(i));
+   if(n==3&&i==0)SIDE.add(list.get(i).getField());   // zoomed in on it: the same upright columns, bigger cards
+   list.get(i).setBounds(x,y,cw,ch);
+  }
  }
  // ------------------------------------------------------------------ whose turn / which phase
  static final Color MINE=Color.valueOf("f2cf63"),ENEMY=Color.valueOf("e8705a"),TEXT=Color.valueOf("f3e7c9"),MUTED=Color.valueOf("b9a586"),INK=Color.valueOf("1a120a");
@@ -681,6 +757,7 @@ public final class ArenaBattleHudMod {
    else{w=PLAQUE_W*ps;h=pointer(ps)+PLAQUE_H*ps+46*ps;t.defX=px+plaqueX;t.defY=py-PLAQUE_H*.28f*ps-pointer(ps);}
    if(t.dragging&&System.currentTimeMillis()-t.lastPan>300)t.endDrag();   // no panStop reached us: the drag ended anyway
    if(t.dragging){t.setSize(w,h);}
+   else if(multi()){if(!t.compact)t.defY=py+4*ps-pointer(ps);t.setBounds(clamp(t.defX,0,t.viewW-w),clamp(t.defY,0,t.viewH-h),w,h);}   // 3-4 players: on your own field's top edge, not over an opponent
    else{float x=t.defX+BattleUiSettings.turnDx()*t.viewW,y=t.defY+BattleUiSettings.turnDy()*t.viewH;t.setBounds(clamp(x,0,t.viewW-w),clamp(y,0,t.viewH-h),w,h);}
    if(t.compact){t.skip.setBounds(w-(COMPACT_SKIP+7)*ps,7*ps,COMPACT_SKIP*ps,h-14*ps);float a=h-14*ps;t.ask.setBounds(w-(COMPACT_SKIP+7)*ps-a-4*ps,7*ps,a,a);}
    else{t.skip.setBounds(w*.25f,pointer(ps)+PLAQUE_H*ps+16*ps,w*.5f,30*ps);t.ask.setBounds(w*.75f+6*ps,pointer(ps)+PLAQUE_H*ps+19*ps,24*ps,24*ps);}
@@ -699,7 +776,7 @@ public final class ArenaBattleHudMod {
    if(!dragging){dragging=true;dragX=getLeft();dragY=getTop();}
    lastPan=System.currentTimeMillis();dragX+=dx;dragY+=dy;setPosition(clamp(dragX,0,viewW-getWidth()),clamp(dragY,0,viewH-getHeight()));Gdx.graphics.requestRendering();return true;}
   @Override public boolean panStop(float x,float y){if(!dragging)return false;endDrag();return true;}
-  void endDrag(){dragging=false;BattleUiSettings.setTurnOffset(viewW<=0?0:(getLeft()-defX)/viewW,viewH<=0?0:(getTop()-defY)/viewH);BattleUiSettings.save();}
+  void endDrag(){dragging=false;if(multi())return;BattleUiSettings.setTurnOffset(viewW<=0?0:(getLeft()-defX)/viewW,viewH<=0?0:(getTop()-defY)/viewH);BattleUiSettings.save();}
   @Override public boolean tap(float x,float y,int count){
    if(count>=2){BattleUiSettings.resetTurnPosition();BattleUiSettings.save();Gdx.graphics.requestRendering();}return true;}
  }
@@ -807,6 +884,7 @@ public final class ArenaBattleHudMod {
    if(avatarPlayer==null){avatarPlayer=forge.screens.match.views.VAvatar.class.getDeclaredField("player");avatarPlayer.setAccessible(true);}
    forge.game.player.PlayerView p=(forge.game.player.PlayerView)avatarPlayer.get(v);var ui=forge.screens.match.MatchController.instance;
    if(p==null||ui==null||!ui.getLocalPlayers().contains(p)||ui.isHighlighted(p))return false;
+   var game=ui.getGameView();if(game==null||game.getTurn()<1||game.isMulligan())return false;   // "who starts?" picks your own portrait (won coin toss)
    var cards=p.getCards(ZoneType.Command);if(cards==null)return false;
    CardView commander=null;for(CardView c:cards)if(c!=null&&c.isCommander()){commander=c;break;}
    if(commander==null)return false;
@@ -914,7 +992,7 @@ public final class ArenaBattleHudMod {
   GameView game=game();if(game==null||game.getPlayerTurn()==null)return;
   float w=p.getWidth(),s=uiScale;boolean mine=isTurnOf(game,p);
   float ps=s*BattleUiSettings.size(0);   // Settings > Battle UI: turn panel + Skip (user 2026-10-17)
-  float plaqueX=Math.min(w-(PLAQUE_W+18)*ps,p.getAvatar().getLeft()-(PLAQUE_W+14)*ps);
+  float plaqueX=p.getAvatar().getLeft()<w/2?p.getAvatar().getRight()+14*ps:Math.min(w-(PLAQUE_W+18)*ps,p.getAvatar().getLeft()-(PLAQUE_W+14)*ps);
   TurnPanel tp=TurnPanel.place(p,plaqueX,ps,mine,game);if(tp!=null)skips.put(p,tp.skip);   // turn panel + Skip: one piece on the match screen, draggable (user 2026-11-05)
   if(game.getTurn()>=1)maybeTour(p);
   // Deck button right ABOVE the mana tile next to the portrait (user 2026-10-16: visible, not in the match menu)
@@ -932,6 +1010,28 @@ public final class ArenaBattleHudMod {
   if(active){   // glowing frame around the portrait of the player whose turn it is
    float pulse=.6f+.4f*(float)Math.sin(System.currentTimeMillis()/350.0);
    for(int i=4;i>=1;i--)g.fillRoundRect(alpha(accent,.10f*pulse),bx-i*3*s,by-i*3*s,bw+i*6*s,bh+i*6*s,(12+i*3)*s);
+  }
+  if(multi()){   // 3-4 players: a thin gold seam between the quadrants, the opponent's name in its zone row
+   float w=p.getWidth(),h=p.getHeight(),u=uiScale,lw=Math.max(1,1.6f*u);Color seam=new Color(.85f,.72f,.42f,.5f);
+   var r=p.screenPos;float sw=forge.Forge.getScreenWidth(),sh2=forge.Forge.getScreenHeight();
+   if(r.x+r.width<sw-2)g.fillRect(seam,w-lw,0,lw,h);
+   if(r.x>2)g.fillRect(seam,0,0,lw,h);
+   if(r.y+r.height<sh2-2)g.fillRect(seam,0,h-lw,w,lw);
+   if(r.y>2)g.fillRect(seam,0,0,w,lw);
+   var mana=p.getManaPoolTab();String name=p.getPlayer()==null?"":p.getPlayer().getName();
+   if(!(Boolean)member(p,"isBottomPlayer")&&mana!=null&&mana.getWidth()>0&&name!=null&&!name.isEmpty()){
+    float nl=0;for(var tab:p.getTabs())if(tab!=mana&&tab.isVisible()&&tab.getWidth()>0)nl=Math.max(nl,tab.getRight());
+    float nh=Math.min(mana.getHeight(),28*u),above=a.getTop()-(mana.getTop()+mana.getHeight())-8*u;
+    if(above>=nh){float lo=SIDE.contains(p.getField())&&multi()?p.getField().getRight()+4*u:8*u;   // side seat: the name stays clear of the creature column
+     float nw=Math.min(w-8*u-lo,Math.max(a.getWidth()*2.4f,260*u)),nx=Math.max(lo,Math.min(w-8*u-nw,a.getLeft()+a.getWidth()/2-nw/2));   // room above the portrait: the name sits on it
+     int cut=name.indexOf(" (");
+     if(lo>8*u&&cut>0&&name.endsWith(")")&&above>=2*nh+4*u){   // side seat, narrow: "AI 1" over "Commander" in two lines
+      String l1=name.substring(0,cut),l2=name.substring(cut+2,name.length()-1);
+      g.drawText(l1,fit(l1,nw,nh),active?ENEMY:TEXT,nx,a.getTop()-2*nh-6*u,nw,nh,false,com.badlogic.gdx.utils.Align.center,true);
+      g.drawText(l2,fit(l2,nw,nh),active?ENEMY:TEXT,nx,a.getTop()-nh-4*u,nw,nh,false,com.badlogic.gdx.utils.Align.center,true);}
+     else g.drawText(name,fit(name,nw,nh),active?ENEMY:TEXT,nx,a.getTop()-nh-4*u,nw,nh,false,com.badlogic.gdx.utils.Align.center,true);}
+    else{float nx=nl+12*u,nw=Math.max(0,mana.getLeft()-110*u-nx);
+     if(nw>40*u)g.drawText(name,fit(name,nw,nh),active?ENEMY:TEXT,nx,mana.getTop(),nw,mana.getHeight(),false,com.badlogic.gdx.utils.Align.right,true);}}
   }
   g.fillRoundRect(new Color(.055f,.072f,.098f,1f),bx,by,bw,bh,12*s);
   frame(g,active?accent:Color.valueOf("8a7650"),new Color(.055f,.072f,.098f,1f),bx+3*s,by+2*s,bw-6*s,bh-4*s,10*s,active?2*s:1.2f);   // no drawRoundRect cross lines

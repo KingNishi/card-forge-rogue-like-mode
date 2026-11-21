@@ -146,7 +146,7 @@ public final class MatchMenuMod {
                         float h = Math.max(Utils.scale(18f), Math.min(r.height * .17f, Utils.scale(32f)));
                         FSkinFont f = FSkinFont.forHeight(h * .66f);
                         float w = Math.min(r.width, f.getBounds(label).width + h * 1.2f);
-                        boolean topPlayer = p == screen.getTopPlayerPanel();
+                        boolean topPlayer = p == screen.getTopPlayerPanel() && screen.getPlayerPanelsList().size() <= 2;   // 3-4 players: above the card too (below it lies the next strip)
                         float x = r.x - screenPos.x + (r.width - w) / 2f, y = topPlayer ? r.y - screenPos.y + r.height + Utils.scale(2f)   // opponent: below the card (above it sits the menu button)
                                 : Math.max(0f, r.y - screenPos.y - h - Utils.scale(2f));   // you: just above the card, title stays readable
                         rimBox(g, tax > 0 ? GOLD : new Color(0x8a93a7ff), new Color(0x0b0f17ff), x, y, w, h, h / 2f, Math.max(1f, h * .08f));

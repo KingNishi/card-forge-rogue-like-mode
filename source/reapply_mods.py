@@ -576,7 +576,8 @@ def install_java_mod(label, java_file, const_subs, patches, extra_sources=()):
                     extra_path = os.path.join(srcdir, extra)
                     open(extra_path, 'w', encoding='utf8').write(extra_code)
                     sources.append(extra_path)
-                r = subprocess.run([javac, '--release', '17', '-encoding', 'UTF-8', '-nowarn', '-cp', jar, '-d', outdir] + sources, capture_output=True, text=True)
+                cp = jar + (os.pathsep + ORT_JAR if os.path.exists(ORT_JAR) else '')   # ONNX Runtime for CardUpscaler (2026-11-15)
+                r = subprocess.run([javac, '--release', '17', '-encoding', 'UTF-8', '-nowarn', '-cp', cp, '-d', outdir] + sources, capture_output=True, text=True)
                 if r.returncode != 0:
                     say('!!', f'{name}: compiling {java_file} failed: {(r.stdout + r.stderr).strip()[:300]}'); return
                 for root, _, files in os.walk(outdir):
@@ -947,15 +948,22 @@ def patch_arena_motion():
                        'forge/toolbox/FCardPanel$CardTransformAnimation.class']])
     install_java_mod('manual battlefield card zoom','BattleZoomMod.java',[],
                      [(entry,'PatchBattleZoom.java') for entry in
-                      ['forge/screens/match/MatchScreen.class','forge/screens/match/MatchScreen$FieldScroller.class']])
+                      ['forge/screens/match/MatchScreen.class','forge/screens/match/MatchScreen$FieldScroller.class',
+                       'forge/Forge$MainInputProcessor.class','forge/game/mulligan/MulliganService.class',
+                       'forge/game/mulligan/LondonMulligan.class']])
     install_java_mod('Arena-style Adventure battle HUD','ArenaBattleHudMod.java',[],
                      [(entry,'PatchArenaBattleHud.java') for entry in
                       ['forge/screens/match/views/VPlayerPanel.class','forge/screens/match/views/VPrompt.class',
                        'forge/screens/match/views/VZoneDisplay.class','forge/screens/match/views/VPrompt$MessageLabel.class',
                        'forge/menu/FMenuBar.class','forge/screens/match/MatchScreen.class',
-                       'forge/screens/match/MatchScreen$FieldScroller.class','forge/screens/match/views/VAvatar.class']], extra_sources=['RogueCommandersScene.java','RogueForgeAchievements.java','FantasyButtonArt.java','BattleUiSettings.java','RogueLan.java'])
+                       'forge/screens/match/MatchScreen$FieldScroller.class','forge/screens/match/views/VAvatar.class']], extra_sources=['RogueCommandersScene.java','RogueForgeAchievements.java','FantasyButtonArt.java','BattleUiSettings.java','RogueLan.java', 'CardUpscaler.java'])
     install_java_mod('remove dangerous attack engines before attackers', 'AttackTriggerRemovalMod.java', [],
                      [('forge/ai/ComputerUtilCard.class', 'PatchAttackTriggerRemoval.java')])
+    # user 2026-11-16: in 1v1 vs AI / LAN with 3-4 players the AI attacks and removes by threat (lethal, no blockers,
+    # biggest board / mana value / commander) instead of a random pick; only while a RogueLan match runs
+    install_java_mod('threat-aware AI targets in 1v1 vs AI / LAN', 'ThreatAiMod.java', [],   # installed 2026-11-16 ("alle updates")
+                     [('forge/ai/AiAttackController.class', 'PatchThreatAi.java'),
+                      ('forge/ai/ComputerUtilCard.class', 'PatchThreatAi.java')])
     install_java_mod('no order prompt for replacement effects whose order cannot matter', 'ReplacementAutoMod.java', [],
                      [('forge/player/PlayerControllerHuman.class', 'PatchReplacementAuto.java')])
     patch_graphics_voice_assets()
@@ -993,7 +1001,41 @@ def patch_enemy_intro():
                      [('forge/adventure/scene/DuelScene.class', 'PatchEnemyIntro.java')])
 
 
+ORT_JAR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'card-upscale', 'onnxruntime-1.17.3.jar')
+ORT_MODEL = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'card-upscale', 'model', 'realesr-general-x4v3.onnx')
+
+
+def patch_onnx_runtime():
+    """Sharp card pictures on every PC (user 2026-11-15): ONNX Runtime (MIT, classes + Windows x64 library only) and the
+    Real-ESRGAN general x4v3 model (BSD-3) go into the game JAR; CardUpscaler (Rogue step) uses them."""
+    print('38a) AI card picture upscaler: ONNX Runtime + Real-ESRGAN model in the JAR')
+    if not (os.path.exists(ORT_JAR) and os.path.exists(ORT_MODEL)):
+        say('!!', 'card-upscale/onnxruntime jar or model missing'); return
+    add = {}
+    with zipfile.ZipFile(ORT_JAR) as z:
+        for n in z.namelist():
+            if n.endswith('/') or n.startswith('META-INF/'): continue
+            if n.startswith('ai/onnxruntime/native/') and not n.startswith('ai/onnxruntime/native/win-x64/'): continue
+            if n.startswith('ai/') or n == 'ThirdPartyNotices.txt':
+                add['ai/onnxruntime/ThirdPartyNotices.txt' if n == 'ThirdPartyNotices.txt' else n] = z.read(n)
+    add['rogue/realesr-general-x4v3.onnx'] = open(ORT_MODEL, 'rb').read()
+    lic = os.path.join(os.path.dirname(ORT_MODEL), 'LICENSE-Real-ESRGAN.txt')
+    if os.path.exists(lic): add['rogue/LICENSE-Real-ESRGAN.txt'] = open(lic, 'rb').read()
+    for jar in adventure_jars():
+        name = os.path.basename(jar)
+        with zipfile.ZipFile(jar) as z:
+            have = set(z.namelist())
+            repl = {k: v for k, v in add.items() if k not in have or z.read(k) != v}
+        if not repl:
+            say('ok', f'{name}: upscaler runtime already installed'); continue
+        if CHECK_ONLY or running_now:
+            say('->', f'{name}: would add {len(repl)} upscaler files'); continue
+        rewrite_jar(jar, repl)
+        say('OK', f'{name}: upscaler runtime ({len(repl)} files)')
+
+
 def patch_rogue_commanders():
+    patch_onnx_runtime()
     print('38) Rogue Commanders: endless roguelite mode in the Adventure main menu (content: _mods/rogue-commanders)')
     folder = os.path.join(FORGE, '_mods', 'rogue-commanders')
     # Validate data even for --check; apply only with Forge closed, through this step.
@@ -1052,9 +1094,14 @@ def patch_rogue_commanders():
                      [('forge/adventure/scene/StartScene.class', 'PatchRogueCommanders.java'),
                       ('forge/gamemodes/net/client/NetGameController.class', 'PatchRogueLanNet.java'),
                       ('forge/ImageKeys.class', 'PatchRogueLanNet.java'),
-                      ('forge/game/mulligan/MulliganService.class', 'PatchRogueLanNet.java')], extra_sources=['RogueForgeAchievements.java','FantasyButtonArt.java','BattleUiSettings.java','RogueLan.java'])
+                      ('forge/game/mulligan/MulliganService.class', 'PatchRogueLanNet.java'),
+                      ('forge/game/GameRules.class', 'PatchRogueLanNet.java'),
+                      ('forge/card/CardZoom.class', 'PatchRogueLanNet.java')], extra_sources=['RogueForgeAchievements.java','FantasyButtonArt.java','BattleUiSettings.java','RogueLan.java','CardUpscaler.java'])
+    # user 2026-11-16: closing the window ends the game process (LAN netty threads kept invisible games alive)
+    install_java_mod('game process ends with its window', 'ExitMod.java', [],
+                     [('forge/app/Main.class', 'PatchExitMod.java')])
     install_java_mod('Rogue commander achievement life-loss observer', 'RogueCommandersScene.java', [],
-                     [('forge/game/player/Player.class', 'PatchRogueLifeLoss.java')], extra_sources=['RogueForgeAchievements.java','FantasyButtonArt.java','BattleUiSettings.java','RogueLan.java'])
+                     [('forge/game/player/Player.class', 'PatchRogueLifeLoss.java')], extra_sources=['RogueForgeAchievements.java','FantasyButtonArt.java','BattleUiSettings.java','RogueLan.java','CardUpscaler.java'])
 
 
 def patch_commander_rating():

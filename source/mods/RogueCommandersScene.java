@@ -2379,7 +2379,7 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
  private static boolean menuShown;private boolean mainMenu,naming,namingNew;
  static boolean hasProgress(Profile p){return p.runs>0||p.run!=null||!p.general.isEmpty()||!p.achievements.isEmpty()||p.progressionPoints>0;}
  /** shown in the main menu; bump with every release and add an entry to _mods/release/PATCH-NOTES.md */
- static final String GAME_VERSION="0.2.12";
+ static final String GAME_VERSION="0.2.12.7";
  static final String ITCH_PAGE="https://kingnishi.itch.io/card-force-rogue-lite-mode";
  private static volatile String latestVersion;private static boolean updateAsked;
  /** once per game start: ask itch.io (public build API, no account) which version the windows channel has; silent offline */
@@ -2424,9 +2424,11 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
    float uw=Math.min(150,W*.36f);
    Btn up=button("Update "+latestVersion+" available",W-uw-10,24,uw,18,()->Gdx.net.openURI(ITCH_PAGE));up.gold=true;
   }
+  if(hasProgress(p)||p.playerName!=null){bh=20;gap=5;}   // six buttons: a bit tighter so Exit stays on screen
   if(hasProgress(p)||p.playerName!=null){Btn cont=button(p.run!=null?"Continue run":"Continue",bx,y,bw,bh,()->{if(p.playerName==null){naming=true;namingNew=false;rebuild();return;}mainMenu=false;rebuild();});cont.gold=true;y-=bh+gap;}
   Btn ng=button("New Game",bx,y,bw,bh,()->{naming=true;namingNew=true;rebuild();});ng.gold=!hasProgress(p)&&p.playerName==null;y-=bh+gap;
-  button("1v1 Online Mode",bx,y,bw,bh,this::openLan);y-=bh+gap;   // play a friend in the same network (user 2026-11-14)
+  button("1v1 Online Mode",bx,y,bw,bh,()->{forge.adventure.util.RogueLan.vsAi=false;openLan();});y-=bh+gap;
+  button("1v1 vs AI",bx,y,bw,bh,()->{forge.adventure.util.RogueLan.vsAi=true;openLan();});y-=bh+gap;   // own deck vs AI, bracket 2-5 (user 2026-11-15)   // play a friend in the same network (user 2026-11-14)
   button("Settings",bx,y,bw,bh,this::openDisplay);y-=bh+gap;
   button("Exit",bx,y,bw,bh,()->confirm("Quit Rogue Commanders?","Your progress is saved.","Quit","Stay",()->Gdx.app.exit()));
  }
@@ -2479,75 +2481,282 @@ public class RogueCommandersScene extends UIScene implements IAfterMatch {
  private void openLan(){forge.adventure.util.RogueLan.load(profile().playerName);forge.adventure.util.RogueLan.backToRogue=()->{try{Forge.switchScene(instance());}catch(Throwable t){log(t);}};lanScreen=true;lanSeen=forge.adventure.util.RogueLan.version;rebuild();}
 
  /** the commander's prints (German first): big preview, arrows, "Uebernehmen" saves the choice (user 2026-11-15) */
+ /** own commander artworks for 1v1 / LAN (user 2026-11-16): "Original" (Forge's picture), the Rogue fan-art skins of this
+  *  commander and pictures in _mods/rogue-commanders/custom-art whose file name starts with the commander's name.
+  *  No online prints any more ("die sehen scheisse aus"). Local files only - nothing of it goes into a release. */
+ static List<String[]> ownArtworks(String commander){
+  List<String[]> out=new ArrayList<>();out.add(new String[]{"Original",null});
+  if(commander==null||commander.isEmpty())return out;
+  for(Skin sk:skins(commander)){
+   if(!sk.custom())continue;
+   String base=DIR+"skins/"+sk.number.replaceAll("\\.[A-Za-z]+$","");
+   if(!Gdx.files.absolute(DIR+"skins/"+sk.number).exists()&&!Gdx.files.absolute(base+"-card.png").exists())customCard(commander,sk);   // builds -card.png once
+   String f=Gdx.files.absolute(DIR+"skins/"+sk.number).exists()?DIR+"skins/"+sk.number:base+"-card.png";
+   if(Gdx.files.absolute(f).exists())out.add(new String[]{"Fan-Art: "+sk.number.replaceAll("\\.[A-Za-z]+$",""),f});
+  }
+  File[] own=new File(DIR+"custom-art").listFiles();
+  if(own!=null){String key=forge.adventure.util.RogueLan.cmdKey(commander);java.util.Arrays.sort(own);
+   for(File f:own){String n=f.getName(),low=n.toLowerCase(java.util.Locale.ROOT);
+    if(!(low.endsWith(".png")||low.endsWith(".jpg")||low.endsWith(".jpeg")))continue;
+    if(forge.adventure.util.RogueLan.cmdKey(n.replaceAll("\\.[A-Za-z]+$","")).startsWith(key))out.add(new String[]{n,f.getPath().replace('\\','/')});}}
+  return out;
+ }
  private void commanderArtOverlay(){
-  forge.adventure.util.RogueLan.loadCommanderPrints(forge.adventure.util.RogueLan.deckText);
+  forge.adventure.util.RogueLan.loadCommanderPrints(forge.adventure.util.RogueLan.deckText);   // only resolves the commander's name
   Group g=pushOverlay();float w=Math.min(W()-40,320),h=Math.min(H()-24,250),x=(W()-w)/2,y=(H()-h)/2;
-  final int[] idx={-1};final Texture[] tex={null};final String[] texFile={null};
+  final int[] idx={-1};final List<String[]>[] list=new List[]{null};final String[] forName={null};
   g.addActor(new Painter((b,a)->{
    rect(b,0,0,W(),H(),Color.BLACK,a*.6f);rect(b,x,y,w,h,Color.valueOf("0d1220"),a*.97f);frame(b,x,y,w,h,1.2f,GOLD,a);
-   text(b,"Commander-Artwork",x,y+h-8,9,GOLD,a,w,Align.center,true);
-   List<String[]> pr=forge.adventure.util.RogueLan.cmdPrints;
-   if(forge.adventure.util.RogueLan.cmdLoading){text(b,"Lade die Drucke von Scryfall ...",x,y+h/2+6,7,TEXT,a,w,Align.center,false);return;}
-   if(pr.isEmpty()){text(b,forge.adventure.util.RogueLan.cmdError.isEmpty()?"Keine Drucke gefunden.":forge.adventure.util.RogueLan.cmdError,x+12,y+h/2+6,7,TEXT,a,w-24,Align.center,false);return;}
-   if(idx[0]<0||idx[0]>=pr.size())idx[0]=Math.min(Math.max(0,forge.adventure.util.RogueLan.cmdIndex),pr.size()-1);
-   String[] p=pr.get(idx[0]);java.io.File f=forge.adventure.util.RogueLan.thumb(p);
-   if(f!=null&&!f.getPath().equals(texFile[0])){if(tex[0]!=null)tex[0].dispose();tex[0]=null;texFile[0]=f.getPath();
-    try{tex[0]=new Texture(Gdx.files.absolute(f.getPath()));tex[0].setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);}catch(Throwable t){log(t);}}
+   text(b,forge.adventure.util.RogueLan.t("Commander-Artwork","Commander artwork"),x,y+h-8,9,GOLD,a,w,Align.center,true);
+   String name=forge.adventure.util.RogueLan.cmdName;
+   if(forge.adventure.util.RogueLan.cmdLoading||name.isEmpty()){
+    String msg=forge.adventure.util.RogueLan.cmdLoading?forge.adventure.util.RogueLan.t("Lese das Deck ...","Reading the deck ..."):forge.adventure.util.RogueLan.cmdError.isEmpty()?forge.adventure.util.RogueLan.t("Kein Commander gefunden.","No commander found."):forge.adventure.util.RogueLan.cmdError;
+    text(b,msg,x+12,y+h/2+6,7,TEXT,a,w-24,Align.center,false);return;}
+   if(list[0]==null||!name.equals(forName[0])){list[0]=ownArtworks(name);forName[0]=name;idx[0]=0;
+    String cur=forge.adventure.util.RogueLan.cmdCustom.get(forge.adventure.util.RogueLan.cmdKey(name));
+    for(int i=1;i<list[0].size();i++)if(list[0].get(i)[1].equals(cur))idx[0]=i;}
+   List<String[]> pr=list[0];String[] p=pr.get(Math.min(idx[0],pr.size()-1));
+   Texture t=p[1]==null?cardTexture(name):fileTexture(p[1]);
    float ph=h-62,pw=ph*.716f,px=x+(w-pw)/2,py=y+30;
-   if(tex[0]!=null&&f!=null&&f.getPath().equals(texFile[0])){Color o=b.getColor().cpy();b.setColor(1,1,1,a);b.draw(tex[0],px,py,pw,ph);b.setColor(o);}
+   if(t!=null){Color o=b.getColor().cpy();b.setColor(1,1,1,a);b.draw(t,px,py,pw,ph);b.setColor(o);}
    else{rect(b,px,py,pw,ph,DARK,a);text(b,"lade ...",px,py+ph/2+4,6,DIM,a,pw,Align.center,false);}
-   text(b,forge.adventure.util.RogueLan.cmdName+": "+p[0]+"   ("+(idx[0]+1)+"/"+pr.size()+")",x+8,y+28,5.6f,TEXT,a,w-16,Align.center,false);
+   text(b,name+": "+p[0]+"   ("+(idx[0]+1)+"/"+pr.size()+")",x+8,y+28,5.6f,TEXT,a,w-16,Align.center,false);
+   if(pr.size()==1)text(b,forge.adventure.util.RogueLan.t("Eigene Bilder: _mods/rogue-commanders/custom-art/ (Dateiname = Commander-Name) - oder \"MPC-Proxies\" lädt Community-Artworks.","Own pictures: _mods/rogue-commanders/custom-art/ (file name = commander name) - or \"MPC proxies\" loads community artworks."),x+8,y+h-22,5f,DIM,a,w-16,Align.center,false);
+   if(forge.adventure.util.RogueLan.mpcLoading)text(b,forge.adventure.util.RogueLan.t("Lade MPC-Artworks ...","Loading MPC artworks ..."),x+8,y+h-30,5.4f,GOLD,a,w-16,Align.center,false);
   }));
-  Runnable close=()->{if(tex[0]!=null){tex[0].dispose();tex[0]=null;}closeOverlay();};
-  Btn prev=new Btn("<",x+8,y+h/2-10,22,24,()->{int n=forge.adventure.util.RogueLan.cmdPrints.size();if(n>0)idx[0]=(idx[0]-1+n)%n;});g.addActor(prev);
-  Btn next=new Btn(">",x+w-30,y+h/2-10,22,24,()->{int n=forge.adventure.util.RogueLan.cmdPrints.size();if(n>0)idx[0]=(idx[0]+1)%n;});g.addActor(next);
-  Btn ok=new Btn("Übernehmen",x+w/2+6,y+6,96,18,()->{if(!forge.adventure.util.RogueLan.cmdPrints.isEmpty()){forge.adventure.util.RogueLan.pickCommanderPrint(idx[0]);toast("Commander-Artwork gespeichert.");}close.run();});ok.gold=true;g.addActor(ok);
-  g.addActor(new Btn("Abbrechen",x+w/2-102,y+6,96,18,close));
+  // community proxy artworks (MPC Autofill, user 2026-11-20): downloaded into custom-art, then listed like own pictures
+  Btn mpc=new Btn(forge.adventure.util.RogueLan.t("MPC-Proxies","MPC proxies"),x+8,y+h-50,84,16,()->{
+   String n=forge.adventure.util.RogueLan.cmdName;if(n==null||n.isEmpty()||forge.adventure.util.RogueLan.mpcLoading)return;
+   toast(forge.adventure.util.RogueLan.t("Suche MPC-Artworks für ","Searching MPC artworks for ")+n+" ...");
+   forge.adventure.util.RogueLan.fetchMpc(n,DIR+"custom-art",12,msg->Gdx.app.postRunnable(()->{toast(msg);list[0]=null;}));});
+  g.addActor(mpc);
+  Btn prev=new Btn("<",x+8,y+h/2-10,22,24,()->{if(list[0]!=null){int n=list[0].size();idx[0]=(idx[0]-1+n)%n;}});g.addActor(prev);
+  Btn next=new Btn(">",x+w-30,y+h/2-10,22,24,()->{if(list[0]!=null){int n=list[0].size();idx[0]=(idx[0]+1)%n;}});g.addActor(next);
+  Btn ok=new Btn(forge.adventure.util.RogueLan.t("Übernehmen","Apply"),x+w/2+6,y+6,96,18,()->{
+   if(list[0]!=null&&forName[0]!=null){String key=forge.adventure.util.RogueLan.cmdKey(forName[0]);String f=list[0].get(Math.min(idx[0],list[0].size()-1))[1];
+    if(f==null)forge.adventure.util.RogueLan.cmdCustom.remove(key);else forge.adventure.util.RogueLan.cmdCustom.put(key,f);
+    forge.adventure.util.RogueLan.save();
+    try{forge.assets.ImageCache.getInstance().clear();}catch(Throwable ignored){}
+    toast(forge.adventure.util.RogueLan.t("Commander-Artwork gespeichert.","Commander artwork saved."));}
+   closeOverlay();});ok.gold=true;g.addActor(ok);
+  g.addActor(new Btn(forge.adventure.util.RogueLan.t("Abbrechen","Cancel"),x+w/2-102,y+6,96,18,this::closeOverlay));
+ }
+ static String tl(String de,String en){return forge.adventure.util.RogueLan.t(de,en);}
+ /** saved deck copies (user 2026-11-17 "deck auswahl button wo man sein deck nochmal mit artworks bearbeiten kann"):
+  *  commander picture + name per deck; click selects, then play / edit artworks / reload from Moxfield / delete */
+ private void decksOverlay(int page,java.io.File sel){
+  Group g=pushOverlay();float w=Math.min(W()-30,480),h=Math.min(H()-20,300),x=(W()-w)/2,y=(H()-h)/2;
+  List<java.io.File> files=forge.adventure.util.RogueLan.savedDecks();
+  final int cols=8,rows=2,per=cols*rows,pages=Math.max(1,(files.size()+per-1)/per),pg=Math.max(0,Math.min(page,pages-1));
+  java.io.File cur=forge.adventure.util.RogueLan.savedFile(forge.adventure.util.RogueLan.deckText);
+  final java.io.File chosen=sel!=null?sel:cur!=null&&cur.isFile()?cur:null;
+  final Deck chosenDeck=chosen==null?null:forge.adventure.util.RogueLan.readDeck(chosen);
+  g.addActor(new Painter((b,a)->{
+   rect(b,0,0,W(),H(),Color.BLACK,a*.6f);rect(b,x,y,w,h,Color.valueOf("0d1220"),a*.97f);frame(b,x,y,w,h,1.2f,GOLD,a);
+   text(b,tl("Meine Decks","My decks"),x,y+h-8,9,GOLD,a,w,Align.center,true);
+   if(files.isEmpty()){text(b,tl("Noch keine Decks. Füge einen Moxfield-Link oder eine Liste ein und drück \"Kopie speichern\".",
+     "No decks yet. Paste a Moxfield link or a list and press \"Save copy\"."),x+16,y+h/2+8,7,TEXT,a,w-32,Align.center,false);return;}
+   String info=chosenDeck==null?tl("Deck anklicken zum Auswählen.","Click a deck to select it."):
+     chosenDeck.getName()+"  -  "+(chosenDeck.getMain().countAll()+(chosenDeck.has(DeckSection.Commander)?chosenDeck.get(DeckSection.Commander).countAll():0))+tl(" Karten"," cards")
+     +(chosenDeck.getSourceUrl()!=null?"  -  Moxfield":"")
+     +(forge.adventure.util.RogueLan.deckTags(chosen,chosenDeck).isEmpty()?"":"  -  "+String.join(", ",forge.adventure.util.RogueLan.deckTags(chosen,chosenDeck)));
+   text(b,info,x+10,y+h-22,5.8f,chosenDeck==null?DIM:TEXT,a,w-20,Align.center,false);
+   if(pages>1)text(b,(pg+1)+" / "+pages,x+w/2-30,y+58,6,TEXT,a,60,Align.center,false);
+  }));
+  float top=y+h-30,bottom=y+62,cw=(w-24)/cols,rh=(top-bottom)/rows,cardH=Math.min(rh-30,(cw-6)*1.396f),cardW=cardH/1.396f;
+  for(int i=pg*per;i<Math.min(files.size(),(pg+1)*per);i++){
+   java.io.File f=files.get(i);int k=i-pg*per;Deck d=forge.adventure.util.RogueLan.readDeck(f);
+   final List<String> tags=forge.adventure.util.RogueLan.deckTags(f,d);   // two dominant themes (user 2026-11-20)
+   PaperCard cmd=d!=null&&d.has(DeckSection.Commander)&&!d.get(DeckSection.Commander).isEmpty()?d.get(DeckSection.Commander).toFlatList().get(0):null;
+   float px=x+12+(k%cols)*cw+(cw-cardW)/2,py=top-(k/cols+1)*rh+(rh-cardH)/2+12;
+   CardView v=new CardView(cmd==null?"?":cmd.getName(),px,py,cardW,cardH);v.illustration=cmd;v.mystery=cmd==null;
+   v.selected=f.equals(chosen);v.action=()->{closeOverlay();decksOverlay(pg,f);};g.addActor(v);
+   final String label=forge.adventure.util.RogueLan.deckLabel(f).replaceAll("(?i)\\.txt$","");
+   g.addActor(new Painter((b,a)->{text(b,label,px-6,py-2,4.6f,f.equals(chosen)?GOLD:TEXT,a,cardW+12,Align.center,false);
+    for(int t=0;t<tags.size();t++)text(b,tags.get(t),px-10,py-16-t*5.5f,3.7f,DIM,a,cardW+20,Align.center,false);}));}
+  if(pages>1){
+   g.addActor(new Btn("<",x+8,y+h/2-12,20,24,()->{closeOverlay();decksOverlay((pg-1+pages)%pages,sel);}));
+   g.addActor(new Btn(">",x+w-28,y+h/2-12,20,24,()->{closeOverlay();decksOverlay((pg+1)%pages,sel);}));}
+  float bw=92,by=y+8,bx=x+(w-4*bw-18)/2;
+  Btn play=new Btn(tl("Mit diesem Deck","Use this deck"),bx,by+24,bw*2+6,20,()->{
+   forge.adventure.util.RogueLan.deckText=forge.adventure.util.RogueLan.DECK_PREFIX+forge.adventure.util.RogueLan.deckLabel(chosen);forge.adventure.util.RogueLan.save();
+   closeOverlay();rebuild();toast(tl("Deck gewählt: ","Deck chosen: ")+forge.adventure.util.RogueLan.deckLabel(chosen));});
+  play.gold=true;play.disabled=chosen==null;g.addActor(play);
+  Btn art=new Btn(tl("Deck & Artworks bearbeiten","Edit deck & artworks"),bx+bw*2+12,by+24,bw*2+6,20,()->{forge.adventure.util.RogueLan.loadArtDeck(chosen);deckArtOverlay(0,null,0);});
+  art.disabled=chosen==null;g.addActor(art);
+  Btn re=new Btn(tl("Von Moxfield neu laden","Reload from Moxfield"),bx,by,bw,18,()->{toast(tl("Lade von Moxfield ...","Loading from Moxfield ..."));
+   forge.adventure.util.RogueLan.refreshCopy(chosen,msg->Gdx.app.postRunnable(()->{toast(msg);closeOverlay();decksOverlay(pg,chosen);}));});
+  re.disabled=chosenDeck==null||chosenDeck.getSourceUrl()==null;g.addActor(re);
+  Btn del=new Btn(tl("Löschen","Delete"),bx+bw+6,by,bw,18,()->confirm(tl("Deck löschen?","Delete deck?"),
+   forge.adventure.util.RogueLan.deckLabel(chosen)+tl(" wird gelöscht. Das geht nicht rückgängig."," will be deleted. This cannot be undone."),tl("Löschen","Delete"),tl("Abbrechen","Cancel"),()->{
+    boolean was=chosen.equals(forge.adventure.util.RogueLan.savedFile(forge.adventure.util.RogueLan.deckText));
+    if(chosen.delete()){if(was){forge.adventure.util.RogueLan.deckText="";forge.adventure.util.RogueLan.save();}toast(tl("Deck gelöscht.","Deck deleted."));}
+    else toast(tl("Löschen fehlgeschlagen.","Delete failed."));
+    closeOverlay();rebuild();decksOverlay(pg,null);}));
+  del.disabled=chosen==null;g.addActor(del);
+  g.addActor(new Btn(tl("Schließen","Close"),bx+bw*3+18,by,bw,18,()->{closeOverlay();rebuild();}));
+ }
+ /** artwork picker for a saved copy: all cards of the deck; click one -> all printings Forge knows of it (newest first);
+  *  click a printing -> written into the deck file (user 2026-11-17) */
+ private void deckArtOverlay(int page,String card,int ppage){
+  Group g=pushOverlay();float w=Math.min(W()-30,480),h=Math.min(H()-20,300),x=(W()-w)/2,y=(H()-h)/2;
+  List<PaperCard> cards=forge.adventure.util.RogueLan.artCards;
+  final List<PaperCard> shown=card==null?cards:forge.adventure.util.RogueLan.printings(card);
+  final int cols=10,rows=3,per=cols*rows,pages=Math.max(1,(shown.size()+per-1)/per);
+  final int pg=Math.max(0,Math.min(card==null?page:ppage,pages-1));
+  String cur=null;if(card!=null)for(PaperCard p:cards)if(p.getName().equals(card))cur=p.getEdition()+"|"+p.getCollectorNumber();
+  final String curId=cur;
+  g.addActor(new Painter((b,a)->{
+   rect(b,0,0,W(),H(),Color.BLACK,a*.6f);rect(b,x,y,w,h,Color.valueOf("0d1220"),a*.97f);frame(b,x,y,w,h,1.2f,GOLD,a);
+   text(b,card==null?tl("Deck: ","Deck: ")+forge.adventure.util.RogueLan.deckLabel(forge.adventure.util.RogueLan.artFile).replaceAll("(?i)[.]txt$",""):card,x,y+h-8,9,GOLD,a,w,Align.center,true);
+   if(shown.isEmpty()){text(b,tl("Keine Karten gefunden.","No cards found."),x+12,y+h/2+6,7,TEXT,a,w-24,Align.center,false);return;}
+   text(b,card==null?tl("Karte anklicken: alle Drucke, ersetzen oder entfernen. Unten: Karte hinzufügen, Artwork-Pakete.","Click a card: all printings, replace or remove. Below: add a card, artwork packs.")
+     :shown.size()+tl(" Drucke - einen anklicken, dann spielst du mit diesem Bild."," printings - click one to play with that picture."),x+10,y+h-22,5.6f,DIM,a,w-20,Align.center,false);
+   if(pages>1)text(b,(pg+1)+" / "+pages,x+w/2-30,y+40,6,TEXT,a,60,Align.center,false);
+  }));
+  float top=y+h-30,bottom=y+46,cw=(w-24)/cols,rh=(top-bottom)/rows,cardH=Math.min(rh-4,(cw-5)*1.396f),cardW=cardH/1.396f;
+  for(int i=pg*per;i<Math.min(shown.size(),(pg+1)*per);i++){
+   PaperCard p=shown.get(i);int k=i-pg*per;
+   float px=x+12+(k%cols)*cw+(cw-cardW)/2,py=top-(k/cols+1)*rh+(rh-cardH)/2;
+   CardView v=new CardView(p.getName(),px,py,cardW,cardH);v.illustration=p;v.tag=p.getEdition();
+   if(card==null){final String n=p.getName();v.action=()->{closeOverlay();deckArtOverlay(pg,n,0);};}
+   else{v.selected=(p.getEdition()+"|"+p.getCollectorNumber()).equals(curId);v.tag=p.getEdition()+" "+p.getCollectorNumber();
+    v.action=()->{boolean ok=forge.adventure.util.RogueLan.pick(card,p);closeOverlay();deckArtOverlay(page,null,0);
+     toast(ok?tl("Artwork gespeichert: ","Artwork saved: ")+card+" ("+p.getEdition()+")":tl("Speichern fehlgeschlagen.","Saving failed."));};}
+   g.addActor(v);}
+  if(pages>1){
+   g.addActor(new Btn("<",x+8,y+h/2-12,20,24,()->{closeOverlay();if(card==null)deckArtOverlay((pg-1+pages)%pages,null,0);else deckArtOverlay(page,card,(pg-1+pages)%pages);}));
+   g.addActor(new Btn(">",x+w-28,y+h/2-12,20,24,()->{closeOverlay();if(card==null)deckArtOverlay((pg+1)%pages,null,0);else deckArtOverlay(page,card,(pg+1)%pages);}));}
+  // deck editor (user 2026-11-20): add / replace / remove cards by name (English or German), artwork packages
+  NameField nf=new NameField("",x+12,y+8,140,18);nf.maxLen=60;g.addActor(nf);
+  if(card==null){
+   nf.placeholder=tl("Kartenname","Card name");
+   Runnable add=()->{String n=nf.entered();boolean ok=forge.adventure.util.RogueLan.addCard(n);closeOverlay();deckArtOverlay(page,null,0);
+    toast(ok?tl("Hinzugefügt: ","Added: ")+n:tl("Karte nicht gefunden: ","Card not found: ")+n);};
+   nf.onEnter=add;g.addActor(new Btn(tl("Hinzufügen","Add"),x+156,y+8,64,18,add));
+   g.addActor(new Btn(tl("Artwork-Pakete","Artwork packs"),x+226,y+8,100,18,()->{closeOverlay();artPackOverlay();}));
+   Btn done=new Btn(tl("Fertig","Done"),x+w-92,y+8,80,18,this::closeOverlay);done.gold=true;g.addActor(done);}
+  else{
+   nf.placeholder=tl("Neue Karte","New card");
+   Runnable rep=()->{String n=nf.entered();boolean ok=forge.adventure.util.RogueLan.replaceCard(card,n);closeOverlay();deckArtOverlay(page,ok?null:card,0);
+    toast(ok?card+tl(" ersetzt durch "," replaced by ")+n:tl("Karte nicht gefunden: ","Card not found: ")+n);};
+   nf.onEnter=rep;g.addActor(new Btn(tl("Ersetzen","Replace"),x+156,y+8,64,18,rep));
+   Btn rm;g.addActor(rm=new Btn(tl("Entfernen","Remove"),x+226,y+8,70,18,()->confirm(tl("Karte entfernen?","Remove card?"),
+    card+tl(" wird aus dem Deck genommen."," leaves the deck."),tl("Entfernen","Remove"),tl("Abbrechen","Cancel"),()->{
+     boolean ok=forge.adventure.util.RogueLan.removeCard(card);closeOverlay();deckArtOverlay(page,null,0);
+     toast(ok?tl("Entfernt: ","Removed: ")+card:tl("Speichern fehlgeschlagen.","Saving failed."));})));
+   rm.disabled=forge.adventure.util.RogueLan.isCommander(card);   // the commander can only be replaced
+   g.addActor(new Btn(tl("Zurück","Back"),x+w-92,y+8,80,18,()->{closeOverlay();deckArtOverlay(page,null,0);}));}
+ }
+ /** artwork packages for the open deck: every card gets the newest matching printing, the others keep theirs (user 2026-11-20) */
+ private void artPackOverlay(){
+  Group g=pushOverlay();float w=Math.min(W()-30,440),h=Math.min(H()-20,290),x=(W()-w)/2,y=(H()-h)/2;
+  // several packs with a priority (user 2026-11-20): #1 everywhere it has a printing, #2 only where #1 has none, ...;
+  // the commander is left out (its picture is chosen on its own); the total coverage is shown live
+  String[][] packs=forge.adventure.util.RogueLan.ART_PACKS;int total=forge.adventure.util.RogueLan.packCards().size();
+  java.util.List<String> order=forge.adventure.util.RogueLan.packOrder;
+  int[] counts=new int[packs.length];for(int i=0;i<packs.length;i++)counts[i]=forge.adventure.util.RogueLan.packCount(packs[i][0]);
+  final int covered=order.isEmpty()?0:forge.adventure.util.RogueLan.packsCoverage(order);
+  g.addActor(new Painter((b,a)->{
+   rect(b,0,0,W(),H(),Color.BLACK,a*.6f);rect(b,x,y,w,h,Color.valueOf("0d1220"),a*.97f);frame(b,x,y,w,h,1.2f,GOLD,a);
+   text(b,tl("Artwork-Pakete","Artwork packs"),x,y+h-8,9,GOLD,a,w,Align.center,true);
+   text(b,tl("Pakete der Reihe nach anklicken: #1 gilt überall, wo es einen Druck gibt, #2 nur für den Rest, usw. Der Commander bleibt, wie er ist.",
+     "Click packs in order: #1 applies wherever it has a printing, #2 only to the rest, and so on. The commander stays as it is."),x+14,y+h-22,5.4f,DIM,a,w-28,Align.center,false);
+   text(b,order.isEmpty()?tl("Noch kein Paket gewählt.","No pack chosen yet."):tl("Deine Auswahl deckt ","Your selection covers ")+covered+"/"+total+tl(" Karten ab"," cards"),
+     x,y+36,7,order.isEmpty()?DIM:GOLD,a,w,Align.center,false);
+  }));
+  float bw=(w-36)/2,bh=17;
+  for(int i=0;i<packs.length;i++){final String key=packs[i][0],label=tl(packs[i][1],packs[i][2]);int rank=order.indexOf(key);
+   float bx=x+12+(i%2)*(bw+12),by=y+h-50-(i/2+1)*(bh+5);
+   Btn b=new Btn((rank>=0?"#"+(rank+1)+"  ":"")+label+"  ("+counts[i]+"/"+total+")",bx,by,bw,bh,()->{
+    if(order.contains(key))order.remove(key);else order.add(key);closeOverlay();artPackOverlay();});
+   b.gold=rank>=0;b.disabled=counts[i]==0&&rank<0;g.addActor(b);}
+  Btn apply=new Btn(tl("Anwenden","Apply"),x+w/2+54,y+8,96,18,()->{int n=forge.adventure.util.RogueLan.applyPacks(order);closeOverlay();deckArtOverlay(0,null,0);
+   toast(n<0?tl("Speichern fehlgeschlagen.","Saving failed."):n+tl(" Karten geändert, Auswahl deckt "," cards changed, selection covers ")+covered+"/"+total+tl(" ab",""));});
+  apply.gold=true;apply.disabled=order.isEmpty();g.addActor(apply);
+  Btn clear=new Btn(tl("Leeren","Clear"),x+w/2-48,y+8,96,18,()->{order.clear();closeOverlay();artPackOverlay();});clear.disabled=order.isEmpty();g.addActor(clear);
+  g.addActor(new Btn(tl("Zurück","Back"),x+w/2-150,y+8,96,18,()->{closeOverlay();deckArtOverlay(0,null,0);}));
  }
  private void closeLan(){forge.adventure.util.RogueLan.stop();lanScreen=false;mainMenu=true;rebuild();}
  private void buildLan(){
   background(profile().selected,.72f);
-  title("1v1 Online Mode",forge.adventure.util.RogueLan.online?"Dein Commander-Deck gegen einen Freund übers Internet":"Dein Commander-Deck gegen einen Freund im selben Netzwerk");
+  boolean ai=forge.adventure.util.RogueLan.vsAi;
+  int np=forge.adventure.util.RogueLan.players;
+  if(ai)title(np>2?"Commander vs AI ("+np+" "+forge.adventure.util.RogueLan.t("Spieler","players")+")":"1v1 vs AI",forge.adventure.util.RogueLan.t(np>2?"Dein Commander-Deck gegen "+(np-1)+" KI-Gegner - eigene Decks oder Zufallsdecks":"Dein Commander-Deck gegen die KI - eigenes Deck für die KI oder ein Zufallsdeck",np>2?"Your Commander deck against "+(np-1)+" AI opponents - own decks or random ones":"Your Commander deck against the AI - paste a deck for the AI or play a random one"));else
+  title("1v1 Online Mode",forge.adventure.util.RogueLan.online?forge.adventure.util.RogueLan.t("Dein Commander-Deck gegen einen Freund übers Internet","Your Commander deck against a friend over the internet"):forge.adventure.util.RogueLan.t("Dein Commander-Deck gegen einen Freund im selben Netzwerk","Your Commander deck against a friend in the same network"));
   float W=W(),H=H(),fw=Math.min(430,W-30),fx=(W-fw)/2,lw=74,ix=fx+lw,iw=fw-lw;
   boolean busy=forge.adventure.util.RogueLan.busy(),after=forge.adventure.util.RogueLan.state==forge.adventure.util.RogueLan.State.AFTER;
   float y0=H-66;
   root.addActor(new Painter((b,a)->{
-   text(b,"Dein Name",fx,y0+13,7,GOLD,a,lw-6,Align.left,false);
-   text(b,"Dein Deck",fx,y0-12,7,GOLD,a,lw-6,Align.left,false);
-   text(b,"Moxfield-Link\noder Deckliste",fx,y0-24,5.6f,DIM,a,lw-6,Align.left,false);
-   text(b,forge.adventure.util.RogueLan.online?"Internet-IP":"Deine IP",fx,y0-90,7,GOLD,a,lw-6,Align.left,false);
+   text(b,forge.adventure.util.RogueLan.t("Dein Name","Your name"),fx,y0+13,7,GOLD,a,lw-6,Align.left,false);
+   text(b,forge.adventure.util.RogueLan.t("Dein Deck","Your deck"),fx,y0-12,7,GOLD,a,lw-6,Align.left,false);
+   text(b,forge.adventure.util.RogueLan.t("Moxfield-Link\noder Deckliste","Moxfield link\nor deck list"),fx,y0-24,5.6f,DIM,a,lw-6,Align.left,false);
+   if(ai||forge.adventure.util.RogueLan.players>2)text(b,"Bracket",ix+212,y0+13,7,GOLD,a,40,Align.left,false);
+   text(b,forge.adventure.util.RogueLan.t("Spieler","Players"),fx,y0-164+16,7,GOLD,a,40,Align.left,false);
+   if(ai){
+    text(b,forge.adventure.util.RogueLan.t("Deck der KI","AI deck"),fx,y0-90,7,GOLD,a,lw-6,Align.left,false);text(b,forge.adventure.util.RogueLan.t("leer = Zufall","empty = random"),fx,y0-102,5.6f,DIM,a,lw-6,Align.left,false);
+    text(b,forge.adventure.util.RogueLan.t("Leer: zufälliges Moxfield-Deck mit Bracket ","Empty: random Moxfield deck of bracket ")+forge.adventure.util.RogueLan.bracket+" ("+forge.adventure.util.RogueLan.BRACKETS[forge.adventure.util.RogueLan.bracket]+forge.adventure.util.RogueLan.t("), höchstens 2 Jahre alt.","), updated within 2 years."),ix,y0-130,5.4f,DIM,a,iw-150,Align.left,false);}
+   else{text(b,forge.adventure.util.RogueLan.online?forge.adventure.util.RogueLan.t("Internet-IP","Internet IP"):forge.adventure.util.RogueLan.t("Deine IP","Your IP"),fx,y0-90,7,GOLD,a,lw-6,Align.left,false);
    text(b,forge.adventure.util.RogueLan.shownIp(),ix,y0-88,10,TEXT,a,140,Align.left,true);
-   text(b,"IP vom Host",fx,y0-114,7,GOLD,a,lw-6,Align.left,false);
-   text(b,forge.adventure.util.RogueLan.online?"Online: Host lässt das Feld leer und schickt seine Internet-IP (Router: UPnP an oder Port 36743 freigeben).":"Du hostest: Feld leer lassen und deine IP schicken. Du trittst bei: IP vom Host einfügen.",ix,y0-130,5.4f,DIM,a,iw,Align.left,false);
+   text(b,forge.adventure.util.RogueLan.t("IP vom Host","Host IP"),fx,y0-114,7,GOLD,a,lw-6,Align.left,false);}
+   if(!ai)text(b,forge.adventure.util.RogueLan.online?forge.adventure.util.RogueLan.t("Online: Host lässt das Feld leer und schickt seine Internet-IP (Router: UPnP an oder Port 36743 freigeben).","Online: the host leaves the field empty and sends the internet IP (router: UPnP on, or forward port 36743)."):forge.adventure.util.RogueLan.t("Du hostest: Feld leer lassen und deine IP schicken. Du trittst bei: IP vom Host einfügen.","Hosting: leave the field empty and send your IP. Joining: paste the host's IP."),ix,y0-130,5.4f,DIM,a,iw,Align.left,false);
    String st=forge.adventure.util.RogueLan.status==null?"":forge.adventure.util.RogueLan.status;String sc=forge.adventure.util.RogueLan.score();if(!sc.isEmpty())st=sc+(st.isEmpty()?"":"\n"+st);
    if(!st.isEmpty())text(b,st,fx+90,y0-172,6.2f,forge.adventure.util.RogueLan.error?Color.valueOf("ff8a7a"):TEXT,a,fw-180,Align.center,false);
   }));
-  NameField nf=new NameField(forge.adventure.util.RogueLan.name,ix,y0,Math.min(200,iw),18);nf.placeholder="Dein Name";nf.onChange=()->forge.adventure.util.RogueLan.name=nf.entered();root.addActor(nf);
-  NameField df=new NameField(forge.adventure.util.RogueLan.deckText,ix,y0-72,iw-66,66);df.multiline=true;df.maxLen=30000;df.placeholder="Hier einfügen (Strg+V): moxfield.com/decks/... oder eine Liste wie\n1 Atraxa, Praetors' Voice\n1 Sol Ring\n...";
+  NameField nf=new NameField(forge.adventure.util.RogueLan.name,ix,y0,Math.min(200,iw),18);nf.placeholder=forge.adventure.util.RogueLan.t("Dein Name","Your name");nf.onChange=()->forge.adventure.util.RogueLan.name=nf.entered();root.addActor(nf);
+  NameField df=new NameField(forge.adventure.util.RogueLan.deckText,ix,y0-72,iw-66,66);df.multiline=true;df.maxLen=30000;df.placeholder=forge.adventure.util.RogueLan.t("Hier einfügen (Strg+V): moxfield.com/decks/... oder eine Liste wie\n1 Atraxa, Praetors' Voice\n1 Sol Ring\n...","Paste here (Ctrl+V): moxfield.com/decks/... or a list like\n1 Atraxa, Praetors' Voice\n1 Sol Ring\n...");
   df.onChange=()->forge.adventure.util.RogueLan.deckText=df.value.toString();root.addActor(df);
-  button("Einfügen",ix+iw-60,y0-22,60,18,()->{df.value.setLength(0);df.paste();forge.adventure.util.RogueLan.deckText=df.value.toString();});
-  button("Leeren",ix+iw-60,y0-44,60,18,()->{df.value.setLength(0);forge.adventure.util.RogueLan.deckText="";});
-  button("Artwork",ix+iw-60,y0-66,60,18,()->{forge.adventure.util.RogueLan.deckText=df.value.toString();commanderArtOverlay();});   // pick the commander picture (user 2026-11-15)
-  button("IP kopieren",ix+144,y0-102,70,18,()->{try{Gdx.app.getClipboard().setContents(forge.adventure.util.RogueLan.shownIp());toast("IP kopiert - schick sie deinem Gegner.");}catch(Throwable t){toast("Deine IP: "+forge.adventure.util.RogueLan.shownIp());}});
+  button(forge.adventure.util.RogueLan.t("Einfügen","Paste"),ix+iw-60,y0-20,60,15,()->{df.value.setLength(0);df.paste();forge.adventure.util.RogueLan.deckText=df.value.toString();});
+  button(forge.adventure.util.RogueLan.t("Leeren","Clear"),ix+iw-60,y0-37,60,15,()->{df.value.setLength(0);forge.adventure.util.RogueLan.deckText="";});
+  button("Artwork",ix+iw-60,y0-54,60,15,()->{forge.adventure.util.RogueLan.deckText=df.value.toString();commanderArtOverlay();});   // pick the commander picture (user 2026-11-15)
+  button(tl("Kopie speichern","Save copy"),ix+iw-60,y0-71,60,15,()->{   // import as a copy, only on request (user 2026-11-17)
+   forge.adventure.util.RogueLan.deckText=df.value.toString();
+   if(forge.adventure.util.RogueLan.deckText.isBlank()){toast(tl("Füge zuerst dein Deck ein.","Paste your deck first."));return;}
+   if(forge.adventure.util.RogueLan.savedFile(forge.adventure.util.RogueLan.deckText)!=null){toast(tl("Das ist schon eine gespeicherte Kopie - bearbeiten unter \"Meine Decks\".","This already is a saved copy - edit it in \"My decks\"."));return;}
+   toast(tl("Speichere das Deck ...","Saving the deck ..."));
+   forge.adventure.util.RogueLan.saveCopy(forge.adventure.util.RogueLan.deckText,msg->Gdx.app.postRunnable(()->{toast(msg);rebuild();}));});
+  button(tl("Meine Decks","My decks"),fx,y0-70,lw-8,16,()->decksOverlay(0,null));   // saved copies: choose, artworks, reload, delete
+  if(ai||forge.adventure.util.RogueLan.players>2)for(int k=2;k<=5;k++){final int br=k;Btn bb=button(String.valueOf(k),ix+246+(k-2)*26,y0,24,18,()->{forge.adventure.util.RogueLan.bracket=br;forge.adventure.util.RogueLan.save();rebuild();});bb.gold=forge.adventure.util.RogueLan.bracket==k;}
+  for(int k=2;k<=4;k++){final int pn=k;Btn pb=button(String.valueOf(k),fx+42+(k-2)*26,y0-162,24,20,()->{if(forge.adventure.util.RogueLan.busy()){toast(forge.adventure.util.RogueLan.t("Erst Abbrechen, dann die Spielerzahl wechseln.","Cancel first, then change the number of players."));return;}forge.adventure.util.RogueLan.players=pn;forge.adventure.util.RogueLan.save();rebuild();});pb.gold=forge.adventure.util.RogueLan.players==k;}   // 2-4 players (user 2026-11-15)
+  if(ai){
+   NameField af=new NameField(forge.adventure.util.RogueLan.aiDeckText,ix,y0-120,Math.min(210,iw-150),40);af.multiline=true;af.maxLen=30000;af.placeholder=forge.adventure.util.RogueLan.players>2?forge.adventure.util.RogueLan.t("Ein Link oder eine Liste pro KI, getrennt mit ---\n(leer = Zufallsdecks)","One link or list per AI, separated by ---\n(empty = random decks)"):forge.adventure.util.RogueLan.t("Moxfield-Link oder Liste für die KI\n(leer = Zufallsdeck)","Moxfield link or list for the AI\n(empty = random deck)");
+   af.onChange=()->forge.adventure.util.RogueLan.aiDeckText=af.value.toString();root.addActor(af);}
+  else button(forge.adventure.util.RogueLan.t("IP kopieren","Copy IP"),ix+144,y0-102,70,18,()->{try{Gdx.app.getClipboard().setContents(forge.adventure.util.RogueLan.shownIp());toast(forge.adventure.util.RogueLan.t("IP kopiert - schick sie deinem Gegner.","IP copied - send it to your opponent."));}catch(Throwable t){toast(forge.adventure.util.RogueLan.t("Deine IP: ","Your IP: ")+forge.adventure.util.RogueLan.shownIp());}});
   {List<String[]> bl=forge.adventure.util.RogueLan.boards();int bi=0;for(int i=0;i<bl.size();i++)if(bl.get(i)[0].equals(forge.adventure.util.RogueLan.board))bi=i;   // battlefield chooser (user 2026-11-14)
    final int cur=bi;String[] sel=bl.get(cur);float bx2=ix+iw-140,by2=y0-128;
    if(sel[2]==null){if(lanPreview!=null){lanPreview.dispose();lanPreview=null;lanPreviewFile=null;}}
    else if(!sel[2].equals(lanPreviewFile)){if(lanPreview!=null)lanPreview.dispose();lanPreview=null;lanPreviewFile=sel[2];
     try{lanPreview=new Texture(Gdx.files.absolute(sel[2]));lanPreview.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);}catch(Throwable t){log(t);}}
-   root.addActor(new Painter((b,a)->{text(b,"Spielfeld",bx2,by2+52,7,GOLD,a,140,Align.left,false);
+   root.addActor(new Painter((b,a)->{text(b,forge.adventure.util.RogueLan.t("Spielfeld","Battlefield"),bx2,by2+52,7,GOLD,a,140,Align.left,false);
     float pw=100,ph=36,px=bx2+20,py=by2+6;rect(b,px-1,py-1,pw+2,ph+2,GOLD,a*.8f);
     if(lanPreview!=null){Color o=b.getColor().cpy();b.setColor(1,1,1,a);b.draw(lanPreview,px,py,pw,ph);b.setColor(o);}else rect(b,px,py,pw,ph,DARK,a);
     text(b,sel[1],px,py+ph/2+4,6.4f,TEXT,a,pw,Align.center,false);}));
    button("<",bx2,by2+14,18,20,()->{forge.adventure.util.RogueLan.setBoard(bl.get((cur+bl.size()-1)%bl.size())[0]);rebuild();});
-   button(">",bx2+122,by2+14,18,20,()->{forge.adventure.util.RogueLan.setBoard(bl.get((cur+1)%bl.size())[0]);rebuild();});}
-  NameField pf=new NameField(forge.adventure.util.RogueLan.hostIp,ix,y0-124,Math.min(200,iw),18);pf.maxLen=40;pf.placeholder="leer = du hostest";pf.onChange=()->forge.adventure.util.RogueLan.hostIp=pf.entered();root.addActor(pf);
+   button(">",bx2+122,by2+14,18,20,()->{forge.adventure.util.RogueLan.setBoard(bl.get((cur+1)%bl.size())[0]);rebuild();});
+   // pre-game option: free mulligans (user 2026-11-15 "unendlich viele free mulligans als pre game option"); LAN: the host's choice counts
+   root.addActor(new Painter((b,a)->text(b,"Mulligan",bx2,by2-1,6.4f,GOLD,a,42,Align.left,false)));
+   for(int k=0;k<2;k++){final boolean all=k==1;Btn mb=button(all?forge.adventure.util.RogueLan.t("Alle gratis","All free"):forge.adventure.util.RogueLan.t("1 gratis","1 free"),bx2+40+k*51,by2-12,49,15,()->{forge.adventure.util.RogueLan.allMulls=all;forge.adventure.util.RogueLan.save();rebuild();});mb.gold=forge.adventure.util.RogueLan.allMulls==all;}
+   // game mode (user 2026-11-16 "koop ai mode ... und ffa"): free for all or co-op; vs AI co-op = 2 against 2 (4 players)
+   final boolean coopOk=!ai||forge.adventure.util.RogueLan.coopVsAiPossible();
+   root.addActor(new Painter((b,a)->text(b,forge.adventure.util.RogueLan.t("Modus","Mode"),bx2,by2-19,6.4f,GOLD,a,42,Align.left,false)));
+   for(int k=0;k<2;k++){final boolean co=k==1;
+    Btn cb=button(co?forge.adventure.util.RogueLan.t("Koop","Co-op"):forge.adventure.util.RogueLan.t("Jeder gg. jeden","Free for all"),bx2+40+k*51,by2-30,49,15,()->{
+     if(co&&!coopOk){toast(forge.adventure.util.RogueLan.t("Koop gegen die KI braucht 4 Spieler: du + KI-Partner gegen 2 KIs.","Co-op against the AI needs 4 players: you + an AI partner against 2 AIs."));return;}
+     forge.adventure.util.RogueLan.coop=co;forge.adventure.util.RogueLan.save();rebuild();});
+    cb.gold=(forge.adventure.util.RogueLan.coop&&coopOk)==co;}}
+  NameField pf=new NameField(forge.adventure.util.RogueLan.hostIp,ix,y0-124,Math.min(200,iw),18);pf.maxLen=40;pf.placeholder=forge.adventure.util.RogueLan.t("leer = du hostest","empty = you host");pf.onChange=()->forge.adventure.util.RogueLan.hostIp=pf.entered();if(!ai)root.addActor(pf);
   float sw=170,sx=(W-sw)/2,sy=y0-164;
-  if(after){Btn again=button("Nochmal spielen",sx,sy,sw,24,forge.adventure.util.RogueLan::playAgain);again.gold=true;}
-  else if(busy)button(forge.adventure.util.RogueLan.state==forge.adventure.util.RogueLan.State.LOBBY?"Verlassen":"Abbrechen",sx,sy,sw,24,()->{forge.adventure.util.RogueLan.stop();rebuild();});
-  else{Btn go=button("SPIEL STARTEN",sx,sy,sw,24,()->{forge.adventure.util.RogueLan.name=nf.entered();forge.adventure.util.RogueLan.deckText=df.value.toString();forge.adventure.util.RogueLan.hostIp=pf.entered();forge.adventure.util.RogueLan.start();});go.gold=true;}
-  if(after)button("Verlassen",sx+sw+8,sy+3,60,18,()->{forge.adventure.util.RogueLan.stop();rebuild();});
-  {Btn mode=button(forge.adventure.util.RogueLan.online?"Modus: Online":"Modus: LAN",W-138,H-30,126,20,()->{if(forge.adventure.util.RogueLan.busy()){toast("Erst Abbrechen, dann den Modus wechseln.");return;}forge.adventure.util.RogueLan.online=!forge.adventure.util.RogueLan.online;forge.adventure.util.RogueLan.save();rebuild();});mode.gold=forge.adventure.util.RogueLan.online;}   // LAN / internet (user 2026-11-15)
-  button("Zurück",12,10,84,22,this::closeLan);
+  if(after){Btn again=button(forge.adventure.util.RogueLan.t("Nochmal spielen","Play again"),sx,sy,sw,24,forge.adventure.util.RogueLan::playAgain);again.gold=true;}
+  else if(busy)button(forge.adventure.util.RogueLan.state==forge.adventure.util.RogueLan.State.LOBBY?forge.adventure.util.RogueLan.t("Verlassen","Leave"):forge.adventure.util.RogueLan.t("Abbrechen","Cancel"),sx,sy,sw,24,()->{forge.adventure.util.RogueLan.stop();rebuild();});
+  else{Btn go=button(forge.adventure.util.RogueLan.t("SPIEL STARTEN","START GAME"),sx,sy,sw,24,()->{forge.adventure.util.RogueLan.name=nf.entered();forge.adventure.util.RogueLan.deckText=df.value.toString();forge.adventure.util.RogueLan.hostIp=pf.entered();if(ai)forge.adventure.util.RogueLan.startAi();else forge.adventure.util.RogueLan.start();});go.gold=true;
+   if(forge.adventure.util.RogueLan.portBusy){Btn kill=button(forge.adventure.util.RogueLan.t("Alte Instanz beenden","Close old instance"),sx+sw+8,sy+4,120,16,()->{   // double fail-safe (user 2026-11-16)
+     int n=forge.adventure.util.RogueLan.killStale();toast(forge.adventure.util.RogueLan.t(n+" alte Instanz(en) beendet.",n+" old instance(s) closed."));
+     if(ai)forge.adventure.util.RogueLan.startAi();else forge.adventure.util.RogueLan.start();});kill.gold=true;}}
+  if(after)button(forge.adventure.util.RogueLan.t("Verlassen","Leave"),sx+sw+8,sy+3,60,18,()->{forge.adventure.util.RogueLan.stop();rebuild();});
+  if(forge.adventure.util.RogueLan.canStartNow()){Btn now=button(forge.adventure.util.RogueLan.t("JETZT STARTEN","START NOW"),sx+sw+8,sy,96,24,()->{forge.adventure.util.RogueLan.startNow();rebuild();});now.gold=true;}   // free seats -> AI
+  if(!ai){Btn mode=button(forge.adventure.util.RogueLan.online?forge.adventure.util.RogueLan.t("Modus: Online","Mode: Online"):forge.adventure.util.RogueLan.t("Modus: LAN","Mode: LAN"),W-138,H-30,126,20,()->{if(forge.adventure.util.RogueLan.busy()){toast(forge.adventure.util.RogueLan.t("Erst Abbrechen, dann den Modus wechseln.","Cancel first, then switch the mode."));return;}forge.adventure.util.RogueLan.online=!forge.adventure.util.RogueLan.online;forge.adventure.util.RogueLan.save();rebuild();});mode.gold=forge.adventure.util.RogueLan.online;}   // LAN / internet (user 2026-11-15)
+  {Btn lang=button(forge.adventure.util.RogueLan.english?"Language: English":"Sprache: Deutsch",W-138,ai?H-30:10,126,20,()->{if(forge.adventure.util.RogueLan.busy()){toast(forge.adventure.util.RogueLan.t("Erst Abbrechen, dann die Sprache wechseln.","Cancel first, then switch the language."));return;}forge.adventure.util.RogueLan.english=!forge.adventure.util.RogueLan.english;forge.adventure.util.RogueLan.save();rebuild();});lang.gold=forge.adventure.util.RogueLan.english;}   // game language (user 2026-11-15)
+  button(forge.adventure.util.RogueLan.t("Zurück","Back"),12,10,84,22,this::closeLan);
  }
  private void buildNaming(Profile p,float bx,float bw,float y){
   root.addActor(new Painter((b,a)->centerText(b,namingNew?"Start a new game - what is your name, commander?":"What is your name, commander?",0,y+4,W(),14,8.5f,TEXT,a,false)));

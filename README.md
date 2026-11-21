@@ -9,7 +9,6 @@ A community roguelike Commander mode and interface mod for **Forge**.
 
 This is an unofficial community modification, not an official Card-Forge release.
 
-
 ## Install on Windows x64
 
 1. Download the Windows ZIP from this repository's **Releases** page.

@@ -28,6 +28,20 @@ public class PatchRogueLanNet {
     a.add(new VarInsnNode(Opcodes.ALOAD,0));a.add(new MethodInsnNode(Opcodes.INVOKESTATIC,H,"parallelMulligan","(Lforge/game/mulligan/MulliganService;)Z",false));
     a.add(new JumpInsnNode(Opcodes.IFEQ,go));a.add(new InsnNode(Opcodes.RETURN));a.add(go);a.add(new FrameNode(Opcodes.F_SAME,0,null,0,null));
     m.instructions.insert(a);changes++;}
+   // 1v1 vs AI (user 2026-11-15 screenshot): no "the AI has problems with these cards" list - it blocks the Rogue battle screen
+   if(c.name.equals("forge/game/GameRules")&&m.name.equals("warnAboutAICards")&&m.desc.equals("()Z"))
+    for(AbstractInsnNode n:m.instructions.toArray())if(n.getOpcode()==Opcodes.IRETURN){
+     m.instructions.insertBefore(n,new MethodInsnNode(Opcodes.INVOKESTATIC,H,"aiWarn","(Z)Z",false));changes++;}
+   // big card view (user 2026-11-15): arrow down / up switches between the picture and the card text (German in German games)
+   if(c.name.equals("forge/card/CardZoom")&&m.name.equals("keyDown")&&m.desc.equals("(I)Z")){
+    InsnList a=new InsnList();LabelNode go=new LabelNode(),flip=new LabelNode();
+    a.add(new VarInsnNode(Opcodes.ILOAD,1));a.add(new IntInsnNode(Opcodes.BIPUSH,20));a.add(new JumpInsnNode(Opcodes.IF_ICMPEQ,flip));
+    a.add(new VarInsnNode(Opcodes.ILOAD,1));a.add(new IntInsnNode(Opcodes.BIPUSH,19));a.add(new JumpInsnNode(Opcodes.IF_ICMPNE,go));
+    a.add(flip);a.add(new FrameNode(Opcodes.F_SAME,0,null,0,null));
+    a.add(new VarInsnNode(Opcodes.ALOAD,0));a.add(new InsnNode(Opcodes.FCONST_0));a.add(new LdcInsnNode(300f));
+    a.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL,"forge/card/CardZoom","fling","(FF)Z",false));a.add(new InsnNode(Opcodes.IRETURN));
+    a.add(go);a.add(new FrameNode(Opcodes.F_SAME,0,null,0,null));
+    m.instructions.insert(a);changes++;}
    if(m.name.equals("cheat")&&m.desc.equals("()Lforge/interfaces/IDevModeCheats;"))
     for(AbstractInsnNode n:m.instructions.toArray())if(n.getOpcode()==Opcodes.ARETURN){
      m.instructions.insertBefore(n,new MethodInsnNode(Opcodes.INVOKESTATIC,H,"netCheat","(Lforge/interfaces/IDevModeCheats;)Lforge/interfaces/IDevModeCheats;",false));changes++;}
